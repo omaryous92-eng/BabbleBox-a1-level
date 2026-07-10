@@ -1483,77 +1483,97 @@
         });
 
         // ============================================================
-        // 5. SPEECH SYNTHESIS - DIFFERENT VOICES FOR EACH SPEAKER
+        // 5. SPEECH SYNTHESIS - FIXED WITH PROPER VOICE LOADING
         // ============================================================
-        let voices = [];
+        let voicesLoaded = false;
+        let availableVoices = [];
 
         function loadVoices() {
-            voices = window.speechSynthesis.getVoices();
+            availableVoices = window.speechSynthesis.getVoices();
+            voicesLoaded = true;
         }
 
-        window.speechSynthesis.onvoiceschanged = function() {
+        // Try to load voices immediately and when they change
+        if ('speechSynthesis' in window) {
             loadVoices();
-        };
-
-        // Load voices immediately
-        loadVoices();
+            window.speechSynthesis.onvoiceschanged = function() {
+                loadVoices();
+            };
+            // Some browsers need a small delay
+            setTimeout(loadVoices, 300);
+        }
 
         function findVoice(gender) {
             loadVoices();
             
-            // First: Try to find Google US voices (most natural)
+            // If no voices available yet, wait and try again
+            if (availableVoices.length === 0) {
+                setTimeout(loadVoices, 200);
+                return null;
+            }
+
             let preferred = null;
-            
+
+            // Try to find Google US voices first (most natural)
             if (gender === 'male') {
-                preferred = voices.find(v => 
+                preferred = availableVoices.find(v => 
                     v.lang.startsWith('en-US') && 
                     v.name.includes('Google') && 
-                    v.name.includes('Male')
+                    v.name.toLowerCase().includes('male')
                 );
-                // Fallback: any male-sounding US voice
                 if (!preferred) {
-                    preferred = voices.find(v => 
+                    preferred = availableVoices.find(v => 
                         v.lang.startsWith('en-US') && 
-                        (v.name.includes('Male') || 
-                         v.name.includes('David') || 
-                         v.name.includes('Mark') || 
-                         v.name.includes('Daniel'))
+                        (v.name.toLowerCase().includes('male') || 
+                         v.name.toLowerCase().includes('david') || 
+                         v.name.toLowerCase().includes('mark') || 
+                         v.name.toLowerCase().includes('daniel') ||
+                         v.name.toLowerCase().includes('alex'))
                     );
                 }
             } else { // female
-                preferred = voices.find(v => 
+                preferred = availableVoices.find(v => 
                     v.lang.startsWith('en-US') && 
                     v.name.includes('Google') && 
-                    v.name.includes('Female')
+                    v.name.toLowerCase().includes('female')
                 );
-                // Fallback: any female-sounding US voice
                 if (!preferred) {
-                    preferred = voices.find(v => 
+                    preferred = availableVoices.find(v => 
                         v.lang.startsWith('en-US') && 
-                        (v.name.includes('Female') || 
-                         v.name.includes('Samantha') || 
-                         v.name.includes('Zira') || 
-                         v.name.includes('Victoria'))
+                        (v.name.toLowerCase().includes('female') || 
+                         v.name.toLowerCase().includes('samantha') || 
+                         v.name.toLowerCase().includes('zira') || 
+                         v.name.toLowerCase().includes('victoria') ||
+                         v.name.toLowerCase().includes('jenny'))
                     );
                 }
             }
-            
+
             // Ultimate fallback: any US voice
             if (!preferred) {
-                preferred = voices.find(v => v.lang.startsWith('en-US'));
+                preferred = availableVoices.find(v => v.lang.startsWith('en-US'));
             }
-            
+
             return preferred;
         }
 
         function speakText(text, gender = 'female', rate = 0.85, pitch = 1.0) {
             if (!('speechSynthesis' in window)) {
-                alert('⚠️ متصفحك لا يدعم خاصية النطق.');
+                console.warn('Speech synthesis not supported');
                 return;
             }
 
             // Cancel any ongoing speech
             window.speechSynthesis.cancel();
+
+            // Wait a tiny moment for voices to load if needed
+            if (!voicesLoaded || availableVoices.length === 0) {
+                loadVoices();
+                setTimeout(function() {
+                    speakText(text, gender, rate, pitch);
+                }, 200);
+                return;
+            }
 
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
@@ -1570,7 +1590,7 @@
         }
 
         // ============================================================
-        // 6. AUDIO BUTTONS - With Gender Selection
+        // 6. AUDIO BUTTONS
         // ============================================================
         // Conversation audio buttons
         document.querySelectorAll('.audio-btn').forEach(function(btn) {
@@ -1729,6 +1749,15 @@
         // ============================================================
         document.querySelectorAll('.section-box').forEach(function(el) {
             el.style.scrollMarginTop = '20px';
+        });
+
+        // ============================================================
+        // 13. PRE-LOAD VOICES ON PAGE LOAD
+        // ============================================================
+        window.addEventListener('load', function() {
+            loadVoices();
+            // Force voice loading after a short delay
+            setTimeout(loadVoices, 500);
         });
     </script>
 
