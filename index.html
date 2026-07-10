@@ -6,11 +6,8 @@
     <title>Babble Box English - Level A1</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ===== RESET ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --gold: #FFC107;
@@ -32,9 +29,7 @@
             --shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Cairo', 'Segoe UI', sans-serif;
@@ -45,21 +40,10 @@
             transition: background var(--transition), color var(--transition);
         }
 
-        /* ===== ENGLISH - LTR ===== */
-        .en {
-            direction: ltr;
-            text-align: left;
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
-        }
+        /* ===== ENGLISH LTR / ARABIC RTL ===== */
+        .en { direction: ltr; text-align: left; font-family: 'Poppins', sans-serif; }
+        .ar { direction: rtl; text-align: right; font-family: 'Cairo', sans-serif; }
 
-        /* ===== ARABIC - RTL ===== */
-        .ar {
-            direction: rtl;
-            text-align: right;
-            font-family: 'Cairo', 'Segoe UI', sans-serif;
-        }
-
-        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
@@ -84,9 +68,7 @@
             flex-direction: column;
         }
 
-        .sidebar.open {
-            transform: translateX(0);
-        }
+        .sidebar.open { transform: translateX(0); }
 
         .sidebar .logo-area {
             display: flex;
@@ -175,22 +157,10 @@
             color: var(--black);
         }
 
-        .unit-list li.active .status {
-            color: var(--black);
-        }
-
-        .unit-list li.coming {
-            color: rgba(255,255,255,0.3);
-            cursor: not-allowed;
-        }
-
-        .unit-list li.coming:hover {
-            background: rgba(255,255,255,0.04);
-        }
-
-        .unit-list li:not(.coming):not(.active):hover {
-            background: rgba(255,215,0,0.08);
-        }
+        .unit-list li.active .status { color: var(--black); }
+        .unit-list li.coming { color: rgba(255,255,255,0.3); cursor: not-allowed; }
+        .unit-list li.coming:hover { background: rgba(255,255,255,0.04); }
+        .unit-list li:not(.coming):not(.active):hover { background: rgba(255,215,0,0.08); }
 
         .sidebar-footer {
             border-top: 1px solid rgba(255,255,255,0.05);
@@ -217,11 +187,8 @@
             direction: ltr;
         }
 
-        .sidebar-footer .socials a:hover {
-            color: var(--gold);
-        }
+        .sidebar-footer .socials a:hover { color: var(--gold); }
 
-        /* ===== OVERLAY ===== */
         .overlay {
             display: none;
             position: fixed;
@@ -230,12 +197,10 @@
             z-index: 900;
         }
 
-        .overlay.active {
-            display: block;
-        }
+        .overlay.active { display: block; }
 
         /* ============================================================
-           MAIN CONTENT
+           MAIN
            ============================================================ */
         .main-content {
             margin-right: 0;
@@ -246,7 +211,6 @@
             transition: background var(--transition);
         }
 
-        /* ===== TOP BAR ===== */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -258,9 +222,7 @@
             gap: 8px;
         }
 
-        [data-theme="dark"] .top-bar {
-            border-bottom-color: rgba(255,255,255,0.05);
-        }
+        [data-theme="dark"] .top-bar { border-bottom-color: rgba(255,255,255,0.05); }
 
         .top-bar .hamburger {
             display: block;
@@ -280,9 +242,7 @@
             direction: ltr;
         }
 
-        .top-bar .brand-title span {
-            color: var(--gold);
-        }
+        .top-bar .brand-title span { color: var(--gold); }
 
         .top-bar .level-badge {
             font-size: 12px;
@@ -310,14 +270,10 @@
             padding: 4px;
         }
 
-        .theme-toggle:hover {
-            transform: rotate(20deg);
-        }
+        .theme-toggle:hover { transform: rotate(20deg); }
 
         /* ===== PROGRESS ===== */
-        .progress-section {
-            margin-bottom: 16px;
-        }
+        .progress-section { margin-bottom: 16px; }
 
         .progress-row {
             display: flex;
@@ -344,9 +300,7 @@
             min-width: 80px;
         }
 
-        [data-theme="dark"] .progress-row .bar-wrap {
-            background: rgba(255,255,255,0.06);
-        }
+        [data-theme="dark"] .progress-row .bar-wrap { background: rgba(255,255,255,0.06); }
 
         .progress-row .bar-fill {
             height: 100%;
@@ -376,14 +330,9 @@
         /* ============================================================
            LESSON
            ============================================================ */
-        .lesson-content {
-            max-width: 820px;
-            margin: 0 auto;
-        }
+        .lesson-content { max-width: 820px; margin: 0 auto; }
 
-        .unit-header {
-            margin-bottom: 20px;
-        }
+        .unit-header { margin-bottom: 20px; }
 
         .unit-header .badge {
             display: inline-block;
@@ -414,7 +363,6 @@
             text-align: right;
         }
 
-        /* ===== SECTION BOX ===== */
         .section-box {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -438,11 +386,7 @@
         }
 
         /* ===== CONVERSATION ===== */
-        .convo-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .convo-container { display: flex; flex-direction: column; gap: 10px; }
 
         .convo-bubble {
             display: flex;
@@ -469,25 +413,11 @@
             border-bottom-right-radius: 4px;
         }
 
-        [data-theme="dark"] .convo-bubble.john {
-            background: #1E3A5F;
-            color: #fff;
-        }
+        [data-theme="dark"] .convo-bubble.john { background: #1E3A5F; color: #fff; }
+        [data-theme="dark"] .convo-bubble.sarah { background: #5F2E3A; color: #fff; }
 
-        [data-theme="dark"] .convo-bubble.sarah {
-            background: #5F2E3A;
-            color: #fff;
-        }
-
-        .convo-bubble .avatar {
-            font-size: 24px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .convo-bubble .bubble-content {
-            flex: 1;
-        }
+        .convo-bubble .avatar { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+        .convo-bubble .bubble-content { flex: 1; }
 
         .convo-bubble .bubble-content .en {
             font-size: 14px;
@@ -524,9 +454,7 @@
             text-align: right;
         }
 
-        [data-theme="dark"] .convo-bubble .bubble-content .ar {
-            color: #aaa;
-        }
+        [data-theme="dark"] .convo-bubble .bubble-content .ar { color: #aaa; }
 
         /* ===== DISCOVERY ===== */
         .discovery-question {
@@ -573,9 +501,7 @@
             color: var(--black);
         }
 
-        .discovery-tab:hover:not(.active) {
-            background: rgba(0,0,0,0.08);
-        }
+        .discovery-tab:hover:not(.active) { background: rgba(0,0,0,0.08); }
 
         .discovery-content {
             display: none;
@@ -598,13 +524,8 @@
             color: var(--gold);
         }
 
-        [data-theme="dark"] .discovery-content {
-            background: rgba(255,255,255,0.03);
-        }
-
-        .discovery-content.active {
-            display: block;
-        }
+        [data-theme="dark"] .discovery-content { background: rgba(255,255,255,0.03); }
+        .discovery-content.active { display: block; }
 
         /* ===== GRAMMAR ===== */
         .grammar-table {
@@ -622,9 +543,7 @@
             font-size: 14px;
         }
 
-        [data-theme="dark"] .grammar-row {
-            border-bottom-color: rgba(255,255,255,0.04);
-        }
+        [data-theme="dark"] .grammar-row { border-bottom-color: rgba(255,255,255,0.04); }
 
         .grammar-row .pronoun {
             font-weight: 600;
@@ -663,9 +582,7 @@
             text-align: right;
         }
 
-        [data-theme="dark"] .grammar-example-box {
-            background: rgba(255,255,255,0.03);
-        }
+        [data-theme="dark"] .grammar-example-box { background: rgba(255,255,255,0.03); }
 
         /* ===== VOCAB ===== */
         .vocab-grid {
@@ -688,9 +605,7 @@
             transform-style: preserve-3d;
         }
 
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
 
         .flip-card-front,
         .flip-card-back {
@@ -713,9 +628,7 @@
             color: var(--text);
         }
 
-        .flip-card-front .emoji {
-            font-size: 28px;
-        }
+        .flip-card-front .emoji { font-size: 28px; }
 
         .flip-card-front .word {
             font-family: 'Poppins', sans-serif;
@@ -735,9 +648,7 @@
             transition: 0.2s;
         }
 
-        .flip-card-front .audio-btn-small:hover {
-            color: var(--gold);
-        }
+        .flip-card-front .audio-btn-small:hover { color: var(--gold); }
 
         .flip-card-back {
             background: var(--gold);
@@ -787,9 +698,7 @@
             overflow: hidden;
         }
 
-        [data-theme="dark"] .quiz-progress-bar .bar-wrap {
-            background: rgba(255,255,255,0.06);
-        }
+        [data-theme="dark"] .quiz-progress-bar .bar-wrap { background: rgba(255,255,255,0.06); }
 
         .quiz-progress-bar .bar-fill {
             height: 100%;
@@ -856,14 +765,8 @@
             color: #ddd;
         }
 
-        .quiz-options button:hover:not(:disabled) {
-            background: rgba(0,0,0,0.04);
-        }
-
-        .quiz-options button:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
+        .quiz-options button:hover:not(:disabled) { background: rgba(0,0,0,0.04); }
+        .quiz-options button:disabled { cursor: not-allowed; opacity: 0.6; }
 
         .quiz-options button.correct {
             background: #4CAF50;
@@ -915,9 +818,7 @@
             direction: rtl;
         }
 
-        .speak-challenge button:hover {
-            transform: scale(1.03);
-        }
+        .speak-challenge button:hover { transform: scale(1.03); }
 
         /* ===== STREAK ===== */
         .streak-notification {
@@ -936,9 +837,7 @@
             direction: rtl;
         }
 
-        .streak-notification.show {
-            display: block;
-        }
+        .streak-notification.show { display: block; }
 
         .streak-notification .stars {
             position: absolute;
@@ -994,9 +893,7 @@
             direction: ltr;
         }
 
-        .mindmap .branch:hover {
-            transform: scale(1.05);
-        }
+        .mindmap .branch:hover { transform: scale(1.05); }
 
         /* ===== VIDEO ===== */
         .video-btn {
@@ -1048,9 +945,7 @@
             cursor: not-allowed;
         }
 
-        [data-theme="dark"] .nav-buttons .prev {
-            background: rgba(255,255,255,0.05);
-        }
+        [data-theme="dark"] .nav-buttons .prev { background: rgba(255,255,255,0.05); }
 
         .nav-buttons .next {
             background: var(--gold);
@@ -1097,21 +992,10 @@
                 padding: 24px 35px 40px;
             }
 
-            .top-bar .hamburger {
-                display: none;
-            }
-
-            .top-bar .brand-title {
-                font-size: 20px;
-            }
-
-            .unit-header h1 {
-                font-size: 30px;
-            }
-
-            .section-box {
-                padding: 24px 28px;
-            }
+            .top-bar .hamburger { display: none; }
+            .top-bar .brand-title { font-size: 20px; }
+            .unit-header h1 { font-size: 30px; }
+            .section-box { padding: 24px 28px; }
         }
 
         @media (max-width: 600px) {
@@ -1136,9 +1020,7 @@
         }
 
         /* ===== HIDDEN AUDIO ===== */
-        #audio-player {
-            display: none;
-        }
+        #audio-player { display: none; }
     </style>
 </head>
 <body>
@@ -1227,72 +1109,79 @@
                 <div class="section-title">🗣️ The Real Talk</div>
 
                 <div class="convo-container">
+                    <!-- John 1 - Male Voice -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
                             <div class="en">
                                 Hey! How's it going?
-                                <button class="audio-btn" data-text="Hey! How's it going?">🔊</button>
+                                <button class="audio-btn" data-text="Hey! How's it going?" data-gender="male">🔊</button>
                             </div>
                             <div class="ar">إزاي الدنيا يا عم؟</div>
                         </div>
                     </div>
+                    <!-- Sarah 1 - Female Voice -->
                     <div class="convo-bubble sarah">
                         <span class="avatar">👩</span>
                         <div class="bubble-content">
                             <div class="en">
                                 Oh, hey! Pretty good, and you?
-                                <button class="audio-btn" data-text="Oh, hey! Pretty good, and you?">🔊</button>
+                                <button class="audio-btn" data-text="Oh, hey! Pretty good, and you?" data-gender="female">🔊</button>
                             </div>
                             <div class="ar">آه، أهلاً! كويسة أوي، وإنت؟</div>
                         </div>
                     </div>
+                    <!-- John 2 - Male Voice -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
                             <div class="en">
                                 Can't complain. By the way, I'm John.
-                                <button class="audio-btn" data-text="Can't complain. By the way, I'm John.">🔊</button>
+                                <button class="audio-btn" data-text="Can't complain. By the way, I'm John." data-gender="male">🔊</button>
                             </div>
                             <div class="ar">مش وحشة الحمدلله. بالمناسبة، أنا جون.</div>
                         </div>
                     </div>
+                    <!-- Sarah 2 - Female Voice -->
                     <div class="convo-bubble sarah">
                         <span class="avatar">👩</span>
                         <div class="bubble-content">
                             <div class="en">
                                 Nice to meet you, John. I'm Sarah.
-                                <button class="audio-btn" data-text="Nice to meet you, John. I'm Sarah.">🔊</button>
+                                <button class="audio-btn" data-text="Nice to meet you, John. I'm Sarah." data-gender="female">🔊</button>
                             </div>
                             <div class="ar">فرصة سعيدة يا جون. أنا سارة.</div>
                         </div>
                     </div>
+                    <!-- John 3 - Male Voice -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
                             <div class="en">
                                 Likewise. So, you new here?
-                                <button class="audio-btn" data-text="Likewise. So, you new here?">🔊</button>
+                                <button class="audio-btn" data-text="Likewise. So, you new here?" data-gender="male">🔊</button>
                             </div>
                             <div class="ar">وأنا كمان. يعني إنت جديدة هنا؟</div>
                         </div>
                     </div>
+                    <!-- Sarah 3 - Female Voice -->
                     <div class="convo-bubble sarah">
                         <span class="avatar">👩</span>
                         <div class="bubble-content">
                             <div class="en">
                                 Yeah, just moved in last week.
-                                <button class="audio-btn" data-text="Yeah, just moved in last week.">🔊</button>
+                                <button class="audio-btn" data-text="Yeah, just moved in last week." data-gender="female">🔊</button>
                             </div>
                             <div class="ar">أه، سكنت هنا الأسبوع اللي فات.</div>
                         </div>
                     </div>
+                    <!-- John 4 - Male Voice -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
                             <div class="en">
                                 Well, welcome to the neighborhood!
-                                <button class="audio-btn" data-text="Well, welcome to the neighborhood!">🔊</button>
+                                <button class="audio-btn" data-text="Well, welcome to the neighborhood!" data-gender="male">🔊</button>
                             </div>
                             <div class="ar">أهلاً بيكي في الحتة!</div>
                         </div>
@@ -1377,7 +1266,7 @@
                             <div class="flip-card-front">
                                 <span class="emoji">🖐️</span>
                                 <span class="word">Hello</span>
-                                <button class="audio-btn-small" data-word="Hello">🔊</button>
+                                <button class="audio-btn-small" data-word="Hello" data-gender="female">🔊</button>
                             </div>
                             <div class="flip-card-back"><span class="meaning">أهلاً</span><span class="example">Hello, friend!</span></div>
                         </div>
@@ -1387,7 +1276,7 @@
                             <div class="flip-card-front">
                                 <span class="emoji">👋</span>
                                 <span class="word">Goodbye</span>
-                                <button class="audio-btn-small" data-word="Goodbye">🔊</button>
+                                <button class="audio-btn-small" data-word="Goodbye" data-gender="female">🔊</button>
                             </div>
                             <div class="flip-card-back"><span class="meaning">مع السلامة</span><span class="example">Goodbye, see you!</span></div>
                         </div>
@@ -1397,7 +1286,7 @@
                             <div class="flip-card-front">
                                 <span class="emoji">🙏</span>
                                 <span class="word">Please</span>
-                                <button class="audio-btn-small" data-word="Please">🔊</button>
+                                <button class="audio-btn-small" data-word="Please" data-gender="female">🔊</button>
                             </div>
                             <div class="flip-card-back"><span class="meaning">من فضلك</span><span class="example">Please help me.</span></div>
                         </div>
@@ -1407,7 +1296,7 @@
                             <div class="flip-card-front">
                                 <span class="emoji">🙏</span>
                                 <span class="word">Thank you</span>
-                                <button class="audio-btn-small" data-word="Thank you">🔊</button>
+                                <button class="audio-btn-small" data-word="Thank you" data-gender="female">🔊</button>
                             </div>
                             <div class="flip-card-back"><span class="meaning">شكراً</span><span class="example">Thank you very much!</span></div>
                         </div>
@@ -1417,7 +1306,7 @@
                             <div class="flip-card-front">
                                 <span class="emoji">😔</span>
                                 <span class="word">Sorry</span>
-                                <button class="audio-btn-small" data-word="Sorry">🔊</button>
+                                <button class="audio-btn-small" data-word="Sorry" data-gender="female">🔊</button>
                             </div>
                             <div class="flip-card-back"><span class="meaning">آسف</span><span class="example">I'm sorry.</span></div>
                         </div>
@@ -1594,28 +1483,70 @@
         });
 
         // ============================================================
-        // 5. SPEECH SYNTHESIS - Natural Human Voice
+        // 5. SPEECH SYNTHESIS - DIFFERENT VOICES FOR EACH SPEAKER
         // ============================================================
-        let voicesLoaded = false;
+        let voices = [];
 
-        function getNaturalVoice() {
-            const voices = window.speechSynthesis.getVoices();
-            // Try to find a natural-sounding English voice
-            const preferred = voices.find(v =>
-                v.lang.startsWith('en') &&
-                (v.name.includes('Google') ||
-                 v.name.includes('Natural') ||
-                 v.name.includes('Premium') ||
-                 v.name.includes('Samantha') ||
-                 v.name.includes('Alex') ||
-                 v.name.includes('Daniel') ||
-                 v.name.includes('David') ||
-                 v.name.includes('Zira'))
-            );
-            return preferred || voices.find(v => v.lang.startsWith('en')) || null;
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
         }
 
-        function speakText(text, rate = 0.85, pitch = 1.0) {
+        window.speechSynthesis.onvoiceschanged = function() {
+            loadVoices();
+        };
+
+        // Load voices immediately
+        loadVoices();
+
+        function findVoice(gender) {
+            loadVoices();
+            
+            // First: Try to find Google US voices (most natural)
+            let preferred = null;
+            
+            if (gender === 'male') {
+                preferred = voices.find(v => 
+                    v.lang.startsWith('en-US') && 
+                    v.name.includes('Google') && 
+                    v.name.includes('Male')
+                );
+                // Fallback: any male-sounding US voice
+                if (!preferred) {
+                    preferred = voices.find(v => 
+                        v.lang.startsWith('en-US') && 
+                        (v.name.includes('Male') || 
+                         v.name.includes('David') || 
+                         v.name.includes('Mark') || 
+                         v.name.includes('Daniel'))
+                    );
+                }
+            } else { // female
+                preferred = voices.find(v => 
+                    v.lang.startsWith('en-US') && 
+                    v.name.includes('Google') && 
+                    v.name.includes('Female')
+                );
+                // Fallback: any female-sounding US voice
+                if (!preferred) {
+                    preferred = voices.find(v => 
+                        v.lang.startsWith('en-US') && 
+                        (v.name.includes('Female') || 
+                         v.name.includes('Samantha') || 
+                         v.name.includes('Zira') || 
+                         v.name.includes('Victoria'))
+                    );
+                }
+            }
+            
+            // Ultimate fallback: any US voice
+            if (!preferred) {
+                preferred = voices.find(v => v.lang.startsWith('en-US'));
+            }
+            
+            return preferred;
+        }
+
+        function speakText(text, gender = 'female', rate = 0.85, pitch = 1.0) {
             if (!('speechSynthesis' in window)) {
                 alert('⚠️ متصفحك لا يدعم خاصية النطق.');
                 return;
@@ -1630,8 +1561,7 @@
             utterance.pitch = pitch;
             utterance.volume = 1;
 
-            // Use natural voice if available
-            const voice = getNaturalVoice();
+            const voice = findVoice(gender);
             if (voice) {
                 utterance.voice = voice;
             }
@@ -1639,43 +1569,35 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // Preload voices
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.getVoices();
-            window.speechSynthesis.onvoiceschanged = function() {
-                window.speechSynthesis.getVoices();
-                voicesLoaded = true;
-            };
-            // Some browsers need a small delay
-            setTimeout(function() {
-                window.speechSynthesis.getVoices();
-            }, 200);
-        }
-
-        // Conversation audio
+        // ============================================================
+        // 6. AUDIO BUTTONS - With Gender Selection
+        // ============================================================
+        // Conversation audio buttons
         document.querySelectorAll('.audio-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const text = this.dataset.text;
+                const gender = this.dataset.gender || 'female';
                 if (text) {
-                    speakText(text, 0.85, 1.0);
+                    speakText(text, gender, 0.85, 1.0);
                 }
             });
         });
 
-        // Vocabulary audio
+        // Vocabulary audio buttons (female voice for clarity)
         document.querySelectorAll('.audio-btn-small').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const word = this.dataset.word;
+                const gender = this.dataset.gender || 'female';
                 if (word) {
-                    speakText(word, 0.75, 1.1);
+                    speakText(word, gender, 0.75, 1.1);
                 }
             });
         });
 
         // ============================================================
-        // 6. QUIZ
+        // 7. QUIZ
         // ============================================================
         const correctAnswers = {
             '1': 'am',
@@ -1731,7 +1653,8 @@
                 container.appendChild(star);
             }
 
-            speakText('Congratulations! You are amazing!', 0.9, 1.2);
+            // Male voice for celebration
+            speakText('Congratulations! You are amazing!', 'male', 0.9, 1.2);
 
             setTimeout(function() {
                 notification.classList.remove('show');
@@ -1755,7 +1678,8 @@
                         feedback.innerHTML = '<span class="correct-text">✅ صح! إجابة صحيحة.</span>';
                         quizCompleted++;
                         updateQuizProgress();
-                        speakText('Correct! Well done.', 0.9, 1.1);
+                        // Female voice for correct
+                        speakText('Correct! Well done.', 'female', 0.9, 1.1);
                     } else {
                         this.classList.add('wrong');
                         feedback.innerHTML = '<span class="wrong-text">❌ خطأ! حاول مرة أخرى.</span>';
@@ -1764,43 +1688,44 @@
                                 b.classList.add('correct');
                             }
                         });
-                        speakText('Incorrect. Try again next time.', 0.85, 1.0);
+                        // Male voice for incorrect (more authoritative)
+                        speakText('Incorrect. Try again next time.', 'male', 0.85, 1.0);
                     }
                 });
             });
         });
 
         // ============================================================
-        // 7. SPEAK CHALLENGE
+        // 8. SPEAK CHALLENGE
         // ============================================================
         document.getElementById('speakChallengeBtn').addEventListener('click', function() {
             const name = prompt('أدخل اسمك باللغة الإنجليزية:') || 'John';
             const text = 'Hello, my name is ' + name + '. Nice to meet you!';
-            speakText(text, 0.85, 1.1);
+            speakText(text, 'male', 0.85, 1.1);
             alert('🎤 جاري النطق: "' + text + '"');
         });
 
         // ============================================================
-        // 8. VIDEO
+        // 9. VIDEO
         // ============================================================
         document.getElementById('videoBtn').addEventListener('click', function() {
             window.open('https://youtube.com/@omar.youssif.english', '_blank');
         });
 
         // ============================================================
-        // 9. NEXT UNIT
+        // 10. NEXT UNIT
         // ============================================================
         document.getElementById('nextBtn').addEventListener('click', function() {
             alert('📘 قريباً! الوحدة الثانية في الطريق.');
         });
 
         // ============================================================
-        // 10. SAVE PROGRESS
+        // 11. SAVE PROGRESS
         // ============================================================
         localStorage.setItem('babbleLastUnit', '1');
 
         // ============================================================
-        // 11. SMOOTH SCROLL
+        // 12. SMOOTH SCROLL
         // ============================================================
         document.querySelectorAll('.section-box').forEach(function(el) {
             el.style.scrollMarginTop = '20px';
