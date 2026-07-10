@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babble Box English - Level A1</title>
-    <!-- Google Fonts -->
+    <title>Babble Box - Level A1 | Unit 1</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
@@ -19,7 +18,6 @@
         :root {
             --gold: #FFC107;
             --black: #1A1A1A;
-            --white: #FAFAFA;
             --bg: #FAFAFA;
             --text: #1A1A1A;
             --card-bg: #FFFFFF;
@@ -30,6 +28,7 @@
             --green: #4CAF50;
             --red: #F44336;
             --blue: #2196F3;
+            --gold-light: #FFF8E1;
         }
 
         [data-theme="dark"] {
@@ -37,6 +36,7 @@
             --text: #F0F0F0;
             --card-bg: #1E1E1E;
             --shadow: 0 8px 30px rgba(0,0,0,0.4);
+            --gold-light: #2A2510;
         }
 
         html {
@@ -51,13 +51,6 @@
             display: flex;
             transition: background var(--transition), color var(--transition);
         }
-
-        /* ============================================================
-           SCROLLBAR
-           ============================================================ */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
         /* ============================================================
            SIDEBAR
@@ -190,6 +183,15 @@
             background: rgba(255,215,0,0.08);
         }
 
+        .unit-list li.locked {
+            color: rgba(255,255,255,0.2);
+            cursor: not-allowed;
+        }
+
+        .unit-list li.locked .status {
+            color: rgba(255,255,255,0.15);
+        }
+
         .sidebar-footer {
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 12px;
@@ -254,7 +256,7 @@
             top: 0;
             z-index: 100;
             background: var(--card-bg);
-            padding: 12px 16px;
+            padding: 10px 16px;
             box-shadow: 0 2px 20px rgba(0,0,0,0.04);
             display: flex;
             align-items: center;
@@ -280,26 +282,23 @@
 
         .header .brand-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text);
             direction: ltr;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+        }
+
+        .header .brand-title .level {
+            font-weight: 400;
+            font-size: 12px;
+            color: #888;
         }
 
         .header .brand-title span {
             color: var(--gold);
-        }
-
-        .header .level-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 12px;
-            font-weight: 400;
-            color: #888;
-            direction: ltr;
-            display: none;
         }
 
         .header .top-actions {
@@ -326,7 +325,7 @@
            DAILY PROGRESS
            ============================================================ */
         .daily-progress {
-            padding: 10px 16px;
+            padding: 8px 16px;
             background: var(--card-bg);
             border-bottom: 1px solid rgba(0,0,0,0.04);
             display: flex;
@@ -455,7 +454,7 @@
             display: flex;
             align-items: flex-start;
             gap: 8px;
-            max-width: 90%;
+            max-width: 92%;
             padding: 10px 14px;
             border-radius: 16px;
             position: relative;
@@ -563,7 +562,7 @@
            SECTION 2: DISCOVER THE RULE
            ============================================================ */
         .discovery-question {
-            background: rgba(255,193,7,0.08);
+            background: var(--gold-light);
             padding: 12px 16px;
             border-radius: 12px;
             font-size: 15px;
@@ -683,14 +682,6 @@
             line-height: 1.6;
         }
 
-        .grammar-card .examples .ar-sub {
-            display: block;
-            direction: rtl;
-            font-size: 12px;
-            opacity: 0.7;
-            font-family: 'Cairo', sans-serif;
-        }
-
         /* ============================================================
            SECTION 4: WORD VAULT
            ============================================================ */
@@ -777,6 +768,13 @@
             direction: rtl;
         }
 
+        .flip-card-back .example {
+            font-size: 12px;
+            opacity: 0.7;
+            direction: rtl;
+            margin-top: 2px;
+        }
+
         [data-theme="dark"] .flip-card-front {
             background: #2A2A2A;
             color: #fff;
@@ -835,7 +833,7 @@
         .warning-joke {
             margin-top: 10px;
             padding: 10px 14px;
-            background: rgba(255,193,7,0.08);
+            background: var(--gold-light);
             border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
@@ -992,6 +990,7 @@
             cursor: grab;
             color: var(--text);
             transition: 0.2s;
+            user-select: none;
         }
 
         .drag-word:hover {
@@ -1009,7 +1008,7 @@
             padding: 10px 14px;
             border: 2px dashed rgba(0,0,0,0.1);
             border-radius: 12px;
-            min-height: 50px;
+            min-height: 48px;
             align-items: center;
             margin: 6px 0;
         }
@@ -1123,7 +1122,7 @@
         }
 
         /* ============================================================
-           SECTION 8: POWER RECAP (Mind Map)
+           SECTION 8: POWER RECAP
            ============================================================ */
         .mindmap {
             display: flex;
@@ -1235,7 +1234,8 @@
             background: var(--bg);
             resize: vertical;
             transition: 0.2s;
-            direction: rtl;
+            direction: ltr;
+            text-align: left;
         }
 
         [data-theme="dark"] .homework-area textarea {
@@ -1248,21 +1248,39 @@
             border-color: var(--gold);
         }
 
-        .homework-area .save-btn {
-            background: var(--gold);
-            border: none;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
+        .homework-area .hw-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
             margin-top: 8px;
         }
 
+        .homework-area .hw-btn {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .homework-area .save-btn {
+            background: var(--gold);
+            color: var(--black);
+        }
+
         .homework-area .save-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .homework-area .correct-btn {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        .homework-area .correct-btn:hover {
             transform: scale(1.02);
         }
 
@@ -1315,6 +1333,11 @@
             transform: scale(1.02);
         }
 
+        .nav-buttons .next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* ============================================================
            ANIMATIONS
            ============================================================ */
@@ -1357,10 +1380,6 @@
                 display: none;
             }
 
-            .header .level-title {
-                display: block;
-            }
-
             .header .brand-title {
                 font-size: 18px;
             }
@@ -1383,12 +1402,11 @@
         }
 
         @media (max-width: 768px) {
-            .header .level-title {
-                display: none;
-            }
-
             .header .brand-title {
                 font-size: 14px;
+            }
+            .header .brand-title .level {
+                font-size: 10px;
             }
 
             .convo-bubble {
@@ -1503,7 +1521,7 @@
 
         <ul class="unit-list" id="unitList">
             <li class="active" data-unit="1">Unit 1: Hello! <span class="status">✅</span></li>
-            <li class="coming" data-unit="2">Unit 2: My Family <span class="status">🔒</span></li>
+            <li class="locked" data-unit="2" id="unit2Lock">Unit 2: My Family <span class="status">🔒</span></li>
             <li class="coming" data-unit="3">Unit 3: Daily Routine <span class="status">🔒</span></li>
             <li class="coming" data-unit="4">Unit 4: Food & Drinks <span class="status">🔒</span></li>
             <li class="coming" data-unit="5">Unit 5: My House <span class="status">🔒</span></li>
@@ -1536,8 +1554,10 @@
         ============================================================ -->
         <header class="header">
             <button class="hamburger" id="hamburgerBtn" aria-label="Toggle sidebar">☰</button>
-            <div class="brand-title">Babble <span>Box</span></div>
-            <div class="level-title">Level A1 – Unit 1: Hello! How are you?</div>
+            <div class="brand-title">
+                Babble <span>Box</span>
+                <span class="level">| Level A1</span>
+            </div>
             <div class="top-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
             </div>
@@ -1765,7 +1785,7 @@
                                 <span class="word">Hello</span>
                                 <button class="audio-btn-small" data-word="Hello">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">أهلاً</span></div>
+                            <div class="flip-card-back"><span class="meaning">أهلاً</span><span class="example">Hello, friend!</span></div>
                         </div>
                     </div>
                     <div class="flip-card" data-word="Goodbye">
@@ -1775,7 +1795,7 @@
                                 <span class="word">Goodbye</span>
                                 <button class="audio-btn-small" data-word="Goodbye">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">مع السلامة</span></div>
+                            <div class="flip-card-back"><span class="meaning">مع السلامة</span><span class="example">Goodbye, see you!</span></div>
                         </div>
                     </div>
                     <div class="flip-card" data-word="Please">
@@ -1785,7 +1805,7 @@
                                 <span class="word">Please</span>
                                 <button class="audio-btn-small" data-word="Please">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">من فضلك</span></div>
+                            <div class="flip-card-back"><span class="meaning">من فضلك</span><span class="example">Please help me.</span></div>
                         </div>
                     </div>
                     <div class="flip-card" data-word="Thank you">
@@ -1795,7 +1815,7 @@
                                 <span class="word">Thank you</span>
                                 <button class="audio-btn-small" data-word="Thank you">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">شكراً</span></div>
+                            <div class="flip-card-back"><span class="meaning">شكراً</span><span class="example">Thank you very much!</span></div>
                         </div>
                     </div>
                     <div class="flip-card" data-word="Sorry">
@@ -1805,7 +1825,7 @@
                                 <span class="word">Sorry</span>
                                 <button class="audio-btn-small" data-word="Sorry">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">آسف</span></div>
+                            <div class="flip-card-back"><span class="meaning">آسف</span><span class="example">I'm sorry.</span></div>
                         </div>
                     </div>
                     <div class="flip-card" data-word="Likewise">
@@ -1815,7 +1835,7 @@
                                 <span class="word">Likewise</span>
                                 <button class="audio-btn-small" data-word="Likewise">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">بالمثل</span></div>
+                            <div class="flip-card-back"><span class="meaning">بالمثل</span><span class="example">Likewise, nice to meet you.</span></div>
                         </div>
                     </div>
                     <div class="flip-card" data-word="Friend">
@@ -1825,7 +1845,7 @@
                                 <span class="word">Friend</span>
                                 <button class="audio-btn-small" data-word="Friend">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">صديق</span></div>
+                            <div class="flip-card-back"><span class="meaning">صديق</span><span class="example">He is my friend.</span></div>
                         </div>
                     </div>
                     <div class="flip-card" data-word="Welcome">
@@ -1835,7 +1855,7 @@
                                 <span class="word">Welcome</span>
                                 <button class="audio-btn-small" data-word="Welcome">🔊</button>
                             </div>
-                            <div class="flip-card-back"><span class="meaning">أهلاً وسهلاً</span></div>
+                            <div class="flip-card-back"><span class="meaning">أهلاً وسهلاً</span><span class="example">Welcome to our home!</span></div>
                         </div>
                     </div>
                 </div>
@@ -1851,19 +1871,19 @@
 
                 <div class="warning-grid">
                     <div class="warning-card safe">
-                        <div class="label">✅ المعنى الآمن</div>
+                        <div class="label">👍 المعنى الآمن</div>
                         <div class="example">"I'm fine, thanks."</div>
                         <div class="meaning">أنا بخير، شكراً.</div>
                     </div>
                     <div class="warning-card danger">
-                        <div class="label">❌ المعنى الخطر</div>
+                        <div class="label">👎 المعنى الخطر</div>
                         <div class="example">"I got a parking fine."</div>
                         <div class="meaning">أخذت غرامة وقوف.</div>
                     </div>
                 </div>
 
                 <div class="warning-joke">
-                    😂 يعني لو قلت "I'm fine" أنت تمام. لو قلت "I got a fine" أنت دفعت فلوس!
+                    😂 يعنى لو قلت "I'm fine"، أنت تمام. لو قلت "I got a fine"، أنت دفعت فلوس!
                 </div>
             </section>
 
@@ -1921,9 +1941,9 @@
                         <div class="q-text">4. 🔊 استمع للجملة واختر الترجمة الصحيحة:</div>
                         <button class="listen-btn" id="listenQ4">🔊 استمع</button>
                         <div class="quiz-options" style="margin-top:8px;">
-                            <button data-answer="a">أنا بخير</button>
+                            <button data-answer="a">هي صديقتي</button>
                             <button data-answer="b">أنا طالب</button>
-                            <button data-answer="c">هي صديقتي</button>
+                            <button data-answer="c">هم سعداء</button>
                         </div>
                         <div class="quiz-feedback"></div>
                     </div>
@@ -2002,8 +2022,11 @@
                     <p style="direction:rtl;margin-bottom:8px;color:#888;">
                         ✏️ اكتب <strong>5 جمل كاملة</strong> عن نفسك باستخدام <strong>am, is, are</strong>.
                     </p>
-                    <textarea id="homeworkText" placeholder="أكتب جملك هنا..."></textarea>
-                    <button class="save-btn" id="saveHomework">💾 حفظ الواجب</button>
+                    <textarea id="homeworkText" placeholder="Write your sentences here..." dir="ltr" spellcheck="true"></textarea>
+                    <div class="hw-buttons">
+                        <button class="hw-btn save-btn" id="saveHomework">💾 حفظ الواجب</button>
+                        <button class="hw-btn correct-btn" id="correctHomework">🔧 تصحيح</button>
+                    </div>
                     <div class="save-status" id="saveStatus"></div>
                 </div>
             </section>
@@ -2120,67 +2143,46 @@
         });
 
         // ============================================================
-        // 6. SPEECH SYNTHESIS - Natural Human Voice
+        // 6. SPEECH SYNTHESIS
         // ============================================================
-        let voicesLoaded = false;
         let maleVoice = null;
         let femaleVoice = null;
 
         function getVoices() {
             const voices = window.speechSynthesis.getVoices();
-            // Find male voice (Google US English Male / David)
             maleVoice = voices.find(v =>
                 v.lang.startsWith('en') &&
                 (v.name.includes('Google UK') ||
                  v.name.includes('David') ||
-                 v.name.includes('Daniel') ||
-                 v.name.includes('Samantha') === false)
+                 v.name.includes('Daniel'))
             ) || voices.find(v => v.lang.startsWith('en') && v.name.includes('Male')) || null;
 
-            // Find female voice (Google US English Female / Samantha)
             femaleVoice = voices.find(v =>
                 v.lang.startsWith('en') &&
                 (v.name.includes('Google US') ||
                  v.name.includes('Samantha') ||
-                 v.name.includes('Zira') ||
-                 v.name.includes('Female'))
+                 v.name.includes('Zira'))
             ) || voices.find(v => v.lang.startsWith('en') && v.name.includes('Female')) || null;
 
-            // Fallback
             if (!maleVoice) maleVoice = voices.find(v => v.lang.startsWith('en')) || null;
             if (!femaleVoice) femaleVoice = maleVoice;
-            voicesLoaded = true;
         }
 
-        // Preload voices
         if ('speechSynthesis' in window) {
             window.speechSynthesis.getVoices();
-            window.speechSynthesis.onvoiceschanged = function() {
-                getVoices();
-            };
+            window.speechSynthesis.onvoiceschanged = getVoices;
             setTimeout(getVoices, 300);
         }
 
         function speakText(text, voiceType = 'male', rate = 0.85) {
-            if (!('speechSynthesis' in window)) {
-                alert('⚠️ متصفحك لا يدعم خاصية النطق.');
-                return;
-            }
-
+            if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'en-US';
             utterance.rate = rate;
             utterance.pitch = voiceType === 'male' ? 0.9 : 1.2;
-            utterance.volume = 1;
-
-            if (voiceType === 'male' && maleVoice) {
-                utterance.voice = maleVoice;
-            } else if (voiceType === 'female' && femaleVoice) {
-                utterance.voice = femaleVoice;
-            }
-
+            if (voiceType === 'male' && maleVoice) utterance.voice = maleVoice;
+            else if (voiceType === 'female' && femaleVoice) utterance.voice = femaleVoice;
             window.speechSynthesis.speak(utterance);
         }
 
@@ -2190,9 +2192,7 @@
                 e.stopPropagation();
                 const text = this.dataset.text;
                 const voice = this.dataset.voice || 'male';
-                if (text) {
-                    speakText(text, voice, 0.85);
-                }
+                if (text) speakText(text, voice, 0.85);
             });
         });
 
@@ -2201,9 +2201,7 @@
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const word = this.dataset.word;
-                if (word) {
-                    speakText(word, 'female', 0.75);
-                }
+                if (word) speakText(word, 'female', 0.75);
             });
         });
 
@@ -2213,7 +2211,7 @@
         const correctAnswers = {
             '1': 'am',
             '2': 'are',
-            '4': 'a', // "I'm fine" is the correct translation
+            '4': 'a', // "She is my friend."
             '5': 'a' // "I am not"
         };
 
@@ -2248,7 +2246,29 @@
                 quizLocked = true;
                 dailyCompleted = Math.min(dailyCompleted + 1, 5);
                 updateDailyProgress();
+                // Unlock Unit 2
+                unlockUnit2();
             }
+        }
+
+        function unlockUnit2() {
+            const unit2 = document.getElementById('unit2Lock');
+            if (unit2) {
+                unit2.classList.remove('locked');
+                unit2.classList.add('coming');
+                unit2.querySelector('.status').textContent = '🔓';
+                unit2.style.color = 'rgba(255,255,255,0.7)';
+                unit2.style.cursor = 'pointer';
+                unit2.addEventListener('click', function() {
+                    alert('📘 Unit 2 is now unlocked!');
+                });
+            }
+            localStorage.setItem('babbleUnit2Unlocked', 'true');
+        }
+
+        // Check if Unit 2 was already unlocked
+        if (localStorage.getItem('babbleUnit2Unlocked') === 'true') {
+            unlockUnit2();
         }
 
         function showStreak() {
@@ -2268,7 +2288,7 @@
                 container.appendChild(star);
             }
 
-            speakText('Congratulations! You are amazing!', 'female', 0.9);
+            speakText('Congratulations! You are a genius!', 'female', 0.9);
 
             setTimeout(function() {
                 notification.classList.remove('show');
@@ -2303,7 +2323,7 @@
                                 b.classList.add('correct');
                             }
                         });
-                        speakText('Incorrect. Try again next time.', 'male', 0.85);
+                        speakText('Incorrect. Try again.', 'male', 0.85);
                     }
                 });
             });
@@ -2339,16 +2359,12 @@
             const wordElement = document.querySelector('.drag-word[data-word="' + word + '"]');
 
             if (wordElement) {
-                // Remove from drag container
                 wordElement.remove();
-
-                // Add to drop zone
                 const span = document.createElement('span');
                 span.className = 'word-placed';
                 span.textContent = word;
                 dropZone.appendChild(span);
 
-                // Check if all words are placed
                 const placed = dropZone.querySelectorAll('.word-placed');
                 if (placed.length === 3) {
                     const text = Array.from(placed).map(el => el.textContent).join(' ');
@@ -2360,7 +2376,6 @@
                         speakText('Correct! Well done.', 'female', 0.9);
                     } else {
                         dragFeedback.innerHTML = '<span class="wrong-text">❌ خطأ! الترتيب غلط.</span>';
-                        // Reset
                         setTimeout(function() {
                             dropZone.innerHTML = '';
                             dragWords.forEach(w => {
@@ -2380,18 +2395,17 @@
         let listenQ4Answered = false;
 
         document.getElementById('listenQ4').addEventListener('click', function() {
-            speakText('I am fine, thank you.', 'female', 0.8);
+            speakText('She is my friend.', 'female', 0.8);
         });
 
         document.querySelectorAll('.quiz-card[data-question="4"] .quiz-options button').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 if (listenQ4Answered || quizLocked) return;
-                const qNum = '4';
                 const buttons = this.closest('.quiz-options').querySelectorAll('button');
                 buttons.forEach(b => b.disabled = true);
 
                 const selected = this.dataset.answer;
-                const isCorrect = (selected === correctAnswers[qNum]);
+                const isCorrect = (selected === correctAnswers['4']);
 
                 if (isCorrect) {
                     this.classList.add('correct');
@@ -2404,13 +2418,13 @@
                 } else {
                     this.classList.add('wrong');
                     this.closest('.quiz-card').querySelector('.quiz-feedback').innerHTML =
-                        '<span class="wrong-text">❌ خطأ! حاول مرة أخرى.</span>';
+                        '<span class="wrong-text">❌ خطأ!</span>';
                     buttons.forEach(b => {
-                        if (b.dataset.answer === correctAnswers[qNum]) {
+                        if (b.dataset.answer === correctAnswers['4']) {
                             b.classList.add('correct');
                         }
                     });
-                    speakText('Incorrect. Try again next time.', 'male', 0.85);
+                    speakText('Incorrect. Try again.', 'male', 0.85);
                 }
             });
         });
@@ -2455,7 +2469,7 @@
         });
 
         // ============================================================
-        // 11. MIND MAP (Power Recap)
+        // 11. MIND MAP
         // ============================================================
         const branchExample = document.getElementById('branchExample');
 
@@ -2473,13 +2487,13 @@
         });
 
         // ============================================================
-        // 12. HOMEWORK (localStorage)
+        // 12. HOMEWORK
         // ============================================================
         const homeworkText = document.getElementById('homeworkText');
         const saveHomework = document.getElementById('saveHomework');
+        const correctHomework = document.getElementById('correctHomework');
         const saveStatus = document.getElementById('saveStatus');
 
-        // Load saved homework
         const savedHomework = localStorage.getItem('babbleHomework');
         if (savedHomework) {
             homeworkText.value = savedHomework;
@@ -2497,9 +2511,28 @@
             localStorage.setItem('babbleHomework', text);
             saveStatus.textContent = '✅ تم حفظ الواجب بنجاح!';
             saveStatus.style.color = 'var(--green)';
-
-            // Speak feedback
             speakText('Homework saved successfully.', 'female', 0.9);
+        });
+
+        correctHomework.addEventListener('click', function() {
+            let text = homeworkText.value;
+            const corrections = {
+                'im ': 'I\'m ',
+                'hes ': 'he\'s ',
+                'shes ': 'she\'s ',
+                'theyre ': 'they\'re ',
+                'were ': 'we\'re ',
+                'i am ': 'I am ',
+                ' i ': ' I ',
+                ' i\'m ': ' I\'m '
+            };
+            for (let [key, value] of Object.entries(corrections)) {
+                text = text.replaceAll(key, value);
+            }
+            homeworkText.value = text;
+            saveStatus.textContent = '🔧 تم التصحيح!';
+            saveStatus.style.color = 'var(--blue)';
+            speakText('Text corrected.', 'male', 0.9);
         });
 
         // ============================================================
@@ -2512,8 +2545,14 @@
         // ============================================================
         // 14. NEXT UNIT
         // ============================================================
-        document.getElementById('nextBtn').addEventListener('click', function() {
-            alert('📘 قريباً! الوحدة الثانية في الطريق.');
+        const nextBtn = document.getElementById('nextBtn');
+
+        nextBtn.addEventListener('click', function() {
+            if (quizCompleted === totalQuestions) {
+                alert('🎉 وحدة 2 مفتوحة الآن!');
+            } else {
+                alert('⚠️ أكمل التمرين كاملاً (5/5) عشان تفتح الوحدة الجاية.');
+            }
         });
 
         // ============================================================
