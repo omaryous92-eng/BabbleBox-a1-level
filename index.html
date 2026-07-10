@@ -6,9 +6,6 @@
     <title>Babble Box English - Level A1</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-           ROOT & RESET
-           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -19,12 +16,12 @@
             --gold: #FFC107;
             --black: #1A1A1A;
             --white: #FFFFFF;
-            --bg: #f8f9fa;
+            --bg: #f5f7fa;
             --text: #1A1A1A;
             --card-bg: #fff;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            --shadow: 0 10px 40px rgba(0,0,0,0.06);
             --radius: 18px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: 0.3s ease;
             --sidebar-bg: #0D0D1A;
         }
 
@@ -32,7 +29,7 @@
             --bg: #121212;
             --text: #F0F0F0;
             --card-bg: #1E1E1E;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
         html {
@@ -48,27 +45,21 @@
             transition: background var(--transition), color var(--transition);
         }
 
-        /* ============================================================
-           ENGLISH TEXT - LTR
-           ============================================================ */
-        .en, .english, .ltr {
+        /* ===== ENGLISH - LTR ===== */
+        .en {
             direction: ltr;
             text-align: left;
             font-family: 'Poppins', 'Segoe UI', sans-serif;
         }
 
-        /* ============================================================
-           ARABIC TEXT - RTL
-           ============================================================ */
-        .ar, .arabic, .rtl {
+        /* ===== ARABIC - RTL ===== */
+        .ar {
             direction: rtl;
             text-align: right;
             font-family: 'Cairo', 'Segoe UI', sans-serif;
         }
 
-        /* ============================================================
-           SCROLLBAR
-           ============================================================ */
+        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
@@ -102,7 +93,7 @@
             align-items: center;
             gap: 12px;
             padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
             margin-bottom: 16px;
         }
 
@@ -114,9 +105,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 900;
-            font-size: 14px;
-            color: var(--black);
             overflow: hidden;
             flex-shrink: 0;
         }
@@ -133,6 +121,7 @@
             font-weight: 800;
             color: var(--gold);
             line-height: 1.2;
+            direction: ltr;
         }
 
         .sidebar .logo-area .brand small {
@@ -140,16 +129,18 @@
             font-family: 'Cairo', sans-serif;
             font-size: 11px;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255,255,255,0.4);
+            direction: rtl;
         }
 
         .sidebar .section-title {
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255,255,255,0.25);
             margin: 12px 0 6px;
             font-weight: 600;
+            direction: rtl;
         }
 
         .unit-list {
@@ -170,12 +161,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            direction: rtl;
         }
 
         .unit-list li .status {
             font-size: 12px;
             margin-right: auto;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255,255,255,0.2);
         }
 
         .unit-list li.active {
@@ -188,25 +180,26 @@
         }
 
         .unit-list li.coming {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255,255,255,0.3);
             cursor: not-allowed;
         }
 
         .unit-list li.coming:hover {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.04);
         }
 
         .unit-list li:not(.coming):not(.active):hover {
-            background: rgba(255, 215, 0, 0.08);
+            background: rgba(255,215,0,0.08);
         }
 
         .sidebar-footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 12px;
             margin-top: 8px;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.25);
+            color: rgba(255,255,255,0.25);
             text-align: center;
+            direction: rtl;
         }
 
         .sidebar-footer .socials {
@@ -217,24 +210,23 @@
         }
 
         .sidebar-footer .socials a {
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255,255,255,0.35);
             text-decoration: none;
             font-size: 12px;
             transition: 0.2s;
+            direction: ltr;
         }
 
         .sidebar-footer .socials a:hover {
             color: var(--gold);
         }
 
-        /* ============================================================
-           OVERLAY
-           ============================================================ */
+        /* ===== OVERLAY ===== */
         .overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0,0,0,0.4);
             z-index: 900;
         }
 
@@ -254,22 +246,20 @@
             transition: background var(--transition);
         }
 
-        /* ============================================================
-           TOP BAR
-           ============================================================ */
+        /* ===== TOP BAR ===== */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-bottom: 10px;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.04);
+            border-bottom: 2px solid rgba(0,0,0,0.04);
             margin-bottom: 10px;
             flex-wrap: wrap;
             gap: 8px;
         }
 
         [data-theme="dark"] .top-bar {
-            border-bottom-color: rgba(255, 255, 255, 0.05);
+            border-bottom-color: rgba(255,255,255,0.05);
         }
 
         .top-bar .hamburger {
@@ -324,9 +314,7 @@
             transform: rotate(20deg);
         }
 
-        /* ============================================================
-           PROGRESS BARS
-           ============================================================ */
+        /* ===== PROGRESS ===== */
         .progress-section {
             margin-bottom: 16px;
         }
@@ -350,14 +338,14 @@
         .progress-row .bar-wrap {
             flex: 1;
             height: 6px;
-            background: rgba(0, 0, 0, 0.06);
+            background: rgba(0,0,0,0.06);
             border-radius: 10px;
             overflow: hidden;
             min-width: 80px;
         }
 
         [data-theme="dark"] .progress-row .bar-wrap {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255,255,255,0.06);
         }
 
         .progress-row .bar-fill {
@@ -386,7 +374,7 @@
         }
 
         /* ============================================================
-           LESSON CONTENT
+           LESSON
            ============================================================ */
         .lesson-content {
             max-width: 820px;
@@ -426,9 +414,7 @@
             text-align: right;
         }
 
-        /* ============================================================
-           SECTIONS
-           ============================================================ */
+        /* ===== SECTION BOX ===== */
         .section-box {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -451,9 +437,7 @@
             text-align: left;
         }
 
-        /* ============================================================
-           CONVERSATION (Chat Bubbles)
-           ============================================================ */
+        /* ===== CONVERSATION ===== */
         .convo-container {
             display: flex;
             flex-direction: column;
@@ -528,7 +512,7 @@
         }
 
         .convo-bubble .bubble-content .en .audio-btn:hover {
-            background: rgba(0, 0, 0, 0.06);
+            background: rgba(0,0,0,0.06);
             color: var(--gold);
         }
 
@@ -544,11 +528,9 @@
             color: #aaa;
         }
 
-        /* ============================================================
-           DISCOVERY ZONE (Tabs)
-           ============================================================ */
+        /* ===== DISCOVERY ===== */
         .discovery-question {
-            background: rgba(255, 193, 7, 0.08);
+            background: rgba(255,193,7,0.08);
             padding: 12px 16px;
             border-radius: 12px;
             font-size: 15px;
@@ -571,7 +553,7 @@
             padding: 6px 16px;
             border: none;
             border-radius: 30px;
-            background: rgba(0, 0, 0, 0.04);
+            background: rgba(0,0,0,0.04);
             color: var(--text);
             font-weight: 600;
             font-size: 14px;
@@ -582,7 +564,7 @@
         }
 
         [data-theme="dark"] .discovery-tab {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255,255,255,0.06);
             color: #ddd;
         }
 
@@ -592,13 +574,13 @@
         }
 
         .discovery-tab:hover:not(.active) {
-            background: rgba(0, 0, 0, 0.08);
+            background: rgba(0,0,0,0.08);
         }
 
         .discovery-content {
             display: none;
             animation: fadeInUp 0.4s ease;
-            background: rgba(0, 0, 0, 0.02);
+            background: rgba(0,0,0,0.02);
             padding: 12px 16px;
             border-radius: 12px;
             font-size: 14px;
@@ -617,16 +599,14 @@
         }
 
         [data-theme="dark"] .discovery-content {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.03);
         }
 
         .discovery-content.active {
             display: block;
         }
 
-        /* ============================================================
-           GRAMMAR LAB
-           ============================================================ */
+        /* ===== GRAMMAR ===== */
         .grammar-table {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -638,12 +618,12 @@
             display: flex;
             justify-content: space-between;
             padding: 4px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
             font-size: 14px;
         }
 
         [data-theme="dark"] .grammar-row {
-            border-bottom-color: rgba(255, 255, 255, 0.04);
+            border-bottom-color: rgba(255,255,255,0.04);
         }
 
         .grammar-row .pronoun {
@@ -659,14 +639,12 @@
         }
 
         .grammar-example-box {
-            background: rgba(0, 0, 0, 0.02);
+            background: rgba(0,0,0,0.02);
             padding: 10px 14px;
             border-radius: 10px;
             margin-top: 6px;
             font-size: 14px;
             border-right: 4px solid var(--gold);
-            direction: rtl;
-            text-align: right;
         }
 
         .grammar-example-box .en-example {
@@ -674,21 +652,22 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
             display: block;
+            text-align: left;
         }
 
         .grammar-example-box .ar-example {
             direction: rtl;
             color: #888;
             font-size: 13px;
+            display: block;
+            text-align: right;
         }
 
         [data-theme="dark"] .grammar-example-box {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.03);
         }
 
-        /* ============================================================
-           FLIP CARDS (Vocabulary)
-           ============================================================ */
+        /* ===== VOCAB ===== */
         .vocab-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -725,8 +704,8 @@
             justify-content: center;
             padding: 10px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
         }
 
         .flip-card-front {
@@ -782,12 +761,10 @@
         [data-theme="dark"] .flip-card-front {
             background: #2A2A2A;
             color: #fff;
-            border-color: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255,255,255,0.06);
         }
 
-        /* ============================================================
-           CHALLENGE ARENA (Quiz)
-           ============================================================ */
+        /* ===== QUIZ ===== */
         .quiz-progress-bar {
             display: flex;
             align-items: center;
@@ -805,13 +782,13 @@
         .quiz-progress-bar .bar-wrap {
             flex: 1;
             height: 5px;
-            background: rgba(0, 0, 0, 0.06);
+            background: rgba(0,0,0,0.06);
             border-radius: 10px;
             overflow: hidden;
         }
 
         [data-theme="dark"] .quiz-progress-bar .bar-wrap {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255,255,255,0.06);
         }
 
         .quiz-progress-bar .bar-fill {
@@ -832,17 +809,17 @@
         }
 
         .quiz-card {
-            background: rgba(0, 0, 0, 0.02);
+            background: rgba(0,0,0,0.02);
             border-radius: 12px;
             padding: 14px 16px;
             margin-bottom: 12px;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0,0,0,0.04);
             transition: 0.3s;
         }
 
         [data-theme="dark"] .quiz-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.04);
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.04);
         }
 
         .quiz-card .q-text {
@@ -862,7 +839,7 @@
 
         .quiz-options button {
             padding: 5px 16px;
-            border: 2px solid rgba(0, 0, 0, 0.08);
+            border: 2px solid rgba(0,0,0,0.08);
             border-radius: 30px;
             background: transparent;
             font-size: 14px;
@@ -875,12 +852,12 @@
         }
 
         [data-theme="dark"] .quiz-options button {
-            border-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255,255,255,0.1);
             color: #ddd;
         }
 
         .quiz-options button:hover:not(:disabled) {
-            background: rgba(0, 0, 0, 0.04);
+            background: rgba(0,0,0,0.04);
         }
 
         .quiz-options button:disabled {
@@ -914,13 +891,11 @@
         .quiz-feedback .correct-text { color: #4CAF50; }
         .quiz-feedback .wrong-text { color: #D32F2F; }
 
-        /* ============================================================
-           SPEAK CHALLENGE
-           ============================================================ */
+        /* ===== SPEAK CHALLENGE ===== */
         .speak-challenge {
             margin-top: 14px;
             padding: 14px 16px;
-            background: rgba(255, 193, 7, 0.08);
+            background: rgba(255,193,7,0.08);
             border-radius: 12px;
             border: 1px dashed var(--gold);
             text-align: center;
@@ -944,9 +919,7 @@
             transform: scale(1.03);
         }
 
-        /* ============================================================
-           STREAK NOTIFICATION
-           ============================================================ */
+        /* ===== STREAK ===== */
         .streak-notification {
             display: none;
             background: var(--gold);
@@ -980,9 +953,7 @@
             animation: starFall 2s linear forwards;
         }
 
-        /* ============================================================
-           POWER RECAP (Mind Map)
-           ============================================================ */
+        /* ===== MIND MAP ===== */
         .mindmap {
             display: flex;
             flex-direction: column;
@@ -1017,7 +988,7 @@
             font-size: 14px;
             font-weight: 600;
             color: var(--text);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             transition: 0.2s;
             font-family: 'Poppins', sans-serif;
             direction: ltr;
@@ -1027,9 +998,7 @@
             transform: scale(1.05);
         }
 
-        /* ============================================================
-           VIDEO BUTTON
-           ============================================================ */
+        /* ===== VIDEO ===== */
         .video-btn {
             display: inline-flex;
             align-items: center;
@@ -1053,9 +1022,7 @@
             transform: scale(1.02);
         }
 
-        /* ============================================================
-           NAVIGATION BUTTONS
-           ============================================================ */
+        /* ===== NAV ===== */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -1076,13 +1043,13 @@
         }
 
         .nav-buttons .prev {
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(0,0,0,0.05);
             color: #999;
             cursor: not-allowed;
         }
 
         [data-theme="dark"] .nav-buttons .prev {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
         }
 
         .nav-buttons .next {
@@ -1095,9 +1062,7 @@
             transform: scale(1.02);
         }
 
-        /* ============================================================
-           ANIMATIONS
-           ============================================================ */
+        /* ===== ANIMATIONS ===== */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
@@ -1119,9 +1084,7 @@
             100% { transform: translateY(180px) rotate(360deg); opacity: 0; }
         }
 
-        /* ============================================================
-           RESPONSIVE (Mobile First)
-           ============================================================ */
+        /* ===== RESPONSIVE ===== */
         @media (min-width: 769px) {
             .sidebar {
                 transform: translateX(0);
@@ -1152,86 +1115,27 @@
         }
 
         @media (max-width: 600px) {
-            .convo-bubble {
-                max-width: 95%;
-                padding: 8px 12px;
-            }
-
-            .convo-bubble .bubble-content .en {
-                font-size: 13px;
-            }
-
-            .convo-bubble .bubble-content .ar {
-                font-size: 12px;
-            }
-
-            .section-box {
-                padding: 14px 14px;
-            }
-
-            .section-box .section-title {
-                font-size: 16px;
-            }
-
-            .unit-header h1 {
-                font-size: 20px;
-            }
-
-            .top-bar .brand-title {
-                font-size: 15px;
-            }
-
-            .grammar-table {
-                grid-template-columns: 1fr;
-            }
-
-            .vocab-grid {
-                grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
-            }
-
-            .flip-card {
-                height: 100px;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-            }
-
-            .nav-buttons button {
-                width: 100%;
-                text-align: center;
-            }
-
-            .mindmap .branches {
-                gap: 6px 10px;
-            }
-
-            .mindmap .branch {
-                font-size: 12px;
-                padding: 4px 12px;
-            }
-
-            .quiz-options {
-                flex-direction: column;
-            }
-
-            .quiz-options button {
-                width: 100%;
-                text-align: center;
-            }
-
-            .discovery-tabs {
-                flex-direction: column;
-            }
-
-            .discovery-tab {
-                text-align: center;
-            }
+            .convo-bubble { max-width: 95%; padding: 8px 12px; }
+            .convo-bubble .bubble-content .en { font-size: 13px; }
+            .convo-bubble .bubble-content .ar { font-size: 12px; }
+            .section-box { padding: 14px; }
+            .section-box .section-title { font-size: 16px; }
+            .unit-header h1 { font-size: 20px; }
+            .top-bar .brand-title { font-size: 15px; }
+            .grammar-table { grid-template-columns: 1fr; }
+            .vocab-grid { grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); }
+            .flip-card { height: 100px; }
+            .nav-buttons { flex-direction: column; }
+            .nav-buttons button { width: 100%; text-align: center; }
+            .mindmap .branches { gap: 6px 10px; }
+            .mindmap .branch { font-size: 12px; padding: 4px 12px; }
+            .quiz-options { flex-direction: column; }
+            .quiz-options button { width: 100%; text-align: center; }
+            .discovery-tabs { flex-direction: column; }
+            .discovery-tab { text-align: center; }
         }
 
-        /* ============================================================
-           HIDDEN AUDIO PLAYER
-           ============================================================ */
+        /* ===== HIDDEN AUDIO ===== */
         #audio-player {
             display: none;
         }
@@ -1239,14 +1143,10 @@
 </head>
 <body>
 
-    <!-- ============================================================
-    OVERLAY
-    ============================================================ -->
+    <!-- ===== OVERLAY ===== -->
     <div class="overlay" id="sidebarOverlay"></div>
 
-    <!-- ============================================================
-    SIDEBAR
-    ============================================================ -->
+    <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
         <div class="logo-area">
             <div class="logo">
@@ -1285,9 +1185,7 @@
         </div>
     </aside>
 
-    <!-- ============================================================
-    MAIN CONTENT
-    ============================================================ -->
+    <!-- ===== MAIN ===== -->
     <main class="main-content">
 
         <!-- ===== TOP BAR ===== -->
@@ -1300,7 +1198,7 @@
             </div>
         </div>
 
-        <!-- ===== PROGRESS BARS ===== -->
+        <!-- ===== PROGRESS ===== -->
         <div class="progress-section">
             <div class="progress-row">
                 <span class="label">📊 التقدم</span>
@@ -1312,7 +1210,7 @@
             <div class="daily-progress-text" id="dailyProgressText">📅 اليوم: 0/3 تمارين مكتملة</div>
         </div>
 
-        <!-- ===== LESSON CONTENT ===== -->
+        <!-- ===== LESSON ===== -->
         <div class="lesson-content">
 
             <!-- ===== UNIT HEADER ===== -->
@@ -1323,13 +1221,12 @@
             </div>
 
             <!-- ==========================================================
-            SECTION 1: THE REAL TALK
+            SECTION 1: CONVERSATION
             ========================================================== -->
             <section class="section-box" id="conversation">
                 <div class="section-title">🗣️ The Real Talk</div>
 
                 <div class="convo-container">
-                    <!-- John 1 -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
@@ -1340,7 +1237,6 @@
                             <div class="ar">إزاي الدنيا يا عم؟</div>
                         </div>
                     </div>
-                    <!-- Sarah 1 -->
                     <div class="convo-bubble sarah">
                         <span class="avatar">👩</span>
                         <div class="bubble-content">
@@ -1351,7 +1247,6 @@
                             <div class="ar">آه، أهلاً! كويسة أوي، وإنت؟</div>
                         </div>
                     </div>
-                    <!-- John 2 -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
@@ -1362,7 +1257,6 @@
                             <div class="ar">مش وحشة الحمدلله. بالمناسبة، أنا جون.</div>
                         </div>
                     </div>
-                    <!-- Sarah 2 -->
                     <div class="convo-bubble sarah">
                         <span class="avatar">👩</span>
                         <div class="bubble-content">
@@ -1373,7 +1267,6 @@
                             <div class="ar">فرصة سعيدة يا جون. أنا سارة.</div>
                         </div>
                     </div>
-                    <!-- John 3 -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
@@ -1384,7 +1277,6 @@
                             <div class="ar">وأنا كمان. يعني إنت جديدة هنا؟</div>
                         </div>
                     </div>
-                    <!-- Sarah 3 -->
                     <div class="convo-bubble sarah">
                         <span class="avatar">👩</span>
                         <div class="bubble-content">
@@ -1395,7 +1287,6 @@
                             <div class="ar">أه، سكنت هنا الأسبوع اللي فات.</div>
                         </div>
                     </div>
-                    <!-- John 4 -->
                     <div class="convo-bubble john">
                         <span class="avatar">👤</span>
                         <div class="bubble-content">
@@ -1410,7 +1301,7 @@
             </section>
 
             <!-- ==========================================================
-            SECTION 2: DISCOVERY ZONE
+            SECTION 2: DISCOVERY
             ========================================================== -->
             <section class="section-box" id="discovery">
                 <div class="section-title">🔍 اكتشف بنفسك!</div>
@@ -1440,7 +1331,7 @@
             </section>
 
             <!-- ==========================================================
-            SECTION 3: GRAMMAR LAB
+            SECTION 3: GRAMMAR
             ========================================================== -->
             <section class="section-box" id="grammar">
                 <div class="section-title">🧪 Grammar Lab</div>
@@ -1475,7 +1366,7 @@
             </section>
 
             <!-- ==========================================================
-            SECTION 4: WORD VAULT
+            SECTION 4: VOCABULARY
             ========================================================== -->
             <section class="section-box" id="vocabulary">
                 <div class="section-title">💎 Word Vault</div>
@@ -1535,7 +1426,7 @@
             </section>
 
             <!-- ==========================================================
-            SECTION 5: CHALLENGE ARENA
+            SECTION 5: CHALLENGE
             ========================================================== -->
             <section class="section-box" id="challenge">
                 <div class="section-title">⚔️ Challenge Arena</div>
@@ -1549,7 +1440,6 @@
                 </div>
 
                 <div id="quizContainer">
-                    <!-- Q1 -->
                     <div class="quiz-card" data-question="1">
                         <div class="q-text">1. I ____ a student.</div>
                         <div class="quiz-options">
@@ -1559,8 +1449,6 @@
                         </div>
                         <div class="quiz-feedback"></div>
                     </div>
-
-                    <!-- Q2 -->
                     <div class="quiz-card" data-question="2">
                         <div class="q-text">2. She ____ my friend.</div>
                         <div class="quiz-options">
@@ -1570,8 +1458,6 @@
                         </div>
                         <div class="quiz-feedback"></div>
                     </div>
-
-                    <!-- Q3 -->
                     <div class="quiz-card" data-question="3">
                         <div class="q-text">3. They ____ happy.</div>
                         <div class="quiz-options">
@@ -1583,20 +1469,18 @@
                     </div>
                 </div>
 
-                <!-- Streak Notification -->
                 <div class="streak-notification" id="streakNotification">
                     🎉 Streak: 1 Day! أنت بطل!
                     <div class="stars" id="starsContainer"></div>
                 </div>
 
-                <!-- Speak Challenge -->
                 <div class="speak-challenge">
                     <button id="speakChallengeBtn">🎤 تحدث الآن! عرّف عن نفسك بالإنجليزية</button>
                 </div>
             </section>
 
             <!-- ==========================================================
-            SECTION 6: POWER RECAP
+            SECTION 6: RECAP
             ========================================================== -->
             <section class="section-box" id="recap">
                 <div class="section-title">⚡ Power Recap</div>
@@ -1617,23 +1501,18 @@
                 <button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
             </section>
 
-            <!-- ==========================================================
-            NAVIGATION
-            ========================================================== -->
+            <!-- ===== NAV ===== -->
             <div class="nav-buttons">
                 <button class="prev" disabled>← السابق</button>
                 <button class="next" id="nextBtn">التالي →</button>
             </div>
 
-        </div><!-- /.lesson-content -->
+        </div>
     </main>
 
-    <!-- ============================================================
-    HIDDEN AUDIO PLAYER
-    ============================================================ -->
+    <!-- ===== HIDDEN AUDIO ===== -->
     <audio id="audio-player" style="display:none;">
         <source src="" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <!-- ============================================================
@@ -1641,7 +1520,7 @@
     ============================================================ -->
     <script>
         // ============================================================
-        // 1. DARK / LIGHT MODE
+        // 1. DARK MODE
         // ============================================================
         const themeToggle = document.getElementById('themeToggle');
         let currentTheme = localStorage.getItem('babbleTheme') || 'light';
@@ -1654,13 +1533,12 @@
         }
 
         setTheme(currentTheme);
-
         themeToggle.addEventListener('click', function() {
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');
         });
 
         // ============================================================
-        // 2. SIDEBAR TOGGLE
+        // 2. SIDEBAR
         // ============================================================
         const hamburger = document.getElementById('hamburgerBtn');
         const sidebar = document.getElementById('sidebar');
@@ -1674,7 +1552,6 @@
         hamburger.addEventListener('click', toggleSidebar);
         overlay.addEventListener('click', toggleSidebar);
 
-        // Close sidebar on unit click (mobile)
         document.querySelectorAll('.unit-list li').forEach(function(item) {
             item.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
@@ -1685,7 +1562,7 @@
         });
 
         // ============================================================
-        // 3. DISCOVERY ZONE TABS
+        // 3. DISCOVERY TABS
         // ============================================================
         const discoveryTabs = document.querySelectorAll('.discovery-tab');
         const discoveryContents = {
@@ -1698,7 +1575,6 @@
             tab.addEventListener('click', function() {
                 discoveryTabs.forEach(t => t.classList.remove('active'));
                 Object.values(discoveryContents).forEach(c => c.classList.remove('active'));
-
                 this.classList.add('active');
                 const target = this.dataset.tab;
                 if (discoveryContents[target]) {
@@ -1718,44 +1594,65 @@
         });
 
         // ============================================================
-        // 5. AUDIO - Speech Synthesis (Natural Human Voice)
+        // 5. SPEECH SYNTHESIS - Natural Human Voice
         // ============================================================
-        function speakText(text, rate = 0.9, pitch = 1.0) {
-            if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech
-                window.speechSynthesis.cancel();
+        let voicesLoaded = false;
 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = rate;
-                utterance.pitch = pitch;
-                utterance.volume = 1;
-
-                // Try to find a natural-sounding voice
-                const voices = window.speechSynthesis.getVoices();
-                const preferredVoice = voices.find(v =>
-                    v.lang.startsWith('en') &&
-                    (v.name.includes('Google') ||
-                     v.name.includes('Natural') ||
-                     v.name.includes('Premium') ||
-                     v.name.includes('Samantha') ||
-                     v.name.includes('Alex') ||
-                     v.name.includes('Daniel'))
-                );
-                if (preferredVoice) {
-                    utterance.voice = preferredVoice;
-                }
-
-                window.speechSynthesis.speak(utterance);
-                return true;
-            }
-            return false;
+        function getNaturalVoice() {
+            const voices = window.speechSynthesis.getVoices();
+            // Try to find a natural-sounding English voice
+            const preferred = voices.find(v =>
+                v.lang.startsWith('en') &&
+                (v.name.includes('Google') ||
+                 v.name.includes('Natural') ||
+                 v.name.includes('Premium') ||
+                 v.name.includes('Samantha') ||
+                 v.name.includes('Alex') ||
+                 v.name.includes('Daniel') ||
+                 v.name.includes('David') ||
+                 v.name.includes('Zira'))
+            );
+            return preferred || voices.find(v => v.lang.startsWith('en')) || null;
         }
 
-        // Load voices (some browsers need this)
-        window.speechSynthesis.getVoices();
+        function speakText(text, rate = 0.85, pitch = 1.0) {
+            if (!('speechSynthesis' in window)) {
+                alert('⚠️ متصفحك لا يدعم خاصية النطق.');
+                return;
+            }
 
-        // Conversation audio buttons
+            // Cancel any ongoing speech
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = rate;
+            utterance.pitch = pitch;
+            utterance.volume = 1;
+
+            // Use natural voice if available
+            const voice = getNaturalVoice();
+            if (voice) {
+                utterance.voice = voice;
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Preload voices
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = function() {
+                window.speechSynthesis.getVoices();
+                voicesLoaded = true;
+            };
+            // Some browsers need a small delay
+            setTimeout(function() {
+                window.speechSynthesis.getVoices();
+            }, 200);
+        }
+
+        // Conversation audio
         document.querySelectorAll('.audio-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -1766,7 +1663,7 @@
             });
         });
 
-        // Vocabulary audio buttons
+        // Vocabulary audio
         document.querySelectorAll('.audio-btn-small').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -1778,7 +1675,7 @@
         });
 
         // ============================================================
-        // 6. QUIZ LOGIC
+        // 6. QUIZ
         // ============================================================
         const correctAnswers = {
             '1': 'am',
@@ -1834,7 +1731,6 @@
                 container.appendChild(star);
             }
 
-            // Play celebration sound
             speakText('Congratulations! You are amazing!', 0.9, 1.2);
 
             setTimeout(function() {
@@ -1859,7 +1755,6 @@
                         feedback.innerHTML = '<span class="correct-text">✅ صح! إجابة صحيحة.</span>';
                         quizCompleted++;
                         updateQuizProgress();
-                        // Speak correct answer
                         speakText('Correct! Well done.', 0.9, 1.1);
                     } else {
                         this.classList.add('wrong');
@@ -1886,7 +1781,7 @@
         });
 
         // ============================================================
-        // 8. VIDEO BUTTON
+        // 8. VIDEO
         // ============================================================
         document.getElementById('videoBtn').addEventListener('click', function() {
             window.open('https://youtube.com/@omar.youssif.english', '_blank');
@@ -1905,21 +1800,11 @@
         localStorage.setItem('babbleLastUnit', '1');
 
         // ============================================================
-        // 11. SMOOTH SCROLLING
+        // 11. SMOOTH SCROLL
         // ============================================================
         document.querySelectorAll('.section-box').forEach(function(el) {
             el.style.scrollMarginTop = '20px';
         });
-
-        // ============================================================
-        // 12. PRELOAD VOICES
-        // ============================================================
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.getVoices();
-            window.speechSynthesis.onvoiceschanged = function() {
-                window.speechSynthesis.getVoices();
-            };
-        }
     </script>
 
 </body>
