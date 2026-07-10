@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +46,24 @@
             min-height: 100vh;
             display: flex;
             transition: background var(--transition), color var(--transition);
+        }
+
+        /* ============================================================
+           ENGLISH TEXT - LTR
+           ============================================================ */
+        .en, .english, .ltr {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        /* ============================================================
+           ARABIC TEXT - RTL
+           ============================================================ */
+        .ar, .arabic, .rtl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
         }
 
         /* ============================================================
@@ -269,6 +287,7 @@
             font-size: 17px;
             font-weight: 700;
             color: var(--text);
+            direction: ltr;
         }
 
         .top-bar .brand-title span {
@@ -282,6 +301,7 @@
             padding: 3px 14px;
             border-radius: 30px;
             font-weight: 700;
+            direction: ltr;
         }
 
         .top-bar .top-actions {
@@ -324,6 +344,7 @@
             font-weight: 600;
             color: var(--text);
             min-width: 70px;
+            direction: rtl;
         }
 
         .progress-row .bar-wrap {
@@ -353,6 +374,7 @@
             color: var(--gold);
             min-width: 40px;
             text-align: left;
+            direction: ltr;
         }
 
         .daily-progress-text {
@@ -360,6 +382,7 @@
             color: #888;
             text-align: left;
             margin-top: 2px;
+            direction: rtl;
         }
 
         /* ============================================================
@@ -383,6 +406,7 @@
             font-size: 12px;
             font-weight: 700;
             margin-bottom: 2px;
+            direction: rtl;
         }
 
         .unit-header h1 {
@@ -390,12 +414,16 @@
             font-size: 26px;
             color: var(--text);
             line-height: 1.2;
+            direction: ltr;
+            text-align: left;
         }
 
         .unit-header p {
             color: #888;
             font-size: 14px;
             margin-top: 2px;
+            direction: rtl;
+            text-align: right;
         }
 
         /* ============================================================
@@ -419,6 +447,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            direction: ltr;
+            text-align: left;
         }
 
         /* ============================================================
@@ -482,6 +512,8 @@
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
+            direction: ltr;
+            text-align: left;
         }
 
         .convo-bubble .bubble-content .en .audio-btn {
@@ -504,6 +536,8 @@
             font-size: 13px;
             color: #888;
             margin-top: 2px;
+            direction: rtl;
+            text-align: right;
         }
 
         [data-theme="dark"] .convo-bubble .bubble-content .ar {
@@ -522,6 +556,8 @@
             color: var(--text);
             margin-bottom: 12px;
             border-right: 4px solid var(--gold);
+            direction: rtl;
+            text-align: right;
         }
 
         .discovery-tabs {
@@ -542,6 +578,7 @@
             cursor: pointer;
             transition: 0.25s;
             font-family: 'Cairo', sans-serif;
+            direction: ltr;
         }
 
         [data-theme="dark"] .discovery-tab {
@@ -567,6 +604,16 @@
             font-size: 14px;
             color: var(--text);
             border-right: 3px solid var(--gold);
+            direction: rtl;
+            text-align: right;
+        }
+
+        .discovery-content .en-highlight {
+            direction: ltr;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--gold);
         }
 
         [data-theme="dark"] .discovery-content {
@@ -602,11 +649,13 @@
         .grammar-row .pronoun {
             font-weight: 600;
             color: var(--text);
+            direction: ltr;
         }
 
         .grammar-row .verb {
             font-weight: 700;
             color: var(--gold);
+            direction: ltr;
         }
 
         .grammar-example-box {
@@ -616,6 +665,21 @@
             margin-top: 6px;
             font-size: 14px;
             border-right: 4px solid var(--gold);
+            direction: rtl;
+            text-align: right;
+        }
+
+        .grammar-example-box .en-example {
+            direction: ltr;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            display: block;
+        }
+
+        .grammar-example-box .ar-example {
+            direction: rtl;
+            color: #888;
+            font-size: 13px;
         }
 
         [data-theme="dark"] .grammar-example-box {
@@ -679,6 +743,7 @@
             font-size: 15px;
             font-weight: 700;
             margin-top: 2px;
+            direction: ltr;
         }
 
         .flip-card-front .audio-btn-small {
@@ -704,12 +769,14 @@
         .flip-card-back .meaning {
             font-size: 18px;
             font-weight: 700;
+            direction: rtl;
         }
 
         .flip-card-back .example {
             font-size: 12px;
             opacity: 0.7;
             margin-top: 2px;
+            direction: rtl;
         }
 
         [data-theme="dark"] .flip-card-front {
@@ -732,6 +799,7 @@
             font-size: 13px;
             font-weight: 600;
             color: var(--text);
+            direction: rtl;
         }
 
         .quiz-progress-bar .bar-wrap {
@@ -760,6 +828,7 @@
             color: var(--gold);
             min-width: 40px;
             text-align: left;
+            direction: ltr;
         }
 
         .quiz-card {
@@ -781,6 +850,8 @@
             font-size: 15px;
             color: var(--text);
             margin-bottom: 6px;
+            direction: ltr;
+            text-align: left;
         }
 
         .quiz-options {
@@ -799,7 +870,8 @@
             cursor: pointer;
             transition: 0.25s;
             color: var(--text);
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Poppins', 'Cairo', sans-serif;
+            direction: ltr;
         }
 
         [data-theme="dark"] .quiz-options button {
@@ -835,12 +907,16 @@
             font-size: 14px;
             font-weight: 600;
             min-height: 22px;
+            direction: rtl;
+            text-align: right;
         }
 
         .quiz-feedback .correct-text { color: #4CAF50; }
         .quiz-feedback .wrong-text { color: #D32F2F; }
 
-        /* ===== SPEAK CHALLENGE ===== */
+        /* ============================================================
+           SPEAK CHALLENGE
+           ============================================================ */
         .speak-challenge {
             margin-top: 14px;
             padding: 14px 16px;
@@ -861,6 +937,7 @@
             cursor: pointer;
             transition: 0.25s;
             font-family: 'Cairo', sans-serif;
+            direction: rtl;
         }
 
         .speak-challenge button:hover {
@@ -883,6 +960,7 @@
             animation: pop 0.5s ease;
             position: relative;
             overflow: hidden;
+            direction: rtl;
         }
 
         .streak-notification.show {
@@ -921,6 +999,7 @@
             font-size: 18px;
             margin-bottom: 14px;
             font-family: 'Poppins', sans-serif;
+            direction: ltr;
         }
 
         .mindmap .branches {
@@ -940,6 +1019,8 @@
             color: var(--text);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
+            direction: ltr;
         }
 
         .mindmap .branch:hover {
@@ -964,6 +1045,7 @@
             transition: 0.25s;
             font-family: 'Cairo', sans-serif;
             margin-top: 4px;
+            direction: rtl;
         }
 
         .video-btn:hover {
@@ -990,6 +1072,7 @@
             cursor: pointer;
             transition: 0.25s;
             font-family: 'Cairo', sans-serif;
+            direction: rtl;
         }
 
         .nav-buttons .prev {
@@ -1252,7 +1335,7 @@
                         <div class="bubble-content">
                             <div class="en">
                                 Hey! How's it going?
-                                <button class="audio-btn" data-audio="unit1_1">🔊</button>
+                                <button class="audio-btn" data-text="Hey! How's it going?">🔊</button>
                             </div>
                             <div class="ar">إزاي الدنيا يا عم؟</div>
                         </div>
@@ -1263,7 +1346,7 @@
                         <div class="bubble-content">
                             <div class="en">
                                 Oh, hey! Pretty good, and you?
-                                <button class="audio-btn" data-audio="unit1_2">🔊</button>
+                                <button class="audio-btn" data-text="Oh, hey! Pretty good, and you?">🔊</button>
                             </div>
                             <div class="ar">آه، أهلاً! كويسة أوي، وإنت؟</div>
                         </div>
@@ -1274,7 +1357,7 @@
                         <div class="bubble-content">
                             <div class="en">
                                 Can't complain. By the way, I'm John.
-                                <button class="audio-btn" data-audio="unit1_3">🔊</button>
+                                <button class="audio-btn" data-text="Can't complain. By the way, I'm John.">🔊</button>
                             </div>
                             <div class="ar">مش وحشة الحمدلله. بالمناسبة، أنا جون.</div>
                         </div>
@@ -1285,7 +1368,7 @@
                         <div class="bubble-content">
                             <div class="en">
                                 Nice to meet you, John. I'm Sarah.
-                                <button class="audio-btn" data-audio="unit1_4">🔊</button>
+                                <button class="audio-btn" data-text="Nice to meet you, John. I'm Sarah.">🔊</button>
                             </div>
                             <div class="ar">فرصة سعيدة يا جون. أنا سارة.</div>
                         </div>
@@ -1296,7 +1379,7 @@
                         <div class="bubble-content">
                             <div class="en">
                                 Likewise. So, you new here?
-                                <button class="audio-btn" data-audio="unit1_5">🔊</button>
+                                <button class="audio-btn" data-text="Likewise. So, you new here?">🔊</button>
                             </div>
                             <div class="ar">وأنا كمان. يعني إنت جديدة هنا؟</div>
                         </div>
@@ -1307,7 +1390,7 @@
                         <div class="bubble-content">
                             <div class="en">
                                 Yeah, just moved in last week.
-                                <button class="audio-btn" data-audio="unit1_6">🔊</button>
+                                <button class="audio-btn" data-text="Yeah, just moved in last week.">🔊</button>
                             </div>
                             <div class="ar">أه، سكنت هنا الأسبوع اللي فات.</div>
                         </div>
@@ -1318,7 +1401,7 @@
                         <div class="bubble-content">
                             <div class="en">
                                 Well, welcome to the neighborhood!
-                                <button class="audio-btn" data-audio="unit1_7">🔊</button>
+                                <button class="audio-btn" data-text="Well, welcome to the neighborhood!">🔊</button>
                             </div>
                             <div class="ar">أهلاً بيكي في الحتة!</div>
                         </div>
@@ -1344,15 +1427,15 @@
 
                 <div class="discovery-content active" id="disc1">
                     <strong>🔹 I am</strong> — بنستخدمه لما أتكلم عن نفسي.<br>
-                    ✅ "I'm John" = أنا جون.
+                    ✅ <span class="en-highlight">"I'm John"</span> = أنا جون.
                 </div>
                 <div class="discovery-content" id="disc2">
                     <strong>🔹 You are</strong> — بنستخدمه لما أكلم الشخص اللي قدامي.<br>
-                    ✅ "You're new here" = إنت جديد هنا.
+                    ✅ <span class="en-highlight">"You're new here"</span> = إنت جديد هنا.
                 </div>
                 <div class="discovery-content" id="disc3">
                     <strong>🔹 He is / She is</strong> — بنستخدمه لما نتكلم عن شخص تالت.<br>
-                    ✅ "He's my friend" = هو صاحبي.
+                    ✅ <span class="en-highlight">"He's my friend"</span> = هو صاحبي.
                 </div>
             </section>
 
@@ -1362,7 +1445,7 @@
             <section class="section-box" id="grammar">
                 <div class="section-title">🧪 Grammar Lab</div>
 
-                <div style="font-size:14px;color:#888;margin-bottom:10px;">
+                <div style="font-size:14px;color:#888;margin-bottom:10px;direction:rtl;text-align:right;">
                     📌 تصريف فعل <strong>Verb to be</strong> في المضارع:
                 </div>
 
@@ -1376,10 +1459,19 @@
                     <div class="grammar-row"><span class="pronoun">They</span><span class="verb">are / They're</span></div>
                 </div>
 
-                <div style="font-size:14px;font-weight:600;color:var(--text);margin-top:6px;">📌 أمثلة من المحادثة:</div>
-                <div class="grammar-example-box">✅ "I'm John." (أنا جون)</div>
-                <div class="grammar-example-box">✅ "You're new here." (إنت جديد هنا)</div>
-                <div class="grammar-example-box">✅ "He's my friend." (هو صاحبي)</div>
+                <div style="font-size:14px;font-weight:600;color:var(--text);margin-top:6px;direction:rtl;text-align:right;">📌 أمثلة من المحادثة:</div>
+                <div class="grammar-example-box">
+                    <span class="en-example">✅ "I'm John."</span>
+                    <span class="ar-example">(أنا جون)</span>
+                </div>
+                <div class="grammar-example-box">
+                    <span class="en-example">✅ "You're new here."</span>
+                    <span class="ar-example">(إنت جديد هنا)</span>
+                </div>
+                <div class="grammar-example-box">
+                    <span class="en-example">✅ "He's my friend."</span>
+                    <span class="ar-example">(هو صاحبي)</span>
+                </div>
             </section>
 
             <!-- ==========================================================
@@ -1620,49 +1712,67 @@
         // ============================================================
         document.querySelectorAll('.flip-card').forEach(function(card) {
             card.addEventListener('click', function(e) {
-                // Don't flip if clicking audio button
                 if (e.target.closest('.audio-btn-small')) return;
                 this.classList.toggle('flipped');
             });
         });
 
         // ============================================================
-        // 5. AUDIO PLAYER (Conversation & Vocabulary)
+        // 5. AUDIO - Speech Synthesis (Natural Human Voice)
         // ============================================================
-        const audioPlayer = document.getElementById('audio-player');
+        function speakText(text, rate = 0.9, pitch = 1.0) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
 
-        // Conversation audio
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = rate;
+                utterance.pitch = pitch;
+                utterance.volume = 1;
+
+                // Try to find a natural-sounding voice
+                const voices = window.speechSynthesis.getVoices();
+                const preferredVoice = voices.find(v =>
+                    v.lang.startsWith('en') &&
+                    (v.name.includes('Google') ||
+                     v.name.includes('Natural') ||
+                     v.name.includes('Premium') ||
+                     v.name.includes('Samantha') ||
+                     v.name.includes('Alex') ||
+                     v.name.includes('Daniel'))
+                );
+                if (preferredVoice) {
+                    utterance.voice = preferredVoice;
+                }
+
+                window.speechSynthesis.speak(utterance);
+                return true;
+            }
+            return false;
+        }
+
+        // Load voices (some browsers need this)
+        window.speechSynthesis.getVoices();
+
+        // Conversation audio buttons
         document.querySelectorAll('.audio-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                const audioFile = this.dataset.audio;
-                if (audioFile) {
-                    audioPlayer.src = 'audio/' + audioFile + '.mp3';
-                    audioPlayer.play().catch(function() {
-                        // Fallback to speech synthesis
-                        const parentEn = this.closest('.bubble-content').querySelector('.en');
-                        const text = parentEn ? parentEn.textContent.replace('🔊', '').trim() : '';
-                        if (text && 'speechSynthesis' in window) {
-                            const utterance = new SpeechSynthesisUtterance(text);
-                            utterance.lang = 'en-US';
-                            utterance.rate = 0.9;
-                            window.speechSynthesis.speak(utterance);
-                        }
-                    });
+                const text = this.dataset.text;
+                if (text) {
+                    speakText(text, 0.85, 1.0);
                 }
             });
         });
 
-        // Vocabulary audio
+        // Vocabulary audio buttons
         document.querySelectorAll('.audio-btn-small').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const word = this.dataset.word;
-                if (word && 'speechSynthesis' in window) {
-                    const utterance = new SpeechSynthesisUtterance(word);
-                    utterance.lang = 'en-US';
-                    utterance.rate = 0.8;
-                    window.speechSynthesis.speak(utterance);
+                if (word) {
+                    speakText(word, 0.75, 1.1);
                 }
             });
         });
@@ -1684,7 +1794,6 @@
         const quizProgressFill = document.getElementById('quizProgressFill');
         const quizProgressCount = document.getElementById('quizProgressCount');
 
-        // Daily Progress
         let dailyCompleted = parseInt(localStorage.getItem('babbleDaily')) || 0;
 
         function updateDailyProgress() {
@@ -1725,6 +1834,9 @@
                 container.appendChild(star);
             }
 
+            // Play celebration sound
+            speakText('Congratulations! You are amazing!', 0.9, 1.2);
+
             setTimeout(function() {
                 notification.classList.remove('show');
             }, 5000);
@@ -1747,6 +1859,8 @@
                         feedback.innerHTML = '<span class="correct-text">✅ صح! إجابة صحيحة.</span>';
                         quizCompleted++;
                         updateQuizProgress();
+                        // Speak correct answer
+                        speakText('Correct! Well done.', 0.9, 1.1);
                     } else {
                         this.classList.add('wrong');
                         feedback.innerHTML = '<span class="wrong-text">❌ خطأ! حاول مرة أخرى.</span>';
@@ -1755,6 +1869,7 @@
                                 b.classList.add('correct');
                             }
                         });
+                        speakText('Incorrect. Try again next time.', 0.85, 1.0);
                     }
                 });
             });
@@ -1764,16 +1879,10 @@
         // 7. SPEAK CHALLENGE
         // ============================================================
         document.getElementById('speakChallengeBtn').addEventListener('click', function() {
-            if ('speechSynthesis' in window) {
-                const text = 'Hello, my name is ' + (prompt('أدخل اسمك باللغة الإنجليزية:') || 'John');
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.85;
-                window.speechSynthesis.speak(utterance);
-                alert('🎤 جاري النطق: "' + text + '"');
-            } else {
-                alert('❌ متصفحك لا يدعم خاصية النطق.');
-            }
+            const name = prompt('أدخل اسمك باللغة الإنجليزية:') || 'John';
+            const text = 'Hello, my name is ' + name + '. Nice to meet you!';
+            speakText(text, 0.85, 1.1);
+            alert('🎤 جاري النطق: "' + text + '"');
         });
 
         // ============================================================
@@ -1801,6 +1910,16 @@
         document.querySelectorAll('.section-box').forEach(function(el) {
             el.style.scrollMarginTop = '20px';
         });
+
+        // ============================================================
+        // 12. PRELOAD VOICES
+        // ============================================================
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = function() {
+                window.speechSynthesis.getVoices();
+            };
+        }
     </script>
 
 </body>
