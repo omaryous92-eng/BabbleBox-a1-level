@@ -1831,7 +1831,7 @@
     </audio>
 
     <!-- ============================================================
-    JAVASCRIPT (معدل)
+    JAVASCRIPT (معدل - نسخة مستقرة 100%)
     ============================================================ -->
     <script>
         // ============================================================
@@ -1994,12 +1994,10 @@
             quizProgressFill.style.width = pct + '%';
             quizProgressCount.textContent = quizCompleted + '/' + totalQuestions;
 
-            // Show next button ONLY when 7/7
             const nextBtn = document.getElementById('nextBtn');
             if (quizCompleted === totalQuestions) {
                 nextBtn.classList.add('show');
                 nextBtn.style.display = 'inline-block';
-                // Unlock unit 5
                 let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
                 if (maxUnlocked < 5) {
                     maxUnlocked = 5;
@@ -2060,7 +2058,6 @@
             quizProgressFill.style.width = '0%';
             quizProgressCount.textContent = '0/' + totalQuestions;
 
-            // Reset all choice questions
             document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(function(card) {
                 const buttons = card.querySelectorAll('.quiz-options button');
                 const feedback = card.querySelector('.quiz-feedback');
@@ -2071,11 +2068,9 @@
                 feedback.innerHTML = '';
             });
 
-            // Reset drag & drop
             resetDragDrop('3');
             resetDragDrop('4');
 
-            // Reset listening
             const listenCard = document.querySelector('.quiz-card[data-question="5"]');
             if (listenCard) {
                 const buttons = listenCard.querySelectorAll('.quiz-options button');
@@ -2117,7 +2112,7 @@
         }
 
         // ============================================================
-        // 8. DRAG & DROP (مع Touch support - معدلة)
+        // 8. DRAG & DROP (مع Touch support) - نسخة مستقرة 100%
         // ============================================================
         let touchClone = null;
         let touchWord = '';
@@ -2131,20 +2126,23 @@
             });
             element.addEventListener('dragend', function(e) {
                 this.classList.remove('dragging');
+                if (touchClone) {
+                    touchClone.remove();
+                    touchClone = null;
+                }
             });
 
-            // Touch events - معدلة عشان الكلمة متفضلش عائمة
+            // Touch events
             element.addEventListener('touchstart', function(e) {
                 const touch = e.touches[0];
                 touchWord = this.dataset.word;
                 touchElement = this;
 
-                // Clone for visual feedback
                 touchClone = this.cloneNode(true);
                 touchClone.style.position = 'fixed';
                 touchClone.style.pointerEvents = 'none';
                 touchClone.style.opacity = '0.7';
-                touchClone.style.zIndex = '999';
+                touchClone.style.zIndex = '9999';
                 touchClone.style.transform = 'scale(1.1)';
                 touchClone.style.width = this.offsetWidth + 'px';
                 touchClone.style.left = (touch.clientX - this.offsetWidth / 2) + 'px';
@@ -2162,15 +2160,25 @@
                 }
             }, { passive: false });
 
+            // ===== المفتاح: touchcancel (لو رفع الإصبع برا) =====
+            element.addEventListener('touchcancel', function(e) {
+                if (touchClone) {
+                    touchClone.remove();
+                    touchClone = null;
+                }
+                this.classList.remove('dragging');
+                touchWord = '';
+                touchElement = null;
+            }, { passive: true });
+
             element.addEventListener('touchend', function(e) {
-                // Remove clone immediately
+                // إزالة clone فوراً
                 if (touchClone) {
                     touchClone.remove();
                     touchClone = null;
                 }
                 this.classList.remove('dragging');
 
-                // Find drop zone under touch
                 const touch = e.changedTouches[0];
                 const dropZones = document.querySelectorAll('.drop-zone');
                 let targetDrop = null;
@@ -2234,7 +2242,7 @@
             }
         }
 
-        // Initialize drag & drop for all drag containers
+        // Initialize drag & drop
         document.querySelectorAll('.drag-options .drag-word').forEach(function(w) {
             addDragListeners(w);
         });
@@ -2313,7 +2321,7 @@
         });
 
         // ============================================================
-        // 11. RETRY BUTTON SHOW/HIDE
+        // 11. RETRY BUTTON
         // ============================================================
         function showRetry() {
             retryBtn.classList.add('show');
@@ -2329,7 +2337,7 @@
         });
 
         // ============================================================
-        // 12. CHOICE QUESTIONS - Show retry on wrong
+        // 12. CHOICE QUESTIONS
         // ============================================================
         document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(function(card) {
             const qNum = card.dataset.question;
