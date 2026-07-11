@@ -1,0 +1,2504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babble Box - Unit 7: What Are You Wearing?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           ROOT & RESET
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #FFC107;
+            --black: #1A1A1A;
+            --white: #FAFAFA;
+            --bg: #FAFAFA;
+            --text: #1A1A1A;
+            --card-bg: #FFFFFF;
+            --shadow: 0 8px 30px rgba(0,0,0,0.06);
+            --radius: 18px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --green: #4CAF50;
+            --red: #F44336;
+            --blue: #2196F3;
+        }
+
+        [data-theme="dark"] {
+            --bg: #121212;
+            --text: #F0F0F0;
+            --card-bg: #1E1E1E;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            background: var(--card-bg);
+            padding: 12px 16px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: background var(--transition);
+            border-bottom: 2px solid rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        [data-theme="dark"] .header {
+            border-bottom-color: rgba(255,255,255,0.05);
+        }
+
+        .header .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            direction: ltr;
+        }
+
+        .header .brand span {
+            color: var(--gold);
+        }
+
+        .header .unit-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            direction: ltr;
+        }
+
+        .header .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text);
+            transition: 0.3s;
+            padding: 4px;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        .back-btn {
+            background: var(--gold);
+            border: none;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* ============================================================
+           DAILY PROGRESS
+           ============================================================ */
+        .daily-progress {
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            transition: background var(--transition);
+        }
+
+        [data-theme="dark"] .daily-progress {
+            border-bottom-color: rgba(255,255,255,0.05);
+        }
+
+        .daily-progress .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            direction: rtl;
+        }
+
+        .daily-progress .bar-wrap {
+            flex: 1;
+            height: 6px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+            min-width: 80px;
+        }
+
+        [data-theme="dark"] .daily-progress .bar-wrap {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .daily-progress .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), #FFA000);
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        .daily-progress .count {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 40px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        /* ============================================================
+           LESSON CONTENT
+           ============================================================ */
+        .lesson-content {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 14px 16px 30px;
+        }
+
+        .unit-header {
+            margin-bottom: 18px;
+        }
+
+        .unit-header .badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--black);
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            direction: rtl;
+        }
+
+        .unit-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            color: var(--text);
+            line-height: 1.2;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .unit-header p {
+            color: #888;
+            font-size: 14px;
+            margin-top: 2px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* ===== SECTION BOX ===== */
+        .section-box {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 16px 16px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow);
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+
+        .section-box .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* ============================================================
+           CONVERSATION
+           ============================================================ */
+        .convo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .convo-bubble {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            max-width: 92%;
+            padding: 8px 12px;
+            border-radius: 14px;
+            position: relative;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .convo-bubble.sarah {
+            align-self: flex-end;
+            background: #FFE4E6;
+            color: #1A1A2E;
+            border-bottom-right-radius: 4px;
+        }
+
+        .convo-bubble.john {
+            align-self: flex-start;
+            background: #D6E4FF;
+            color: #1A1A2E;
+            border-bottom-left-radius: 4px;
+        }
+
+        [data-theme="dark"] .convo-bubble.sarah {
+            background: #5F2E3A;
+            color: #fff;
+        }
+
+        [data-theme="dark"] .convo-bubble.john {
+            background: #1E3A5F;
+            color: #fff;
+        }
+
+        .convo-bubble .avatar {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .convo-bubble .bubble-content {
+            flex: 1;
+        }
+
+        .convo-bubble .bubble-content .en {
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .convo-bubble .bubble-content .en .audio-btn {
+            background: none;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            color: #555;
+            padding: 2px 4px;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .convo-bubble .bubble-content .en .audio-btn:hover {
+            background: rgba(0,0,0,0.06);
+            color: var(--gold);
+        }
+
+        .convo-bubble .bubble-content .ar {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+            direction: rtl;
+            text-align: right;
+            display: none;
+        }
+
+        .convo-bubble .bubble-content .ar.show {
+            display: block;
+        }
+
+        .translation-btn {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 1px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 2px;
+        }
+
+        .translation-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* ============================================================
+           DISCOVER
+           ============================================================ */
+        .discovery-question {
+            background: rgba(255,193,7,0.08);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            border-right: 4px solid var(--gold);
+            direction: rtl;
+            text-align: right;
+        }
+
+        .discovery-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .discovery-tab {
+            padding: 8px 14px;
+            border: 2px solid rgba(0,0,0,0.06);
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: 'Poppins', 'Cairo', sans-serif;
+            direction: ltr;
+            flex: 1;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .discovery-tab {
+            border-color: rgba(255,255,255,0.06);
+            color: #ddd;
+        }
+
+        .discovery-tab.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .discovery-tab:hover:not(.active) {
+            background: rgba(0,0,0,0.04);
+        }
+
+        .discovery-content {
+            display: none;
+            animation: fadeInUp 0.4s ease;
+            background: rgba(0,0,0,0.02);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text);
+            border-right: 3px solid var(--gold);
+            direction: rtl;
+            text-align: right;
+        }
+
+        [data-theme="dark"] .discovery-content {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .discovery-content.active {
+            display: block;
+        }
+
+        .discovery-content .en-highlight {
+            direction: ltr;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        /* ============================================================
+           GRAMMAR LAB
+           ============================================================ */
+        .grammar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grammar-card {
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: #fff;
+            transition: 0.2s;
+        }
+
+        .grammar-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .grammar-card.green { background: var(--green); }
+        .grammar-card.red { background: var(--red); }
+        .grammar-card.blue { background: var(--blue); }
+        .grammar-card.gold { background: var(--gold); color: var(--black); }
+
+        .grammar-card .title {
+            font-weight: 700;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+            direction: ltr;
+            margin-bottom: 3px;
+        }
+
+        .grammar-card .examples {
+            font-size: 12px;
+            opacity: 0.9;
+            direction: ltr;
+            line-height: 1.6;
+        }
+
+        .grammar-card .examples .highlight {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        /* ============================================================
+           VOCABULARY
+           ============================================================ */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .flip-card {
+            perspective: 800px;
+            height: 100px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .flip-card-front {
+            background: var(--card-bg);
+            color: var(--text);
+        }
+
+        .flip-card-front .emoji {
+            font-size: 22px;
+        }
+
+        .flip-card-front .word {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 2px;
+            direction: ltr;
+        }
+
+        .flip-card-front .audio-btn-small {
+            background: none;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 2px;
+            color: #888;
+            transition: 0.2s;
+        }
+
+        .flip-card-front .audio-btn-small:hover {
+            color: var(--gold);
+        }
+
+        .flip-card-back {
+            background: var(--gold);
+            color: var(--black);
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-back .meaning {
+            font-size: 16px;
+            font-weight: 700;
+            direction: rtl;
+        }
+
+        [data-theme="dark"] .flip-card-front {
+            background: #2A2A2A;
+            color: #fff;
+            border-color: rgba(255,255,255,0.06);
+        }
+
+        /* ============================================================
+           BABBLE WARNING
+           ============================================================ */
+        .warning-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .warning-card {
+            padding: 12px 14px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .warning-card:hover {
+            transform: scale(1.02);
+        }
+
+        .warning-card.safe {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid var(--green);
+        }
+
+        .warning-card.noun {
+            background: rgba(33, 150, 243, 0.1);
+            border: 2px solid var(--blue);
+        }
+
+        .warning-card .label {
+            font-weight: 700;
+            font-size: 13px;
+            direction: ltr;
+        }
+
+        .warning-card .example {
+            font-size: 15px;
+            font-weight: 600;
+            direction: ltr;
+            margin: 3px 0;
+        }
+
+        .warning-card .meaning {
+            font-size: 12px;
+            direction: rtl;
+            color: #888;
+        }
+
+        .warning-joke {
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: rgba(255,193,7,0.08);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            direction: rtl;
+            text-align: center;
+            border-right: 3px solid var(--gold);
+        }
+
+        /* ============================================================
+           CHALLENGE ARENA
+           ============================================================ */
+        .quiz-progress-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .quiz-progress-bar .label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            direction: rtl;
+        }
+
+        .quiz-progress-bar .bar-wrap {
+            flex: 1;
+            height: 5px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .quiz-progress-bar .bar-wrap {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .quiz-progress-bar .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gold);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-progress-bar .count {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 35px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .quiz-card {
+            background: rgba(0,0,0,0.02);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: 0.3s;
+        }
+
+        [data-theme="dark"] .quiz-card {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.04);
+        }
+
+        .quiz-card .q-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 5px;
+            direction: ltr;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-card .q-text .help-btn {
+            background: none;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--gold);
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quiz-card .q-text .help-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .quiz-card .q-text .help-tooltip {
+            display: none;
+            font-size: 12px;
+            color: #888;
+            background: var(--card-bg);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: var(--shadow);
+        }
+
+        .quiz-card .q-text .help-tooltip.show {
+            display: inline-block;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .quiz-options button {
+            padding: 4px 14px;
+            border: 2px solid rgba(0,0,0,0.08);
+            border-radius: 30px;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.25s;
+            color: var(--text);
+            font-family: 'Poppins', 'Cairo', sans-serif;
+            direction: ltr;
+        }
+
+        [data-theme="dark"] .quiz-options button {
+            border-color: rgba(255,255,255,0.1);
+            color: #ddd;
+        }
+
+        .quiz-options button:hover:not(:disabled) {
+            background: rgba(0,0,0,0.04);
+        }
+
+        .quiz-options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .quiz-options button.correct {
+            background: var(--green);
+            border-color: var(--green);
+            color: #fff;
+            animation: pop 0.3s ease;
+        }
+
+        .quiz-options button.wrong {
+            background: var(--red);
+            border-color: var(--red);
+            color: #fff;
+            animation: shake 0.4s ease;
+        }
+
+        .quiz-feedback {
+            margin-top: 3px;
+            font-size: 13px;
+            font-weight: 600;
+            min-height: 20px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .quiz-feedback .correct-text { color: var(--green); }
+        .quiz-feedback .wrong-text { color: var(--red); }
+
+        /* ===== RETRY BUTTON ===== */
+        .retry-btn {
+            background: var(--gold);
+            border: none;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .retry-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .retry-btn.show {
+            display: inline-block;
+        }
+
+        /* ===== DRAG & DROP (Touch & Mouse) ===== */
+        .drag-options {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+
+        .drag-word {
+            padding: 5px 14px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: grab;
+            color: var(--text);
+            transition: 0.2s;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: none;
+        }
+
+        .drag-word:hover {
+            transform: scale(1.05);
+        }
+
+        .drag-word.dragging {
+            opacity: 0.4;
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            padding: 8px 12px;
+            border: 2px dashed rgba(0,0,0,0.1);
+            border-radius: 10px;
+            min-height: 40px;
+            align-items: center;
+            margin: 4px 0;
+        }
+
+        [data-theme="dark"] .drop-zone {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .drop-zone .word-placed {
+            padding: 3px 12px;
+            background: var(--gold);
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--black);
+        }
+
+        /* ===== LISTENING ===== */
+        .listen-btn {
+            background: var(--gold);
+            border: none;
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .listen-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+           STREAK
+           ============================================================ */
+        .streak-notification {
+            display: none;
+            background: var(--gold);
+            color: var(--black);
+            padding: 10px 16px;
+            border-radius: var(--radius);
+            font-weight: 700;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 10px;
+            animation: pop 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            direction: rtl;
+        }
+
+        .streak-notification.show {
+            display: block;
+        }
+
+        .streak-notification .stars {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .streak-notification .star {
+            position: absolute;
+            font-size: 16px;
+            animation: starFall 2s linear forwards;
+        }
+
+        /* ============================================================
+           SPEAK UP
+           ============================================================ */
+        .speak-container {
+            text-align: center;
+            padding: 12px 0;
+        }
+
+        .speak-container .big-btn {
+            background: var(--gold);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .speak-container .big-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .speak-container .speak-result {
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 10px;
+            font-size: 15px;
+            direction: rtl;
+            min-height: 40px;
+            border-right: 3px solid var(--gold);
+        }
+
+        [data-theme="dark"] .speak-container .speak-result {
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* ============================================================
+           POWER RECAP
+           ============================================================ */
+        .mindmap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .mindmap .center {
+            background: var(--gold);
+            color: var(--black);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 17px;
+            margin-bottom: 12px;
+            font-family: 'Poppins', sans-serif;
+            direction: ltr;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .mindmap .center:hover {
+            transform: scale(1.05);
+        }
+
+        .mindmap .branches {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 12px;
+        }
+
+        .mindmap .branch {
+            background: var(--card-bg);
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
+            direction: ltr;
+            cursor: pointer;
+        }
+
+        .mindmap .branch:hover {
+            transform: scale(1.05);
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .mindmap .branch-example {
+            margin-top: 8px;
+            padding: 8px 14px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 10px;
+            font-size: 13px;
+            direction: rtl;
+            text-align: center;
+            min-height: 25px;
+            border-right: 3px solid var(--gold);
+            width: 100%;
+        }
+
+        [data-theme="dark"] .mindmap .branch-example {
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* ============================================================
+           VIDEO
+           ============================================================ */
+        .video-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #FF0000;
+            color: #fff;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+
+        .video-btn:hover {
+            background: #cc0000;
+            transform: scale(1.02);
+        }
+
+        /* ============================================================
+           HOMEWORK
+           ============================================================ */
+        .homework-area textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px 14px;
+            border: 2px solid rgba(0,0,0,0.06);
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            background: var(--bg);
+            resize: vertical;
+            transition: 0.2s;
+            direction: ltr;
+        }
+
+        [data-theme="dark"] .homework-area textarea {
+            border-color: rgba(255,255,255,0.06);
+            background: var(--card-bg);
+        }
+
+        .homework-area textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .homework-area .save-btn {
+            background: var(--gold);
+            border: none;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 6px;
+        }
+
+        .homework-area .save-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .homework-area .save-status {
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--green);
+            direction: rtl;
+        }
+
+        /* ============================================================
+           NAVIGATION
+           ============================================================ */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .nav-buttons button {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+
+        .nav-buttons .prev {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .nav-buttons .prev:hover {
+            background: #e6b800;
+            transform: scale(1.02);
+        }
+
+        .nav-buttons .next {
+            background: var(--gold);
+            color: var(--black);
+            display: none;
+        }
+
+        .nav-buttons .next.show {
+            display: inline-block;
+        }
+
+        .nav-buttons .next:hover {
+            background: #e6b800;
+            transform: scale(1.02);
+        }
+
+        /* ============================================================
+           ANIMATIONS
+           ============================================================ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @keyframes starFall {
+            0% { transform: translateY(-15px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(150px) rotate(360deg); opacity: 0; }
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .vocab-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grammar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .warning-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .unit-header h1 {
+                font-size: 20px;
+            }
+
+            .section-box {
+                padding: 12px 12px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .nav-buttons button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .discovery-tabs {
+                flex-direction: column;
+            }
+
+            .discovery-tab {
+                text-align: center;
+            }
+
+            .quiz-options {
+                flex-direction: column;
+            }
+
+            .quiz-options button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .vocab-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+
+            .flip-card {
+                height: 85px;
+            }
+
+            .flip-card-front .emoji {
+                font-size: 18px;
+            }
+
+            .flip-card-front .word {
+                font-size: 11px;
+            }
+        }
+
+        /* ============================================================
+           HIDDEN AUDIO
+           ============================================================ */
+        #audio-player {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    LOCK CHECK
+    ============================================================ -->
+    <script>
+        (function() {
+            const maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
+            if (maxUnlocked < 7) {
+                alert('🔒 الوحدة 7 مقفلة! أكمل الوحدات السابقة أولاً.');
+                window.location.href = 'index.html';
+            }
+        })();
+    </script>
+
+    <!-- ============================================================
+    HEADER
+    ============================================================ -->
+    <header class="header">
+        <div class="brand">Babble <span>Box</span></div>
+        <div class="unit-title">Unit 7: What Are You Wearing?</div>
+        <div class="top-actions">
+            <a href="index.html" class="back-btn">🏠 الرئيسية</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    DAILY PROGRESS
+    ============================================================ -->
+    <div class="daily-progress">
+        <span class="label">⭐ التقدم اليومي</span>
+        <div class="bar-wrap">
+            <div class="bar-fill" id="dailyProgressFill"></div>
+        </div>
+        <span class="count" id="dailyProgressCount">0/7</span>
+    </div>
+
+    <!-- ============================================================
+    LESSON CONTENT
+    ============================================================ -->
+    <div class="lesson-content">
+
+        <!-- ===== UNIT HEADER ===== -->
+        <div class="unit-header">
+            <div class="badge">📖 الوحدة السابعة</div>
+            <h1>What Are You Wearing?</h1>
+            <p>تعلم كيف تصف الملابس وتتحدث عما ترتديه الآن بالإنجليزية.</p>
+        </div>
+
+        <!-- ==========================================================
+        SECTION 1: THE REAL TALK
+        ========================================================== -->
+        <section class="section-box" id="conversation">
+            <div class="section-title">🗣️ The Real Talk</div>
+
+            <div class="convo-container">
+                <!-- Sarah 1 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Check out this dress! What do you think?
+                            <button class="audio-btn" data-text="Check out this dress! What do you think?" data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">شوف الفستان ده! إيه رأيك؟</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- John 1 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Honestly? It's a bit much.
+                            <button class="audio-btn" data-text="Honestly? It's a bit much." data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">بصراحة؟ هو كتير شوية.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- Sarah 2 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            You're no fun. Okay, what about these jeans?
+                            <button class="audio-btn" data-text="You're no fun. Okay, what about these jeans?" data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">إنت مش مضحك. طيب، إيه رأيك في الجينز ده؟</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- John 2 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Those are cool. They'd look great with that jacket.
+                            <button class="audio-btn" data-text="Those are cool. They'd look great with that jacket." data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">ده جامد. هيبقى شكله حلو مع الجاكيت ده.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- Sarah 3 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Alright, I'm sold. Let me just try them on first.
+                            <button class="audio-btn" data-text="Alright, I'm sold. Let me just try them on first." data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">خلاص، اقتنعت. خليني أجربهم الأول.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- John 3 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Take your time. I'll be here.
+                            <button class="audio-btn" data-text="Take your time. I'll be here." data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">خدي وقتك. أنا هنا.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- Sarah 4 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Oh, and I need new shoes too. These ones are falling apart.
+                            <button class="audio-btn" data-text="Oh, and I need new shoes too. These ones are falling apart." data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">آه، ومحتاجة جزمة جديدة كمان. دول بيتهالوا.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- John 4 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Get the black ones. They go with everything.
+                            <button class="audio-btn" data-text="Get the black ones. They go with everything." data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">جيبي السود. دول يلبسوا مع أي حاجة.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 2: DISCOVER THE RULE
+        ========================================================== -->
+        <section class="section-box" id="discover">
+            <div class="section-title">🔍 Discover the Rule</div>
+
+            <div class="discovery-question">
+                ❓ لاحظ الفرق بين الجمل دي:
+            </div>
+
+            <div class="discovery-tabs" id="discoveryTabs">
+                <button class="discovery-tab active" data-tab="disc1">She's wearing a dress</button>
+                <button class="discovery-tab" data-tab="disc2">They're wearing jeans</button>
+                <button class="discovery-tab" data-tab="disc3">I'm not wearing a jacket</button>
+            </div>
+
+            <div class="discovery-content active" id="disc1">
+                <strong>🔹 Present Continuous</strong> — لما أتكلم عن حاجة بتحصل دلوقتي<br>
+                ✅ <span class="en-highlight">"She's wearing a dress"</span> = هي لابسة فستان دلوقتي.
+            </div>
+            <div class="discovery-content" id="disc2">
+                <strong>🔹 They're wearing</strong> — لما أتكلم عن أكتر من شخص دلوقتي<br>
+                ✅ <span class="en-highlight">"They're wearing jeans"</span> = هما لابسين جينز دلوقتي.
+            </div>
+            <div class="discovery-content" id="disc3">
+                <strong>🔹 I'm not wearing</strong> — لما أنفي إن حاجة بتحصل دلوقتي<br>
+                ✅ <span class="en-highlight">"I'm not wearing a jacket"</span> = أنا مش لابس جاكيت دلوقتي.
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 3: GRAMMAR LAB
+        ========================================================== -->
+        <section class="section-box" id="grammar">
+            <div class="section-title">🧠 Grammar Lab – Present Continuous</div>
+
+            <div class="grammar-grid">
+                <div class="grammar-card green">
+                    <div class="title">➕ Positive</div>
+                    <div class="examples">
+                        I <strong>am wearing</strong><br>
+                        He/She/It <strong>is wearing</strong><br>
+                        You/We/They <strong>are wearing</strong>
+                    </div>
+                </div>
+                <div class="grammar-card red">
+                    <div class="title">➖ Negative</div>
+                    <div class="examples">
+                        I <strong>'m not</strong> wearing<br>
+                        He <strong>isn't</strong> wearing<br>
+                        They <strong>aren't</strong> wearing
+                    </div>
+                </div>
+                <div class="grammar-card blue">
+                    <div class="title">❓ Question</div>
+                    <div class="examples">
+                        <strong>Am I</strong> wearing?<br>
+                        <strong>Is he</strong> wearing?<br>
+                        <strong>Are you</strong> wearing?
+                    </div>
+                </div>
+                <div class="grammar-card gold">
+                    <div class="title">🌟 Time Words</div>
+                    <div class="examples">
+                        <strong>now</strong> (الآن)<br>
+                        <strong>right now</strong> (دلوقتي)<br>
+                        <strong>at the moment</strong> (في اللحظة دي)<br>
+                        <strong>today</strong> (النهاردة)<br>
+                        <span style="font-size:10px;opacity:0.7;">wear → wearing / write → writing / run → running</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 4: WORD VAULT
+        ========================================================== -->
+        <section class="section-box" id="vocabulary">
+            <div class="section-title">💎 Word Vault</div>
+
+            <div class="vocab-grid" id="vocabGrid">
+                <div class="flip-card" data-word="Shirt">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">👔</span>
+                            <span class="word">Shirt</span>
+                            <button class="audio-btn-small" data-word="Shirt">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">قميص</span></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-word="Pants">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">👖</span>
+                            <span class="word">Pants</span>
+                            <button class="audio-btn-small" data-word="Pants">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">بنطلون</span></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-word="Shoes">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">👟</span>
+                            <span class="word">Shoes</span>
+                            <button class="audio-btn-small" data-word="Shoes">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">حذاء</span></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-word="Dress">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">👗</span>
+                            <span class="word">Dress</span>
+                            <button class="audio-btn-small" data-word="Dress">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">فستان</span></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-word="Hat">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">🧢</span>
+                            <span class="word">Hat</span>
+                            <button class="audio-btn-small" data-word="Hat">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">قبعة</span></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-word="Jacket">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">🧥</span>
+                            <span class="word">Jacket</span>
+                            <button class="audio-btn-small" data-word="Jacket">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">جاكيت</span></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-word="Socks">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">🧦</span>
+                            <span class="word">Socks</span>
+                            <button class="audio-btn-small" data-word="Socks">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">شراب</span></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-word="Coat">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <span class="emoji">🧥</span>
+                            <span class="word">Coat</span>
+                            <button class="audio-btn-small" data-word="Coat">🔊</button>
+                        </div>
+                        <div class="flip-card-back"><span class="meaning">معطف</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 5: BABBLE WARNING
+        ========================================================== -->
+        <section class="section-box" id="warning">
+            <div class="section-title">🚨 Babble Warning – الكلمة الخائنة</div>
+
+            <div style="text-align:center;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:8px;direction:ltr;">Try</div>
+
+            <div class="warning-grid">
+                <div class="warning-card safe">
+                    <div class="label">✅ يجرب (لبس)</div>
+                    <div class="example">"Let me try on this shirt."</div>
+                    <div class="meaning">خليني أجرب القميص ده.</div>
+                </div>
+                <div class="warning-card noun">
+                    <div class="label">📌 يحاول</div>
+                    <div class="example">"I try to study every day."</div>
+                    <div class="meaning">بحاول أذاكر كل يوم.</div>
+                </div>
+            </div>
+
+            <div class="warning-joke">
+                😂 يعني لو قلت "I'm trying on the shirt" أنت بتجربه. لكن لو قلت "I'm trying to study" أنت بتحاول تذاكر!
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 6: CHALLENGE ARENA (7 Questions)
+        ========================================================== -->
+        <section class="section-box" id="challenge">
+            <div class="section-title">⚔️ Challenge Arena</div>
+
+            <div class="quiz-progress-bar">
+                <span class="label">📊 السؤال</span>
+                <div class="bar-wrap">
+                    <div class="bar-fill" id="quizProgressFill"></div>
+                </div>
+                <span class="count" id="quizProgressCount">0/7</span>
+            </div>
+
+            <div id="quizContainer">
+                <!-- Q1: Choice -->
+                <div class="quiz-card" data-question="1" data-type="choice">
+                    <div class="q-text">1. She ____ wearing a nice dress.</div>
+                    <div class="quiz-options">
+                        <button data-answer="is">is</button>
+                        <button data-answer="am">am</button>
+                        <button data-answer="are">are</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <!-- Q2: Choice -->
+                <div class="quiz-card" data-question="2" data-type="choice">
+                    <div class="q-text">2. They ____ wearing uniforms today.</div>
+                    <div class="quiz-options">
+                        <button data-answer="isn't">isn't</button>
+                        <button data-answer="aren't">aren't</button>
+                        <button data-answer="am not">am not</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <!-- Q3: Drag & Drop -->
+                <div class="quiz-card" data-question="3" data-type="drag">
+                    <div class="q-text">
+                        3. رتب الكلمات لتكوين سؤال:
+                        <button class="help-btn" data-tooltip="اضغط مطولاً على الكلمة واسحبها للمكان الصحيح.">❓</button>
+                        <span class="help-tooltip">اضغط مطولاً على الكلمة واسحبها للمكان الصحيح.</span>
+                    </div>
+                    <div class="drag-options" id="dragContainer3">
+                        <span class="drag-word" draggable="true" data-word="are">are</span>
+                        <span class="drag-word" draggable="true" data-word="What">What</span>
+                        <span class="drag-word" draggable="true" data-word="wearing">wearing</span>
+                        <span class="drag-word" draggable="true" data-word="you">you</span>
+                    </div>
+                    <div class="drop-zone" id="dropZone3"></div>
+                    <div class="quiz-feedback" id="dragFeedback3"></div>
+                </div>
+
+                <!-- Q4: Drag & Drop -->
+                <div class="quiz-card" data-question="4" data-type="drag">
+                    <div class="q-text">
+                        4. رتب الكلمات لتكوين جملة:
+                        <button class="help-btn" data-tooltip="اضغط مطولاً على الكلمة واسحبها للمكان الصحيح.">❓</button>
+                        <span class="help-tooltip">اضغط مطولاً على الكلمة واسحبها للمكان الصحيح.</span>
+                    </div>
+                    <div class="drag-options" id="dragContainer4">
+                        <span class="drag-word" draggable="true" data-word="isn't">isn't</span>
+                        <span class="drag-word" draggable="true" data-word="He">He</span>
+                        <span class="drag-word" draggable="true" data-word="a">a</span>
+                        <span class="drag-word" draggable="true" data-word="coat">coat</span>
+                        <span class="drag-word" draggable="true" data-word="wearing">wearing</span>
+                    </div>
+                    <div class="drop-zone" id="dropZone4"></div>
+                    <div class="quiz-feedback" id="dragFeedback4"></div>
+                </div>
+
+                <!-- Q5: Listening -->
+                <div class="quiz-card" data-question="5" data-type="listening">
+                    <div class="q-text">5. 🔊 استمع للجملة واختر الترجمة الصحيحة:</div>
+                    <button class="listen-btn" id="listenQ5">🔊 استمع</button>
+                    <div class="quiz-options" style="margin-top:6px;">
+                        <button data-answer="a">أنا لابس قميص</button>
+                        <button data-answer="b">هي لابسة فستان</button>
+                        <button data-answer="c">هم لابسين جينز</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <!-- Q6: Choice -->
+                <div class="quiz-card" data-question="6" data-type="choice">
+                    <div class="q-text">6. ما هو الصحيح؟</div>
+                    <div class="quiz-options">
+                        <button data-answer="I am wear a jacket">I am wear a jacket</button>
+                        <button data-answer="I am wearing a jacket">I am wearing a jacket</button>
+                        <button data-answer="I wearing a jacket">I wearing a jacket</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <!-- Q7: Choice -->
+                <div class="quiz-card" data-question="7" data-type="choice">
+                    <div class="q-text">7. ____ he wearing a hat?</div>
+                    <div class="quiz-options">
+                        <button data-answer="Is">Is</button>
+                        <button data-answer="Are">Are</button>
+                        <button data-answer="Am">Am</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+
+            <!-- Retry Button -->
+            <button class="retry-btn" id="retryBtn">🔄 حاول مرة أخرى</button>
+
+            <!-- Streak -->
+            <div class="streak-notification" id="streakNotification">
+                🎉 +70 XP! لقد أتقنت وصف الملابس!
+                <div class="stars" id="starsContainer"></div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 7: SPEAK UP!
+        ========================================================== -->
+        <section class="section-box" id="speak">
+            <div class="section-title">🎤 Speak Up!</div>
+
+            <div class="speak-container">
+                <button class="big-btn" id="speakBtn">🎤 اضغط وتحدث!</button>
+                <div style="margin-top:6px;font-size:13px;color:#888;direction:rtl;">
+                    What are you wearing right now? Describe your outfit!
+                </div>
+                <div class="speak-result" id="speakResult">
+                    ⏳ اضغط الزر وابدأ التحدث...
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 8: POWER RECAP
+        ========================================================== -->
+        <section class="section-box" id="recap">
+            <div class="section-title">⚡ Power Recap</div>
+
+            <div class="mindmap">
+                <div class="center" id="mindCenter">Present Continuous</div>
+                <div class="branches">
+                    <span class="branch" data-example="I am wearing a shirt. (أنا لابس قميص)">am/is/are + verb-ing</span>
+                    <span class="branch" data-example="I'm wearing jeans. (أنا لابس جينز)">I'm wearing</span>
+                    <span class="branch" data-example="He isn't wearing a coat. (هو مش لابس معطف)">He isn't wearing</span>
+                    <span class="branch" data-example="Are you wearing a hat? (هل أنت لابس قبعة؟)">Are you wearing?</span>
+                </div>
+                <div class="branch-example" id="branchExample">👆 اضغط على أي فرع لترى مثالاً</div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 9: VIDEO ZONE
+        ========================================================== -->
+        <section class="section-box" id="video">
+            <div class="section-title">🎥 Video Zone</div>
+
+            <button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 10: HOMEWORK
+        ========================================================== -->
+        <section class="section-box" id="homework">
+            <div class="section-title">✍️ Homework</div>
+
+            <div class="homework-area">
+                <p style="direction:rtl;margin-bottom:6px;color:#888;font-size:13px;">
+                    ✏️ اكتب <strong>5 جمل</strong> تصف فيها ما ترتديه الآن وما يرتديه أفراد عائلتك. استخدم <strong>am wearing, is wearing, are wearing</strong>.
+                </p>
+                <textarea id="homeworkText" placeholder="اكتب جملك هنا..." spellcheck="true"></textarea>
+                <button class="save-btn" id="saveHomework">💾 حفظ الواجب</button>
+                <div class="save-status" id="saveStatus"></div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        NAVIGATION
+        ========================================================== -->
+        <div class="nav-buttons">
+            <button class="prev" id="prevBtn">← السابق</button>
+            <button class="next" id="nextBtn">التالي →</button>
+        </div>
+
+    </div><!-- /.lesson-content -->
+
+    <!-- ============================================================
+    HIDDEN AUDIO
+    ============================================================ -->
+    <audio id="audio-player" style="display:none;">
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 1. DARK MODE
+        // ============================================================
+        const themeToggle = document.getElementById('themeToggle');
+        let currentTheme = localStorage.getItem('babbleTheme') || 'light';
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('babbleTheme', theme);
+            currentTheme = theme;
+        }
+
+        setTheme(currentTheme);
+        themeToggle.addEventListener('click', function() {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // ============================================================
+        // 2. TRANSLATION TOGGLE
+        // ============================================================
+        document.querySelectorAll('.translation-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const target = this.dataset.target;
+                const arElement = this.closest('.bubble-content').querySelector('.' + target);
+                if (arElement) {
+                    arElement.classList.toggle('show');
+                    this.textContent = arElement.classList.contains('show') ? '🇪🇬 Hide Translation' :
+                        '🇪🇬 Show Translation';
+                }
+            });
+        });
+
+        // ============================================================
+        // 3. DISCOVERY TABS
+        // ============================================================
+        const discoveryTabs = document.querySelectorAll('.discovery-tab');
+        const discoveryContents = {
+            disc1: document.getElementById('disc1'),
+            disc2: document.getElementById('disc2'),
+            disc3: document.getElementById('disc3')
+        };
+
+        discoveryTabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                discoveryTabs.forEach(t => t.classList.remove('active'));
+                Object.values(discoveryContents).forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                const target = this.dataset.tab;
+                if (discoveryContents[target]) {
+                    discoveryContents[target].classList.add('active');
+                }
+            });
+        });
+
+        // ============================================================
+        // 4. FLIP CARDS
+        // ============================================================
+        document.querySelectorAll('.flip-card').forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('.audio-btn-small')) return;
+                this.classList.toggle('flipped');
+            });
+        });
+
+        // ============================================================
+        // 5. SPEECH SYNTHESIS
+        // ============================================================
+        let maleVoice = null;
+        let femaleVoice = null;
+
+        function getVoices() {
+            const voices = window.speechSynthesis.getVoices();
+            maleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices.find(v => v
+                .lang.startsWith('en')) || null;
+            femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google') && v.name.includes(
+                'Female')) || maleVoice || null;
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = getVoices;
+            setTimeout(getVoices, 300);
+        }
+
+        function speakText(text, voiceType = 'male', rate = 0.85) {
+            if (!('speechSynthesis' in window)) {
+                alert('⚠️ متصفحك لا يدعم خاصية النطق.');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = rate;
+            utterance.pitch = voiceType === 'male' ? 0.9 : 1.2;
+            utterance.volume = 1;
+
+            if (voiceType === 'male' && maleVoice) utterance.voice = maleVoice;
+            else if (voiceType === 'female' && femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Conversation audio
+        document.querySelectorAll('.audio-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const text = this.dataset.text;
+                const voice = this.dataset.voice || 'male';
+                if (text) speakText(text, voice, 0.85);
+            });
+        });
+
+        // Vocabulary audio
+        document.querySelectorAll('.audio-btn-small').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const word = this.dataset.word;
+                if (word) speakText(word, 'female', 0.75);
+            });
+        });
+
+        // ============================================================
+        // 6. QUIZ LOGIC (7 Questions)
+        // ============================================================
+        const correctAnswers = {
+            '1': 'is',
+            '2': "aren't",
+            '3': "What are you wearing",
+            '4': "He isn't wearing a coat",
+            '5': 'b',
+            '6': "I am wearing a jacket",
+            '7': 'Is'
+        };
+
+        let quizCompleted = 0;
+        const totalQuestions = 7;
+        let streakShown = false;
+        let quizLocked = false;
+
+        const quizProgressFill = document.getElementById('quizProgressFill');
+        const quizProgressCount = document.getElementById('quizProgressCount');
+
+        let dailyCompleted = parseInt(localStorage.getItem('babbleDaily')) || 0;
+        const dailyProgressFill = document.getElementById('dailyProgressFill');
+        const dailyProgressCount = document.getElementById('dailyProgressCount');
+
+        function updateDailyProgress() {
+            const pct = (dailyCompleted / 7) * 100;
+            dailyProgressFill.style.width = pct + '%';
+            dailyProgressCount.textContent = dailyCompleted + '/7';
+            localStorage.setItem('babbleDaily', dailyCompleted);
+        }
+        updateDailyProgress();
+
+        function updateQuizProgress() {
+            const pct = (quizCompleted / totalQuestions) * 100;
+            quizProgressFill.style.width = pct + '%';
+            quizProgressCount.textContent = quizCompleted + '/' + totalQuestions;
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (quizCompleted === totalQuestions) {
+                nextBtn.classList.add('show');
+                nextBtn.style.display = 'inline-block';
+                let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
+                if (maxUnlocked < 8) {
+                    maxUnlocked = 8;
+                    localStorage.setItem('babbleMaxUnit', maxUnlocked);
+                    localStorage.setItem('babbleUnit7Complete', 'true');
+                }
+            } else {
+                nextBtn.classList.remove('show');
+                nextBtn.style.display = 'none';
+            }
+
+            if (quizCompleted === totalQuestions && !streakShown && !quizLocked) {
+                showStreak();
+                streakShown = true;
+                quizLocked = true;
+                dailyCompleted = Math.min(dailyCompleted + 1, 7);
+                updateDailyProgress();
+
+                setTimeout(function() {
+                    alert('🎉 وحدة 8 أصبحت مفتوحة! ارجع للصفحة الرئيسية.');
+                }, 1500);
+            }
+        }
+
+        function showStreak() {
+            const notification = document.getElementById('streakNotification');
+            notification.classList.add('show');
+
+            const container = document.getElementById('starsContainer');
+            container.innerHTML = '';
+            const emojis = ['⭐', '🌟', '✨', '🎉', '💫'];
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('span');
+                star.className = 'star';
+                star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                star.style.left = Math.random() * 90 + '%';
+                star.style.animationDelay = (Math.random() * 1.5) + 's';
+                star.style.fontSize = (14 + Math.random() * 22) + 'px';
+                container.appendChild(star);
+            }
+            speakText('Congratulations! You mastered describing clothes!', 'female', 0.9);
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // ============================================================
+        // 7. RETRY SYSTEM
+        // ============================================================
+        const retryBtn = document.getElementById('retryBtn');
+
+        function resetQuiz() {
+            quizCompleted = 0;
+            streakShown = false;
+            quizLocked = false;
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('nextBtn').classList.remove('show');
+            quizProgressFill.style.width = '0%';
+            quizProgressCount.textContent = '0/' + totalQuestions;
+
+            document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(function(card) {
+                const buttons = card.querySelectorAll('.quiz-options button');
+                const feedback = card.querySelector('.quiz-feedback');
+                buttons.forEach(b => {
+                    b.disabled = false;
+                    b.className = '';
+                });
+                feedback.innerHTML = '';
+            });
+
+            resetDragDrop('3');
+            resetDragDrop('4');
+
+            const listenCard = document.querySelector('.quiz-card[data-question="5"]');
+            if (listenCard) {
+                const buttons = listenCard.querySelectorAll('.quiz-options button');
+                const feedback = listenCard.querySelector('.quiz-feedback');
+                buttons.forEach(b => {
+                    b.disabled = false;
+                    b.className = '';
+                });
+                feedback.innerHTML = '';
+                window.listenQ5Answered = false;
+            }
+
+            retryBtn.classList.remove('show');
+        }
+
+        function resetDragDrop(qNum) {
+            const container = document.getElementById('dragContainer' + qNum);
+            const dropZone = document.getElementById('dropZone' + qNum);
+            const feedback = document.getElementById('dragFeedback' + qNum);
+            if (container && dropZone) {
+                const placed = dropZone.querySelectorAll('.word-placed');
+                placed.forEach(function(p) {
+                    const word = p.textContent;
+                    const original = container.querySelector('.drag-word[data-word="' + word + '"]');
+                    if (!original) {
+                        const span = document.createElement('span');
+                        span.className = 'drag-word';
+                        span.draggable = true;
+                        span.dataset.word = word;
+                        span.textContent = word;
+                        container.appendChild(span);
+                        addDragListeners(span);
+                    }
+                    p.remove();
+                });
+                if (feedback) feedback.innerHTML = '';
+                window['dragQ' + qNum + 'Completed'] = false;
+            }
+        }
+
+        // ============================================================
+        // 8. DRAG & DROP (مع Touch support)
+        // ============================================================
+        let touchClone = null;
+        let touchWord = '';
+        let touchElement = null;
+
+        function addDragListeners(element) {
+            // Mouse events
+            element.addEventListener('dragstart', function(e) {
+                e.dataTransfer.setData('text/plain', this.dataset.word);
+                this.classList.add('dragging');
+            });
+            element.addEventListener('dragend', function(e) {
+                this.classList.remove('dragging');
+                if (touchClone) {
+                    touchClone.remove();
+                    touchClone = null;
+                }
+            });
+
+            // Touch events
+            element.addEventListener('touchstart', function(e) {
+                const touch = e.touches[0];
+                touchWord = this.dataset.word;
+                touchElement = this;
+
+                touchClone = this.cloneNode(true);
+                touchClone.style.position = 'fixed';
+                touchClone.style.pointerEvents = 'none';
+                touchClone.style.opacity = '0.7';
+                touchClone.style.zIndex = '9999';
+                touchClone.style.transform = 'scale(1.1)';
+                touchClone.style.width = this.offsetWidth + 'px';
+                touchClone.style.left = (touch.clientX - this.offsetWidth / 2) + 'px';
+                touchClone.style.top = (touch.clientY - this.offsetHeight / 2) + 'px';
+                document.body.appendChild(touchClone);
+                this.classList.add('dragging');
+            }, { passive: true });
+
+            element.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                if (touchClone) {
+                    const touch = e.touches[0];
+                    touchClone.style.left = (touch.clientX - this.offsetWidth / 2) + 'px';
+                    touchClone.style.top = (touch.clientY - this.offsetHeight / 2) + 'px';
+                }
+            }, { passive: false });
+
+            element.addEventListener('touchcancel', function(e) {
+                if (touchClone) {
+                    touchClone.remove();
+                    touchClone = null;
+                }
+                this.classList.remove('dragging');
+                touchWord = '';
+                touchElement = null;
+            }, { passive: true });
+
+            element.addEventListener('touchend', function(e) {
+                if (touchClone) {
+                    touchClone.remove();
+                    touchClone = null;
+                }
+                this.classList.remove('dragging');
+
+                const touch = e.changedTouches[0];
+                const dropZones = document.querySelectorAll('.drop-zone');
+                let targetDrop = null;
+                dropZones.forEach(function(dz) {
+                    const rect = dz.getBoundingClientRect();
+                    if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                        touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                        targetDrop = dz;
+                    }
+                });
+
+                if (targetDrop && touchWord) {
+                    const qNum = targetDrop.id.replace('dropZone', '');
+                    handleDrop(targetDrop, touchWord, qNum);
+                }
+                touchWord = '';
+                touchElement = null;
+            }, { passive: true });
+        }
+
+        function handleDrop(dropZone, word, qNum) {
+            if (window['dragQ' + qNum + 'Completed']) return;
+
+            const container = document.getElementById('dragContainer' + qNum);
+            const wordElement = container.querySelector('.drag-word[data-word="' + word + '"]');
+
+            if (wordElement) {
+                wordElement.remove();
+                const span = document.createElement('span');
+                span.className = 'word-placed';
+                span.textContent = word;
+                dropZone.appendChild(span);
+
+                const placed = dropZone.querySelectorAll('.word-placed');
+                const total = placed.length;
+                const totalWords = container.querySelectorAll('.drag-word').length + total;
+
+                if (total === totalWords) {
+                    const text = Array.from(placed).map(el => el.textContent).join(' ');
+                    const isCorrect = (text === correctAnswers[qNum]);
+                    const feedback = document.getElementById('dragFeedback' + qNum);
+
+                    if (isCorrect) {
+                        feedback.innerHTML = '<span class="correct-text">✅ صح!</span>';
+                        window['dragQ' + qNum + 'Completed'] = true;
+                        quizCompleted++;
+                        updateQuizProgress();
+                        speakText('Correct! Well done.', 'female', 0.9);
+                    } else {
+                        feedback.innerHTML = '<span class="wrong-text">❌ خطأ! الترتيب غلط.</span>';
+                        showRetry();
+                        setTimeout(function() {
+                            resetDragDrop(qNum);
+                            document.querySelectorAll('#dragContainer' + qNum + ' .drag-word').forEach(function(
+                            w) {
+                                addDragListeners(w);
+                            });
+                        }, 1500);
+                    }
+                }
+            }
+        }
+
+        // Initialize drag & drop
+        document.querySelectorAll('.drag-options .drag-word').forEach(function(w) {
+            addDragListeners(w);
+        });
+
+        // Drop zone events for mouse
+        document.querySelectorAll('.drop-zone').forEach(function(dz) {
+            dz.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+
+            dz.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const word = e.dataTransfer.getData('text/plain');
+                const qNum = this.id.replace('dropZone', '');
+                handleDrop(this, word, qNum);
+            });
+        });
+
+        // ============================================================
+        // 9. HELP TOOLTIP
+        // ============================================================
+        document.querySelectorAll('.help-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const tooltip = this.nextElementSibling;
+                if (tooltip && tooltip.classList.contains('help-tooltip')) {
+                    tooltip.classList.toggle('show');
+                    setTimeout(function() {
+                        tooltip.classList.remove('show');
+                    }, 3000);
+                }
+            });
+        });
+
+        // ============================================================
+        // 10. LISTENING (Q5)
+        // ============================================================
+        let listenQ5Answered = false;
+        window.listenQ5Answered = false;
+
+        document.getElementById('listenQ5').addEventListener('click', function() {
+            speakText('She is wearing a beautiful dress.', 'female', 0.8);
+        });
+
+        document.querySelectorAll('.quiz-card[data-question="5"] .quiz-options button').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                if (window.listenQ5Answered || quizLocked) return;
+                const qNum = '5';
+                const buttons = this.closest('.quiz-options').querySelectorAll('button');
+                buttons.forEach(b => b.disabled = true);
+
+                const selected = this.dataset.answer;
+                const isCorrect = (selected === correctAnswers[qNum]);
+
+                if (isCorrect) {
+                    this.classList.add('correct');
+                    this.closest('.quiz-card').querySelector('.quiz-feedback').innerHTML =
+                        '<span class="correct-text">✅ صح!</span>';
+                    window.listenQ5Answered = true;
+                    quizCompleted++;
+                    updateQuizProgress();
+                    speakText('Correct! Well done.', 'female', 0.9);
+                } else {
+                    this.classList.add('wrong');
+                    this.closest('.quiz-card').querySelector('.quiz-feedback').innerHTML =
+                        '<span class="wrong-text">❌ خطأ!</span>';
+                    buttons.forEach(b => {
+                        if (b.dataset.answer === correctAnswers[qNum]) {
+                            b.classList.add('correct');
+                        }
+                    });
+                    showRetry();
+                    speakText('Incorrect. Try again.', 'male', 0.85);
+                }
+            });
+        });
+
+        // ============================================================
+        // 11. RETRY BUTTON
+        // ============================================================
+        function showRetry() {
+            retryBtn.classList.add('show');
+        }
+
+        retryBtn.addEventListener('click', function() {
+            resetQuiz();
+            document.querySelectorAll('.drag-options .drag-word').forEach(function(w) {
+                addDragListeners(w);
+            });
+            retryBtn.classList.remove('show');
+            speakText('Quiz reset. Try again!', 'male', 0.85);
+        });
+
+        // ============================================================
+        // 12. CHOICE QUESTIONS
+        // ============================================================
+        document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(function(card) {
+            const qNum = card.dataset.question;
+            const buttons = card.querySelectorAll('.quiz-options button');
+            const feedback = card.querySelector('.quiz-feedback');
+
+            buttons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    if (quizLocked) return;
+                    buttons.forEach(b => b.disabled = true);
+
+                    const selected = this.dataset.answer;
+                    const isCorrect = (selected === correctAnswers[qNum]);
+
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        feedback.innerHTML = '<span class="correct-text">✅ صح!</span>';
+                        quizCompleted++;
+                        updateQuizProgress();
+                        speakText('Correct! Well done.', 'female', 0.9);
+                    } else {
+                        this.classList.add('wrong');
+                        feedback.innerHTML = '<span class="wrong-text">❌ خطأ!</span>';
+                        buttons.forEach(b => {
+                            if (b.dataset.answer === correctAnswers[qNum]) {
+                                b.classList.add('correct');
+                            }
+                        });
+                        showRetry();
+                        speakText('Incorrect. Try again.', 'male', 0.85);
+                    }
+                });
+            });
+        });
+
+        // ============================================================
+        // 13. SPEAK UP!
+        // ============================================================
+        const speakBtn = document.getElementById('speakBtn');
+        const speakResult = document.getElementById('speakResult');
+
+        speakBtn.addEventListener('click', function() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                speakResult.textContent = '❌ متصفحك لا يدعم التعرف على الصوت. استخدم Chrome.';
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            speakResult.textContent = '🎤 جاري الاستماع...';
+            speakBtn.textContent = '⏳ جاري الاستماع...';
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                speakResult.textContent = '🗣️ ' + transcript;
+                speakBtn.textContent = '🎤 اضغط وتحدث!';
+            };
+
+            recognition.onerror = function() {
+                speakResult.textContent = '❌ حدث خطأ. حاول مرة أخرى.';
+                speakBtn.textContent = '🎤 اضغط وتحدث!';
+            };
+
+            recognition.onend = function() {
+                speakBtn.textContent = '🎤 اضغط وتحدث!';
+            };
+
+            recognition.start();
+        });
+
+        // ============================================================
+        // 14. MIND MAP
+        // ============================================================
+        const branchExample = document.getElementById('branchExample');
+
+        document.querySelectorAll('.mindmap .branch').forEach(function(branch) {
+            branch.addEventListener('click', function() {
+                branchExample.textContent = '📌 ' + this.dataset.example;
+                branchExample.style.borderColor = 'var(--gold)';
+            });
+        });
+
+        document.getElementById('mindCenter').addEventListener('click', function() {
+            branchExample.textContent = '👆 اضغط على أي فرع لترى مثالاً';
+            branchExample.style.borderColor = 'var(--gold)';
+        });
+
+        // ============================================================
+        // 15. HOMEWORK
+        // ============================================================
+        const homeworkText = document.getElementById('homeworkText');
+        const saveHomework = document.getElementById('saveHomework');
+        const saveStatus = document.getElementById('saveStatus');
+
+        const savedHomework = localStorage.getItem('babbleHomework-unit7');
+        if (savedHomework) {
+            homeworkText.value = savedHomework;
+            saveStatus.textContent = '✅ تم استرجاع الواجب المحفوظ.';
+            saveStatus.style.color = 'var(--green)';
+        }
+
+        saveHomework.addEventListener('click', function() {
+            let text = homeworkText.value.trim();
+            text = text.replace(/\bim\b/gi, 'I\'m');
+            text = text.replace(/\bhes\b/gi, 'he\'s');
+            text = text.replace(/\bshes\b/gi, 'she\'s');
+            text = text.replace(/\btheres\b/gi, 'there\'s');
+            homeworkText.value = text;
+
+            if (text.length < 5) {
+                saveStatus.textContent = '⚠️ اكتب 5 جمل على الأقل.';
+                saveStatus.style.color = 'var(--red)';
+                return;
+            }
+            localStorage.setItem('babbleHomework-unit7', text);
+            saveStatus.textContent = '✅ تم حفظ الواجب بنجاح!';
+            saveStatus.style.color = 'var(--green)';
+            speakText('Homework saved successfully.', 'female', 0.9);
+        });
+
+        // ============================================================
+        // 16. VIDEO
+        // ============================================================
+        document.getElementById('videoBtn').addEventListener('click', function() {
+            window.open('https://youtube.com/@omar.youssif.english', '_blank');
+        });
+
+        // ============================================================
+        // 17. NAVIGATION
+        // ============================================================
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            window.location.href = 'unit6.html';
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            window.location.href = 'unit8.html';
+        });
+
+        // ============================================================
+        // 18. PRELOAD VOICES
+        // ============================================================
+        if ('speechSynthesis' in window) {
+            setTimeout(function() {
+                window.speechSynthesis.getVoices();
+                getVoices();
+            }, 500);
+        }
+
+        console.log('%c📘 Unit 7 Loaded!', 'font-size:16px;font-weight:bold;color:#FFC107;');
+        console.log('%c📌 Complete 7/7 to unlock Unit 8!', 'font-size:14px;color:#4CAF50;');
+    </script>
+
+</body>
+  </html>
