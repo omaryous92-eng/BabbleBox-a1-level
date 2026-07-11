@@ -853,6 +853,7 @@
             transition: 0.2s;
             user-select: none;
             -webkit-user-select: none;
+            -webkit-touch-callout: none;
             touch-action: none;
         }
 
@@ -861,7 +862,8 @@
         }
 
         .drag-word.dragging {
-            opacity: 0.5;
+            opacity: 0.4;
+            cursor: grabbing;
         }
 
         .drop-zone {
@@ -1829,7 +1831,7 @@
     </audio>
 
     <!-- ============================================================
-    JAVASCRIPT
+    JAVASCRIPT (معدل)
     ============================================================ -->
     <script>
         // ============================================================
@@ -1992,12 +1994,21 @@
             quizProgressFill.style.width = pct + '%';
             quizProgressCount.textContent = quizCompleted + '/' + totalQuestions;
 
-            // Show next button only when 7/7
+            // Show next button ONLY when 7/7
             const nextBtn = document.getElementById('nextBtn');
             if (quizCompleted === totalQuestions) {
                 nextBtn.classList.add('show');
+                nextBtn.style.display = 'inline-block';
+                // Unlock unit 5
+                let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
+                if (maxUnlocked < 5) {
+                    maxUnlocked = 5;
+                    localStorage.setItem('babbleMaxUnit', maxUnlocked);
+                    localStorage.setItem('babbleUnit4Complete', 'true');
+                }
             } else {
                 nextBtn.classList.remove('show');
+                nextBtn.style.display = 'none';
             }
 
             if (quizCompleted === totalQuestions && !streakShown && !quizLocked) {
@@ -2006,13 +2017,6 @@
                 quizLocked = true;
                 dailyCompleted = Math.min(dailyCompleted + 1, 7);
                 updateDailyProgress();
-
-                let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
-                if (maxUnlocked < 5) {
-                    maxUnlocked = 5;
-                    localStorage.setItem('babbleMaxUnit', maxUnlocked);
-                    localStorage.setItem('babbleUnit4Complete', 'true');
-                }
 
                 setTimeout(function() {
                     alert('🎉 وحدة 5 أصبحت مفتوحة! ارجع للصفحة الرئيسية.');
@@ -2042,16 +2046,19 @@
             }, 5000);
         }
 
-        // Retry System
+        // ============================================================
+        // 7. RETRY SYSTEM
+        // ============================================================
         const retryBtn = document.getElementById('retryBtn');
 
         function resetQuiz() {
             quizCompleted = 0;
             streakShown = false;
             quizLocked = false;
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('nextBtn').classList.remove('show');
             quizProgressFill.style.width = '0%';
             quizProgressCount.textContent = '0/' + totalQuestions;
-            document.getElementById('nextBtn').classList.remove('show');
 
             // Reset all choice questions
             document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(function(card) {
@@ -2089,7 +2096,6 @@
             const dropZone = document.getElementById('dropZone' + qNum);
             const feedback = document.getElementById('dragFeedback' + qNum);
             if (container && dropZone) {
-                // Move all words back to container
                 const placed = dropZone.querySelectorAll('.word-placed');
                 placed.forEach(function(p) {
                     const word = p.textContent;
@@ -2101,7 +2107,6 @@
                         span.dataset.word = word;
                         span.textContent = word;
                         container.appendChild(span);
-                        // Re-add event listeners
                         addDragListeners(span);
                     }
                     p.remove();
@@ -2112,8 +2117,12 @@
         }
 
         // ============================================================
-        // 7. DRAG & DROP (with Touch support)
+        // 8. DRAG & DROP (مع Touch support - معدلة)
         // ============================================================
+        let touchClone = null;
+        let touchWord = '';
+        let touchElement = null;
+
         function addDragListeners(element) {
             // Mouse events
             element.addEventListener('dragstart', function(e) {
@@ -2124,21 +2133,22 @@
                 this.classList.remove('dragging');
             });
 
-            // Touch events
-            let touchClone = null;
-            let touchWord = '';
-
+            // Touch events - معدلة عشان الكلمة متفضلش عائمة
             element.addEventListener('touchstart', function(e) {
                 const touch = e.touches[0];
                 touchWord = this.dataset.word;
+                touchElement = this;
+
+                // Clone for visual feedback
                 touchClone = this.cloneNode(true);
                 touchClone.style.position = 'fixed';
                 touchClone.style.pointerEvents = 'none';
                 touchClone.style.opacity = '0.7';
                 touchClone.style.zIndex = '999';
                 touchClone.style.transform = 'scale(1.1)';
-                touchClone.style.left = (touch.clientX - 30) + 'px';
-                touchClone.style.top = (touch.clientY - 20) + 'px';
+                touchClone.style.width = this.offsetWidth + 'px';
+                touchClone.style.left = (touch.clientX - this.offsetWidth / 2) + 'px';
+                touchClone.style.top = (touch.clientY - this.offsetHeight / 2) + 'px';
                 document.body.appendChild(touchClone);
                 this.classList.add('dragging');
             }, { passive: true });
@@ -2147,19 +2157,20 @@
                 e.preventDefault();
                 if (touchClone) {
                     const touch = e.touches[0];
-                    touchClone.style.left = (touch.clientX - 30) + 'px';
-                    touchClone.style.top = (touch.clientY - 20) + 'px';
+                    touchClone.style.left = (touch.clientX - this.offsetWidth / 2) + 'px';
+                    touchClone.style.top = (touch.clientY - this.offsetHeight / 2) + 'px';
                 }
             }, { passive: false });
 
             element.addEventListener('touchend', function(e) {
+                // Remove clone immediately
                 if (touchClone) {
                     touchClone.remove();
                     touchClone = null;
                 }
                 this.classList.remove('dragging');
 
-                // Find the drop zone under the touch
+                // Find drop zone under touch
                 const touch = e.changedTouches[0];
                 const dropZones = document.querySelectorAll('.drop-zone');
                 let targetDrop = null;
@@ -2171,17 +2182,21 @@
                     }
                 });
 
-                if (targetDrop) {
+                if (targetDrop && touchWord) {
                     const qNum = targetDrop.id.replace('dropZone', '');
                     handleDrop(targetDrop, touchWord, qNum);
                 }
+                touchWord = '';
+                touchElement = null;
             }, { passive: true });
         }
 
         function handleDrop(dropZone, word, qNum) {
             if (window['dragQ' + qNum + 'Completed']) return;
 
-            const wordElement = document.querySelector('#dragContainer' + qNum + ' .drag-word[data-word="' + word + '"]');
+            const container = document.getElementById('dragContainer' + qNum);
+            const wordElement = container.querySelector('.drag-word[data-word="' + word + '"]');
+
             if (wordElement) {
                 wordElement.remove();
                 const span = document.createElement('span');
@@ -2191,7 +2206,6 @@
 
                 const placed = dropZone.querySelectorAll('.word-placed');
                 const total = placed.length;
-                const container = document.getElementById('dragContainer' + qNum);
                 const totalWords = container.querySelectorAll('.drag-word').length + total;
 
                 if (total === totalWords) {
@@ -2210,8 +2224,8 @@
                         showRetry();
                         setTimeout(function() {
                             resetDragDrop(qNum);
-                            // Re-add drag listeners after reset
-                            document.querySelectorAll('#dragContainer' + qNum + ' .drag-word').forEach(function(w) {
+                            document.querySelectorAll('#dragContainer' + qNum + ' .drag-word').forEach(function(
+                            w) {
                                 addDragListeners(w);
                             });
                         }, 1500);
@@ -2240,7 +2254,7 @@
         });
 
         // ============================================================
-        // 8. HELP TOOLTIP
+        // 9. HELP TOOLTIP
         // ============================================================
         document.querySelectorAll('.help-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
@@ -2256,7 +2270,7 @@
         });
 
         // ============================================================
-        // 9. LISTENING (Q5)
+        // 10. LISTENING (Q5)
         // ============================================================
         let listenQ5Answered = false;
         window.listenQ5Answered = false;
@@ -2299,7 +2313,7 @@
         });
 
         // ============================================================
-        // 10. RETRY BUTTON SHOW/HIDE
+        // 11. RETRY BUTTON SHOW/HIDE
         // ============================================================
         function showRetry() {
             retryBtn.classList.add('show');
@@ -2307,7 +2321,6 @@
 
         retryBtn.addEventListener('click', function() {
             resetQuiz();
-            // Reset drag listeners after reset
             document.querySelectorAll('.drag-options .drag-word').forEach(function(w) {
                 addDragListeners(w);
             });
@@ -2316,7 +2329,7 @@
         });
 
         // ============================================================
-        // 11. CHOICE QUESTIONS - Show retry on wrong
+        // 12. CHOICE QUESTIONS - Show retry on wrong
         // ============================================================
         document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(function(card) {
             const qNum = card.dataset.question;
@@ -2353,7 +2366,7 @@
         });
 
         // ============================================================
-        // 12. SPEAK UP!
+        // 13. SPEAK UP!
         // ============================================================
         const speakBtn = document.getElementById('speakBtn');
         const speakResult = document.getElementById('speakResult');
@@ -2392,7 +2405,7 @@
         });
 
         // ============================================================
-        // 13. MIND MAP
+        // 14. MIND MAP
         // ============================================================
         const branchExample = document.getElementById('branchExample');
 
@@ -2409,7 +2422,7 @@
         });
 
         // ============================================================
-        // 14. HOMEWORK
+        // 15. HOMEWORK
         // ============================================================
         const homeworkText = document.getElementById('homeworkText');
         const saveHomework = document.getElementById('saveHomework');
@@ -2442,14 +2455,14 @@
         });
 
         // ============================================================
-        // 15. VIDEO
+        // 16. VIDEO
         // ============================================================
         document.getElementById('videoBtn').addEventListener('click', function() {
             window.open('https://youtube.com/@omar.youssif.english', '_blank');
         });
 
         // ============================================================
-        // 16. NAVIGATION
+        // 17. NAVIGATION
         // ============================================================
         document.getElementById('prevBtn').addEventListener('click', function() {
             window.location.href = 'unit3.html';
@@ -2460,7 +2473,7 @@
         });
 
         // ============================================================
-        // 17. PRELOAD VOICES
+        // 18. PRELOAD VOICES
         // ============================================================
         if ('speechSynthesis' in window) {
             setTimeout(function() {
@@ -2474,4 +2487,4 @@
     </script>
 
 </body>
-</html>
+    </html>
