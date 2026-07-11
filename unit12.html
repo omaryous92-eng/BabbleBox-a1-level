@@ -364,75 +364,75 @@
         }
 
         /* ============================================================
-           GRAMMAR ACCORDION
+           GRAMMAR RECAP - CARDS
            ============================================================ */
-        .accordion-item {
-            border: 1px solid rgba(0,0,0,0.06);
-            border-radius: 10px;
-            margin-bottom: 6px;
-            overflow: hidden;
-            transition: 0.2s;
+        .grammar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
         }
 
-        [data-theme="dark"] .accordion-item {
-            border-color: rgba(255,255,255,0.06);
-        }
-
-        .accordion-header {
-            padding: 10px 14px;
-            background: rgba(0,0,0,0.02);
+        .grammar-card {
+            background: #FFF8E1;
+            padding: 14px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,193,7,0.3);
             cursor: pointer;
+            transition: 0.25s;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .grammar-card {
+            background: #2A2A1A;
+            border-color: rgba(255,193,7,0.2);
+        }
+
+        .grammar-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,193,7,0.15);
+        }
+
+        .grammar-card .title {
+            font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: 14px;
-            color: var(--text);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.2s;
+            color: var(--black);
             direction: ltr;
-            font-family: 'Poppins', sans-serif;
         }
 
-        [data-theme="dark"] .accordion-header {
-            background: rgba(255,255,255,0.03);
+        [data-theme="dark"] .grammar-card .title {
+            color: #FFD700;
         }
 
-        .accordion-header:hover {
-            background: rgba(0,0,0,0.04);
-        }
-
-        .accordion-header .arrow {
-            transition: 0.3s;
-            font-size: 14px;
-        }
-
-        .accordion-header.active .arrow {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            padding: 0 14px;
-        }
-
-        .accordion-content.open {
-            max-height: 300px;
-            padding: 8px 14px 14px;
-        }
-
-        .accordion-content .grammar-example {
+        .grammar-card .example {
             font-size: 13px;
+            color: #666;
+            direction: ltr;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        [data-theme="dark"] .grammar-card .example {
+            color: #aaa;
+        }
+
+        .grammar-card .extra-example {
+            font-size: 12px;
             color: #888;
             direction: ltr;
-            line-height: 1.6;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed rgba(0,0,0,0.06);
+            display: none;
         }
 
-        .accordion-content .grammar-example .ar {
-            direction: rtl;
-            color: #aaa;
-            font-size: 12px;
+        [data-theme="dark"] .grammar-card .extra-example {
+            border-top-color: rgba(255,255,255,0.06);
+            color: #999;
+        }
+
+        .grammar-card .extra-example.show {
+            display: block;
         }
 
         /* ============================================================
@@ -508,42 +508,6 @@
             flex-wrap: wrap;
         }
 
-        .quiz-card .q-text .help-btn {
-            background: none;
-            border: 1px solid var(--gold);
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            color: var(--gold);
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quiz-card .q-text .help-btn:hover {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .quiz-card .q-text .help-tooltip {
-            display: none;
-            font-size: 12px;
-            color: #888;
-            background: var(--card-bg);
-            padding: 4px 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(0,0,0,0.06);
-            box-shadow: var(--shadow);
-        }
-
-        .quiz-card .q-text .help-tooltip.show {
-            display: inline-block;
-        }
-
         .quiz-options {
             display: flex;
             flex-wrap: wrap;
@@ -604,7 +568,7 @@
         .quiz-feedback .correct-text { color: var(--green); }
         .quiz-feedback .wrong-text { color: var(--red); }
 
-        /* ===== INPUT QUESTIONS ===== */
+        /* ===== INPUT ===== */
         .quiz-input {
             padding: 5px 12px;
             border: 2px solid rgba(0,0,0,0.08);
@@ -613,7 +577,7 @@
             font-family: 'Poppins', sans-serif;
             background: var(--bg);
             color: var(--text);
-            width: 150px;
+            width: 180px;
             transition: 0.2s;
             direction: ltr;
         }
@@ -638,12 +602,29 @@
             background: rgba(244,67,54,0.1);
         }
 
-        /* ===== DRAG & DROP ===== */
-        .drag-options {
+        .check-btn {
+            background: var(--gold);
+            border: none;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--black);
+            margin-top: 6px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .check-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* ===== DRAG & DROP (CLICK-BASED) ===== */
+        .drag-container {
             display: flex;
-            gap: 6px;
             flex-wrap: wrap;
-            margin: 6px 0;
+            gap: 8px;
+            padding: 8px 0;
         }
 
         .drag-word {
@@ -654,34 +635,43 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             font-size: 13px;
-            cursor: grab;
+            cursor: pointer;
             color: var(--text);
             transition: 0.2s;
             user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-            touch-action: none;
         }
 
         .drag-word:hover {
             transform: scale(1.05);
         }
 
-        .drag-word.dragging {
-            opacity: 0.4;
-            cursor: grabbing;
+        .drag-word.selected {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold-dark);
+        }
+
+        .drag-word.placed {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold-dark);
+            cursor: pointer;
+        }
+
+        .drag-word.placed:hover {
+            transform: scale(1.05);
         }
 
         .drop-zone {
             display: flex;
-            gap: 4px;
             flex-wrap: wrap;
-            padding: 8px 12px;
+            gap: 6px;
+            padding: 10px 12px;
             border: 2px dashed rgba(0,0,0,0.1);
             border-radius: 10px;
-            min-height: 40px;
+            min-height: 50px;
             align-items: center;
-            margin: 4px 0;
+            margin: 6px 0;
         }
 
         [data-theme="dark"] .drop-zone {
@@ -696,6 +686,18 @@
             font-weight: 600;
             font-size: 13px;
             color: var(--black);
+            cursor: pointer;
+        }
+
+        .drop-zone .word-placed:hover {
+            transform: scale(1.05);
+        }
+
+        .drag-instruction {
+            font-size: 12px;
+            color: #888;
+            direction: rtl;
+            margin-bottom: 4px;
         }
 
         /* ===== LISTENING ===== */
@@ -717,33 +719,40 @@
         }
 
         /* ============================================================
-           RETRY BUTTON
+           TEST RESULT
            ============================================================ */
-        .retry-btn {
-            background: var(--gold);
-            border: none;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            margin-top: 10px;
+        .test-result {
             display: none;
+            margin-top: 12px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
         }
 
-        .retry-btn:hover {
-            transform: scale(1.03);
+        .test-result.success {
+            display: block;
+            background: rgba(76,175,80,0.1);
+            color: var(--green);
+            border: 2px solid var(--green);
         }
 
-        .retry-btn.show {
-            display: inline-block;
+        .test-result.fail {
+            display: block;
+            background: rgba(244,67,54,0.1);
+            color: var(--red);
+            border: 2px solid var(--red);
+        }
+
+        .test-result .sub {
+            font-size: 14px;
+            font-weight: 400;
+            margin-top: 4px;
         }
 
         /* ============================================================
-           CONGRATULATIONS SECTION
+           CONGRATULATIONS
            ============================================================ */
         .congrats-section {
             display: none;
@@ -796,7 +805,7 @@
             transform: scale(1.05);
         }
 
-        /* ===== BALLOONS & STARS ===== */
+        /* ===== CONFETTI ===== */
         .confetti-container {
             position: absolute;
             inset: 0;
@@ -840,6 +849,11 @@
             position: relative;
         }
 
+        [data-theme="dark"] .certificate {
+            background: #1E1E1E;
+            border-color: var(--gold);
+        }
+
         .certificate .logo {
             font-family: 'Poppins', sans-serif;
             font-size: 28px;
@@ -862,10 +876,18 @@
             color: #333;
         }
 
+        [data-theme="dark"] .certificate .title {
+            color: #eee;
+        }
+
         .certificate .subtitle {
             font-size: 16px;
             color: #666;
             margin: 6px 0;
+        }
+
+        [data-theme="dark"] .certificate .subtitle {
+            color: #aaa;
         }
 
         .certificate .student-name {
@@ -874,9 +896,7 @@
             font-weight: 800;
             color: var(--black);
             margin: 10px 0;
-            border-bottom: 2px solid var(--gold);
             display: inline-block;
-            padding: 0 20px;
             min-width: 200px;
         }
 
@@ -886,7 +906,7 @@
             font-weight: 800;
             color: var(--black);
             border: none;
-            border-bottom: 2px solid var(--gold);
+            border-bottom: 3px solid var(--gold);
             background: transparent;
             text-align: center;
             min-width: 200px;
@@ -894,11 +914,19 @@
             outline: none;
         }
 
+        [data-theme="dark"] .certificate .student-name-input {
+            color: #eee;
+        }
+
         .certificate .text {
             font-size: 15px;
             color: #555;
             margin: 10px 0;
             line-height: 1.6;
+        }
+
+        [data-theme="dark"] .certificate .text {
+            color: #aaa;
         }
 
         .certificate .date {
@@ -920,10 +948,21 @@
             color: var(--black);
         }
 
+        [data-theme="dark"] .certificate .signature .name {
+            color: #eee;
+        }
+
         .certificate .signature .title {
             font-size: 14px;
             color: #888;
             font-weight: 400;
+        }
+
+        .certificate .disclaimer {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 12px;
+            direction: rtl;
         }
 
         .certificate-actions {
@@ -1014,6 +1053,8 @@
             cursor: pointer;
             transition: 0.2s;
             font-family: 'Cairo', sans-serif;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .next-btn:hover {
@@ -1075,7 +1116,8 @@
            PRINT STYLES
            ============================================================ */
         @media print {
-            .header, .daily-progress, .nav-buttons, .certificate-actions, .back-btn, .theme-toggle, .section-box:not(:last-child) {
+            .header, .daily-progress, .nav-buttons, .certificate-actions, .back-btn, .theme-toggle,
+            .section-box:not(.certificate-section), .congrats-section, .no-print {
                 display: none !important;
             }
 
@@ -1104,21 +1146,16 @@
                 padding: 0;
                 max-width: 100%;
             }
-
-            .congrats-section {
-                display: none !important;
-            }
-
-            .section-box {
-                box-shadow: none !important;
-                border: 1px solid #eee;
-            }
         }
 
         /* ============================================================
            RESPONSIVE
            ============================================================ */
         @media (max-width: 768px) {
+            .grammar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -1167,7 +1204,11 @@
             }
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 480px) {
+            .grammar-grid {
+                grid-template-columns: 1fr;
+            }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -1349,99 +1390,66 @@
         </section>
 
         <!-- ==========================================================
-        SECTION 2: GRAMMAR POWER RECAP
+        SECTION 2: GRAMMAR POWER RECAP - CARDS
         ========================================================== -->
         <section class="section-box" id="grammar-recap">
             <div class="section-title">⚡ Grammar Power Recap</div>
 
-            <div class="accordion" id="grammarAccordion">
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g1">1. Verb to be <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g1">
-                        <div class="grammar-example">am, is, are, was, were<br>
-                            <span class="ar">أنا معلم. I am a teacher. / هي كانت سعيدة. She was happy.</span>
-                        </div>
-                    </div>
+            <div class="grammar-grid" id="grammarGrid">
+                <div class="grammar-card" data-extra="I am happy. / He is a doctor. / They are students.">
+                    <div class="title">1. Verb to be</div>
+                    <div class="example">I am, He is, They are</div>
+                    <div class="extra-example">✨ I am happy. / He is a doctor. / They are students.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g2">2. Possessive Adjectives <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g2">
-                        <div class="grammar-example">my, your, his, her, its, our, their<br>
-                            <span class="ar">ده كتابي. This is my book. / دي عيلتها. That is her family.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="This is my book. / Is this your pen? / His name is John.">
+                    <div class="title">2. Possessive Adjectives</div>
+                    <div class="example">my, your, his, her</div>
+                    <div class="extra-example">✨ This is my book. / Is this your pen? / His name is John.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g3">3. Present Simple <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g3">
-                        <div class="grammar-example">I work / He works / don't / doesn't<br>
-                            <span class="ar">أنا بشتغل كل يوم. I work every day. / هي مبتشتغلش. She doesn't work.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="I work every day. / She works at a hospital.">
+                    <div class="title">3. Present Simple</div>
+                    <div class="example">I work, He works</div>
+                    <div class="extra-example">✨ I work every day. / She works at a hospital.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g4">4. like / don't like / would like <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g4">
-                        <div class="grammar-example">I like pizza. / I don't like fish. / I'd like a coffee.<br>
-                            <span class="ar">أنا بحب البيتزا. / مش بحب السمك. / عايز قهوة من فضلك.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="I like tea. / I don't like coffee.">
+                    <div class="title">4. like / don't like</div>
+                    <div class="example">I like tea. I don't like coffee.</div>
+                    <div class="extra-example">✨ I like tea. / I don't like coffee.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g5">5. There is / There are <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g5">
-                        <div class="grammar-example">There is a bed. / There are two chairs.<br>
-                            <span class="ar">فيه سرير. / فيه كرسيين.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="I'd like a coffee, please. / What would you like?">
+                    <div class="title">5. would like</div>
+                    <div class="example">I'd like a coffee.</div>
+                    <div class="extra-example">✨ I'd like a coffee, please. / What would you like?</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g6">6. Prepositions of Place <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g6">
-                        <div class="grammar-example">in, on, at, next to, near, between<br>
-                            <span class="ar">الكتاب على الطاولة. The book is on the table.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="There is a sofa. / There are two chairs.">
+                    <div class="title">6. There is / There are</div>
+                    <div class="example">There is a sofa. There are two chairs.</div>
+                    <div class="extra-example">✨ There is a sofa. / There are two chairs.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g7">7. Present Continuous <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g7">
-                        <div class="grammar-example">am/is/are + verb-ing<br>
-                            <span class="ar">أنا لابس قميص. I am wearing a shirt.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="The book is on the table. / I am at home.">
+                    <div class="title">7. Prepositions of Place</div>
+                    <div class="example">in, on, at, next to</div>
+                    <div class="extra-example">✨ The book is on the table. / I am at home.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g8">8. Weather Expressions <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g8">
-                        <div class="grammar-example">It's sunny / raining / cold / hot<br>
-                            <span class="ar">الجو مشمس / بيمطر / بارد / حار</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="I am wearing a jacket. / They are playing football.">
+                    <div class="title">8. Present Continuous</div>
+                    <div class="example">I am wearing a jacket.</div>
+                    <div class="extra-example">✨ I am wearing a jacket. / They are playing football.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g9">9. can / can't <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g9">
-                        <div class="grammar-example">I can swim. / She can't cook.<br>
-                            <span class="ar">أنا بعرف أسبح. / هي مبعرفش تطبخ.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="It's sunny today. / It's raining outside.">
+                    <div class="title">9. Weather</div>
+                    <div class="example">It's sunny. It's raining.</div>
+                    <div class="extra-example">✨ It's sunny today. / It's raining outside.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g10">10. Prepositions of Time <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g10">
-                        <div class="grammar-example">at 3 o'clock / on Monday / in the morning<br>
-                            <span class="ar">الساعة 3 / يوم الإتنين / في الصباح</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="I can swim. / He can't cook.">
+                    <div class="title">10. can / can't</div>
+                    <div class="example">I can swim. He can't cook.</div>
+                    <div class="extra-example">✨ I can swim. / He can't cook.</div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" data-target="g11">11. Past Simple <span class="arrow">▼</span></div>
-                    <div class="accordion-content" id="g11">
-                        <div class="grammar-example">I worked / She went / didn't / Did?<br>
-                            <span class="ar">أنا اشتغلت أمس. I worked yesterday. / هي روحت. She went home.</span>
-                        </div>
-                    </div>
+                <div class="grammar-card" data-extra="I went home. / I didn't work yesterday.">
+                    <div class="title">11. Past Simple</div>
+                    <div class="example">I went home. I didn't work.</div>
+                    <div class="extra-example">✨ I went home. / I didn't work yesterday.</div>
                 </div>
             </div>
         </section>
@@ -1464,8 +1472,12 @@
                 <!-- Questions will be rendered by JavaScript -->
             </div>
 
-            <!-- Retry Button -->
-            <button class="retry-btn" id="retryBtn">🔄 حاول مرة أخرى</button>
+            <div class="test-result" id="testResult">
+                <div id="resultMessage"></div>
+                <div class="sub" id="resultSub"></div>
+            </div>
+
+            <button class="retry-btn" id="retryBtn">🔄 إعادة الاختبار</button>
         </section>
 
         <!-- ==========================================================
@@ -1501,6 +1513,7 @@
                     <div class="name">Omar Youssif</div>
                     <div class="title">Founder of Babble Box</div>
                 </div>
+                <div class="disclaimer">⚠️ This is a non-accredited certificate of completion.</div>
             </div>
 
             <div class="certificate-actions">
@@ -1542,9 +1555,11 @@
             <div class="section-title">🚀 ماذا بعد؟</div>
 
             <p style="direction:rtl;font-size:15px;color:#888;margin-bottom:12px;">
-                أنت الآن جاهز للمستوى A2. كن أول من يعرف عند إطلاقه!
+                أنت الآن جاهز للمستوى A2. تابعنا ليصلك كل جديد!
             </p>
-            <button class="next-btn" id="notifyBtn">🔔 أخبرني عند إطلاق A2</button>
+            <a href="https://www.facebook.com/omar.youssif.english" target="_blank" class="next-btn">
+                📘 تابعنا على فيسبوك
+            </a>
         </section>
 
         <!-- ==========================================================
@@ -1601,25 +1616,13 @@
         });
 
         // ============================================================
-        // 3. ACCORDION
+        // 3. GRAMMAR CARDS - CLICK TO SHOW EXTRA
         // ============================================================
-        document.querySelectorAll('.accordion-header').forEach(function(header) {
-            header.addEventListener('click', function() {
-                const target = document.getElementById(this.dataset.target);
-                const content = this.nextElementSibling;
-                const isOpen = content.classList.contains('open');
-
-                // Close all
-                document.querySelectorAll('.accordion-content').forEach(function(c) {
-                    c.classList.remove('open');
-                });
-                document.querySelectorAll('.accordion-header').forEach(function(h) {
-                    h.classList.remove('active');
-                });
-
-                if (!isOpen) {
-                    content.classList.add('open');
-                    this.classList.add('active');
+        document.querySelectorAll('.grammar-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                const extra = this.querySelector('.extra-example');
+                if (extra) {
+                    extra.classList.toggle('show');
                 }
             });
         });
@@ -1675,180 +1678,77 @@
         // 5. FINAL TEST (25 Questions)
         // ============================================================
         const testQuestions = [
-            // Q1: Choice - Verb to be
-            {
-                type: 'choice',
-                question: '1. She ____ a teacher.',
-                options: ['am', 'is', 'are', 'was'],
-                answer: 'is'
-            },
-            // Q2: Choice - Possessive
-            {
-                type: 'choice',
-                question: '2. This is ____ book. (أنا)',
-                options: ['my', 'your', 'his', 'her'],
-                answer: 'my'
-            },
-            // Q3: Choice - Present Simple
-            {
-                type: 'choice',
-                question: '3. He ____ to work every day.',
-                options: ['go', 'goes', 'going', 'went'],
-                answer: 'goes'
-            },
-            // Q4: Choice - like/would like
-            {
-                type: 'choice',
-                question: '4. I ____ a coffee, please.',
-                options: ['like', 'likes', 'would like', 'am liking'],
-                answer: 'would like'
-            },
-            // Q5: Choice - There is/are
-            {
-                type: 'choice',
-                question: '5. ____ two chairs in the kitchen.',
-                options: ['There is', 'There are', 'It is', 'They are'],
-                answer: 'There are'
-            },
-            // Q6: Choice - Prepositions of Place
-            {
-                type: 'choice',
-                question: '6. The book is ____ the table.',
-                options: ['in', 'on', 'at', 'next'],
-                answer: 'on'
-            },
-            // Q7: Choice - Present Continuous
-            {
-                type: 'choice',
-                question: '7. They ____ a movie right now.',
-                options: ['watch', 'watches', 'are watching', 'watched'],
-                answer: 'are watching'
-            },
-            // Q8: Choice - Weather
-            {
-                type: 'choice',
-                question: '8. Look outside! It ____.',
-                options: ['rains', 'raining', 'is raining', 'rained'],
-                answer: 'is raining'
-            },
-            // Q9: Choice - can/can't
-            {
-                type: 'choice',
-                question: '9. She ____ sing very well.',
-                options: ['can', 'cans', 'can to', 'is can'],
-                answer: 'can'
-            },
-            // Q10: Choice - Prepositions of Time
-            {
-                type: 'choice',
-                question: '10. I wake up ____ 7 AM.',
-                options: ['at', 'on', 'in', 'every'],
-                answer: 'at'
-            },
-            // Q11: Choice - Past Simple
-            {
-                type: 'choice',
-                question: '11. Yesterday, I ____ to the store.',
-                options: ['go', 'goes', 'went', 'gone'],
-                answer: 'went'
-            },
-            // Q12: Choice - Past Simple Negative
-            {
-                type: 'choice',
-                question: '12. She ____ the bus yesterday.',
-                options: ['didn\'t miss', 'didn\'t missed', 'not miss', 'doesn\'t miss'],
-                answer: 'didn\'t miss'
-            },
+            // Q1-12: Choice
+            { type: 'choice', question: '1. She ____ a teacher.', options: ['am', 'is', 'are', 'was'], answer: 'is' },
+            { type: 'choice', question: '2. This is ____ book. (أنا)', options: ['my', 'your', 'his', 'her'], answer: 'my' },
+            { type: 'choice', question: '3. He ____ to work every day.', options: ['go', 'goes', 'going', 'went'],
+            answer: 'goes' },
+            { type: 'choice', question: '4. I ____ a coffee, please.', options: ['like', 'likes', 'would like', 'am liking'],
+                answer: 'would like' },
+            { type: 'choice', question: '5. ____ two chairs in the kitchen.', options: ['There is', 'There are', 'It is',
+                    'They are'
+                ], answer: 'There are' },
+            { type: 'choice', question: '6. The book is ____ the table.', options: ['in', 'on', 'at', 'next'],
+            answer: 'on' },
+            { type: 'choice', question: '7. They ____ a movie right now.', options: ['watch', 'watches', 'are watching',
+                    'watched'
+                ], answer: 'are watching' },
+            { type: 'choice', question: '8. Look outside! It ____.', options: ['rains', 'raining', 'is raining',
+                    'rained'], answer: 'is raining' },
+            { type: 'choice', question: '9. She ____ sing very well.', options: ['can', 'cans', 'can to', 'is can'],
+                answer: 'can' },
+            { type: 'choice', question: '10. I wake up ____ 7 AM.', options: ['at', 'on', 'in', 'every'], answer: 'at' },
+            { type: 'choice', question: '11. Yesterday, I ____ to the store.', options: ['go', 'goes', 'went', 'gone'],
+                answer: 'went' },
+            { type: 'choice', question: '12. She ____ the bus yesterday.', options: ['didn\'t miss', 'didn\'t missed',
+                    'not miss', 'doesn\'t miss'
+                ], answer: 'didn\'t miss' },
 
-            // Q13-18: Drag & Drop
-            {
-                type: 'drag',
-                question: '13. رتب الكلمات: "I / every / day / work"',
-                words: ['I', 'work', 'every', 'day'],
-                answer: 'I work every day'
-            },
-            {
-                type: 'drag',
-                question: '14. رتب الكلمات: "is / she / wearing / a / hat"',
-                words: ['She', 'is', 'wearing', 'a', 'hat'],
-                answer: 'She is wearing a hat'
-            },
-            {
-                type: 'drag',
-                question: '15. رتب الكلمات: "there / two / are / bedrooms"',
-                words: ['There', 'are', 'two', 'bedrooms'],
-                answer: 'There are two bedrooms'
-            },
-            {
-                type: 'drag',
-                question: '16. رتب الكلمات: "on / the / is / book / table"',
-                words: ['The', 'book', 'is', 'on', 'the', 'table'],
-                answer: 'The book is on the table'
-            },
-            {
-                type: 'drag',
-                question: '17. رتب الكلمات: "can / I / swim / well / very"',
-                words: ['I', 'can', 'swim', 'very', 'well'],
-                answer: 'I can swim very well'
-            },
-            {
-                type: 'drag',
-                question: '18. رتب الكلمات: "did / go / you / where / yesterday"',
-                words: ['Where', 'did', 'you', 'go', 'yesterday'],
-                answer: 'Where did you go yesterday'
-            },
+            // Q13-18: Drag & Drop (Click-based)
+            { type: 'drag', question: '13. رتب الكلمات: "I / every / day / work"', words: ['I', 'work', 'every', 'day'],
+                answer: 'I work every day' },
+            { type: 'drag', question: '14. رتب الكلمات: "is / she / wearing / a / hat"', words: ['She', 'is', 'wearing',
+                    'a', 'hat'
+                ], answer: 'She is wearing a hat' },
+            { type: 'drag', question: '15. رتب الكلمات: "there / two / are / bedrooms"', words: ['There', 'are', 'two',
+                    'bedrooms'
+                ], answer: 'There are two bedrooms' },
+            { type: 'drag', question: '16. رتب الكلمات: "on / the / is / book / table"', words: ['The', 'book', 'is', 'on',
+                    'the', 'table'
+                ], answer: 'The book is on the table' },
+            { type: 'drag', question: '17. رتب الكلمات: "can / I / swim / well / very"', words: ['I', 'can', 'swim', 'very',
+                    'well'
+                ], answer: 'I can swim very well' },
+            { type: 'drag', question: '18. رتب الكلمات: "did / go / you / where / yesterday"', words: ['Where', 'did',
+                    'you', 'go', 'yesterday'
+                ], answer: 'Where did you go yesterday' },
 
             // Q19-23: Fill in the blank
-            {
-                type: 'fill',
-                question: '19. I ____ (be) a student.',
-                answer: 'am'
-            },
-            {
-                type: 'fill',
-                question: '20. She ____ (have) a new car.',
-                answer: 'has'
-            },
-            {
-                type: 'fill',
-                question: '21. They ____ (be) at home yesterday.',
-                answer: 'were'
-            },
-            {
-                type: 'fill',
-                question: '22. He ____ (not / like) spicy food.',
-                answer: 'doesn\'t like'
-            },
-            {
-                type: 'fill',
-                question: '23. ____ you (can / help) me?',
-                answer: 'Can you help'
-            },
+            { type: 'fill', question: '19. I ____ (be) a student.', answer: 'am' },
+            { type: 'fill', question: '20. She ____ (have) a new car.', answer: 'has' },
+            { type: 'fill', question: '21. They ____ (be) at home yesterday.', answer: 'were' },
+            { type: 'fill', question: '22. He ____ (not / like) spicy food.', answer: 'doesn\'t like' },
+            { type: 'fill', question: '23. ____ you (can / help) me?', answer: 'Can you help' },
 
             // Q24-25: Listening
-            {
-                type: 'listening',
-                question: '24. 🔊 استمع واكتب الجملة التي سمعتها.',
-                audioText: 'I am going to the store.',
-                answer: 'I am going to the store'
-            },
-            {
-                type: 'listening',
-                question: '25. 🔊 استمع واكتب الجملة التي سمعتها.',
-                audioText: 'She went to the park yesterday.',
-                answer: 'She went to the park yesterday'
-            }
+            { type: 'listening', question: '24. 🔊 استمع واكتب الجملة التي سمعتها.', audioText: 'I am going to the store.',
+                answer: 'I am going to the store' },
+            { type: 'listening', question: '25. 🔊 استمع واكتب الجملة التي سمعتها.', audioText: 'She went to the park yesterday.',
+                answer: 'She went to the park yesterday' }
         ];
 
         let quizCompleted = 0;
         const totalQuestions = 25;
-        let quizLocked = false;
         let testPassed = false;
         let answeredQuestions = new Array(totalQuestions).fill(false);
+        let userAnswers = new Array(totalQuestions).fill(null);
 
         const quizProgressFill = document.getElementById('quizProgressFill');
         const quizProgressCount = document.getElementById('quizProgressCount');
         const retryBtn = document.getElementById('retryBtn');
+        const testResult = document.getElementById('testResult');
+        const resultMessage = document.getElementById('resultMessage');
+        const resultSub = document.getElementById('resultSub');
 
         let dailyCompleted = parseInt(localStorage.getItem('babbleDaily')) || 0;
         const dailyProgressFill = document.getElementById('dailyProgressFill');
@@ -1868,12 +1768,67 @@
             quizProgressCount.textContent = quizCompleted + '/' + totalQuestions;
 
             if (quizCompleted === totalQuestions && !testPassed) {
-                testPassed = true;
-                localStorage.setItem('babbleUnit12Complete', 'true');
-                dailyCompleted = Math.min(dailyCompleted + 1, 25);
-                updateDailyProgress();
+                // Auto-check when all answered
+                checkFinalTest();
+            }
+        }
 
-                // Update learning days
+        function checkFinalTest() {
+            let score = 0;
+            let allAnswered = true;
+
+            // Check all questions
+            for (let i = 0; i < totalQuestions; i++) {
+                if (!answeredQuestions[i]) {
+                    allAnswered = false;
+                    break;
+                }
+                // Check if answer is correct (for fill and listening we check input value)
+                const q = testQuestions[i];
+                const card = document.querySelectorAll('.quiz-card')[i];
+                if (!card) continue;
+
+                if (q.type === 'choice') {
+                    const selected = card.querySelector('.quiz-options button.correct');
+                    if (selected && selected.textContent === q.answer) {
+                        score++;
+                    }
+                } else if (q.type === 'drag') {
+                    const dropZone = card.querySelector('.drop-zone');
+                    const placed = dropZone.querySelectorAll('.word-placed');
+                    if (placed.length === q.words.length) {
+                        const text = Array.from(placed).map(el => el.textContent).join(' ');
+                        if (text === q.answer) score++;
+                    }
+                } else if (q.type === 'fill' || q.type === 'listening') {
+                    const input = card.querySelector('.quiz-input');
+                    if (input && input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
+                        score++;
+                    }
+                }
+            }
+
+            const resultDiv = document.getElementById('testResult');
+            const msgDiv = document.getElementById('resultMessage');
+            const subDiv = document.getElementById('resultSub');
+
+            if (score === 25 && allAnswered) {
+                // SUCCESS!
+                resultDiv.className = 'test-result success';
+                msgDiv.textContent = '🎉 مبروك! لقد حصلت على 25/25!';
+                subDiv.textContent = 'أنت الآن جاهز للمستوى التالي!';
+
+                // Hide test, show congrats
+                document.getElementById('final-test').style.display = 'none';
+                document.getElementById('congratsSection').classList.add('show');
+                launchConfetti();
+
+                localStorage.setItem('babbleUnit12Complete', 'true');
+                localStorage.setItem('babbleFinalTestCompleted', 'true');
+
+                // Update stats
+                document.getElementById('testScore').textContent = '25/25';
+
                 let days = parseInt(localStorage.getItem('babbleLearningDays')) || 0;
                 if (days === 0) {
                     days = 1;
@@ -1881,18 +1836,21 @@
                 }
                 document.getElementById('learningDays').textContent = days;
 
-                // Show congrats
-                setTimeout(function() {
-                    document.getElementById('congratsSection').classList.add('show');
-                    launchConfetti();
-                }, 500);
-
-                // Update stats
-                document.getElementById('testScore').textContent = '25/25';
-
-                // Save final test completed
-                localStorage.setItem('babbleFinalTestCompleted', 'true');
+                testPassed = true;
+                retryBtn.style.display = 'none';
+            } else if (!allAnswered) {
+                resultDiv.className = 'test-result fail';
+                msgDiv.textContent = '⚠️ لم تكمل جميع الأسئلة!';
+                subDiv.textContent = 'تأكد من الإجابة على جميع الأسئلة الـ 25.';
+                retryBtn.style.display = 'inline-block';
+            } else {
+                resultDiv.className = 'test-result fail';
+                msgDiv.textContent = '❌ للأسف، لديك بعض الأخطاء. راجع إجاباتك وحاول مرة أخرى.';
+                subDiv.textContent = 'نقاطك: ' + score + '/25';
+                retryBtn.style.display = 'inline-block';
             }
+
+            resultDiv.style.display = 'block';
         }
 
         function launchConfetti() {
@@ -1911,39 +1869,22 @@
             }
         }
 
-        function showRetry() {
-            retryBtn.classList.add('show');
-        }
-
-        function resetQuiz() {
-            quizCompleted = 0;
-            testPassed = false;
-            quizLocked = false;
-            answeredQuestions.fill(false);
-            document.getElementById('congratsSection').classList.remove('show');
-            document.getElementById('certificateSection').classList.remove('show');
-            document.getElementById('testScore').textContent = '-/25';
-            quizProgressFill.style.width = '0%';
-            quizProgressCount.textContent = '0/' + totalQuestions;
-            retryBtn.classList.remove('show');
-
-            // Reset all questions
-            renderQuestions();
-        }
-
-        retryBtn.addEventListener('click', function() {
-            resetQuiz();
-            speakText('Quiz reset. Try again!', 'male', 0.85);
-        });
-
         // ============================================================
         // 6. RENDER QUESTIONS
         // ============================================================
         function renderQuestions() {
             const container = document.getElementById('quizContainer');
             container.innerHTML = '';
-
-            let qIndex = 0;
+            answeredQuestions.fill(false);
+            quizCompleted = 0;
+            testPassed = false;
+            document.getElementById('testResult').style.display = 'none';
+            document.getElementById('final-test').style.display = 'block';
+            document.getElementById('congratsSection').classList.remove('show');
+            document.getElementById('certificateSection').classList.remove('show');
+            quizProgressFill.style.width = '0%';
+            quizProgressCount.textContent = '0/' + totalQuestions;
+            retryBtn.style.display = 'none';
 
             testQuestions.forEach(function(q, index) {
                 const card = document.createElement('div');
@@ -1963,16 +1904,15 @@
                         btn.textContent = opt;
                         btn.dataset.answer = opt;
                         btn.addEventListener('click', function() {
-                            if (answeredQuestions[index] || quizLocked) return;
+                            if (answeredQuestions[index]) return;
                             const buttons = this.parentElement.querySelectorAll('button');
                             buttons.forEach(b => b.disabled = true);
 
                             const isCorrect = (opt === q.answer);
                             if (isCorrect) {
                                 this.classList.add('correct');
-                                qIndex++;
-                                quizCompleted++;
                                 answeredQuestions[index] = true;
+                                quizCompleted++;
                                 updateQuizProgress();
                                 speakText('Correct!', 'female', 0.9);
                             } else {
@@ -1986,31 +1926,114 @@
                                         b.classList.add('correct');
                                     }
                                 });
-                                showRetry();
                                 speakText('Incorrect.', 'male', 0.85);
                             }
                         });
                         optionsDiv.appendChild(btn);
                     });
                     card.appendChild(optionsDiv);
+
                 } else if (q.type === 'drag') {
+                    // Instructions
+                    const instruction = document.createElement('div');
+                    instruction.className = 'drag-instruction';
+                    instruction.textContent = '👆 انقر على الكلمات بالترتيب الصحيح.';
+                    card.appendChild(instruction);
+
+                    // Available words
                     const dragDiv = document.createElement('div');
-                    dragDiv.className = 'drag-options';
+                    dragDiv.className = 'drag-container';
+                    dragDiv.id = 'dragContainer' + index;
                     const shuffled = [...q.words].sort(() => Math.random() - 0.5);
                     shuffled.forEach(function(word) {
                         const span = document.createElement('span');
                         span.className = 'drag-word';
-                        span.draggable = true;
                         span.dataset.word = word;
                         span.textContent = word;
+                        span.addEventListener('click', function() {
+                            if (answeredQuestions[index]) return;
+                            const dropZone = document.getElementById('dropZone' + index);
+                            if (this.classList.contains('selected')) {
+                                this.classList.remove('selected');
+                            } else {
+                                // Deselect others
+                                dragDiv.querySelectorAll('.drag-word').forEach(w => w.classList.remove(
+                                'selected'));
+                                this.classList.add('selected');
+                            }
+                        });
                         dragDiv.appendChild(span);
-                        addDragListeners(span);
                     });
                     card.appendChild(dragDiv);
 
+                    // Drop zone
                     const dropDiv = document.createElement('div');
                     dropDiv.className = 'drop-zone';
                     dropDiv.id = 'dropZone' + index;
+                    dropDiv.addEventListener('click', function(e) {
+                        if (answeredQuestions[index]) return;
+                        const selected = dragDiv.querySelector('.drag-word.selected');
+                        if (selected) {
+                            const word = selected.dataset.word;
+                            // Check if already in drop zone
+                            const existing = dropDiv.querySelector('.word-placed[data-word="' + word + '"]');
+                            if (existing) return;
+
+                            const span = document.createElement('span');
+                            span.className = 'word-placed';
+                            span.dataset.word = word;
+                            span.textContent = word;
+                            span.addEventListener('click', function() {
+                                // Return to drag container
+                                if (answeredQuestions[index]) return;
+                                const w = this.dataset.word;
+                                const original = dragDiv.querySelector('.drag-word[data-word="' + w + '"]');
+                                if (original) {
+                                    original.style.display = 'inline-block';
+                                } else {
+                                    const s = document.createElement('span');
+                                    s.className = 'drag-word';
+                                    s.dataset.word = w;
+                                    s.textContent = w;
+                                    s.addEventListener('click', function() {
+                                        if (answeredQuestions[index]) return;
+                                        if (this.classList.contains('selected')) {
+                                            this.classList.remove('selected');
+                                        } else {
+                                            dragDiv.querySelectorAll('.drag-word').forEach(wd => wd
+                                                .classList.remove('selected'));
+                                            this.classList.add('selected');
+                                        }
+                                    });
+                                    dragDiv.appendChild(s);
+                                }
+                                this.remove();
+
+                                // Reset validation
+                                const feedback = document.getElementById('dragFeedback' + index);
+                                if (feedback) feedback.innerHTML = '';
+                            });
+                            dropDiv.appendChild(span);
+                            selected.remove();
+
+                            // Check if complete
+                            const placed = dropDiv.querySelectorAll('.word-placed');
+                            if (placed.length === q.words.length) {
+                                const text = Array.from(placed).map(el => el.textContent).join(' ');
+                                const feedback = document.getElementById('dragFeedback' + index);
+                                if (text === q.answer) {
+                                    feedback.innerHTML = '<span class="correct-text">✅ صح!</span>';
+                                    answeredQuestions[index] = true;
+                                    quizCompleted++;
+                                    updateQuizProgress();
+                                    speakText('Correct!', 'female', 0.9);
+                                } else {
+                                    feedback.innerHTML = '<span class="wrong-text">❌ خطأ! الترتيب غلط.</span>';
+                                    speakText('Incorrect.', 'male', 0.85);
+                                }
+                            }
+                        }
+                    });
                     card.appendChild(dropDiv);
 
                     const feedbackDiv = document.createElement('div');
@@ -2018,68 +2041,17 @@
                     feedbackDiv.id = 'dragFeedback' + index;
                     card.appendChild(feedbackDiv);
 
-                    // Drop zone events
-                    dropDiv.addEventListener('dragover', function(e) { e.preventDefault(); });
-                    dropDiv.addEventListener('drop', function(e) {
-                        e.preventDefault();
-                        if (answeredQuestions[index] || quizLocked) return;
-                        const word = e.dataTransfer.getData('text/plain');
-                        const wordElement = dragDiv.querySelector('.drag-word[data-word="' + word + '"]');
-                        if (wordElement) {
-                            wordElement.remove();
-                            const span = document.createElement('span');
-                            span.className = 'word-placed';
-                            span.textContent = word;
-                            dropDiv.appendChild(span);
+                } else if (q.type === 'fill' || q.type === 'listening') {
+                    if (q.type === 'listening') {
+                        const listenBtn = document.createElement('button');
+                        listenBtn.className = 'listen-btn';
+                        listenBtn.textContent = '🔊 استمع';
+                        listenBtn.addEventListener('click', function() {
+                            speakText(q.audioText, 'female', 0.8);
+                        });
+                        card.appendChild(listenBtn);
+                    }
 
-                            const placed = dropDiv.querySelectorAll('.word-placed');
-                            if (placed.length === q.words.length) {
-                                const text = Array.from(placed).map(el => el.textContent).join(' ');
-                                if (text === q.answer) {
-                                    feedbackDiv.innerHTML = '<span class="correct-text">✅ صح!</span>';
-                                    answeredQuestions[index] = true;
-                                    quizCompleted++;
-                                    updateQuizProgress();
-                                    speakText('Correct!', 'female', 0.9);
-                                } else {
-                                    feedbackDiv.innerHTML = '<span class="wrong-text">❌ خطأ!</span>';
-                                    showRetry();
-                                    speakText('Incorrect.', 'male', 0.85);
-                                    setTimeout(function() {
-                                        dropDiv.innerHTML = '';
-                                        shuffled.forEach(function(w) {
-                                            const s = document.createElement('span');
-                                            s.className = 'drag-word';
-                                            s.draggable = true;
-                                            s.dataset.word = w;
-                                            s.textContent = w;
-                                            dragDiv.appendChild(s);
-                                            addDragListeners(s);
-                                        });
-                                        feedbackDiv.innerHTML = '';
-                                    }, 1500);
-                                }
-                            }
-                        }
-                    });
-
-                    // Add help button
-                    const helpBtn = document.createElement('button');
-                    helpBtn.className = 'help-btn';
-                    helpBtn.textContent = '❓';
-                    helpBtn.dataset.tooltip = 'اضغط مطولاً على الكلمة واسحبها للمكان الصحيح.';
-                    qText.appendChild(helpBtn);
-                    const tooltip = document.createElement('span');
-                    tooltip.className = 'help-tooltip';
-                    tooltip.textContent = 'اضغط مطولاً على الكلمة واسحبها للمكان الصحيح.';
-                    qText.appendChild(tooltip);
-                    helpBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        tooltip.classList.toggle('show');
-                        setTimeout(function() { tooltip.classList.remove('show'); }, 3000);
-                    });
-
-                } else if (q.type === 'fill') {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.className = 'quiz-input';
@@ -2087,9 +2059,8 @@
                     card.appendChild(input);
 
                     const checkBtn = document.createElement('button');
+                    checkBtn.className = 'check-btn';
                     checkBtn.textContent = '✅ تحقق';
-                    checkBtn.style.cssText =
-                        'background:var(--gold);border:none;padding:4px 16px;border-radius:30px;font-size:13px;font-weight:700;cursor:pointer;color:var(--black);margin-top:6px;font-family:Cairo,sans-serif;';
                     card.appendChild(checkBtn);
 
                     const feedbackDiv = document.createElement('div');
@@ -2097,7 +2068,7 @@
                     card.appendChild(feedbackDiv);
 
                     checkBtn.addEventListener('click', function() {
-                        if (answeredQuestions[index] || quizLocked) return;
+                        if (answeredQuestions[index]) return;
                         const userAnswer = input.value.trim().toLowerCase();
                         const correct = q.answer.toLowerCase();
                         const isCorrect = userAnswer === correct;
@@ -2113,55 +2084,6 @@
                             input.classList.add('wrong-input');
                             feedbackDiv.innerHTML = '<span class="wrong-text">❌ خطأ! الإجابة الصحيحة: ' + q.answer +
                                 '</span>';
-                            showRetry();
-                            speakText('Incorrect.', 'male', 0.85);
-                        }
-                    });
-
-                } else if (q.type === 'listening') {
-                    const listenBtn = document.createElement('button');
-                    listenBtn.className = 'listen-btn';
-                    listenBtn.textContent = '🔊 استمع';
-                    card.appendChild(listenBtn);
-
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.className = 'quiz-input';
-                    input.placeholder = 'اكتب ما سمعته...';
-                    card.appendChild(input);
-
-                    const checkBtn = document.createElement('button');
-                    checkBtn.textContent = '✅ تحقق';
-                    checkBtn.style.cssText =
-                        'background:var(--gold);border:none;padding:4px 16px;border-radius:30px;font-size:13px;font-weight:700;cursor:pointer;color:var(--black);margin-top:6px;font-family:Cairo,sans-serif;';
-                    card.appendChild(checkBtn);
-
-                    const feedbackDiv = document.createElement('div');
-                    feedbackDiv.className = 'quiz-feedback';
-                    card.appendChild(feedbackDiv);
-
-                    listenBtn.addEventListener('click', function() {
-                        speakText(q.audioText, 'female', 0.8);
-                    });
-
-                    checkBtn.addEventListener('click', function() {
-                        if (answeredQuestions[index] || quizLocked) return;
-                        const userAnswer = input.value.trim().toLowerCase();
-                        const correct = q.answer.toLowerCase();
-                        const isCorrect = userAnswer === correct;
-
-                        if (isCorrect) {
-                            input.classList.add('correct-input');
-                            feedbackDiv.innerHTML = '<span class="correct-text">✅ صح!</span>';
-                            answeredQuestions[index] = true;
-                            quizCompleted++;
-                            updateQuizProgress();
-                            speakText('Correct!', 'female', 0.9);
-                        } else {
-                            input.classList.add('wrong-input');
-                            feedbackDiv.innerHTML = '<span class="wrong-text">❌ خطأ! الإجابة الصحيحة: ' + q.answer +
-                                '</span>';
-                            showRetry();
                             speakText('Incorrect.', 'male', 0.85);
                         }
                     });
@@ -2172,86 +2094,13 @@
         }
 
         // ============================================================
-        // 7. DRAG & DROP HELPERS
+        // 7. RETRY BUTTON
         // ============================================================
-        let touchClone = null;
-        let touchWord = '';
-        let touchElement = null;
-
-        function addDragListeners(element) {
-            element.addEventListener('dragstart', function(e) {
-                e.dataTransfer.setData('text/plain', this.dataset.word);
-                this.classList.add('dragging');
-            });
-            element.addEventListener('dragend', function(e) {
-                this.classList.remove('dragging');
-                if (touchClone) {
-                    touchClone.remove();
-                    touchClone = null;
-                }
-            });
-
-            element.addEventListener('touchstart', function(e) {
-                const touch = e.touches[0];
-                touchWord = this.dataset.word;
-                touchElement = this;
-                touchClone = this.cloneNode(true);
-                touchClone.style.position = 'fixed';
-                touchClone.style.pointerEvents = 'none';
-                touchClone.style.opacity = '0.7';
-                touchClone.style.zIndex = '9999';
-                touchClone.style.transform = 'scale(1.1)';
-                touchClone.style.width = this.offsetWidth + 'px';
-                touchClone.style.left = (touch.clientX - this.offsetWidth / 2) + 'px';
-                touchClone.style.top = (touch.clientY - this.offsetHeight / 2) + 'px';
-                document.body.appendChild(touchClone);
-                this.classList.add('dragging');
-            }, { passive: true });
-
-            element.addEventListener('touchmove', function(e) {
-                e.preventDefault();
-                if (touchClone) {
-                    const touch = e.touches[0];
-                    touchClone.style.left = (touch.clientX - this.offsetWidth / 2) + 'px';
-                    touchClone.style.top = (touch.clientY - this.offsetHeight / 2) + 'px';
-                }
-            }, { passive: false });
-
-            element.addEventListener('touchcancel', function(e) {
-                if (touchClone) {
-                    touchClone.remove();
-                    touchClone = null;
-                }
-                this.classList.remove('dragging');
-                touchWord = '';
-                touchElement = null;
-            }, { passive: true });
-
-            element.addEventListener('touchend', function(e) {
-                if (touchClone) {
-                    touchClone.remove();
-                    touchClone = null;
-                }
-                this.classList.remove('dragging');
-                const touch = e.changedTouches[0];
-                const dropZones = document.querySelectorAll('.drop-zone');
-                let targetDrop = null;
-                dropZones.forEach(function(dz) {
-                    const rect = dz.getBoundingClientRect();
-                    if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-                        touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-                        targetDrop = dz;
-                    }
-                });
-                if (targetDrop && touchWord) {
-                    const dropEvent = new DragEvent('drop', { dataTransfer: new DataTransfer() });
-                    dropEvent.dataTransfer.setData('text/plain', touchWord);
-                    targetDrop.dispatchEvent(dropEvent);
-                }
-                touchWord = '';
-                touchElement = null;
-            }, { passive: true });
-        }
+        retryBtn.addEventListener('click', function() {
+            renderQuestions();
+            document.getElementById('testResult').style.display = 'none';
+            speakText('Quiz reset. Try again!', 'male', 0.85);
+        });
 
         // ============================================================
         // 8. CERTIFICATE
@@ -2259,7 +2108,6 @@
         const studentNameInput = document.getElementById('studentNameInput');
         const certificateDate = document.getElementById('certificateDate');
 
-        // Set current date
         const now = new Date();
         certificateDate.textContent = 'Date: ' + now.toLocaleDateString('en-US', {
             year: 'numeric',
@@ -2269,7 +2117,7 @@
 
         // Update certificate name on input
         studentNameInput.addEventListener('input', function() {
-            // The name appears directly in the input
+            // The name appears directly in the input field
         });
 
         document.getElementById('showCertificateBtn').addEventListener('click', function() {
@@ -2286,23 +2134,15 @@
         });
 
         // ============================================================
-        // 10. WHAT'S NEXT
-        // ============================================================
-        document.getElementById('notifyBtn').addEventListener('click', function() {
-            window.open('https://forms.gle/yourGoogleFormLink', '_blank');
-        });
-
-        // ============================================================
-        // 11. NAVIGATION
+        // 10. NAVIGATION
         // ============================================================
         document.getElementById('prevBtn').addEventListener('click', function() {
             window.location.href = 'unit11.html';
         });
 
         // ============================================================
-        // 12. INIT
+        // 11. INIT
         // ============================================================
-        // Learning days
         let days = parseInt(localStorage.getItem('babbleLearningDays')) || 0;
         if (days === 0) {
             days = 1;
@@ -2310,18 +2150,16 @@
         }
         document.getElementById('learningDays').textContent = days;
 
-        // Check if already completed
         if (localStorage.getItem('babbleFinalTestCompleted') === 'true') {
             document.getElementById('testScore').textContent = '25/25';
             document.getElementById('congratsSection').classList.add('show');
             document.getElementById('certificateSection').classList.add('show');
+            document.getElementById('final-test').style.display = 'none';
             launchConfetti();
         }
 
-        // Render questions
         renderQuestions();
 
-        // Preload voices
         if ('speechSynthesis' in window) {
             setTimeout(function() {
                 window.speechSynthesis.getVoices();
@@ -2334,4 +2172,4 @@
     </script>
 
 </body>
-  </html>
+    </html>
