@@ -141,6 +141,25 @@ text-decoration: none;
 transform: scale(1.03);
 }
 
+.reset-unit-btn {
+background: rgba(255,0,0,0.1);
+border: 2px solid var(--red);
+color: var(--red);
+padding: 5px 14px;
+border-radius: 30px;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+transition: 0.25s;
+font-family: 'Cairo', sans-serif;
+}
+
+.reset-unit-btn:hover {
+background: var(--red);
+color: #fff;
+transform: scale(1.02);
+}
+
 /* ============================================================
 UNIT NAVIGATION TABS
 ============================================================ */
@@ -236,7 +255,7 @@ font-size: 10px;
 }
 
 /* ============================================================
-PROGRESS BAR (tracks 10 sections)
+PROGRESS BAR
 ============================================================ */
 .daily-progress {
 padding: 8px 16px;
@@ -300,7 +319,6 @@ margin: 0 auto;
 padding: 14px 16px 30px;
 }
 
-/* ===== UNIT HEADER ===== */
 .unit-header {
 margin-bottom: 18px;
 }
@@ -335,7 +353,6 @@ direction: rtl;
 text-align: right;
 }
 
-/* ===== SECTION BOX ===== */
 .section-box {
 background: var(--card-bg);
 border-radius: var(--radius);
@@ -752,7 +769,7 @@ border-right: 3px solid var(--gold);
 }
 
 /* ============================================================
-SECTION 6: CHALLENGE ARENA - CLICK TO ORDER
+SECTION 6: CHALLENGE ARENA
 ============================================================ */
 .quiz-progress-bar {
 display: flex;
@@ -888,10 +905,6 @@ text-align: right;
 .quiz-feedback .wrong-text { color: var(--red); }
 
 /* ===== CLICK TO ORDER ===== */
-.order-question {
-margin-bottom: 6px;
-}
-
 .order-hint {
 font-size: 12px;
 color: var(--gold);
@@ -1020,7 +1033,7 @@ animation: starFall 2s linear forwards;
 }
 
 /* ============================================================
-CELEBRATION OVERLAY (with close button)
+CELEBRATION OVERLAY
 ============================================================ */
 .celebration-overlay {
 display: none;
@@ -1161,7 +1174,6 @@ background: var(--gold);
 color: var(--black);
 }
 
-/* Celebration Confetti */
 .celeb-confetti-container {
 position: fixed;
 inset: 0;
@@ -1420,28 +1432,6 @@ transform: scale(1.02);
 }
 
 /* ============================================================
-RESET UNIT BUTTON
-============================================================ */
-.reset-unit-btn {
-background: rgba(255,0,0,0.1);
-border: 2px solid var(--red);
-color: var(--red);
-padding: 6px 18px;
-border-radius: 30px;
-font-size: 13px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-}
-
-.reset-unit-btn:hover {
-background: var(--red);
-color: #fff;
-transform: scale(1.02);
-}
-
-/* ============================================================
 ANIMATIONS
 ============================================================ */
 @keyframes fadeInUp {
@@ -1469,100 +1459,32 @@ to { opacity: 1; transform: translateY(0); }
 RESPONSIVE
 ============================================================ */
 @media (max-width: 768px) {
-.vocab-grid {
-grid-template-columns: repeat(2, 1fr);
-}
-
-.grammar-grid {
-grid-template-columns: 1fr;
-}
-
-.warning-grid {
-grid-template-columns: 1fr;
-}
-
-.unit-header h1 {
-font-size: 20px;
-}
-
-.section-box {
-padding: 12px 12px;
-}
-
-.nav-buttons {
-flex-direction: column;
-}
-
-.nav-buttons button {
-width: 100%;
-text-align: center;
-}
-
-.discovery-tabs {
-flex-direction: column;
-}
-
-.discovery-tab {
-text-align: center;
-}
-
-.quiz-options {
-flex-direction: column;
-}
-
-.quiz-options button {
-width: 100%;
-text-align: center;
-}
-
-.unit-tab {
-min-width: 30px;
-height: 30px;
-font-size: 10px;
-}
-
-.celebration-overlay .celeb-box {
-padding: 20px 16px;
-}
-
-.celebration-overlay .celeb-box h2 {
-font-size: 18px;
-}
+.vocab-grid { grid-template-columns: repeat(2, 1fr); }
+.grammar-grid { grid-template-columns: 1fr; }
+.warning-grid { grid-template-columns: 1fr; }
+.unit-header h1 { font-size: 20px; }
+.section-box { padding: 12px 12px; }
+.nav-buttons { flex-direction: column; }
+.nav-buttons button { width: 100%; text-align: center; }
+.discovery-tabs { flex-direction: column; }
+.discovery-tab { text-align: center; }
+.quiz-options { flex-direction: column; }
+.quiz-options button { width: 100%; text-align: center; }
+.unit-tab { min-width: 30px; height: 30px; font-size: 10px; }
+.celebration-overlay .celeb-box { padding: 20px 16px; }
+.celebration-overlay .celeb-box h2 { font-size: 18px; }
 }
 
 @media (max-width: 400px) {
-.vocab-grid {
-grid-template-columns: 1fr 1fr;
-gap: 6px;
+.vocab-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+.flip-card { height: 85px; }
+.flip-card-front .emoji { font-size: 18px; }
+.flip-card-front .word { font-size: 11px; }
+.convo-bubble .bubble-content .en { font-size: 12px; }
+.convo-bubble .bubble-content .ar { font-size: 11px; }
 }
 
-.flip-card {
-height: 85px;
-}
-
-.flip-card-front .emoji {
-font-size: 18px;
-}
-
-.flip-card-front .word {
-font-size: 11px;
-}
-
-.convo-bubble .bubble-content .en {
-font-size: 12px;
-}
-
-.convo-bubble .bubble-content .ar {
-font-size: 11px;
-}
-}
-
-/* ============================================================
-HIDDEN AUDIO
-============================================================ */
-#audio-player {
-display: none;
-}
+#audio-player { display: none; }
 </style>
 </head>
 <body>
@@ -1588,7 +1510,7 @@ UNIT NAVIGATION TABS
 </div>
 
 <!-- ============================================================
-PROGRESS BAR (tracks 10 sections)
+PROGRESS BAR
 ============================================================ -->
 <div class="daily-progress">
 <span class="label">📊 تقدم الوحدة</span>
@@ -1603,7 +1525,6 @@ LESSON CONTENT
 ============================================================ -->
 <div class="lesson-content">
 
-<!-- ===== UNIT HEADER ===== -->
 <div class="unit-header">
 <div class="badge">📖 الوحدة الأولى</div>
 <h1>Hello! How are you?</h1>
@@ -1615,107 +1536,67 @@ SECTION 1: THE REAL TALK
 ========================================================== -->
 <section class="section-box" id="conversation">
 <div class="section-title">🗣️ The Real Talk</div>
-
 <div class="convo-container">
-<!-- John 1 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
-<div class="en">
-Hey! How's it going?
-<button class="audio-btn" data-text="Hey! How's it going?" data-voice="male">🔊</button>
-</div>
+<div class="en">Hey! How's it going? <button class="audio-btn" data-text="Hey! How's it going?" data-voice="male">🔊</button></div>
 <div class="ar">إزاي الدنيا يا عم؟</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
-
-<!-- Sarah 1 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
-<div class="en">
-Oh, hey! Pretty good, and you?
-<button class="audio-btn" data-text="Oh, hey! Pretty good, and you?" data-voice="female">🔊</button>
-</div>
+<div class="en">Oh, hey! Pretty good, and you? <button class="audio-btn" data-text="Oh, hey! Pretty good, and you?" data-voice="female">🔊</button></div>
 <div class="ar">آه، أهلاً! كويسة أوي، وإنت؟</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
-
-<!-- John 2 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
-<div class="en">
-Can't complain. By the way, I'm John.
-<button class="audio-btn" data-text="Can't complain. By the way, I'm John." data-voice="male">🔊</button>
-</div>
+<div class="en">Can't complain. By the way, I'm John. <button class="audio-btn" data-text="Can't complain. By the way, I'm John." data-voice="male">🔊</button></div>
 <div class="ar">مش وحشة الحمدلله. بالمناسبة، أنا جون.</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
-
-<!-- Sarah 2 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
-<div class="en">
-Nice to meet you, John. I'm Sarah.
-<button class="audio-btn" data-text="Nice to meet you, John. I'm Sarah." data-voice="female">🔊</button>
-</div>
+<div class="en">Nice to meet you, John. I'm Sarah. <button class="audio-btn" data-text="Nice to meet you, John. I'm Sarah." data-voice="female">🔊</button></div>
 <div class="ar">فرصة سعيدة يا جون. أنا سارة.</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
-
-<!-- John 3 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
-<div class="en">
-Likewise. So, you new here?
-<button class="audio-btn" data-text="Likewise. So, you new here?" data-voice="male">🔊</button>
-</div>
+<div class="en">Likewise. So, you new here? <button class="audio-btn" data-text="Likewise. So, you new here?" data-voice="male">🔊</button></div>
 <div class="ar">وأنا كمان. يعني إنت جديدة هنا؟</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
-
-<!-- Sarah 3 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
-<div class="en">
-Yeah, just moved in last week.
-<button class="audio-btn" data-text="Yeah, just moved in last week." data-voice="female">🔊</button>
-</div>
+<div class="en">Yeah, just moved in last week. <button class="audio-btn" data-text="Yeah, just moved in last week." data-voice="female">🔊</button></div>
 <div class="ar">أه، سكنت هنا الأسبوع اللي فات.</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
-
-<!-- John 4 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
-<div class="en">
-Well, welcome to the neighborhood! Are you from around here?
-<button class="audio-btn" data-text="Well, welcome to the neighborhood! Are you from around here?" data-voice="male">🔊</button>
-</div>
+<div class="en">Well, welcome to the neighborhood! Are you from around here? <button class="audio-btn" data-text="Well, welcome to the neighborhood! Are you from around here?" data-voice="male">🔊</button></div>
 <div class="ar">أهلاً بيكي في الحتة! إنت من هنا؟</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
-
-<!-- Sarah 4 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
-<div class="en">
-No, I'm from Boston originally. But I'm here for work now.
-<button class="audio-btn" data-text="No, I'm from Boston originally. But I'm here for work now." data-voice="female">🔊</button>
-</div>
+<div class="en">No, I'm from Boston originally. But I'm here for work now. <button class="audio-btn" data-text="No, I'm from Boston originally. But I'm here for work now." data-voice="female">🔊</button></div>
 <div class="ar">لا، أنا من بوسطن في الأصل. بس أنا هنا للشغل دلوقتي.</div>
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
@@ -1728,28 +1609,20 @@ SECTION 2: DISCOVER THE RULE
 ========================================================== -->
 <section class="section-box" id="discover">
 <div class="section-title">🔍 Discover the Rule</div>
-
-<div class="discovery-question">
-❓ لاحظ الفرق بين الجمل دي:
-</div>
-
+<div class="discovery-question">❓ لاحظ الفرق بين الجمل دي:</div>
 <div class="discovery-tabs" id="discoveryTabs">
 <button class="discovery-tab active" data-tab="disc1">I am John.</button>
 <button class="discovery-tab" data-tab="disc2">You are new.</button>
 <button class="discovery-tab" data-tab="disc3">He is my friend.</button>
 </div>
-
 <div class="discovery-content active" id="disc1">
-<strong>🔹 I am</strong> — لما أتكلم عن نفسي<br>
-✅ <span class="en-highlight">"I'm John"</span> = أنا جون.
+<strong>🔹 I am</strong> — لما أتكلم عن نفسي<br>✅ <span class="en-highlight">"I'm John"</span> = أنا جون.
 </div>
 <div class="discovery-content" id="disc2">
-<strong>🔹 You are</strong> — لما أكلم الشخص اللي قدامي<br>
-✅ <span class="en-highlight">"You're new here"</span> = إنت جديد هنا.
+<strong>🔹 You are</strong> — لما أكلم الشخص اللي قدامي<br>✅ <span class="en-highlight">"You're new here"</span> = إنت جديد هنا.
 </div>
 <div class="discovery-content" id="disc3">
-<strong>🔹 He is / She is</strong> — لما أتكلم عن شخص تالت<br>
-✅ <span class="en-highlight">"He's my friend"</span> = هو صاحبي.
+<strong>🔹 He is / She is</strong> — لما أتكلم عن شخص تالت<br>✅ <span class="en-highlight">"He's my friend"</span> = هو صاحبي.
 </div>
 </section>
 
@@ -1758,40 +1631,11 @@ SECTION 3: GRAMMAR LAB
 ========================================================== -->
 <section class="section-box" id="grammar">
 <div class="section-title">🧠 Grammar Lab</div>
-
 <div class="grammar-grid">
-<div class="grammar-card green">
-<div class="title">➕ Positive</div>
-<div class="examples">
-I am / I'm<br>
-He/She/It is / He's<br>
-You/We/They are / You're
-</div>
-</div>
-<div class="grammar-card red">
-<div class="title">➖ Negative</div>
-<div class="examples">
-I am not / I'm not<br>
-He/She/It is not / isn't<br>
-You/We/They are not / aren't
-</div>
-</div>
-<div class="grammar-card blue">
-<div class="title">❓ Question</div>
-<div class="examples">
-Am I?<br>
-Is he/she/it?<br>
-Are you/we/they?
-</div>
-</div>
-<div class="grammar-card gold">
-<div class="title">✅ Short Answer</div>
-<div class="examples">
-Yes, I am. / No, I'm not.<br>
-Yes, he is. / No, he isn't.<br>
-Yes, they are. / No, they aren't.
-</div>
-</div>
+<div class="grammar-card green"><div class="title">➕ Positive</div><div class="examples">I am / I'm<br>He/She/It is / He's<br>You/We/They are / You're</div></div>
+<div class="grammar-card red"><div class="title">➖ Negative</div><div class="examples">I am not / I'm not<br>He/She/It is not / isn't<br>You/We/They are not / aren't</div></div>
+<div class="grammar-card blue"><div class="title">❓ Question</div><div class="examples">Am I?<br>Is he/she/it?<br>Are you/we/they?</div></div>
+<div class="grammar-card gold"><div class="title">✅ Short Answer</div><div class="examples">Yes, I am. / No, I'm not.<br>Yes, he is. / No, he isn't.<br>Yes, they are. / No, they aren't.</div></div>
 </div>
 </section>
 
@@ -1800,88 +1644,15 @@ SECTION 4: WORD VAULT
 ========================================================== -->
 <section class="section-box" id="vocabulary">
 <div class="section-title">💎 Word Vault</div>
-
 <div class="vocab-grid" id="vocabGrid">
-<div class="flip-card" data-word="Hello">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">👋</span>
-<span class="word">Hello</span>
-<button class="audio-btn-small" data-word="Hello">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">أهلاً</span></div>
-</div>
-</div>
-<div class="flip-card" data-word="Goodbye">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">🚶</span>
-<span class="word">Goodbye</span>
-<button class="audio-btn-small" data-word="Goodbye">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">مع السلامة</span></div>
-</div>
-</div>
-<div class="flip-card" data-word="Please">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">🙏</span>
-<span class="word">Please</span>
-<button class="audio-btn-small" data-word="Please">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">من فضلك</span></div>
-</div>
-</div>
-<div class="flip-card" data-word="Thank you">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">❤️</span>
-<span class="word">Thank you</span>
-<button class="audio-btn-small" data-word="Thank you">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">شكراً</span></div>
-</div>
-</div>
-<div class="flip-card" data-word="Sorry">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">😔</span>
-<span class="word">Sorry</span>
-<button class="audio-btn-small" data-word="Sorry">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">آسف</span></div>
-</div>
-</div>
-<div class="flip-card" data-word="Likewise">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">🤝</span>
-<span class="word">Likewise</span>
-<button class="audio-btn-small" data-word="Likewise">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">بالمثل</span></div>
-</div>
-</div>
-<div class="flip-card" data-word="Friend">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">👫</span>
-<span class="word">Friend</span>
-<button class="audio-btn-small" data-word="Friend">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">صديق</span></div>
-</div>
-</div>
-<div class="flip-card" data-word="Welcome">
-<div class="flip-card-inner">
-<div class="flip-card-front">
-<span class="emoji">🏠</span>
-<span class="word">Welcome</span>
-<button class="audio-btn-small" data-word="Welcome">🔊</button>
-</div>
-<div class="flip-card-back"><span class="meaning">أهلاً وسهلاً</span></div>
-</div>
-</div>
+<div class="flip-card" data-word="Hello"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👋</span><span class="word">Hello</span><button class="audio-btn-small" data-word="Hello">🔊</button></div><div class="flip-card-back"><span class="meaning">أهلاً</span></div></div></div>
+<div class="flip-card" data-word="Goodbye"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🚶</span><span class="word">Goodbye</span><button class="audio-btn-small" data-word="Goodbye">🔊</button></div><div class="flip-card-back"><span class="meaning">مع السلامة</span></div></div></div>
+<div class="flip-card" data-word="Please"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🙏</span><span class="word">Please</span><button class="audio-btn-small" data-word="Please">🔊</button></div><div class="flip-card-back"><span class="meaning">من فضلك</span></div></div></div>
+<div class="flip-card" data-word="Thank you"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">❤️</span><span class="word">Thank you</span><button class="audio-btn-small" data-word="Thank you">🔊</button></div><div class="flip-card-back"><span class="meaning">شكراً</span></div></div></div>
+<div class="flip-card" data-word="Sorry"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">😔</span><span class="word">Sorry</span><button class="audio-btn-small" data-word="Sorry">🔊</button></div><div class="flip-card-back"><span class="meaning">آسف</span></div></div></div>
+<div class="flip-card" data-word="Likewise"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🤝</span><span class="word">Likewise</span><button class="audio-btn-small" data-word="Likewise">🔊</button></div><div class="flip-card-back"><span class="meaning">بالمثل</span></div></div></div>
+<div class="flip-card" data-word="Friend"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👫</span><span class="word">Friend</span><button class="audio-btn-small" data-word="Friend">🔊</button></div><div class="flip-card-back"><span class="meaning">صديق</span></div></div></div>
+<div class="flip-card" data-word="Welcome"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🏠</span><span class="word">Welcome</span><button class="audio-btn-small" data-word="Welcome">🔊</button></div><div class="flip-card-back"><span class="meaning">أهلاً وسهلاً</span></div></div></div>
 </div>
 </section>
 
@@ -1890,38 +1661,22 @@ SECTION 5: BABBLE WARNING
 ========================================================== -->
 <section class="section-box" id="warning">
 <div class="section-title">🚨 Babble Warning – الكلمة الخائنة</div>
-
 <div style="text-align:center;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:8px;direction:ltr;">Fine</div>
-
 <div class="warning-grid">
-<div class="warning-card safe">
-<div class="label">✅ المعنى الآمن</div>
-<div class="example">"I'm fine, thanks."</div>
-<div class="meaning">أنا بخير، شكراً.</div>
+<div class="warning-card safe"><div class="label">✅ المعنى الآمن</div><div class="example">"I'm fine, thanks."</div><div class="meaning">أنا بخير، شكراً.</div></div>
+<div class="warning-card danger"><div class="label">❌ المعنى الخطر</div><div class="example">"I got a parking fine."</div><div class="meaning">أخذت غرامة وقوف.</div></div>
 </div>
-<div class="warning-card danger">
-<div class="label">❌ المعنى الخطر</div>
-<div class="example">"I got a parking fine."</div>
-<div class="meaning">أخذت غرامة وقوف.</div>
-</div>
-</div>
-
-<div class="warning-joke">
-😂 يعني لو قلت "I'm fine" أنت تمام. لو قلت "I got a fine" أنت دفعت فلوس!
-</div>
+<div class="warning-joke">😂 يعني لو قلت "I'm fine" أنت تمام. لو قلت "I got a fine" أنت دفعت فلوس!</div>
 </section>
 
 <!-- ==========================================================
-SECTION 6: CHALLENGE ARENA - CLICK TO ORDER
+SECTION 6: CHALLENGE ARENA
 ========================================================== -->
 <section class="section-box" id="challenge">
 <div class="section-title">⚔️ Challenge Arena</div>
-
 <div class="quiz-progress-bar">
 <span class="label">📊 السؤال</span>
-<div class="bar-wrap">
-<div class="bar-fill" id="quizProgressFill"></div>
-</div>
+<div class="bar-wrap"><div class="bar-fill" id="quizProgressFill"></div></div>
 <span class="count" id="quizProgressCount">0/5</span>
 </div>
 
@@ -1990,7 +1745,6 @@ SECTION 6: CHALLENGE ARENA - CLICK TO ORDER
 </div>
 </div>
 
-<!-- Streak Notification -->
 <div class="streak-notification" id="streakNotification">
 🎉 +50 XP! أنت عبقري!
 <div class="stars" id="starsContainer"></div>
@@ -2002,15 +1756,10 @@ SECTION 7: SPEAK UP!
 ========================================================== -->
 <section class="section-box" id="speak">
 <div class="section-title">🎤 Speak Up!</div>
-
 <div class="speak-container">
 <button class="big-btn" id="speakBtn">🎤 اضغط وتحدث!</button>
-<div style="margin-top:6px;font-size:13px;color:#888;direction:rtl;text-align:right;">
-قدم نفسك! ما اسمك؟ من أين أنت؟
-</div>
-<div class="speak-result" id="speakResult">
-⏳ اضغط الزر وابدأ التحدث...
-</div>
+<div style="margin-top:6px;font-size:13px;color:#888;direction:rtl;text-align:right;">قدم نفسك! ما اسمك؟ من أين أنت؟</div>
+<div class="speak-result" id="speakResult">⏳ اضغط الزر وابدأ التحدث...</div>
 </div>
 </section>
 
@@ -2019,7 +1768,6 @@ SECTION 8: POWER RECAP
 ========================================================== -->
 <section class="section-box" id="recap">
 <div class="section-title">⚡ Power Recap</div>
-
 <div class="mindmap">
 <div class="center" id="mindCenter">Verb to be</div>
 <div class="branches">
@@ -2038,7 +1786,6 @@ SECTION 9: VIDEO ZONE
 ========================================================== -->
 <section class="section-box" id="video">
 <div class="section-title">🎥 Video Zone</div>
-
 <button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
 </section>
 
@@ -2047,11 +1794,8 @@ SECTION 10: HOMEWORK
 ========================================================== -->
 <section class="section-box" id="homework">
 <div class="section-title">✍️ Homework</div>
-
 <div class="homework-area">
-<p style="direction:rtl;margin-bottom:6px;color:#888;font-size:13px;text-align:right;">
-✏️ اكتب <strong>5 جمل كاملة</strong> عن نفسك باستخدام <strong>am, is, are</strong>.
-</p>
+<p style="direction:rtl;margin-bottom:6px;color:#888;font-size:13px;text-align:right;">✏️ اكتب <strong>5 جمل كاملة</strong> عن نفسك باستخدام <strong>am, is, are</strong>.</p>
 <textarea id="homeworkText" placeholder="أكتب جملك هنا..."></textarea>
 <button class="save-btn" id="saveHomework">💾 حفظ الواجب</button>
 <div class="save-status" id="saveStatus"></div>
@@ -2069,7 +1813,7 @@ NAVIGATION
 </div><!-- /.lesson-content -->
 
 <!-- ============================================================
-CELEBRATION OVERLAY (with close button)
+CELEBRATION OVERLAY
 ============================================================ -->
 <div class="celebration-overlay" id="celebrationOverlay">
 <div class="celeb-box">
@@ -2086,15 +1830,12 @@ CELEBRATION OVERLAY (with close button)
 </div>
 </div>
 
-<!-- Celebration Confetti Container -->
 <div class="celeb-confetti-container" id="celebConfettiContainer"></div>
 
 <!-- ============================================================
 HIDDEN AUDIO PLAYER
 ============================================================ -->
-<audio id="audio-player" style="display:none;">
-<source src="" type="audio/mpeg">
-</audio>
+<audio id="audio-player" style="display:none;"><source src="" type="audio/mpeg"></audio>
 
 <!-- ============================================================
 JAVASCRIPT
@@ -2111,7 +1852,6 @@ document.documentElement.setAttribute('data-theme', theme);
 themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
 localStorage.setItem('babbleTheme', theme);
 }
-
 setTheme(currentTheme);
 themeToggle.addEventListener('click', () => {
 const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -2131,7 +1871,6 @@ for (let i = 1; i <= totalUnits; i++) {
 const tab = document.createElement('div');
 tab.className = 'unit-tab';
 tab.textContent = i;
-
 if (i === 1) {
 tab.classList.add('active');
 } else if (i < maxUnlocked) {
@@ -2151,29 +1890,23 @@ unitTabs.appendChild(tab);
 renderUnitTabs();
 
 // ============================================================
-// 3. PROGRESS BAR (10 sections - NO DONE BUTTONS)
+// 3. PROGRESS BAR
 // ============================================================
 const progressFill = document.getElementById('dailyProgressFill');
 const progressCount = document.getElementById('dailyProgressCount');
 const totalSections = 10;
-
-// Progress is determined by quiz completion (5/5) + sections 1-5, 7-10 are always "done" once unit is completed
-// But we track if unit is fully completed via localStorage
 let unitCompleted = localStorage.getItem('unit1Completed') === 'true';
 
 function updateProgress() {
-// If unit is completed, show 10/10
 let done = unitCompleted ? 10 : 0;
-// But if quiz is completed but unit not marked complete, show 6/10 (only challenge done)
 const quizDone = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
 if (quizDone.length === 5 && quizDone.every(q => q === true) && !unitCompleted) {
-done = 6; // Only challenge section is complete
+done = 6;
 }
 const pct = (done / totalSections) * 100;
 progressFill.style.width = pct + '%';
 progressCount.textContent = done + '/' + totalSections;
 
-// Update next button
 const nextBtn = document.getElementById('nextBtn');
 if (unitCompleted) {
 nextBtn.style.opacity = '1';
@@ -2199,7 +1932,6 @@ const orderConfigs = {
 5: { correct: ['Are', 'you', 'okay', '?'], pool: 'orderPool5', result: 'orderResult5', feedback: 'orderFeedback5' }
 };
 
-let allQuestionsCorrect = false;
 let quizCorrectCount = 0;
 const totalQuestions = 5;
 
@@ -2209,8 +1941,6 @@ document.getElementById('quizProgressFill').style.width = pct + '%';
 document.getElementById('quizProgressCount').textContent = quizCorrectCount + '/' + totalQuestions;
 
 if (quizCorrectCount === totalQuestions) {
-allQuestionsCorrect = true;
-// Show streak notification
 const streak = document.getElementById('streakNotification');
 streak.classList.add('show');
 launchStars();
@@ -2302,7 +2032,7 @@ resetOrder();
 resetOrder();
 });
 
-// Multiple choice questions
+// Multiple choice questions - FIXED: always works, shows correct/wrong properly
 document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(card => {
 const btns = card.querySelectorAll('.quiz-options button');
 const feedback = card.querySelector('.quiz-feedback');
@@ -2312,11 +2042,13 @@ btns.forEach(btn => {
 btn.addEventListener('click', function() {
 if (answered || this.disabled) return;
 answered = true;
-const isCorrect = this.dataset.answer === 'am' || this.dataset.answer === 'are';
+const qNum = parseInt(card.dataset.question);
+const isCorrect = this.dataset.answer === (qNum === 1 ? 'am' : 'are');
+
 if (isCorrect) {
 this.classList.add('correct');
 feedback.innerHTML = '<span class="correct-text">✅ صحيح!</span>';
-const qIndex = parseInt(card.dataset.question) - 1;
+const qIndex = qNum - 1;
 if (!window.questionStatus) window.questionStatus = [];
 if (!window.questionStatus[qIndex]) {
 window.questionStatus[qIndex] = true;
@@ -2325,9 +2057,13 @@ updateQuizProgress();
 }
 } else {
 this.classList.add('wrong');
-feedback.innerHTML = '<span class="wrong-text">❌ خطأ. الإجابة الصحيحة هي ' + 
-(card.dataset.question === '1' ? 'am' : 'are') + '</span>';
-btns.forEach(b => { if (b.dataset.answer === 'am' || b.dataset.answer === 'are') b.classList.add('correct'); });
+const correctAns = qNum === 1 ? 'am' : 'are';
+feedback.innerHTML = '<span class="wrong-text">❌ خطأ. الإجابة الصحيحة هي "' + correctAns + '"</span>';
+btns.forEach(b => {
+if (b.dataset.answer === correctAns) {
+b.classList.add('correct');
+}
+});
 }
 btns.forEach(b => b.disabled = true);
 });
@@ -2335,16 +2071,14 @@ btns.forEach(b => b.disabled = true);
 });
 
 // ============================================================
-// 5. CELEBRATION OVERLAY (with close button)
+// 5. CELEBRATION OVERLAY
 // ============================================================
 function showCelebration() {
 const overlay = document.getElementById('celebrationOverlay');
 overlay.classList.add('show');
 launchCelebrationConfetti();
-// Mark unit as completed
 unitCompleted = true;
 localStorage.setItem('unit1Completed', 'true');
-// Update maxUnlocked
 if (maxUnlocked < 2) {
 maxUnlocked = 2;
 localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
@@ -2353,7 +2087,6 @@ renderUnitTabs();
 updateProgress();
 }
 
-// Close celebration
 document.getElementById('closeCelebBtn').addEventListener('click', function() {
 document.getElementById('celebrationOverlay').classList.remove('show');
 });
@@ -2366,7 +2099,6 @@ document.getElementById('celebHomeBtn').addEventListener('click', function() {
 window.location.href = 'index.html';
 });
 
-// Retry from celebration
 document.getElementById('celebRetryBtn').addEventListener('click', function() {
 resetUnit();
 document.getElementById('celebrationOverlay').classList.remove('show');
@@ -2393,38 +2125,28 @@ setTimeout(() => { container.innerHTML = ''; }, 6000);
 }
 
 // ============================================================
-// 6. NEXT BUTTON - Complete Unit
+// 6. NEXT BUTTON
 // ============================================================
 document.getElementById('nextBtn').addEventListener('click', function() {
 const quizDone = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
 if (unitCompleted) {
 window.location.href = 'unit2.html';
 } else if (quizDone.length === 5 && quizDone.every(q => q === true)) {
-// Mark unit as complete and show celebration
-unitCompleted = true;
-localStorage.setItem('unit1Completed', 'true');
-if (maxUnlocked < 2) {
-maxUnlocked = 2;
-localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
-renderUnitTabs();
-}
-updateProgress();
 showCelebration();
 }
 });
 
 // ============================================================
-// 7. RESET UNIT BUTTON
+// 7. RESET UNIT
 // ============================================================
 function resetUnit() {
 unitCompleted = false;
 localStorage.removeItem('unit1Completed');
 localStorage.removeItem('unit1QuizStatus');
-localStorage.removeItem('unit1Sections');
 window.questionStatus = [];
 quizCorrectCount = 0;
-allQuestionsCorrect = false;
 document.getElementById('celebrationOverlay').classList.remove('show');
+
 // Reset quiz UI
 document.querySelectorAll('.quiz-card').forEach(card => {
 const btns = card.querySelectorAll('.quiz-options button, .order-word');
@@ -2470,31 +2192,28 @@ container.appendChild(star);
 // ============================================================
 // 9. SPEAK UP
 // ============================================================
-const speakBtn = document.getElementById('speakBtn');
-const speakResult = document.getElementById('speakResult');
-
-speakBtn.addEventListener('click', function() {
+document.getElementById('speakBtn').addEventListener('click', function() {
+const result = document.getElementById('speakResult');
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 recognition.lang = 'en-US';
 recognition.interimResults = false;
-speakResult.textContent = '🎤 استمع...';
-speakResult.style.color = 'var(--gold)';
-
+result.textContent = '🎤 استمع...';
+result.style.color = 'var(--gold)';
 recognition.onresult = function(event) {
 const transcript = event.results[0][0].transcript;
-speakResult.textContent = '✅ سمعنا: "' + transcript + '"';
-speakResult.style.color = 'var(--green)';
+result.textContent = '✅ سمعنا: "' + transcript + '"';
+result.style.color = 'var(--green)';
 };
 recognition.onerror = function() {
-speakResult.textContent = '❌ لم نتمكن من السماع. حاول مرة أخرى.';
-speakResult.style.color = 'var(--red)';
+result.textContent = '❌ لم نتمكن من السماع. حاول مرة أخرى.';
+result.style.color = 'var(--red)';
 };
 recognition.start();
 } else {
-speakResult.textContent = '⚠️ متصفحك لا يدعم خاصية التعرف على الصوت.';
-speakResult.style.color = 'var(--red)';
+result.textContent = '⚠️ متصفحك لا يدعم خاصية التعرف على الصوت.';
+result.style.color = 'var(--red)';
 }
 });
 
@@ -2506,7 +2225,6 @@ branch.addEventListener('click', function() {
 document.getElementById('branchExample').textContent = '📌 ' + this.dataset.example;
 });
 });
-
 document.getElementById('mindCenter').addEventListener('click', function() {
 document.getElementById('branchExample').textContent = '👆 اضغط على أي فرع لترى مثالاً';
 });
@@ -2523,14 +2241,12 @@ window.open('https://youtube.com/@omar.youssif.english', '_blank');
 // ============================================================
 const homeworkText = document.getElementById('homeworkText');
 const saveStatus = document.getElementById('saveStatus');
-
 let savedHomework = localStorage.getItem('unit1Homework') || '';
 if (savedHomework) {
 homeworkText.value = savedHomework;
 saveStatus.textContent = '💾 تم حفظ الواجب';
 saveStatus.style.color = 'var(--green)';
 }
-
 document.getElementById('saveHomework').addEventListener('click', function() {
 const text = homeworkText.value;
 localStorage.setItem('unit1Homework', text);
@@ -2539,7 +2255,7 @@ saveStatus.style.color = 'var(--green)';
 });
 
 // ============================================================
-// 13. AUDIO BUTTONS (Speech Synthesis)
+// 13. AUDIO BUTTONS
 // ============================================================
 document.querySelectorAll('.audio-btn, .audio-btn-small').forEach(btn => {
 btn.addEventListener('click', function(e) {
@@ -2549,12 +2265,8 @@ if (!text) return;
 const utterance = new SpeechSynthesisUtterance(text);
 utterance.lang = 'en-US';
 utterance.rate = 0.9;
-const voiceType = this.dataset.voice || 'male';
 const voices = window.speechSynthesis.getVoices();
-const selected = voices.find(v => 
-voiceType === 'male' ? v.name.includes('Google US English') || v.name.includes('Samantha') : 
-v.name.includes('Samantha') || v.name.includes('Google UK')
-);
+const selected = voices.find(v => v.name.includes('Google') || v.name.includes('Samantha'));
 if (selected) utterance.voice = selected;
 window.speechSynthesis.speak(utterance);
 });
@@ -2597,7 +2309,6 @@ document.getElementById(this.dataset.tab).classList.add('active');
 // ============================================================
 // 17. INIT
 // ============================================================
-// Load saved quiz status
 const savedQuiz = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
 if (savedQuiz.length > 0) {
 window.questionStatus = savedQuiz;
@@ -2605,31 +2316,21 @@ quizCorrectCount = savedQuiz.filter(q => q === true).length;
 updateQuizProgress();
 }
 
-// Check if unit was already completed
 unitCompleted = localStorage.getItem('unit1Completed') === 'true';
 if (unitCompleted) {
 updateProgress();
-// Show celebration if returning to completed unit (but only if not reset)
-const overlay = document.getElementById('celebrationOverlay');
-// Don't auto-show, let user see it via the "إنهاء الوحدة" button or it stays accessible
-// If they want to see celebration again, they can click the next button
 }
-
 updateProgress();
 
-// Save quiz status on change
 setInterval(() => {
 if (window.questionStatus) {
 localStorage.setItem('unit1QuizStatus', JSON.stringify(window.questionStatus));
 }
 }, 1000);
 
-// ============================================================
-// 18. Check if unit should be auto-completed (for returning users)
-// ============================================================
-// If unit is completed and user returns, we don't auto-show celebration
-// They can see it by clicking "التالي" or it stays in localStorage
-
+console.log('✅ Babble Box Unit 1 loaded successfully!');
+console.log('📊 Quiz status:', window.questionStatus || 'Not started');
+console.log('📈 Unit completed:', unitCompleted);
 </script>
 </body>
   </html>
