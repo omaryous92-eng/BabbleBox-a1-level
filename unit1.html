@@ -88,6 +88,7 @@ font-size: 16px;
 font-weight: 800;
 color: var(--text);
 direction: ltr;
+text-align: left;
 }
 
 .header .brand span {
@@ -99,6 +100,7 @@ font-size: 13px;
 font-weight: 600;
 color: #888;
 direction: ltr;
+text-align: left;
 }
 
 .header .top-actions {
@@ -256,6 +258,7 @@ font-size: 13px;
 font-weight: 600;
 color: var(--text);
 direction: rtl;
+text-align: right;
 }
 
 .daily-progress .bar-wrap {
@@ -312,6 +315,7 @@ font-size: 12px;
 font-weight: 700;
 margin-bottom: 2px;
 direction: rtl;
+text-align: right;
 }
 
 .unit-header h1 {
@@ -353,33 +357,6 @@ justify-content: space-between;
 gap: 8px;
 direction: ltr;
 text-align: left;
-}
-
-.section-box .section-title .done-btn {
-background: rgba(0,0,0,0.06);
-border: none;
-padding: 2px 12px;
-border-radius: 30px;
-font-size: 11px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.2s;
-color: var(--text);
-font-family: 'Cairo', sans-serif;
-}
-
-[data-theme="dark"] .section-box .section-title .done-btn {
-background: rgba(255,255,255,0.06);
-color: #ddd;
-}
-
-.section-box .section-title .done-btn.completed {
-background: var(--green);
-color: #fff;
-}
-
-.section-box .section-title .done-btn:hover:not(.completed) {
-background: rgba(0,0,0,0.1);
 }
 
 /* ============================================================
@@ -787,6 +764,7 @@ font-size: 12px;
 font-weight: 600;
 color: var(--text);
 direction: rtl;
+text-align: right;
 }
 
 .quiz-progress-bar .bar-wrap {
@@ -1397,6 +1375,22 @@ background: #e6b800;
 transform: scale(1.02);
 }
 
+.nav-buttons .reset-btn {
+background: rgba(0,0,0,0.05);
+color: var(--text);
+border: 2px solid var(--gold);
+}
+
+[data-theme="dark"] .nav-buttons .reset-btn {
+background: rgba(255,255,255,0.05);
+color: #eee;
+}
+
+.nav-buttons .reset-btn:hover {
+background: var(--gold);
+color: var(--black);
+}
+
 /* ============================================================
 ANIMATIONS
 ============================================================ */
@@ -1571,7 +1565,6 @@ SECTION 1: THE REAL TALK
 <section class="section-box" id="conversation">
 <div class="section-title">
 🗣️ The Real Talk
-<button class="done-btn" data-section="1">✔️ تم</button>
 </div>
 
 <div class="convo-container">
@@ -1687,7 +1680,6 @@ SECTION 2: DISCOVER THE RULE
 <section class="section-box" id="discover">
 <div class="section-title">
 🔍 Discover the Rule
-<button class="done-btn" data-section="2">✔️ تم</button>
 </div>
 
 <div class="discovery-question">
@@ -1720,7 +1712,6 @@ SECTION 3: GRAMMAR LAB
 <section class="section-box" id="grammar">
 <div class="section-title">
 🧠 Grammar Lab
-<button class="done-btn" data-section="3">✔️ تم</button>
 </div>
 
 <div class="grammar-grid">
@@ -1765,7 +1756,6 @@ SECTION 4: WORD VAULT
 <section class="section-box" id="vocabulary">
 <div class="section-title">
 💎 Word Vault
-<button class="done-btn" data-section="4">✔️ تم</button>
 </div>
 
 <div class="vocab-grid" id="vocabGrid">
@@ -1858,7 +1848,6 @@ SECTION 5: BABBLE WARNING
 <section class="section-box" id="warning">
 <div class="section-title">
 🚨 Babble Warning – الكلمة الخائنة
-<button class="done-btn" data-section="5">✔️ تم</button>
 </div>
 
 <div style="text-align:center;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:8px;direction:ltr;">Fine</div>
@@ -1887,7 +1876,6 @@ SECTION 6: CHALLENGE ARENA - CLICK TO ORDER
 <section class="section-box" id="challenge">
 <div class="section-title">
 ⚔️ Challenge Arena
-<button class="done-btn" data-section="6">✔️ تم</button>
 </div>
 
 <div class="quiz-progress-bar">
@@ -1976,7 +1964,6 @@ SECTION 7: SPEAK UP!
 <section class="section-box" id="speak">
 <div class="section-title">
 🎤 Speak Up!
-<button class="done-btn" data-section="7">✔️ تم</button>
 </div>
 
 <div class="speak-container">
@@ -1996,7 +1983,6 @@ SECTION 8: POWER RECAP
 <section class="section-box" id="recap">
 <div class="section-title">
 ⚡ Power Recap
-<button class="done-btn" data-section="8">✔️ تم</button>
 </div>
 
 <div class="mindmap">
@@ -2018,7 +2004,6 @@ SECTION 9: VIDEO ZONE
 <section class="section-box" id="video">
 <div class="section-title">
 🎥 Video Zone
-<button class="done-btn" data-section="9">✔️ تم</button>
 </div>
 
 <button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
@@ -2030,7 +2015,6 @@ SECTION 10: HOMEWORK
 <section class="section-box" id="homework">
 <div class="section-title">
 ✍️ Homework
-<button class="done-btn" data-section="10">✔️ تم</button>
 </div>
 
 <div class="homework-area">
@@ -2048,6 +2032,7 @@ NAVIGATION
 ========================================================== -->
 <div class="nav-buttons">
 <button class="prev" disabled>← السابق</button>
+<button class="reset-btn" id="resetBtn">🔄 إعادة دراسة الوحدة</button>
 <button class="next" id="nextBtn">التالي →</button>
 </div>
 
@@ -2134,32 +2119,24 @@ unitTabs.appendChild(tab);
 renderUnitTabs();
 
 // ============================================================
-// 3. PROGRESS BAR (10 sections)
+// 3. PROGRESS BAR (10 sections) - NO DONE BUTTONS
 // ============================================================
 const progressFill = document.getElementById('dailyProgressFill');
 const progressCount = document.getElementById('dailyProgressCount');
 const totalSections = 10;
-let completedSections = JSON.parse(localStorage.getItem('unit1Sections')) || [];
+
+// Check if unit is completed (all 5 quiz questions correct)
+function isUnitCompleted() {
+return quizCorrectCount === totalQuestions;
+}
 
 function updateProgress() {
-const done = completedSections.length;
+const done = isUnitCompleted() ? totalSections : 0;
 const pct = (done / totalSections) * 100;
 progressFill.style.width = pct + '%';
 progressCount.textContent = done + '/' + totalSections;
 
-// Update done buttons
-document.querySelectorAll('.done-btn').forEach(btn => {
-const sectionNum = parseInt(btn.dataset.section);
-if (completedSections.includes(sectionNum)) {
-btn.classList.add('completed');
-btn.textContent = '✅ تم';
-} else {
-btn.classList.remove('completed');
-btn.textContent = '✔️ تم';
-}
-});
-
-// Check if all sections complete
+// Update next button
 if (done === totalSections) {
 document.getElementById('nextBtn').style.opacity = '1';
 document.getElementById('nextBtn').style.cursor = 'pointer';
@@ -2168,26 +2145,6 @@ document.getElementById('nextBtn').style.opacity = '0.5';
 document.getElementById('nextBtn').style.cursor = 'not-allowed';
 }
 }
-
-// Toggle section completion
-document.querySelectorAll('.done-btn').forEach(btn => {
-btn.addEventListener('click', function() {
-const sectionNum = parseInt(this.dataset.section);
-const index = completedSections.indexOf(sectionNum);
-if (index > -1) {
-completedSections.splice(index, 1);
-} else {
-// Section 6 (Challenge) can only be completed if quiz is done
-if (sectionNum === 6 && !allQuestionsCorrect) {
-alert('⚠️ أكمل التحدي أولاً (5/5)');
-return;
-}
-completedSections.push(sectionNum);
-}
-localStorage.setItem('unit1Sections', JSON.stringify(completedSections));
-updateProgress();
-});
-});
 
 // ============================================================
 // 4. CHALLENGE ARENA - CLICK TO ORDER
@@ -2213,8 +2170,8 @@ allQuestionsCorrect = true;
 const streak = document.getElementById('streakNotification');
 streak.classList.add('show');
 launchStars();
-// Enable section 6 completion
-document.querySelector('#challenge .done-btn').style.opacity = '1';
+// Update main progress
+updateProgress();
 // Show celebration
 showCelebration();
 }
@@ -2350,7 +2307,7 @@ btns.forEach(b => b.disabled = true);
 // 5. CELEBRATION OVERLAY
 // ============================================================
 function showCelebration() {
-if (completedSections.length < totalSections) return;
+if (quizCorrectCount < totalQuestions) return;
 const overlay = document.getElementById('celebrationOverlay');
 overlay.classList.add('show');
 launchCelebrationConfetti();
@@ -2480,7 +2437,52 @@ saveStatus.style.color = 'var(--green)';
 });
 
 // ============================================================
-// 11. AUDIO BUTTONS (Speech Synthesis)
+// 11. RESET UNIT (إعادة دراسة الوحدة)
+// ============================================================
+document.getElementById('resetBtn').addEventListener('click', function() {
+if (confirm('⚠️ هل أنت متأكد؟ سيتم إعادة ضبط تقدم الوحدة بالكامل.')) {
+// Reset quiz progress
+quizCorrectCount = 0;
+window.questionStatus = [];
+localStorage.removeItem('unit1QuizStatus');
+// Reset all order questions
+document.querySelectorAll('.order-pool').forEach(pool => {
+const words = pool.querySelectorAll('.order-word');
+words.forEach(btn => {
+btn.disabled = false;
+btn.classList.remove('used', 'correct-answer', 'wrong-answer');
+});
+});
+document.querySelectorAll('.order-result-box').forEach(box => box.innerHTML = '');
+document.querySelectorAll('.quiz-feedback').forEach(fb => fb.innerHTML = '');
+// Reset multiple choice
+document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(card => {
+const btns = card.querySelectorAll('.quiz-options button');
+btns.forEach(b => {
+b.disabled = false;
+b.classList.remove('correct', 'wrong');
+});
+card.querySelector('.quiz-feedback').innerHTML = '';
+});
+// Reset progress
+updateQuizProgress();
+updateProgress();
+// Hide celebration
+document.getElementById('celebrationOverlay').classList.remove('show');
+document.getElementById('streakNotification').classList.remove('show');
+// Reset maxUnlocked if needed
+if (maxUnlocked > 1) {
+maxUnlocked = 1;
+localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
+renderUnitTabs();
+}
+// Show message
+alert('🔄 تم إعادة ضبط الوحدة. يمكنك دراستها من جديد!');
+}
+});
+
+// ============================================================
+// 12. AUDIO BUTTONS (Speech Synthesis)
 // ============================================================
 document.querySelectorAll('.audio-btn, .audio-btn-small').forEach(btn => {
 btn.addEventListener('click', function(e) {
@@ -2502,7 +2504,7 @@ window.speechSynthesis.speak(utterance);
 });
 
 // ============================================================
-// 12. TRANSLATION BUTTONS
+// 13. TRANSLATION BUTTONS
 // ============================================================
 document.querySelectorAll('.translation-btn').forEach(btn => {
 btn.addEventListener('click', function() {
@@ -2516,7 +2518,7 @@ this.textContent = arDiv.classList.contains('show') ? '🇪🇬 Hide Translation
 });
 
 // ============================================================
-// 13. FLIP CARDS
+// 14. FLIP CARDS
 // ============================================================
 document.querySelectorAll('.flip-card').forEach(card => {
 card.addEventListener('click', function() {
@@ -2525,7 +2527,7 @@ this.classList.toggle('flipped');
 });
 
 // ============================================================
-// 14. DISCOVERY TABS
+// 15. DISCOVERY TABS
 // ============================================================
 document.querySelectorAll('.discovery-tab').forEach(tab => {
 tab.addEventListener('click', function() {
@@ -2537,27 +2539,27 @@ document.getElementById(this.dataset.tab).classList.add('active');
 });
 
 // ============================================================
-// 15. NAVIGATION
+// 16. NAVIGATION
 // ============================================================
 document.getElementById('nextBtn').addEventListener('click', function() {
-if (completedSections.length === totalSections) {
+if (quizCorrectCount === totalQuestions) {
 window.location.href = 'unit2.html';
 }
 });
 
 // ============================================================
-// 16. INIT
+// 17. INIT
 // ============================================================
-// Load saved progress
-updateProgress();
-
-// Check if challenge was already completed
+// Load saved quiz status
 const savedQuiz = JSON.parse(localStorage.getItem('unit1QuizStatus'));
 if (savedQuiz) {
 window.questionStatus = savedQuiz;
 quizCorrectCount = savedQuiz.filter(q => q === true).length;
 updateQuizProgress();
 }
+
+// Initial progress update
+updateProgress();
 
 // Save quiz status on change
 setInterval(() => {
@@ -2568,4 +2570,4 @@ localStorage.setItem('unit1QuizStatus', JSON.stringify(window.questionStatus));
 
 </script>
 </body>
-    </html>
+  </html>
