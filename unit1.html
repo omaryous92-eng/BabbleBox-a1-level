@@ -22,7 +22,7 @@
 
     <style>
         /* ============================================================
-               ===== 1. المتغيرات العامة (نفس الصفحة الرئيسية) ===== */
+               ===== 1. المتغيرات العامة ===== */
         :root {
             --bg-primary: #050505;
             --bg-secondary: #0a0a0a;
@@ -54,6 +54,7 @@
             --sidebar-width: 220px;
             --header-height: 64px;
             --progress-height: 40px;
+            --unit-tabs-height: 44px;
         }
 
         [data-theme="light"] {
@@ -105,7 +106,7 @@
             transition: background-color var(--transition), color var(--transition);
             overflow-x: hidden;
             min-height: 100vh;
-            padding-top: calc(var(--header-height) + var(--progress-height));
+            padding-top: calc(var(--header-height) + var(--progress-height) + var(--unit-tabs-height));
         }
         ::-webkit-scrollbar {
             width: 8px;
@@ -273,16 +274,64 @@
             white-space: nowrap;
         }
 
-        /* ===== 5. تخطيط الصفحة (sidebar + محتوى) ===== */
+        /* ===== 5. شريط الوحدات العلوي (Tabs) ===== */
+        .unit-tabs {
+            position: fixed;
+            top: calc(var(--header-height) + var(--progress-height));
+            left: 0;
+            right: 0;
+            z-index: 998;
+            height: var(--unit-tabs-height);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 4px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .unit-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        .unit-tabs .tab-item {
+            flex: 0 0 auto;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+            transition: all var(--transition);
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .unit-tabs .tab-item.active {
+            background: var(--gold-dim);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .unit-tabs .tab-item.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .unit-tabs .tab-item .lock-icon {
+            font-size: 12px;
+        }
+
+        /* ===== 6. تخطيط الصفحة ===== */
         .page-layout {
             display: flex;
-            min-height: calc(100vh - var(--header-height) - var(--progress-height));
+            min-height: calc(100vh - var(--header-height) - var(--progress-height) - var(--unit-tabs-height));
         }
         .sidebar {
             position: sticky;
-            top: calc(var(--header-height) + var(--progress-height));
+            top: calc(var(--header-height) + var(--progress-height) + var(--unit-tabs-height));
             width: var(--sidebar-width);
-            height: calc(100vh - var(--header-height) - var(--progress-height));
+            height: calc(100vh - var(--header-height) - var(--progress-height) - var(--unit-tabs-height));
             overflow-y: auto;
             background: var(--bg-secondary);
             border-left: 1px solid var(--border-glass);
@@ -339,7 +388,7 @@
             max-width: calc(100% - var(--sidebar-width));
         }
 
-        /* ===== 6. الأزرار والعناصر العامة ===== */
+        /* ===== 7. الأزرار ===== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -392,8 +441,12 @@
             cursor: not-allowed;
             transform: none !important;
         }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
 
-        /* ===== 7. الزجاج والبطاقات ===== */
+        /* ===== 8. الزجاج والبطاقات ===== */
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -406,10 +459,10 @@
             border-color: rgba(255, 215, 0, 0.15);
         }
 
-        /* ===== 8. أقسام المحتوى ===== */
+        /* ===== 9. أقسام المحتوى ===== */
         .unit-section {
             margin-bottom: 48px;
-            scroll-margin-top: calc(var(--header-height) + var(--progress-height) + 20px);
+            scroll-margin-top: calc(var(--header-height) + var(--progress-height) + var(--unit-tabs-height) + 20px);
         }
         .unit-section h2 {
             font-size: 28px;
@@ -423,7 +476,7 @@
             color: var(--gold);
         }
 
-        /* ===== 9. فقاعات المحادثة ===== */
+        /* ===== 10. فقاعات المحادثة ===== */
         .chat-container {
             display: flex;
             flex-direction: column;
@@ -501,7 +554,7 @@
             display: block;
         }
 
-        /* ===== 10. Tabs ===== */
+        /* ===== 11. Tabs ===== */
         .tabs {
             display: flex;
             gap: 6px;
@@ -547,7 +600,7 @@
             font-size: 16px;
         }
 
-        /* ===== 11. Grammar Lab ===== */
+        /* ===== 12. Grammar Lab ===== */
         .grammar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -588,7 +641,7 @@
             border-right: 4px solid var(--gold);
         }
 
-        /* ===== 12. Flip Cards ===== */
+        /* ===== 13. Flip Cards ===== */
         .flip-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -652,7 +705,7 @@
             text-align: center;
         }
 
-        /* ===== 13. Babble Warning ===== */
+        /* ===== 14. Babble Warning ===== */
         .warning-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -693,7 +746,28 @@
             text-align: center;
         }
 
-        /* ===== 14. Challenge Arena (إعادة بناء) ===== */
+        /* ===== 15. Challenge Arena ===== */
+        .challenge-progress {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .challenge-progress .bar {
+            flex: 1;
+            height: 6px;
+            background: var(--border-glass);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .challenge-progress .bar .fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 6px;
+            transition: width 0.4s ease;
+        }
         .challenge-grid {
             display: flex;
             flex-direction: column;
@@ -789,7 +863,149 @@
             color: var(--text-muted);
         }
 
-        /* ===== 15. Speak Up ===== */
+        /* ===== 15b. Ordering (ترتيب) ===== */
+        .ordering-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 12px;
+            min-height: 60px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 2px dashed var(--border-glass);
+            margin: 8px 0;
+            align-items: center;
+            justify-content: center;
+        }
+        .ordering-zone .word-chip {
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: var(--gold-dim);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all var(--transition);
+            direction: ltr;
+        }
+        .ordering-zone .word-chip:hover {
+            transform: scale(1.05);
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+        .ordering-zone .word-chip.used {
+            opacity: 0.3;
+            cursor: default;
+            pointer-events: none;
+        }
+        .ordering-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 8px;
+            justify-content: center;
+        }
+        .ordering-pool .word-chip {
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all var(--transition);
+            direction: ltr;
+        }
+        .ordering-pool .word-chip:hover {
+            border-color: var(--gold);
+            background: var(--gold-dim);
+        }
+        .ordering-pool .word-chip.used {
+            display: none;
+        }
+        .order-check-btn {
+            margin-top: 8px;
+        }
+
+        /* ===== 15c. Listening ===== */
+        .listening-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 8px 0;
+            flex-wrap: wrap;
+        }
+        .listening-area .listen-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            background: var(--gold-dim);
+            color: var(--gold);
+            font-size: 24px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .listening-area .listen-btn:hover {
+            transform: scale(1.05);
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+
+        /* ===== 16. الاحتفال ===== */
+        .celebrate {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 3000;
+            animation: fadeIn 0.6s ease;
+            padding: 20px;
+            text-align: center;
+        }
+        .celebrate.show {
+            display: flex;
+        }
+        .celebrate h2 {
+            font-size: 52px;
+            color: var(--gold);
+            margin-bottom: 8px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+        .celebrate p {
+            font-size: 26px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        .celebrate .stars {
+            font-size: 60px;
+            animation: spin 3s linear infinite;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== 17. Speak Up ===== */
         .speak-box {
             padding: 30px;
             text-align: center;
@@ -828,7 +1044,7 @@
             color: #ef4444;
         }
 
-        /* ===== 16. Power Recap (مع عنوان فرعي) ===== */
+        /* ===== 18. Power Recap ===== */
         .recap-title {
             font-size: 24px;
             font-weight: 800;
@@ -870,7 +1086,7 @@
             background: var(--gold-dim);
         }
 
-        /* ===== 17. Video & Homework ===== */
+        /* ===== 19. Video & Homework ===== */
         .video-box {
             padding: 24px;
             text-align: center;
@@ -937,31 +1153,55 @@
             margin-top: 12px;
         }
 
-        /* ===== 18. زر الوحدة التالية ===== */
+        /* ===== 20. زر الوحدة التالية (في نهاية الصفحة) ===== */
+        .next-unit-wrapper {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+        }
         .next-unit-btn {
             display: none;
-            margin: 20px auto 0;
-            padding: 16px 48px;
-            font-size: 22px;
+            padding: 18px 56px;
+            font-size: 24px;
             font-weight: 800;
             border-radius: 60px;
             background: var(--gold);
             color: var(--bg-primary);
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 4px 40px rgba(255, 215, 0, 0.4);
             transition: all var(--transition);
             text-align: center;
+            text-decoration: none;
         }
         .next-unit-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.6);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 50px rgba(255, 215, 0, 0.6);
         }
         .next-unit-btn.show {
-            display: block;
+            display: inline-block;
         }
 
-        /* ===== 19. Footer ===== */
+        /* ===== 21. زر إعادة الاختبار ===== */
+        .reset-challenge-btn {
+            margin: 16px auto 0;
+            padding: 12px 32px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 60px;
+            background: var(--btn-secondary-bg);
+            color: var(--text-secondary);
+            border: 1.5px solid var(--btn-secondary-border);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .reset-challenge-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: var(--gold-dim);
+        }
+
+        /* ===== 22. Footer ===== */
         .footer {
             border-top: 1px solid var(--footer-border);
             padding: 30px 0 24px;
@@ -999,7 +1239,7 @@
             fill: var(--gold);
         }
 
-        /* ===== 20. استجابة ===== */
+        /* ===== 23. استجابة ===== */
         @media (max-width: 992px) {
             .sidebar {
                 width: 180px;
@@ -1019,9 +1259,10 @@
                 --sidebar-width: 0px;
                 --header-height: 56px;
                 --progress-height: 36px;
+                --unit-tabs-height: 38px;
             }
             body {
-                padding-top: calc(var(--header-height) + var(--progress-height));
+                padding-top: calc(var(--header-height) + var(--progress-height) + var(--unit-tabs-height));
             }
             .sidebar {
                 display: none;
@@ -1057,6 +1298,10 @@
             .progress-bar .progress-track {
                 max-width: 120px;
             }
+            .unit-tabs .tab-item {
+                font-size: 12px;
+                padding: 4px 10px;
+            }
             .unit-section h2 {
                 font-size: 22px;
             }
@@ -1084,6 +1329,10 @@
             .challenge-item .options {
                 justify-content: center;
             }
+            .next-unit-btn {
+                padding: 14px 32px;
+                font-size: 20px;
+            }
         }
         @media (max-width: 480px) {
             .grammar-grid {
@@ -1099,9 +1348,13 @@
                 padding: 4px 12px;
                 font-size: 14px;
             }
+            .unit-tabs .tab-item {
+                font-size: 11px;
+                padding: 3px 8px;
+            }
         }
 
-        /* ===== 21. تأثيرات إضافية ===== */
+        /* ===== 24. تأثيرات إضافية ===== */
         .fade-up {
             opacity: 0;
             transform: translateY(20px);
@@ -1130,7 +1383,7 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            z-index: 2001;
+            z-index: 3001;
             overflow: hidden;
         }
         .confetti {
@@ -1187,6 +1440,11 @@
         <div class="progress-track">
             <div class="progress-fill" id="progressFill" style="width:0%"></div>
         </div>
+    </div>
+
+    <!-- ===== شريط الوحدات العلوي (Tabs) ===== -->
+    <div class="unit-tabs" id="unitTabs">
+        <!-- سيتم توليده بواسطة JS -->
     </div>
 
     <!-- ===== التخطيط الرئيسي ===== -->
@@ -1295,19 +1553,20 @@
             </section>
 
             <!-- ============================================================
-            القسم 6: ⚔️ Challenge Arena (إعادة بناء)
+            القسم 6: ⚔️ Challenge Arena (7 أسئلة)
             ============================================================ -->
             <section class="unit-section fade-up" id="section6">
                 <h2>⚔️ Challenge Arena</h2>
                 <div class="challenge-progress">
-                    <span>التقدم: <span id="challengeScore">0</span> / 5</span>
+                    <span>التقدم: <span id="challengeScore">0</span> / 7</span>
                     <div class="bar"><div class="fill" id="challengeFill" style="width:0%"></div></div>
                 </div>
                 <div id="challengeContainer" class="challenge-grid">
                     <!-- سيتم توليد الأسئلة بواسطة JS -->
                 </div>
-                <!-- زر الوحدة التالية (مخفي حتى 5/5) -->
-                <a href="unit2.html" class="next-unit-btn" id="nextUnitBtn">الوحدة التالية ←</a>
+                <div style="text-align:center; margin-top:16px;">
+                    <button class="reset-challenge-btn" id="resetChallengeBtn">🔄 إعادة الاختبار بالكامل</button>
+                </div>
             </section>
 
             <!-- ============================================================
@@ -1368,7 +1627,12 @@
                 </div>
             </section>
 
-            <!-- ===== التذييل (بدون رابط Formspree) ===== -->
+            <!-- ===== زر "الوحدة التالية" في نهاية الصفحة ===== -->
+            <div class="next-unit-wrapper">
+                <a href="unit2.html" class="next-unit-btn" id="nextUnitBtn">الوحدة التالية ←</a>
+            </div>
+
+            <!-- ===== التذييل (بدون Formspree) ===== -->
             <footer class="footer">
                 <p>© 2026 Babble Box Academy. الوحدة 1 - المستوى A1</p>
                 <div class="social-row">
@@ -1387,7 +1651,7 @@
         </main>
     </div>
 
-    <!-- ===== نافذة الاحتفال (تم حذفها لأنه تم استبدالها بشريط التقدم) ولكن نحتفظ بها للتوافق ===== -->
+    <!-- ===== نافذة الاحتفال ===== -->
     <div class="celebrate" id="celebrateModal">
         <div class="stars">🎉✨🌟</div>
         <h2>🎉 +50 XP! أنت عبقري!</h2>
@@ -1416,17 +1680,38 @@
             });
 
             // ============================================================
-            // 2. القائمة الجانبية (12 وحدة)
+            // 2. شريط الوحدات العلوي (Tabs)
+            // ============================================================
+            const unitTabs = document.getElementById('unitTabs');
+            let maxUnlocked = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
+
+            function renderUnitTabs() {
+                let html = '';
+                for (let i = 1; i <= 12; i++) {
+                    const active = i === 1 ? 'active' : '';
+                    const locked = i > maxUnlocked ? 'locked' : '';
+                    const lockIcon = i > maxUnlocked ? '<span class="lock-icon">🔒</span>' : '';
+                    html += `
+                        <span class="tab-item ${active} ${locked}">
+                            الوحدة ${i} ${lockIcon}
+                        </span>
+                    `;
+                }
+                unitTabs.innerHTML = html;
+            }
+            renderUnitTabs();
+
+            // ============================================================
+            // 3. القائمة الجانبية
             // ============================================================
             const unitList = document.getElementById('unitList');
-            const maxUnit = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
 
             function renderSidebar() {
                 let htmlStr = '';
                 for (let i = 1; i <= 12; i++) {
                     const active = i === 1 ? 'active' : '';
-                    const locked = i > maxUnit ? 'locked' : '';
-                    const lockIcon = i > maxUnit ? '<span class="lock-icon">🔒</span>' : '';
+                    const locked = i > maxUnlocked ? 'locked' : '';
+                    const lockIcon = i > maxUnlocked ? '<span class="lock-icon">🔒</span>' : '';
                     htmlStr += `
                         <li class="${active} ${locked}" data-unit="${i}">
                             <span>الوحدة ${i}</span>
@@ -1440,7 +1725,7 @@
             renderSidebar();
 
             // ============================================================
-            // 3. شريط التقدم اليومي (0/5) - إصلاح ليمتلئ إلى 100%
+            // 4. شريط التقدم اليومي
             // ============================================================
             let completedCount = parseInt(localStorage.getItem('dailyProgress')) || 0;
             if (completedCount > 5) completedCount = 5;
@@ -1466,7 +1751,7 @@
             }
 
             // ============================================================
-            // 4. المحادثة (The Real Talk) - مع dir="ltr" للنصوص الإنجليزية
+            // 5. المحادثة (The Real Talk)
             // ============================================================
             const chatData = [
                 { speaker: 'John', text: "Hey! How's it going?", translation: "إيه أخبارك؟ إزاي الأمور؟", gender: 'male' },
@@ -1539,7 +1824,7 @@
             });
 
             // ============================================================
-            // 5. Tabs في Discover the Rule
+            // 6. Tabs في Discover the Rule
             // ============================================================
             const tabBtns = document.querySelectorAll('#ruleTabs button');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -1553,7 +1838,7 @@
             });
 
             // ============================================================
-            // 6. Flip Cards (Word Vault)
+            // 7. Flip Cards (Word Vault)
             // ============================================================
             const vocab = [
                 { word: 'Hello', meaning: 'مرحباً', example: 'Hello, how are you?' },
@@ -1595,24 +1880,51 @@
             });
 
             // ============================================================
-            // 7. Challenge Arena (إعادة بناء - 5 أسئلة اختيار من متعدد)
+            // 8. Challenge Arena (7 أسئلة: 5 اختيار + 1 ترتيب + 1 استماع)
             // ============================================================
             const challengeQuestions = [
-                { id: 0, text: 'I ___ a student.', options: ['am', 'is', 'are'], correct: 0 },
-                { id: 1, text: 'They ___ from Egypt.', options: ['am', 'is', 'are'], correct: 2 },
-                { id: 2, text: 'She ___ my friend.', options: ['am', 'is', 'are'], correct: 1 },
-                { id: 3, text: 'We ___ happy.', options: ['am', 'is', 'are'], correct: 2 },
-                { id: 4, text: 'He ___ a teacher.', options: ['am', 'is', 'are'], correct: 1 }
+                { id: 0, type: 'choice', text: 'I ___ a student.', options: ['am', 'is', 'are'], correct: 0 },
+                { id: 1, type: 'choice', text: 'They ___ from Egypt.', options: ['am', 'is', 'are'], correct: 2 },
+                { id: 2, type: 'choice', text: 'She ___ my friend.', options: ['am', 'is', 'are'], correct: 1 },
+                { id: 3, type: 'choice', text: 'We ___ happy.', options: ['am', 'is', 'are'], correct: 2 },
+                { id: 4, type: 'choice', text: 'He ___ a teacher.', options: ['am', 'is', 'are'], correct: 1 },
+                { id: 5, type: 'ordering', text: 'رتب الكلمات لتكوين جملة:', words: ['You', 'are', 'welcome'],
+                correct: ['You', 'are', 'welcome'] },
+                { id: 6, type: 'listening', text: 'استمع للجملة واختر الترجمة الصحيحة:', audio: 'Are you ready?',
+                    options: ['هل أنت مستعد؟', 'أنت جاهز؟', 'هل هم مستعدون؟'], correct: 0 }
             ];
 
             const challengeContainer = document.getElementById('challengeContainer');
-            const challengeScore = document.getElementById('challengeScore');
+            const challengeScoreEl = document.getElementById('challengeScore');
             const challengeFill = document.getElementById('challengeFill');
             const nextUnitBtn = document.getElementById('nextUnitBtn');
+            const resetBtn = document.getElementById('resetChallengeBtn');
+            const celebrateModal = document.getElementById('celebrateModal');
+            const celebrateClose = document.getElementById('celebrateClose');
 
             // حالة الإجابات: null = لم يجب، true = صحيح، false = خاطئ
             let answers = new Array(challengeQuestions.length).fill(null);
-            let score = 0;
+            // تخزين حالة الترتيب لكل سؤال (لتتبع الكلمات المستخدمة)
+            let orderingStates = {};
+
+            function shuffleArray(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            }
+
+            function getOrderingState(qid) {
+                if (!orderingStates[qid]) {
+                    const q = challengeQuestions.find(q => q.id === qid);
+                    orderingStates[qid] = {
+                        pool: shuffleArray([...q.words]),
+                        selected: []
+                    };
+                }
+                return orderingStates[qid];
+            }
 
             function renderChallenge() {
                 let html = '';
@@ -1625,35 +1937,102 @@
                     if (status === false) { statusText = '❌ خاطئ';
                         statusClass = 'wrong'; }
 
-                    html += `
-                        <div class="challenge-item" data-qid="${idx}">
-                            <div class="q-row">
-                                <div class="q-text" dir="ltr">${q.text}</div>
-                                <div class="options">
-                                    ${q.options.map((opt, oi) => `
-                                        <button class="opt-btn" data-opt="${oi}" ${status !== null ? 'disabled' : ''}>${opt}</button>
-                                    `).join('')}
-                                </div>
-                                <button class="reset-btn" title="إعادة المحاولة" data-reset="${idx}">🔄</button>
-                                <span class="status ${statusClass}">${statusText}</span>
-                            </div>
-                        </div>
-                    `;
+                    html += `<div class="challenge-item" data-qid="${idx}"><div class="q-row">`;
+                    html += `<div class="q-text" dir="ltr">${q.text}</div>`;
+
+                    if (q.type === 'choice') {
+                        html += `<div class="options">`;
+                        q.options.forEach((opt, oi) => {
+                            const disabled = status !== null ? 'disabled' : '';
+                            html +=
+                                `<button class="opt-btn" data-opt="${oi}" ${disabled}>${opt}</button>`;
+                        });
+                        html += `</div>`;
+                    } else if (q.type === 'ordering') {
+                        const state = getOrderingState(q.id);
+                        const allUsed = state.pool.every(w => state.selected.includes(w));
+                        html += `<div style="width:100%;">`;
+                        // منطقة الترتيب
+                        html += `<div class="ordering-zone" id="orderZone-${q.id}">`;
+                        if (state.selected.length === 0) {
+                            html += `<span style="color:var(--text-muted);">👆 انقر على الكلمات بالترتيب الصحيح</span>`;
+                        } else {
+                            state.selected.forEach(w => {
+                                html += `<span class="word-chip used" style="cursor:default;">${w}</span>`;
+                            });
+                        }
+                        html += `</div>`;
+                        // منطقة الكلمات المتبقية
+                        html += `<div class="ordering-pool" id="orderPool-${q.id}">`;
+                        const remaining = state.pool.filter(w => !state.selected.includes(w));
+                        if (remaining.length === 0) {
+                            html += `<span style="color:var(--text-muted);">✅ كل الكلمات مرتبة!</span>`;
+                        } else {
+                            remaining.forEach(w => {
+                                html += `<span class="word-chip" data-word="${w}">${w}</span>`;
+                            });
+                        }
+                        html += `</div>`;
+                        if (status === null && remaining.length === 0 && state.selected.length === q.words
+                            .length) {
+                            // تحقق تلقائي
+                            const isCorrect = JSON.stringify(state.selected) === JSON.stringify(q.correct);
+                            if (isCorrect) {
+                                answers[idx] = true;
+                                statusText = '✅ صحيح';
+                                statusClass = 'correct';
+                                score++;
+                                incrementProgress();
+                                speakText('Excellent!', 'male');
+                            } else {
+                                answers[idx] = false;
+                                statusText = '❌ خاطئ';
+                                statusClass = 'wrong';
+                                speakText('Try again.', 'male');
+                            }
+                            // إعادة التصيير لتحديث الحالة
+                            setTimeout(() => {
+                                renderChallenge();
+                                updateChallengeScore();
+                                checkCompletion();
+                            }, 300);
+                        }
+                        html +=
+                            `<button class="btn btn-secondary btn-sm order-check-btn" id="orderCheck-${q.id}" ${status !== null ? 'disabled' : ''}>تحقق</button>`;
+                        html += `</div>`;
+                    } else if (q.type === 'listening') {
+                        html += `<div style="width:100%;">`;
+                        html += `<div class="listening-area">`;
+                        html +=
+                            `<button class="listen-btn" id="listenBtn-${q.id}" ${status !== null ? 'disabled' : ''}>🔊 استمع</button>`;
+                        html +=
+                            `<span style="font-size:14px; color:var(--text-secondary);">(الجملة باللغة الإنجليزية)</span>`;
+                        html += `</div>`;
+                        html += `<div class="options">`;
+                        q.options.forEach((opt, oi) => {
+                            const disabled = status !== null ? 'disabled' : '';
+                            html +=
+                                `<button class="opt-btn" data-opt="${oi}" ${disabled}>${opt}</button>`;
+                        });
+                        html += `</div>`;
+                        html += `</div>`;
+                    }
+
+                    html += `<button class="reset-btn" title="إعادة المحاولة" data-reset="${idx}">🔄</button>`;
+                    html += `<span class="status ${statusClass}">${statusText}</span>`;
+                    html += `</div></div>`;
                 });
                 challengeContainer.innerHTML = html;
 
-                // ربط الأحداث للأزرار
+                // ربط الأحداث لأزرار الاختيار
                 document.querySelectorAll('.opt-btn').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         const item = this.closest('.challenge-item');
                         const qid = parseInt(item.dataset.qid);
                         const opt = parseInt(this.dataset.opt);
-                        if (answers[qid] !== null) return; // تم الإجابة مسبقاً
-
-                        const correct = challengeQuestions[qid].correct;
-                        const isCorrect = (opt === correct);
-
-                        // تسجيل الإجابة
+                        if (answers[qid] !== null) return;
+                        const q = challengeQuestions[qid];
+                        const isCorrect = (opt === q.correct);
                         answers[qid] = isCorrect;
                         if (isCorrect) {
                             score++;
@@ -1662,20 +2041,19 @@
                         } else {
                             speakText('Try again.', 'male');
                         }
-
-                        // تحديث واجهة المستخدم
                         renderChallenge();
                         updateChallengeScore();
+                        checkCompletion();
+                    });
+                });
 
-                        // إذا كان الكل صحيح، أظهر زر الوحدة التالية
-                        if (score === challengeQuestions.length) {
-                            nextUnitBtn.classList.add('show');
-                            // فتح الوحدة 2
-                            const currentMax = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
-                            if (currentMax < 2) {
-                                localStorage.setItem('maxUnitUnlocked', '2');
-                                renderSidebar();
-                            }
+                // ربط أزرار الاستماع
+                document.querySelectorAll('.listen-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const qid = parseInt(this.id.replace('listenBtn-', ''));
+                        const q = challengeQuestions.find(q => q.id === qid);
+                        if (q && q.audio) {
+                            speakText(q.audio, 'female');
                         }
                     });
                 });
@@ -1684,41 +2062,165 @@
                 document.querySelectorAll('.reset-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const qid = parseInt(this.dataset.reset);
-                        // إذا كانت الإجابة خاطئة فقط، نسمح بإعادة المحاولة
                         if (answers[qid] === false) {
-                            // نخصم النقطة إذا كانت خاطئة
+                            // إعادة تعيين الإجابة فقط إذا كانت خاطئة
                             if (answers[qid] === false) score--;
                             answers[qid] = null;
-                            // نخصم من التقدم اليومي (إذا كان قد أضيف)
-                            // ولكننا لا نخصم من التقدم اليومي لأنه لا يمكن التراجع بسهولة، ولكننا نعيد حساب score
+                            // إعادة تعيين حالة الترتيب إذا كان سؤال ترتيب
+                            const q = challengeQuestions[qid];
+                            if (q.type === 'ordering') {
+                                const state = getOrderingState(q.id);
+                                state.selected = [];
+                                state.pool = shuffleArray([...q.words]);
+                            }
                             renderChallenge();
                             updateChallengeScore();
                             // إخفاء زر الوحدة التالية إذا لم يعد الكل صحيح
                             if (score < challengeQuestions.length) {
                                 nextUnitBtn.classList.remove('show');
                             }
+                            // إخفاء الاحتفال إذا كان ظاهراً
+                            celebrateModal.classList.remove('show');
+                            document.querySelectorAll('.confetti-container').forEach(el => el.remove());
                         } else {
-                            // تنبيه بسيط
                             alert('يمكنك إعادة المحاولة فقط للأسئلة التي أجبت عليها بشكل خاطئ.');
+                        }
+                    });
+                });
+
+                // ربط أزرار التحقق للترتيب
+                document.querySelectorAll('.order-check-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const qid = parseInt(this.id.replace('orderCheck-', ''));
+                        const q = challengeQuestions.find(q => q.id === qid);
+                        const state = getOrderingState(q.id);
+                        if (state.selected.length !== q.words.length) {
+                            alert('يرجى ترتيب جميع الكلمات أولاً.');
+                            return;
+                        }
+                        const isCorrect = JSON.stringify(state.selected) === JSON.stringify(q.correct);
+                        if (answers[qid] !== null) return;
+                        answers[qid] = isCorrect;
+                        if (isCorrect) {
+                            score++;
+                            incrementProgress();
+                            speakText('Excellent!', 'male');
+                        } else {
+                            speakText('Try again.', 'male');
+                        }
+                        renderChallenge();
+                        updateChallengeScore();
+                        checkCompletion();
+                    });
+                });
+
+                // ربط أحداث النقر على الكلمات في الترتيب
+                document.querySelectorAll('.ordering-pool .word-chip').forEach(chip => {
+                    chip.addEventListener('click', function() {
+                        const qid = parseInt(this.closest('.challenge-item').dataset.qid);
+                        const q = challengeQuestions.find(q => q.id === qid);
+                        const state = getOrderingState(q.id);
+                        const word = this.dataset.word;
+                        if (answers[qid] !== null) return;
+                        if (state.selected.length < q.words.length) {
+                            state.selected.push(word);
+                            renderChallenge();
+                        }
+                    });
+                });
+
+                // ربط أحداث النقر على الكلمات المستخدمة (لإزالتها)
+                document.querySelectorAll('.ordering-zone .word-chip.used').forEach(chip => {
+                    chip.addEventListener('click', function() {
+                        const qid = parseInt(this.closest('.challenge-item').dataset.qid);
+                        const state = getOrderingState(qid);
+                        const word = this.textContent;
+                        if (answers[qid] !== null) return;
+                        const idx = state.selected.indexOf(word);
+                        if (idx > -1) {
+                            state.selected.splice(idx, 1);
+                            renderChallenge();
                         }
                     });
                 });
             }
 
+            let score = 0;
+
             function updateChallengeScore() {
-                // إعادة حساب score بناءً على answers
                 score = answers.filter(a => a === true).length;
-                challengeScore.textContent = score;
+                challengeScoreEl.textContent = score;
                 const pct = (score / challengeQuestions.length) * 100;
                 challengeFill.style.width = pct + '%';
+            }
+
+            function checkCompletion() {
+                if (score === challengeQuestions.length) {
+                    // فتح الوحدة 2 في الشريط العلوي
+                    if (maxUnlocked < 2) {
+                        maxUnlocked = 2;
+                        localStorage.setItem('maxUnitUnlocked', '2');
+                        renderUnitTabs();
+                        renderSidebar();
+                    }
+                    // إظهار زر الوحدة التالية
+                    nextUnitBtn.classList.add('show');
+                    // إظهار نافذة الاحتفال
+                    celebrateModal.classList.add('show');
+                    launchConfetti();
+                }
             }
 
             // تهيئة التحدي
             renderChallenge();
             updateChallengeScore();
 
+            // ===== زر إعادة الاختبار بالكامل =====
+            resetBtn.addEventListener('click', function() {
+                // إعادة تعيين جميع الإجابات
+                answers = new Array(challengeQuestions.length).fill(null);
+                orderingStates = {};
+                score = 0;
+                // إعادة تعيين التقدم اليومي (نخصم النقاط المكتسبة)
+                // ولكننا ببساطة نعيد ضبط completedCount إلى 0
+                completedCount = 0;
+                updateProgress();
+                renderChallenge();
+                updateChallengeScore();
+                nextUnitBtn.classList.remove('show');
+                celebrateModal.classList.remove('show');
+                document.querySelectorAll('.confetti-container').forEach(el => el.remove());
+                speakText('Challenge reset.', 'male');
+            });
+
+            // ===== نافذة الاحتفال =====
+            celebrateClose.addEventListener('click', function() {
+                celebrateModal.classList.remove('show');
+                document.querySelectorAll('.confetti-container').forEach(el => el.remove());
+            });
+
+            function launchConfetti() {
+                const container = document.createElement('div');
+                container.className = 'confetti-container';
+                document.body.appendChild(container);
+                const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#FF9FF3', '#54A0FF'];
+                for (let i = 0; i < 150; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 4) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 4) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                    confetti.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
+                    confetti.style.animationDelay = (Math.random() * 2) + 's';
+                    container.appendChild(confetti);
+                }
+                setTimeout(() => container.remove(), 5000);
+            }
+
             // ============================================================
-            // 8. Speak Up! (نسبة 60%، رسالة واضحة، معالجة عدم الدعم)
+            // 9. Speak Up! (نسبة 60%)
             // ============================================================
             const recordBtn = document.getElementById('recordBtn');
             const speechResult = document.getElementById('speechResult');
@@ -1783,7 +2285,7 @@
             }
 
             // ============================================================
-            // 9. Homework (حفظ + تدقيق إملائي ونحوي)
+            // 10. Homework (حفظ + تدقيق إملائي ونحوي)
             // ============================================================
             const homeworkText = document.getElementById('homeworkText');
             const saveStatus = document.getElementById('saveStatus');
@@ -1806,7 +2308,6 @@
                 let corrections = [];
                 let newText = text;
 
-                // قواعد التصحيح الإملائي
                 const rules = [
                     { pattern: /\bim\b/gi, replacement: "I'm", desc: 'im -> I\'m' },
                     { pattern: /\bhes\b/gi, replacement: "he's", desc: 'hes -> he\'s' },
@@ -1816,7 +2317,6 @@
                     { pattern: /\bwasnt\b/gi, replacement: "wasn't", desc: 'wasnt -> wasn\'t' },
                     { pattern: /\bwerent\b/gi, replacement: "weren't", desc: 'werent -> weren\'t' },
                     { pattern: /\bthats\b/gi, replacement: "that's", desc: 'thats -> that\'s' },
-                    // قواعد نحوية خاصة بـ am, is, are
                     { pattern: /\bI is\b/gi, replacement: "I am", desc: 'I is -> I am' },
                     { pattern: /\bhe are\b/gi, replacement: "he is", desc: 'he are -> he is' },
                     { pattern: /\bshe are\b/gi, replacement: "she is", desc: 'she are -> she is' },
@@ -1847,7 +2347,6 @@
                 }
             });
 
-            // حفظ تلقائي
             setInterval(() => {
                 const text = homeworkText.value;
                 localStorage.setItem('homework_unit1', text);
@@ -1855,7 +2354,7 @@
             }, 10000);
 
             // ============================================================
-            // 10. تأثير الظهور عند التمرير (fade-up)
+            // 11. تأثير الظهور عند التمرير (fade-up)
             // ============================================================
             const fadeEls = document.querySelectorAll('.fade-up');
             const observer = new IntersectionObserver((entries) => {
@@ -1868,14 +2367,14 @@
             fadeEls.forEach(el => observer.observe(el));
 
             // ============================================================
-            // 11. تحميل الأصوات مسبقاً
+            // 12. تحميل الأصوات مسبقاً
             // ============================================================
             if (window.speechSynthesis) {
                 speechSynthesis.getVoices();
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 1 updated with all requested changes.');
+            console.log('📚 Babble Box - Unit 1 fully updated with all requested features.');
         })();
     </script>
 
