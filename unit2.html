@@ -1,2171 +1,2457 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babble Box - Unit 2: My Family</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* ============================================================
-           ROOT & RESET
-           ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --gold: #FFC107;
-            --black: #1A1A1A;
-            --white: #FAFAFA;
-            --bg: #FAFAFA;
-            --text: #1A1A1A;
-            --card-bg: #FFFFFF;
-            --shadow: 0 8px 30px rgba(0,0,0,0.06);
-            --radius: 18px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --green: #4CAF50;
-            --red: #F44336;
-            --blue: #2196F3;
-        }
-
-        [data-theme="dark"] {
-            --bg: #121212;
-            --text: #F0F0F0;
-            --card-bg: #1E1E1E;
-            --shadow: 0 8px 30px rgba(0,0,0,0.4);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Cairo', 'Segoe UI', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            transition: background var(--transition), color var(--transition);
-        }
-
-        /* ============================================================
-           HEADER
-           ============================================================ */
-        .header {
-            background: var(--card-bg);
-            padding: 12px 16px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-            transition: background var(--transition);
-            border-bottom: 2px solid rgba(0,0,0,0.04);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        [data-theme="dark"] .header {
-            border-bottom-color: rgba(255,255,255,0.05);
-        }
-
-        .header .brand {
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text);
-            direction: ltr;
-        }
-
-        .header .brand span {
-            color: var(--gold);
-        }
-
-        .header .unit-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #888;
-            direction: ltr;
-        }
-
-        .header .top-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--text);
-            transition: 0.3s;
-            padding: 4px;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(20deg);
-        }
-
-        .back-btn {
-            background: var(--gold);
-            border: none;
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            text-decoration: none;
-        }
-
-        .back-btn:hover {
-            transform: scale(1.03);
-        }
-
-        /* ============================================================
-           DAILY PROGRESS
-           ============================================================ */
-        .daily-progress {
-            padding: 8px 16px;
-            background: var(--card-bg);
-            border-bottom: 1px solid rgba(0,0,0,0.04);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            transition: background var(--transition);
-        }
-
-        [data-theme="dark"] .daily-progress {
-            border-bottom-color: rgba(255,255,255,0.05);
-        }
-
-        .daily-progress .label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            direction: rtl;
-        }
-
-        .daily-progress .bar-wrap {
-            flex: 1;
-            height: 6px;
-            background: rgba(0,0,0,0.06);
-            border-radius: 10px;
-            overflow: hidden;
-            min-width: 80px;
-        }
-
-        [data-theme="dark"] .daily-progress .bar-wrap {
-            background: rgba(255,255,255,0.06);
-        }
-
-        .daily-progress .bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--gold), #FFA000);
-            border-radius: 10px;
-            transition: width 0.6s ease;
-        }
-
-        .daily-progress .count {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--gold);
-            min-width: 40px;
-            text-align: left;
-            direction: ltr;
-        }
-
-        /* ============================================================
-           LESSON CONTENT
-           ============================================================ */
-        .lesson-content {
-            max-width: 820px;
-            margin: 0 auto;
-            padding: 14px 16px 30px;
-        }
-
-        .unit-header {
-            margin-bottom: 18px;
-        }
-
-        .unit-header .badge {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--black);
-            padding: 2px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 2px;
-            direction: rtl;
-        }
-
-        .unit-header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            color: var(--text);
-            line-height: 1.2;
-            direction: ltr;
-            text-align: left;
-        }
-
-        .unit-header p {
-            color: #888;
-            font-size: 14px;
-            margin-top: 2px;
-            direction: rtl;
-            text-align: right;
-        }
-
-        /* ===== SECTION BOX ===== */
-        .section-box {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 16px 16px;
-            margin-bottom: 18px;
-            box-shadow: var(--shadow);
-            transition: background var(--transition), box-shadow var(--transition);
-        }
-
-        .section-box .section-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            direction: ltr;
-            text-align: left;
-        }
-
-        /* ============================================================
-           CONVERSATION
-           ============================================================ */
-        .convo-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .convo-bubble {
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
-            max-width: 92%;
-            padding: 8px 12px;
-            border-radius: 14px;
-            position: relative;
-            animation: fadeInUp 0.4s ease;
-        }
-
-        .convo-bubble.john {
-            align-self: flex-start;
-            background: #D6E4FF;
-            color: #1A1A2E;
-            border-bottom-left-radius: 4px;
-        }
-
-        .convo-bubble.sarah {
-            align-self: flex-end;
-            background: #FFE4E6;
-            color: #1A1A2E;
-            border-bottom-right-radius: 4px;
-        }
-
-        [data-theme="dark"] .convo-bubble.john {
-            background: #1E3A5F;
-            color: #fff;
-        }
-
-        [data-theme="dark"] .convo-bubble.sarah {
-            background: #5F2E3A;
-            color: #fff;
-        }
-
-        .convo-bubble .avatar {
-            font-size: 20px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .convo-bubble .bubble-content {
-            flex: 1;
-        }
-
-        .convo-bubble .bubble-content .en {
-            font-size: 13px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-            direction: ltr;
-            text-align: left;
-        }
-
-        .convo-bubble .bubble-content .en .audio-btn {
-            background: none;
-            border: none;
-            font-size: 15px;
-            cursor: pointer;
-            color: #555;
-            padding: 2px 4px;
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-
-        .convo-bubble .bubble-content .en .audio-btn:hover {
-            background: rgba(0,0,0,0.06);
-            color: var(--gold);
-        }
-
-        .convo-bubble .bubble-content .ar {
-            font-size: 12px;
-            color: #888;
-            margin-top: 2px;
-            direction: rtl;
-            text-align: right;
-            display: none;
-        }
-
-        .convo-bubble .bubble-content .ar.show {
-            display: block;
-        }
-
-        .translation-btn {
-            background: none;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 1px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            margin-top: 2px;
-        }
-
-        .translation-btn:hover {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        /* ============================================================
-           DISCOVER
-           ============================================================ */
-        .discovery-question {
-            background: rgba(255,193,7,0.08);
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 10px;
-            border-right: 4px solid var(--gold);
-            direction: rtl;
-            text-align: right;
-        }
-
-        .discovery-tabs {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-
-        .discovery-tab {
-            padding: 8px 14px;
-            border: 2px solid rgba(0,0,0,0.06);
-            border-radius: 10px;
-            background: transparent;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            direction: ltr;
-            flex: 1;
-            min-width: 70px;
-            text-align: center;
-        }
-
-        [data-theme="dark"] .discovery-tab {
-            border-color: rgba(255,255,255,0.06);
-            color: #ddd;
-        }
-
-        .discovery-tab.active {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--black);
-        }
-
-        .discovery-tab:hover:not(.active) {
-            background: rgba(0,0,0,0.04);
-        }
-
-        .discovery-content {
-            display: none;
-            animation: fadeInUp 0.4s ease;
-            background: rgba(0,0,0,0.02);
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 13px;
-            color: var(--text);
-            border-right: 3px solid var(--gold);
-            direction: rtl;
-            text-align: right;
-        }
-
-        [data-theme="dark"] .discovery-content {
-            background: rgba(255,255,255,0.03);
-        }
-
-        .discovery-content.active {
-            display: block;
-        }
-
-        .discovery-content .en-highlight {
-            direction: ltr;
-            display: inline-block;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: var(--gold);
-        }
-
-        /* ============================================================
-           GRAMMAR
-           ============================================================ */
-        .grammar-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .grammar-card {
-            padding: 12px 14px;
-            border-radius: 12px;
-            color: #fff;
-            transition: 0.2s;
-        }
-
-        .grammar-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .grammar-card.green { background: var(--green); }
-        .grammar-card.red { background: var(--red); }
-        .grammar-card.blue { background: var(--blue); }
-        .grammar-card.gold { background: var(--gold); color: var(--black); }
-
-        .grammar-card .title {
-            font-weight: 700;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            direction: ltr;
-            margin-bottom: 3px;
-        }
-
-        .grammar-card .examples {
-            font-size: 12px;
-            opacity: 0.9;
-            direction: ltr;
-            line-height: 1.5;
-        }
-
-        /* ============================================================
-           VOCABULARY
-           ============================================================ */
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .flip-card {
-            perspective: 800px;
-            height: 100px;
-            cursor: pointer;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            inset: 0;
-            border-radius: 12px;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 6px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-
-        .flip-card-front {
-            background: var(--card-bg);
-            color: var(--text);
-        }
-
-        .flip-card-front .emoji {
-            font-size: 22px;
-        }
-
-        .flip-card-front .word {
-            font-family: 'Poppins', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            margin-top: 2px;
-            direction: ltr;
-        }
-
-        .flip-card-front .audio-btn-small {
-            background: none;
-            border: none;
-            font-size: 13px;
-            cursor: pointer;
-            margin-top: 2px;
-            color: #888;
-            transition: 0.2s;
-        }
-
-        .flip-card-front .audio-btn-small:hover {
-            color: var(--gold);
-        }
-
-        .flip-card-back {
-            background: var(--gold);
-            color: var(--black);
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-back .meaning {
-            font-size: 16px;
-            font-weight: 700;
-            direction: rtl;
-        }
-
-        [data-theme="dark"] .flip-card-front {
-            background: #2A2A2A;
-            color: #fff;
-            border-color: rgba(255,255,255,0.06);
-        }
-
-        /* ============================================================
-           BABBLE WARNING
-           ============================================================ */
-        .warning-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .warning-card {
-            padding: 12px 14px;
-            border-radius: 12px;
-            text-align: center;
-            transition: 0.2s;
-        }
-
-        .warning-card:hover {
-            transform: scale(1.02);
-        }
-
-        .warning-card.safe {
-            background: rgba(76, 175, 80, 0.1);
-            border: 2px solid var(--green);
-        }
-
-        .warning-card.danger {
-            background: rgba(244, 67, 54, 0.1);
-            border: 2px solid var(--red);
-        }
-
-        .warning-card .label {
-            font-weight: 700;
-            font-size: 13px;
-            direction: ltr;
-        }
-
-        .warning-card .example {
-            font-size: 15px;
-            font-weight: 600;
-            direction: ltr;
-            margin: 3px 0;
-        }
-
-        .warning-card .meaning {
-            font-size: 12px;
-            direction: rtl;
-            color: #888;
-        }
-
-        .warning-joke {
-            margin-top: 8px;
-            padding: 8px 12px;
-            background: rgba(255,193,7,0.08);
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            direction: rtl;
-            text-align: center;
-            border-right: 3px solid var(--gold);
-        }
-
-        /* ============================================================
-           CHALLENGE
-           ============================================================ */
-        .quiz-progress-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .quiz-progress-bar .label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text);
-            direction: rtl;
-        }
-
-        .quiz-progress-bar .bar-wrap {
-            flex: 1;
-            height: 5px;
-            background: rgba(0,0,0,0.06);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        [data-theme="dark"] .quiz-progress-bar .bar-wrap {
-            background: rgba(255,255,255,0.06);
-        }
-
-        .quiz-progress-bar .bar-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--gold);
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-
-        .quiz-progress-bar .count {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--gold);
-            min-width: 35px;
-            text-align: left;
-            direction: ltr;
-        }
-
-        .quiz-card {
-            background: rgba(0,0,0,0.02);
-            border-radius: 10px;
-            padding: 12px 14px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(0,0,0,0.04);
-            transition: 0.3s;
-        }
-
-        [data-theme="dark"] .quiz-card {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.04);
-        }
-
-        .quiz-card .q-text {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text);
-            margin-bottom: 5px;
-            direction: ltr;
-            text-align: left;
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-        }
-
-        .quiz-options button {
-            padding: 4px 14px;
-            border: 2px solid rgba(0,0,0,0.08);
-            border-radius: 30px;
-            background: transparent;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.25s;
-            color: var(--text);
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            direction: ltr;
-        }
-
-        [data-theme="dark"] .quiz-options button {
-            border-color: rgba(255,255,255,0.1);
-            color: #ddd;
-        }
-
-        .quiz-options button:hover:not(:disabled) {
-            background: rgba(0,0,0,0.04);
-        }
-
-        .quiz-options button:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .quiz-options button.correct {
-            background: var(--green);
-            border-color: var(--green);
-            color: #fff;
-            animation: pop 0.3s ease;
-        }
-
-        .quiz-options button.wrong {
-            background: var(--red);
-            border-color: var(--red);
-            color: #fff;
-            animation: shake 0.4s ease;
-        }
-
-        .quiz-feedback {
-            margin-top: 3px;
-            font-size: 13px;
-            font-weight: 600;
-            min-height: 20px;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .quiz-feedback .correct-text { color: var(--green); }
-        .quiz-feedback .wrong-text { color: var(--red); }
-
-        /* ===== DRAG & DROP ===== */
-        .drag-options {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin: 6px 0;
-        }
-
-        .drag-word {
-            padding: 5px 14px;
-            background: var(--card-bg);
-            border: 2px solid var(--gold);
-            border-radius: 30px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: grab;
-            color: var(--text);
-            transition: 0.2s;
-        }
-
-        .drag-word:hover {
-            transform: scale(1.05);
-        }
-
-        .drag-word.dragging {
-            opacity: 0.5;
-        }
-
-        .drop-zone {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            padding: 8px 12px;
-            border: 2px dashed rgba(0,0,0,0.1);
-            border-radius: 10px;
-            min-height: 40px;
-            align-items: center;
-            margin: 4px 0;
-        }
-
-        [data-theme="dark"] .drop-zone {
-            border-color: rgba(255,255,255,0.1);
-        }
-
-        .drop-zone .word-placed {
-            padding: 3px 12px;
-            background: var(--gold);
-            border-radius: 30px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--black);
-        }
-
-        /* ===== LISTENING ===== */
-        .listen-btn {
-            background: var(--gold);
-            border: none;
-            padding: 5px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .listen-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* ============================================================
-           STREAK
-           ============================================================ */
-        .streak-notification {
-            display: none;
-            background: var(--gold);
-            color: var(--black);
-            padding: 10px 16px;
-            border-radius: var(--radius);
-            font-weight: 700;
-            font-size: 16px;
-            text-align: center;
-            margin-top: 10px;
-            animation: pop 0.5s ease;
-            position: relative;
-            overflow: hidden;
-            direction: rtl;
-        }
-
-        .streak-notification.show {
-            display: block;
-        }
-
-        .streak-notification .stars {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .streak-notification .star {
-            position: absolute;
-            font-size: 16px;
-            animation: starFall 2s linear forwards;
-        }
-
-        /* ============================================================
-           SPEAK UP
-           ============================================================ */
-        .speak-container {
-            text-align: center;
-            padding: 12px 0;
-        }
-
-        .speak-container .big-btn {
-            background: var(--gold);
-            border: none;
-            padding: 12px 32px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .speak-container .big-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .speak-container .speak-result {
-            margin-top: 10px;
-            padding: 10px 14px;
-            background: rgba(0,0,0,0.03);
-            border-radius: 10px;
-            font-size: 15px;
-            direction: rtl;
-            min-height: 40px;
-            border-right: 3px solid var(--gold);
-        }
-
-        [data-theme="dark"] .speak-container .speak-result {
-            background: rgba(255,255,255,0.03);
-        }
-
-        /* ============================================================
-           POWER RECAP
-           ============================================================ */
-        .mindmap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 0;
-        }
-
-        .mindmap .center {
-            background: var(--gold);
-            color: var(--black);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: 17px;
-            margin-bottom: 12px;
-            font-family: 'Poppins', sans-serif;
-            direction: ltr;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .mindmap .center:hover {
-            transform: scale(1.05);
-        }
-
-        .mindmap .branches {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 6px 12px;
-        }
-
-        .mindmap .branch {
-            background: var(--card-bg);
-            padding: 5px 14px;
-            border-radius: 20px;
-            border: 2px solid var(--gold);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: 0.2s;
-            font-family: 'Poppins', sans-serif;
-            direction: ltr;
-            cursor: pointer;
-        }
-
-        .mindmap .branch:hover {
-            transform: scale(1.05);
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .mindmap .branch-example {
-            margin-top: 8px;
-            padding: 8px 14px;
-            background: rgba(0,0,0,0.03);
-            border-radius: 10px;
-            font-size: 13px;
-            direction: rtl;
-            text-align: center;
-            min-height: 25px;
-            border-right: 3px solid var(--gold);
-            width: 100%;
-        }
-
-        [data-theme="dark"] .mindmap .branch-example {
-            background: rgba(255,255,255,0.03);
-        }
-
-        /* ============================================================
-           VIDEO
-           ============================================================ */
-        .video-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #FF0000;
-            color: #fff;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-        }
-
-        .video-btn:hover {
-            background: #cc0000;
-            transform: scale(1.02);
-        }
-
-        /* ============================================================
-           HOMEWORK
-           ============================================================ */
-        .homework-area textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 10px 14px;
-            border: 2px solid rgba(0,0,0,0.06);
-            border-radius: 10px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 13px;
-            color: var(--text);
-            background: var(--bg);
-            resize: vertical;
-            transition: 0.2s;
-            direction: ltr;
-        }
-
-        [data-theme="dark"] .homework-area textarea {
-            border-color: rgba(255,255,255,0.06);
-            background: var(--card-bg);
-        }
-
-        .homework-area textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .homework-area .save-btn {
-            background: var(--gold);
-            border: none;
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            margin-top: 6px;
-        }
-
-        .homework-area .save-btn:hover {
-            transform: scale(1.02);
-        }
-
-        .homework-area .save-status {
-            margin-top: 4px;
-            font-size: 12px;
-            color: var(--green);
-            direction: rtl;
-        }
-
-        /* ============================================================
-           NAVIGATION
-           ============================================================ */
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .nav-buttons button {
-            padding: 8px 24px;
-            border: none;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-        }
-
-        .nav-buttons .prev {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .nav-buttons .prev:hover {
-            background: #e6b800;
-            transform: scale(1.02);
-        }
-
-        .nav-buttons .next {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .nav-buttons .next:hover {
-            background: #e6b800;
-            transform: scale(1.02);
-        }
-
-        /* ============================================================
-           ANIMATIONS
-           ============================================================ */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        @keyframes starFall {
-            0% { transform: translateY(-15px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(150px) rotate(360deg); opacity: 0; }
-        }
-
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 768px) {
-            .vocab-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .grammar-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .warning-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .unit-header h1 {
-                font-size: 20px;
-            }
-
-            .section-box {
-                padding: 12px 12px;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-            }
-
-            .nav-buttons button {
-                width: 100%;
-                text-align: center;
-            }
-
-            .discovery-tabs {
-                flex-direction: column;
-            }
-
-            .discovery-tab {
-                text-align: center;
-            }
-
-            .quiz-options {
-                flex-direction: column;
-            }
-
-            .quiz-options button {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .vocab-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 6px;
-            }
-
-            .flip-card {
-                height: 85px;
-            }
-
-            .flip-card-front .emoji {
-                font-size: 18px;
-            }
-
-            .flip-card-front .word {
-                font-size: 11px;
-            }
-        }
-
-        /* ============================================================
-           HIDDEN AUDIO
-           ============================================================ */
-        #audio-player {
-            display: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Babble Box - Unit 2: My Family</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L42M2EDW3H');
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+ROOT & RESET
+============================================================ */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+:root {
+--gold: #FFC107;
+--black: #1A1A1A;
+--white: #FAFAFA;
+--bg: #FAFAFA;
+--text: #1A1A1A;
+--card-bg: #FFFFFF;
+--shadow: 0 8px 30px rgba(0,0,0,0.06);
+--radius: 18px;
+--transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+--green: #4CAF50;
+--red: #F44336;
+--blue: #2196F3;
+}
+
+[data-theme="dark"] {
+--bg: #121212;
+--text: #F0F0F0;
+--card-bg: #1E1E1E;
+--shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+font-family: 'Cairo', 'Segoe UI', sans-serif;
+background: var(--bg);
+color: var(--text);
+min-height: 100vh;
+transition: background var(--transition), color var(--transition);
+}
+
+/* ============================================================
+HEADER
+============================================================ */
+.header {
+background: var(--card-bg);
+padding: 12px 16px;
+box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 8px;
+transition: background var(--transition);
+border-bottom: 2px solid rgba(0,0,0,0.04);
+position: sticky;
+top: 0;
+z-index: 100;
+}
+
+[data-theme="dark"] .header {
+border-bottom-color: rgba(255,255,255,0.05);
+}
+
+.header .brand {
+font-family: 'Poppins', sans-serif;
+font-size: 16px;
+font-weight: 800;
+color: var(--text);
+direction: ltr;
+text-align: left;
+}
+
+.header .brand span {
+color: var(--gold);
+}
+
+.header .unit-title {
+font-size: 13px;
+font-weight: 600;
+color: #888;
+direction: ltr;
+text-align: left;
+}
+
+.header .top-actions {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.theme-toggle {
+background: none;
+border: none;
+font-size: 20px;
+cursor: pointer;
+color: var(--text);
+transition: 0.3s;
+padding: 4px;
+}
+
+.theme-toggle:hover {
+transform: rotate(20deg);
+}
+
+.back-btn {
+background: var(--gold);
+border: none;
+padding: 5px 14px;
+border-radius: 30px;
+font-size: 12px;
+font-weight: 700;
+color: var(--black);
+cursor: pointer;
+transition: 0.2s;
+font-family: 'Cairo', sans-serif;
+text-decoration: none;
+}
+
+.back-btn:hover {
+transform: scale(1.03);
+}
+
+.reset-unit-btn {
+background: rgba(255,0,0,0.1);
+border: 2px solid var(--red);
+color: var(--red);
+padding: 5px 14px;
+border-radius: 30px;
+font-size: 12px;
+font-weight: 700;
+cursor: pointer;
+transition: 0.25s;
+font-family: 'Cairo', sans-serif;
+}
+
+.reset-unit-btn:hover {
+background: var(--red);
+color: #fff;
+transform: scale(1.02);
+}
+
+/* ============================================================
+UNIT NAVIGATION TABS
+============================================================ */
+.unit-tabs-wrapper {
+background: var(--card-bg);
+padding: 8px 16px;
+border-bottom: 1px solid rgba(0,0,0,0.04);
+overflow-x: auto;
+scrollbar-width: thin;
+transition: background var(--transition);
+}
+
+[data-theme="dark"] .unit-tabs-wrapper {
+border-bottom-color: rgba(255,255,255,0.05);
+}
+
+.unit-tabs-wrapper::-webkit-scrollbar {
+height: 3px;
+}
+
+.unit-tabs-wrapper::-webkit-scrollbar-thumb {
+background: var(--gold);
+border-radius: 10px;
+}
+
+.unit-tabs {
+display: flex;
+gap: 6px;
+min-width: max-content;
+padding-bottom: 4px;
+}
+
+.unit-tab {
+min-width: 36px;
+height: 36px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 11px;
+font-weight: 700;
+font-family: 'Poppins', sans-serif;
+border: 2px solid transparent;
+cursor: pointer;
+transition: 0.2s;
+background: rgba(0,0,0,0.04);
+color: var(--text);
+}
+
+[data-theme="dark"] .unit-tab {
+background: rgba(255,255,255,0.04);
+color: #aaa;
+}
+
+.unit-tab.active {
+background: var(--gold);
+color: var(--black);
+border-color: var(--gold);
+}
+
+.unit-tab.completed {
+background: var(--green);
+color: #fff;
+border-color: var(--green);
+}
+
+.unit-tab.unlocked {
+border-color: var(--gold);
+background: transparent;
+color: var(--text);
+}
+
+.unit-tab.unlocked:hover {
+background: var(--gold);
+color: var(--black);
+}
+
+.unit-tab.locked {
+background: rgba(0,0,0,0.04);
+color: #999;
+cursor: not-allowed;
+border-color: rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .unit-tab.locked {
+background: rgba(255,255,255,0.04);
+color: #555;
+border-color: rgba(255,255,255,0.04);
+}
+
+.unit-tab.locked .lock-icon {
+font-size: 10px;
+}
+
+/* ============================================================
+PROGRESS BAR (10 sections)
+============================================================ */
+.daily-progress {
+padding: 8px 16px;
+background: var(--card-bg);
+border-bottom: 1px solid rgba(0,0,0,0.04);
+display: flex;
+align-items: center;
+gap: 12px;
+flex-wrap: wrap;
+transition: background var(--transition);
+}
+
+[data-theme="dark"] .daily-progress {
+border-bottom-color: rgba(255,255,255,0.05);
+}
+
+.daily-progress .label {
+font-size: 13px;
+font-weight: 600;
+color: var(--text);
+direction: rtl;
+text-align: right;
+}
+
+.daily-progress .bar-wrap {
+flex: 1;
+height: 6px;
+background: rgba(0,0,0,0.06);
+border-radius: 10px;
+overflow: hidden;
+min-width: 80px;
+}
+
+[data-theme="dark"] .daily-progress .bar-wrap {
+background: rgba(255,255,255,0.06);
+}
+
+.daily-progress .bar-fill {
+height: 100%;
+width: 0%;
+background: linear-gradient(90deg, var(--gold), #FFA000);
+border-radius: 10px;
+transition: width 0.6s ease;
+}
+
+.daily-progress .count {
+font-size: 13px;
+font-weight: 700;
+color: var(--gold);
+min-width: 40px;
+text-align: left;
+direction: ltr;
+}
+
+/* ============================================================
+LESSON CONTENT
+============================================================ */
+.lesson-content {
+max-width: 820px;
+margin: 0 auto;
+padding: 14px 16px 30px;
+}
+
+.unit-header {
+margin-bottom: 18px;
+}
+
+.unit-header .badge {
+display: inline-block;
+background: var(--gold);
+color: var(--black);
+padding: 2px 14px;
+border-radius: 30px;
+font-size: 12px;
+font-weight: 700;
+margin-bottom: 2px;
+direction: rtl;
+text-align: right;
+}
+
+.unit-header h1 {
+font-family: 'Poppins', sans-serif;
+font-size: 24px;
+color: var(--text);
+line-height: 1.2;
+direction: ltr;
+text-align: left;
+}
+
+.unit-header p {
+color: #888;
+font-size: 14px;
+margin-top: 2px;
+direction: rtl;
+text-align: right;
+}
+
+.section-box {
+background: var(--card-bg);
+border-radius: var(--radius);
+padding: 16px 16px;
+margin-bottom: 18px;
+box-shadow: var(--shadow);
+transition: background var(--transition), box-shadow var(--transition);
+}
+
+.section-box .section-title {
+font-family: 'Poppins', sans-serif;
+font-size: 17px;
+font-weight: 700;
+color: var(--text);
+margin-bottom: 12px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 8px;
+direction: ltr;
+text-align: left;
+}
+
+/* ============================================================
+SECTION 1: CONVERSATION
+============================================================ */
+.convo-container {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.convo-bubble {
+display: flex;
+align-items: flex-start;
+gap: 6px;
+max-width: 92%;
+padding: 8px 12px;
+border-radius: 14px;
+position: relative;
+animation: fadeInUp 0.4s ease;
+}
+
+.convo-bubble.john {
+align-self: flex-start;
+background: #D6E4FF;
+color: #1A1A2E;
+border-bottom-left-radius: 4px;
+}
+
+.convo-bubble.sarah {
+align-self: flex-end;
+background: #FFE4E6;
+color: #1A1A2E;
+border-bottom-right-radius: 4px;
+}
+
+[data-theme="dark"] .convo-bubble.john {
+background: #1E3A5F;
+color: #fff;
+}
+
+[data-theme="dark"] .convo-bubble.sarah {
+background: #5F2E3A;
+color: #fff;
+}
+
+.convo-bubble .avatar {
+font-size: 20px;
+flex-shrink: 0;
+margin-top: 2px;
+}
+
+.convo-bubble .bubble-content {
+flex: 1;
+}
+
+.convo-bubble .bubble-content .en {
+font-size: 13px;
+font-weight: 500;
+display: flex;
+align-items: center;
+gap: 4px;
+flex-wrap: wrap;
+direction: ltr;
+text-align: left;
+}
+
+.convo-bubble .bubble-content .en .audio-btn {
+background: none;
+border: none;
+font-size: 15px;
+cursor: pointer;
+color: #555;
+padding: 2px 4px;
+border-radius: 50%;
+transition: 0.2s;
+}
+
+.convo-bubble .bubble-content .en .audio-btn:hover {
+background: rgba(0,0,0,0.06);
+color: var(--gold);
+}
+
+.convo-bubble .bubble-content .ar {
+font-size: 12px;
+color: #888;
+margin-top: 2px;
+direction: rtl;
+text-align: right;
+display: none;
+}
+
+.convo-bubble .bubble-content .ar.show {
+display: block;
+}
+
+.translation-btn {
+background: none;
+border: 1px solid var(--gold);
+color: var(--gold);
+padding: 1px 10px;
+border-radius: 20px;
+font-size: 10px;
+font-weight: 600;
+cursor: pointer;
+transition: 0.2s;
+font-family: 'Cairo', sans-serif;
+margin-top: 2px;
+}
+
+.translation-btn:hover {
+background: var(--gold);
+color: var(--black);
+}
+
+/* ============================================================
+SECTION 2: DISCOVER
+============================================================ */
+.discovery-question {
+background: rgba(255,193,7,0.08);
+padding: 10px 14px;
+border-radius: 12px;
+font-size: 14px;
+font-weight: 600;
+color: var(--text);
+margin-bottom: 10px;
+border-right: 4px solid var(--gold);
+direction: rtl;
+text-align: right;
+}
+
+.discovery-tabs {
+display: flex;
+gap: 6px;
+flex-wrap: wrap;
+margin-bottom: 10px;
+}
+
+.discovery-tab {
+padding: 8px 14px;
+border: 2px solid rgba(0,0,0,0.06);
+border-radius: 10px;
+background: transparent;
+color: var(--text);
+font-weight: 600;
+font-size: 13px;
+cursor: pointer;
+transition: 0.25s;
+font-family: 'Poppins', 'Cairo', sans-serif;
+direction: ltr;
+text-align: center;
+flex: 1;
+min-width: 70px;
+}
+
+[data-theme="dark"] .discovery-tab {
+border-color: rgba(255,255,255,0.06);
+color: #ddd;
+}
+
+.discovery-tab.active {
+background: var(--gold);
+border-color: var(--gold);
+color: var(--black);
+}
+
+.discovery-tab:hover:not(.active) {
+background: rgba(0,0,0,0.04);
+}
+
+.discovery-content {
+display: none;
+animation: fadeInUp 0.4s ease;
+background: rgba(0,0,0,0.02);
+padding: 10px 14px;
+border-radius: 10px;
+font-size: 13px;
+color: var(--text);
+border-right: 3px solid var(--gold);
+direction: rtl;
+text-align: right;
+}
+
+[data-theme="dark"] .discovery-content {
+background: rgba(255,255,255,0.03);
+}
+
+.discovery-content.active {
+display: block;
+}
+
+.discovery-content .en-highlight {
+direction: ltr;
+display: inline-block;
+font-family: 'Poppins', sans-serif;
+font-weight: 600;
+color: var(--gold);
+}
+
+/* ============================================================
+SECTION 3: GRAMMAR LAB
+============================================================ */
+.grammar-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+}
+
+.grammar-card {
+padding: 12px 14px;
+border-radius: 12px;
+color: #fff;
+transition: 0.2s;
+}
+
+.grammar-card:hover {
+transform: translateY(-2px);
+}
+
+.grammar-card.green { background: var(--green); }
+.grammar-card.red { background: var(--red); }
+.grammar-card.blue { background: var(--blue); }
+.grammar-card.gold { background: var(--gold); color: var(--black); }
+
+.grammar-card .title {
+font-weight: 700;
+font-size: 13px;
+font-family: 'Poppins', sans-serif;
+direction: ltr;
+text-align: left;
+margin-bottom: 3px;
+}
+
+.grammar-card .examples {
+font-size: 12px;
+opacity: 0.9;
+direction: ltr;
+text-align: left;
+line-height: 1.5;
+}
+
+/* ============================================================
+SECTION 4: WORD VAULT
+============================================================ */
+.vocab-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 10px;
+}
+
+.flip-card {
+perspective: 800px;
+height: 100px;
+cursor: pointer;
+}
+
+.flip-card-inner {
+position: relative;
+width: 100%;
+height: 100%;
+transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+position: absolute;
+inset: 0;
+border-radius: 12px;
+backface-visibility: hidden;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 6px;
+text-align: center;
+box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+border: 1px solid rgba(0,0,0,0.04);
+}
+
+.flip-card-front {
+background: var(--card-bg);
+color: var(--text);
+}
+
+.flip-card-front .emoji {
+font-size: 22px;
+}
+
+.flip-card-front .word {
+font-family: 'Poppins', sans-serif;
+font-size: 13px;
+font-weight: 700;
+margin-top: 2px;
+direction: ltr;
+}
+
+.flip-card-front .audio-btn-small {
+background: none;
+border: none;
+font-size: 13px;
+cursor: pointer;
+margin-top: 2px;
+color: #888;
+transition: 0.2s;
+}
+
+.flip-card-front .audio-btn-small:hover {
+color: var(--gold);
+}
+
+.flip-card-back {
+background: var(--gold);
+color: var(--black);
+transform: rotateY(180deg);
+}
+
+.flip-card-back .meaning {
+font-size: 16px;
+font-weight: 700;
+direction: rtl;
+}
+
+[data-theme="dark"] .flip-card-front {
+background: #2A2A2A;
+color: #fff;
+border-color: rgba(255,255,255,0.06);
+}
+
+/* ============================================================
+SECTION 5: BABBLE WARNING
+============================================================ */
+.warning-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+}
+
+.warning-card {
+padding: 12px 14px;
+border-radius: 12px;
+text-align: center;
+transition: 0.2s;
+}
+
+.warning-card:hover {
+transform: scale(1.02);
+}
+
+.warning-card.safe {
+background: rgba(76, 175, 80, 0.1);
+border: 2px solid var(--green);
+}
+
+.warning-card.danger {
+background: rgba(244, 67, 54, 0.1);
+border: 2px solid var(--red);
+}
+
+.warning-card .label {
+font-weight: 700;
+font-size: 13px;
+direction: ltr;
+}
+
+.warning-card .example {
+font-size: 15px;
+font-weight: 600;
+direction: ltr;
+margin: 3px 0;
+}
+
+.warning-card .meaning {
+font-size: 12px;
+direction: rtl;
+color: #888;
+}
+
+.warning-joke {
+margin-top: 8px;
+padding: 8px 12px;
+background: rgba(255,193,7,0.08);
+border-radius: 10px;
+font-size: 13px;
+font-weight: 600;
+direction: rtl;
+text-align: center;
+border-right: 3px solid var(--gold);
+}
+
+/* ============================================================
+SECTION 6: CHALLENGE ARENA
+============================================================ */
+.quiz-progress-bar {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-bottom: 12px;
+}
+
+.quiz-progress-bar .label {
+font-size: 12px;
+font-weight: 600;
+color: var(--text);
+direction: rtl;
+text-align: right;
+}
+
+.quiz-progress-bar .bar-wrap {
+flex: 1;
+height: 5px;
+background: rgba(0,0,0,0.06);
+border-radius: 10px;
+overflow: hidden;
+}
+
+[data-theme="dark"] .quiz-progress-bar .bar-wrap {
+background: rgba(255,255,255,0.06);
+}
+
+.quiz-progress-bar .bar-fill {
+height: 100%;
+width: 0%;
+background: var(--gold);
+border-radius: 10px;
+transition: width 0.5s ease;
+}
+
+.quiz-progress-bar .count {
+font-size: 12px;
+font-weight: 700;
+color: var(--gold);
+min-width: 35px;
+text-align: left;
+direction: ltr;
+}
+
+.quiz-card {
+background: rgba(0,0,0,0.02);
+border-radius: 10px;
+padding: 12px 14px;
+margin-bottom: 10px;
+border: 1px solid rgba(0,0,0,0.04);
+transition: 0.3s;
+}
+
+[data-theme="dark"] .quiz-card {
+background: rgba(255,255,255,0.03);
+border-color: rgba(255,255,255,0.04);
+}
+
+.quiz-card .q-text {
+font-weight: 600;
+font-size: 14px;
+color: var(--text);
+margin-bottom: 5px;
+direction: ltr;
+text-align: left;
+}
+
+.quiz-card .q-text .hint-icon {
+font-size: 14px;
+margin-right: 4px;
+cursor: help;
+}
+
+.quiz-options {
+display: flex;
+flex-wrap: wrap;
+gap: 5px;
+}
+
+.quiz-options button {
+padding: 4px 14px;
+border: 2px solid rgba(0,0,0,0.08);
+border-radius: 30px;
+background: transparent;
+font-size: 13px;
+font-weight: 500;
+cursor: pointer;
+transition: 0.25s;
+color: var(--text);
+font-family: 'Poppins', 'Cairo', sans-serif;
+direction: ltr;
+}
+
+[data-theme="dark"] .quiz-options button {
+border-color: rgba(255,255,255,0.1);
+color: #ddd;
+}
+
+.quiz-options button:hover:not(:disabled) {
+background: rgba(0,0,0,0.04);
+}
+
+.quiz-options button:disabled {
+cursor: not-allowed;
+opacity: 0.6;
+}
+
+.quiz-options button.correct {
+background: var(--green);
+border-color: var(--green);
+color: #fff;
+animation: pop 0.3s ease;
+}
+
+.quiz-options button.wrong {
+background: var(--red);
+border-color: var(--red);
+color: #fff;
+animation: shake 0.4s ease;
+}
+
+.quiz-feedback {
+margin-top: 3px;
+font-size: 13px;
+font-weight: 600;
+min-height: 20px;
+direction: rtl;
+text-align: right;
+}
+
+.quiz-feedback .correct-text { color: var(--green); }
+.quiz-feedback .wrong-text { color: var(--red); }
+
+/* ===== CLICK TO ORDER (بدلاً من Drag & Drop) ===== */
+.order-hint {
+font-size: 12px;
+color: var(--gold);
+font-weight: 600;
+direction: rtl;
+text-align: right;
+margin-bottom: 4px;
+}
+
+.order-pool {
+display: flex;
+gap: 6px;
+flex-wrap: wrap;
+margin: 4px 0;
+}
+
+.order-word {
+padding: 5px 14px;
+background: var(--card-bg);
+border: 2px solid var(--gold);
+border-radius: 30px;
+font-family: 'Poppins', sans-serif;
+font-weight: 600;
+font-size: 13px;
+cursor: pointer;
+color: var(--text);
+transition: 0.2s;
+}
+
+.order-word:hover:not(:disabled) {
+transform: scale(1.05);
+background: rgba(255,193,7,0.1);
+}
+
+.order-word:disabled {
+cursor: not-allowed;
+opacity: 0.4;
+}
+
+.order-word.used {
+background: var(--gold);
+color: var(--black);
+border-color: var(--gold);
+}
+
+.order-word.correct-answer {
+background: var(--green);
+color: #fff;
+border-color: var(--green);
+}
+
+.order-word.wrong-answer {
+background: var(--red);
+color: #fff;
+border-color: var(--red);
+}
+
+.order-result-box {
+display: flex;
+gap: 4px;
+flex-wrap: wrap;
+padding: 6px 10px;
+min-height: 32px;
+background: rgba(0,0,0,0.03);
+border-radius: 8px;
+margin: 4px 0;
+border: 2px dashed rgba(0,0,0,0.08);
+align-items: center;
+}
+
+[data-theme="dark"] .order-result-box {
+background: rgba(255,255,255,0.03);
+border-color: rgba(255,255,255,0.06);
+}
+
+.order-result-box .placed-word {
+padding: 2px 10px;
+background: var(--gold);
+border-radius: 20px;
+font-family: 'Poppins', sans-serif;
+font-weight: 600;
+font-size: 12px;
+color: var(--black);
+cursor: pointer;
+transition: 0.2s;
+}
+
+.order-result-box .placed-word:hover {
+transform: scale(1.05);
+}
+
+/* ============================================================
+STREAK NOTIFICATION
+============================================================ */
+.streak-notification {
+display: none;
+background: var(--gold);
+color: var(--black);
+padding: 10px 16px;
+border-radius: var(--radius);
+font-weight: 700;
+font-size: 16px;
+text-align: center;
+margin-top: 10px;
+animation: pop 0.5s ease;
+position: relative;
+overflow: hidden;
+direction: rtl;
+}
+
+.streak-notification.show {
+display: block;
+}
+
+.streak-notification .stars {
+position: absolute;
+inset: 0;
+pointer-events: none;
+overflow: hidden;
+}
+
+.streak-notification .star {
+position: absolute;
+font-size: 16px;
+animation: starFall 2s linear forwards;
+}
+
+/* ============================================================
+CELEBRATION OVERLAY
+============================================================ */
+.celebration-overlay {
+display: none;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.85);
+z-index: 1000;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+gap: 20px;
+animation: fadeInUp 0.5s ease;
+}
+
+.celebration-overlay.show {
+display: flex;
+}
+
+.celebration-overlay .celeb-box {
+background: var(--card-bg);
+border-radius: var(--radius);
+padding: 30px 24px;
+max-width: 420px;
+width: 90%;
+text-align: center;
+box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+animation: pop 0.6s ease;
+position: relative;
+}
+
+[data-theme="dark"] .celebration-overlay .celeb-box {
+background: #1E1E1E;
+}
+
+.celebration-overlay .celeb-box .close-celeb {
+position: absolute;
+top: 10px;
+right: 14px;
+background: none;
+border: none;
+font-size: 24px;
+cursor: pointer;
+color: var(--text);
+transition: 0.2s;
+padding: 4px 8px;
+border-radius: 50%;
+}
+
+.celebration-overlay .celeb-box .close-celeb:hover {
+background: rgba(0,0,0,0.06);
+transform: rotate(90deg);
+}
+
+[data-theme="dark"] .celebration-overlay .celeb-box .close-celeb:hover {
+background: rgba(255,255,255,0.06);
+}
+
+.celebration-overlay .celeb-box .big-emoji {
+font-size: 48px;
+}
+
+.celebration-overlay .celeb-box h2 {
+font-size: 22px;
+font-weight: 800;
+color: var(--gold);
+margin: 6px 0;
+direction: rtl;
+}
+
+.celebration-overlay .celeb-box .sub-text {
+font-size: 16px;
+font-weight: 600;
+color: var(--text);
+direction: rtl;
+}
+
+.celebration-overlay .celeb-box .xp-text {
+font-size: 20px;
+font-weight: 800;
+color: var(--gold);
+margin: 4px 0 12px;
+}
+
+.celebration-overlay .celeb-box .celeb-buttons {
+display: flex;
+gap: 10px;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.celebration-overlay .celeb-box .celeb-buttons button {
+padding: 8px 24px;
+border: none;
+border-radius: 30px;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+transition: 0.25s;
+font-family: 'Cairo', sans-serif;
+}
+
+.celebration-overlay .celeb-box .celeb-buttons .btn-next {
+background: var(--gold);
+color: var(--black);
+}
+
+.celebration-overlay .celeb-box .celeb-buttons .btn-next:hover {
+transform: scale(1.05);
+}
+
+.celebration-overlay .celeb-box .celeb-buttons .btn-home {
+background: transparent;
+border: 2px solid var(--gold);
+color: var(--text);
+}
+
+[data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-home {
+color: #eee;
+}
+
+.celebration-overlay .celeb-box .celeb-buttons .btn-home:hover {
+background: var(--gold);
+color: var(--black);
+}
+
+.celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
+background: transparent;
+border: 2px solid var(--gold);
+color: var(--text);
+}
+
+[data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
+color: #eee;
+}
+
+.celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit:hover {
+background: var(--gold);
+color: var(--black);
+}
+
+.celeb-confetti-container {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 999;
+overflow: hidden;
+}
+
+.celeb-confetti {
+position: absolute;
+width: 10px;
+height: 10px;
+animation: confettiFall linear forwards;
+}
+
+.celeb-confetti.circle { border-radius: 50%; }
+.celeb-confetti.square { border-radius: 0; }
+.celeb-confetti.star {
+clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+@keyframes confettiFall {
+0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ============================================================
+SECTION 7: SPEAK UP!
+============================================================ */
+.speak-container {
+text-align: center;
+padding: 12px 0;
+}
+
+.speak-container .big-btn {
+background: var(--gold);
+border: none;
+padding: 12px 32px;
+border-radius: 50px;
+font-size: 18px;
+font-weight: 700;
+color: var(--black);
+cursor: pointer;
+transition: 0.3s;
+font-family: 'Cairo', sans-serif;
+}
+
+.speak-container .big-btn:hover {
+transform: scale(1.05);
+}
+
+.speak-container .speak-result {
+margin-top: 10px;
+padding: 10px 14px;
+background: rgba(0,0,0,0.03);
+border-radius: 10px;
+font-size: 15px;
+direction: rtl;
+text-align: right;
+min-height: 40px;
+border-right: 3px solid var(--gold);
+}
+
+[data-theme="dark"] .speak-container .speak-result {
+background: rgba(255,255,255,0.03);
+}
+
+/* ============================================================
+SECTION 8: POWER RECAP
+============================================================ */
+.mindmap {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 12px 0;
+}
+
+.mindmap .center {
+background: var(--gold);
+color: var(--black);
+padding: 8px 20px;
+border-radius: 30px;
+font-weight: 800;
+font-size: 17px;
+margin-bottom: 12px;
+font-family: 'Poppins', sans-serif;
+direction: ltr;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.mindmap .center:hover {
+transform: scale(1.05);
+}
+
+.mindmap .branches {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 6px 12px;
+}
+
+.mindmap .branch {
+background: var(--card-bg);
+padding: 5px 14px;
+border-radius: 20px;
+border: 2px solid var(--gold);
+font-size: 13px;
+font-weight: 600;
+color: var(--text);
+box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+transition: 0.2s;
+font-family: 'Poppins', sans-serif;
+direction: ltr;
+cursor: pointer;
+}
+
+.mindmap .branch:hover {
+transform: scale(1.05);
+background: var(--gold);
+color: var(--black);
+}
+
+.mindmap .branch-example {
+margin-top: 8px;
+padding: 8px 14px;
+background: rgba(0,0,0,0.03);
+border-radius: 10px;
+font-size: 13px;
+direction: rtl;
+text-align: center;
+min-height: 25px;
+border-right: 3px solid var(--gold);
+width: 100%;
+}
+
+[data-theme="dark"] .mindmap .branch-example {
+background: rgba(255,255,255,0.03);
+}
+
+/* ============================================================
+SECTION 9: VIDEO
+============================================================ */
+.video-btn {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+background: #FF0000;
+color: #fff;
+border: none;
+padding: 8px 24px;
+border-radius: 30px;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+transition: 0.25s;
+font-family: 'Cairo', sans-serif;
+direction: rtl;
+}
+
+.video-btn:hover {
+background: #cc0000;
+transform: scale(1.02);
+}
+
+/* ============================================================
+SECTION 10: HOMEWORK
+============================================================ */
+.homework-area textarea {
+width: 100%;
+min-height: 100px;
+padding: 10px 14px;
+border: 2px solid rgba(0,0,0,0.06);
+border-radius: 10px;
+font-family: 'Cairo', sans-serif;
+font-size: 13px;
+color: var(--text);
+background: var(--bg);
+resize: vertical;
+transition: 0.2s;
+direction: rtl;
+text-align: right;
+}
+
+[data-theme="dark"] .homework-area textarea {
+border-color: rgba(255,255,255,0.06);
+background: var(--card-bg);
+}
+
+.homework-area textarea:focus {
+outline: none;
+border-color: var(--gold);
+}
+
+.homework-area .save-btn {
+background: var(--gold);
+border: none;
+padding: 6px 20px;
+border-radius: 30px;
+font-size: 13px;
+font-weight: 700;
+color: var(--black);
+cursor: pointer;
+transition: 0.2s;
+font-family: 'Cairo', sans-serif;
+margin-top: 6px;
+}
+
+.homework-area .save-btn:hover {
+transform: scale(1.02);
+}
+
+.homework-area .save-status {
+margin-top: 4px;
+font-size: 12px;
+color: var(--green);
+direction: rtl;
+text-align: right;
+}
+
+/* ============================================================
+NAVIGATION
+============================================================ */
+.nav-buttons {
+display: flex;
+justify-content: space-between;
+margin-top: 20px;
+gap: 10px;
+}
+
+.nav-buttons button {
+padding: 8px 24px;
+border: none;
+border-radius: 30px;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+transition: 0.25s;
+font-family: 'Cairo', sans-serif;
+direction: rtl;
+}
+
+.nav-buttons .prev {
+background: var(--gold);
+color: var(--black);
+}
+
+.nav-buttons .prev:hover {
+background: #e6b800;
+transform: scale(1.02);
+}
+
+.nav-buttons .next {
+background: var(--gold);
+color: var(--black);
+}
+
+.nav-buttons .next:hover {
+background: #e6b800;
+transform: scale(1.02);
+}
+
+/* ============================================================
+ANIMATIONS
+============================================================ */
+@keyframes fadeInUp {
+from { opacity: 0; transform: translateY(12px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+0% { transform: scale(0.8); opacity: 0; }
+100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+0%, 100% { transform: translateX(0); }
+25% { transform: translateX(-5px); }
+75% { transform: translateX(5px); }
+}
+
+@keyframes starFall {
+0% { transform: translateY(-15px) rotate(0deg); opacity: 1; }
+100% { transform: translateY(150px) rotate(360deg); opacity: 0; }
+}
+
+/* ============================================================
+RESPONSIVE
+============================================================ */
+@media (max-width: 768px) {
+.vocab-grid { grid-template-columns: repeat(2, 1fr); }
+.grammar-grid { grid-template-columns: 1fr; }
+.warning-grid { grid-template-columns: 1fr; }
+.unit-header h1 { font-size: 20px; }
+.section-box { padding: 12px 12px; }
+.nav-buttons { flex-direction: column; }
+.nav-buttons button { width: 100%; text-align: center; }
+.discovery-tabs { flex-direction: column; }
+.discovery-tab { text-align: center; }
+.quiz-options { flex-direction: column; }
+.quiz-options button { width: 100%; text-align: center; }
+.unit-tab { min-width: 30px; height: 30px; font-size: 10px; }
+.celebration-overlay .celeb-box { padding: 20px 16px; }
+.celebration-overlay .celeb-box h2 { font-size: 18px; }
+}
+
+@media (max-width: 400px) {
+.vocab-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+.flip-card { height: 85px; }
+.flip-card-front .emoji { font-size: 18px; }
+.flip-card-front .word { font-size: 11px; }
+.convo-bubble .bubble-content .en { font-size: 12px; }
+.convo-bubble .bubble-content .ar { font-size: 11px; }
+}
+
+#audio-player { display: none; }
+</style>
 </head>
 <body>
 
-    <!-- ============================================================
-    LOCK CHECK
-    ============================================================ -->
-    <script>
-        // Check if Unit 2 is unlocked
-        (function() {
-            const maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
-            if (maxUnlocked < 2) {
-                alert('🔒 الوحدة 2 مقفلة! أكمل الوحدة 1 أولاً.');
-                window.location.href = 'index.html';
-            }
-        })();
-    </script>
-
-    <!-- ============================================================
-    HEADER
-    ============================================================ -->
-    <header class="header">
-        <div class="brand">Babble <span>Box</span></div>
-        <div class="unit-title">Unit 2: My Family</div>
-        <div class="top-actions">
-            <a href="index.html" class="back-btn">🏠 الرئيسية</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-        </div>
-    </header>
-
-    <!-- ============================================================
-    DAILY PROGRESS
-    ============================================================ -->
-    <div class="daily-progress">
-        <span class="label">⭐ التقدم اليومي</span>
-        <div class="bar-wrap">
-            <div class="bar-fill" id="dailyProgressFill"></div>
-        </div>
-        <span class="count" id="dailyProgressCount">0/5</span>
-    </div>
-
-    <!-- ============================================================
-    LESSON CONTENT
-    ============================================================ -->
-    <div class="lesson-content">
-
-        <!-- ===== UNIT HEADER ===== -->
-        <div class="unit-header">
-            <div class="badge">📖 الوحدة الثانية</div>
-            <h1>My Family & Friends</h1>
-            <p>تعلم كيف تتحدث عن عائلتك وأصدقائك بالإنجليزية.</p>
-        </div>
-
-        <!-- ==========================================================
-        SECTION 1: THE REAL TALK
-        ========================================================== -->
-        <section class="section-box" id="conversation">
-            <div class="section-title">🗣️ The Real Talk</div>
-
-            <div class="convo-container">
-                <!-- John 1 -->
-                <div class="convo-bubble john">
-                    <span class="avatar">👤</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            So, tell me about your family.
-                            <button class="audio-btn" data-text="So, tell me about your family." data-voice="male">🔊</button>
-                        </div>
-                        <div class="ar">طب، قولي لي عن عيلتك.</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-
-                <!-- Sarah 1 -->
-                <div class="convo-bubble sarah">
-                    <span class="avatar">👩</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            Well, it's a bit crazy, honestly.
-                            <button class="audio-btn" data-text="Well, it's a bit crazy, honestly." data-voice="female">🔊</button>
-                        </div>
-                        <div class="ar">هي، هي مجنونة شوية، بصراحة.</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-
-                <!-- John 2 -->
-                <div class="convo-bubble john">
-                    <span class="avatar">👤</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            Ha! Aren't all families?
-                            <button class="audio-btn" data-text="Ha! Aren't all families?" data-voice="male">🔊</button>
-                        </div>
-                        <div class="ar">هه! مش كل العائلات كدة؟</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-
-                <!-- Sarah 2 -->
-                <div class="convo-bubble sarah">
-                    <span class="avatar">👩</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            True. My mom is a superhero. My dad's always working.
-                            <button class="audio-btn" data-text="True. My mom is a superhero. My dad's always working." data-voice="female">🔊</button>
-                        </div>
-                        <div class="ar">صح. ماما بطلة خارقة. بابا شغال طول الوقت.</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-
-                <!-- Sarah 3 -->
-                <div class="convo-bubble sarah">
-                    <span class="avatar">👩</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            I've got a little brother who's annoying, and an older sister who thinks she's my boss.
-                            <button class="audio-btn" data-text="I've got a little brother who's annoying, and an older sister who thinks she's my boss." data-voice="female">🔊</button>
-                        </div>
-                        <div class="ar">عندي أخ صغير مزعج، وأخت كبيرة فاكرة نفسها مديرتي.</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-
-                <!-- John 3 -->
-                <div class="convo-bubble john">
-                    <span class="avatar">👤</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            Sounds familiar! Any pets?
-                            <button class="audio-btn" data-text="Sounds familiar! Any pets?" data-voice="male">🔊</button>
-                        </div>
-                        <div class="ar">يبدو مألوفاً! في أي حيوانات أليفة؟</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-
-                <!-- Sarah 4 -->
-                <div class="convo-bubble sarah">
-                    <span class="avatar">👩</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            Yeah, a dog named Max. He's the real boss.
-                            <button class="audio-btn" data-text="Yeah, a dog named Max. He's the real boss." data-voice="female">🔊</button>
-                        </div>
-                        <div class="ar">أه، كلب اسمه ماكس. هو المدير الحقيقي.</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-
-                <!-- John 4 -->
-                <div class="convo-bubble john">
-                    <span class="avatar">👤</span>
-                    <div class="bubble-content">
-                        <div class="en">
-                            Ha! Dogs usually are.
-                            <button class="audio-btn" data-text="Ha! Dogs usually are." data-voice="male">🔊</button>
-                        </div>
-                        <div class="ar">هه! الكلاب عادة كدة.</div>
-                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 2: DISCOVER THE RULE
-        ========================================================== -->
-        <section class="section-box" id="discover">
-            <div class="section-title">🔍 Discover the Rule</div>
-
-            <div class="discovery-question">
-                ❓ لاحظ الفرق بين الجمل دي:
-            </div>
-
-            <div class="discovery-tabs" id="discoveryTabs">
-                <button class="discovery-tab active" data-tab="disc1">My mom</button>
-                <button class="discovery-tab" data-tab="disc2">Your family</button>
-                <button class="discovery-tab" data-tab="disc3">His dog / Her brother</button>
-            </div>
-
-            <div class="discovery-content active" id="disc1">
-                <strong>🔹 My</strong> — لما أتكلم عن حاجة بتاعتي<br>
-                ✅ <span class="en-highlight">"My mom"</span> = ماما.
-            </div>
-            <div class="discovery-content" id="disc2">
-                <strong>🔹 Your</strong> — لما أكلم الشخص عن حاجته<br>
-                ✅ <span class="en-highlight">"Your family"</span> = عيلتك.
-            </div>
-            <div class="discovery-content" id="disc3">
-                <strong>🔹 His / Her</strong> — لما أتكلم عن حاجة بتاعة شخص تالت<br>
-                ✅ <span class="en-highlight">"His dog"</span> = كلبه / <span class="en-highlight">"Her brother"</span> = أخوها.
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 3: GRAMMAR LAB
-        ========================================================== -->
-        <section class="section-box" id="grammar">
-            <div class="section-title">🧠 Grammar Lab – Possessive Adjectives</div>
-
-            <div class="grammar-grid">
-                <div class="grammar-card green">
-                    <div class="title">👤 I / You</div>
-                    <div class="examples">I → my<br>You → your</div>
-                </div>
-                <div class="grammar-card blue">
-                    <div class="title">👤 He / She / It</div>
-                    <div class="examples">He → his<br>She → her<br>It → its</div>
-                </div>
-                <div class="grammar-card gold">
-                    <div class="title">👥 We / They</div>
-                    <div class="examples">We → our<br>They → their</div>
-                </div>
-                <div class="grammar-card red">
-                    <div class="title">⚠️ Warning</div>
-                    <div class="examples">its = ملكية<br>it's = اختصار It is</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 4: WORD VAULT
-        ========================================================== -->
-        <section class="section-box" id="vocabulary">
-            <div class="section-title">💎 Word Vault</div>
-
-            <div class="vocab-grid" id="vocabGrid">
-                <div class="flip-card" data-word="Mother">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">👩‍👧</span>
-                            <span class="word">Mother</span>
-                            <button class="audio-btn-small" data-word="Mother">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">أم</span></div>
-                    </div>
-                </div>
-                <div class="flip-card" data-word="Father">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">👨‍👦</span>
-                            <span class="word">Father</span>
-                            <button class="audio-btn-small" data-word="Father">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">أب</span></div>
-                    </div>
-                </div>
-                <div class="flip-card" data-word="Brother">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">👦</span>
-                            <span class="word">Brother</span>
-                            <button class="audio-btn-small" data-word="Brother">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">أخ</span></div>
-                    </div>
-                </div>
-                <div class="flip-card" data-word="Sister">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">👧</span>
-                            <span class="word">Sister</span>
-                            <button class="audio-btn-small" data-word="Sister">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">أخت</span></div>
-                    </div>
-                </div>
-                <div class="flip-card" data-word="Baby">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">👶</span>
-                            <span class="word">Baby</span>
-                            <button class="audio-btn-small" data-word="Baby">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">طفل</span></div>
-                    </div>
-                </div>
-                <div class="flip-card" data-word="Pet">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">🐶</span>
-                            <span class="word">Pet</span>
-                            <button class="audio-btn-small" data-word="Pet">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">حيوان أليف</span></div>
-                    </div>
-                </div>
-                <div class="flip-card" data-word="Family">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">👨‍👩‍👧‍👦</span>
-                            <span class="word">Family</span>
-                            <button class="audio-btn-small" data-word="Family">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">عائلة</span></div>
-                    </div>
-                </div>
-                <div class="flip-card" data-word="Friend">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <span class="emoji">👫</span>
-                            <span class="word">Friend</span>
-                            <button class="audio-btn-small" data-word="Friend">🔊</button>
-                        </div>
-                        <div class="flip-card-back"><span class="meaning">صديق</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 5: BABBLE WARNING
-        ========================================================== -->
-        <section class="section-box" id="warning">
-            <div class="section-title">🚨 Babble Warning – الكلمة الخائنة</div>
-
-            <div style="text-align:center;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:8px;direction:ltr;">Parents</div>
-
-            <div class="warning-grid">
-                <div class="warning-card safe">
-                    <div class="label">✅ المعنى الصحيح</div>
-                    <div class="example">"My parents are here."</div>
-                    <div class="meaning">والداي هنا.</div>
-                </div>
-                <div class="warning-card danger">
-                    <div class="label">❌ الخطأ الشائع</div>
-                    <div class="example">"My parents are 50 people."</div>
-                    <div class="meaning">لا تستخدم parents لتعني "أقارب". الأقارب = relatives.</div>
-                </div>
-            </div>
-
-            <div class="warning-joke">
-                😂 يعني لو قلت "My parents are 50 people"، يبقى أنت من عيلة غريبة جداً!
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 6: CHALLENGE ARENA
-        ========================================================== -->
-        <section class="section-box" id="challenge">
-            <div class="section-title">⚔️ Challenge Arena</div>
-
-            <div class="quiz-progress-bar">
-                <span class="label">📊 السؤال</span>
-                <div class="bar-wrap">
-                    <div class="bar-fill" id="quizProgressFill"></div>
-                </div>
-                <span class="count" id="quizProgressCount">0/5</span>
-            </div>
-
-            <div id="quizContainer">
-                <!-- Q1 -->
-                <div class="quiz-card" data-question="1" data-type="choice">
-                    <div class="q-text">1. This is ___ book.</div>
-                    <div class="quiz-options">
-                        <button data-answer="my">my</button>
-                        <button data-answer="I">I</button>
-                        <button data-answer="mine">mine</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <!-- Q2 -->
-                <div class="quiz-card" data-question="2" data-type="choice">
-                    <div class="q-text">2. ___ name is John.</div>
-                    <div class="quiz-options">
-                        <button data-answer="He">He</button>
-                        <button data-answer="His">His</button>
-                        <button data-answer="Him">Him</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <!-- Q3: Drag & Drop -->
-                <div class="quiz-card" data-question="3" data-type="drag">
-                    <div class="q-text">3. رتب الكلمات لتكوين جملة:</div>
-                    <div class="drag-options" id="dragContainer">
-                        <span class="drag-word" draggable="true" data-word="her">her</span>
-                        <span class="drag-word" draggable="true" data-word="This">This</span>
-                        <span class="drag-word" draggable="true" data-word="is">is</span>
-                        <span class="drag-word" draggable="true" data-word="sister">sister</span>
-                    </div>
-                    <div class="drop-zone" id="dropZone"></div>
-                    <div class="quiz-feedback" id="dragFeedback"></div>
-                </div>
-
-                <!-- Q4: Listening -->
-                <div class="quiz-card" data-question="4" data-type="listening">
-                    <div class="q-text">4. 🔊 استمع للجملة واختر الترجمة الصحيحة:</div>
-                    <button class="listen-btn" id="listenQ4">🔊 استمع</button>
-                    <div class="quiz-options" style="margin-top:6px;">
-                        <button data-answer="a">هذا أخي</button>
-                        <button data-answer="b">هذه أختي</button>
-                        <button data-answer="c">هذا صديقي</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-
-                <!-- Q5 -->
-                <div class="quiz-card" data-question="5" data-type="choice">
-                    <div class="q-text">5. ما هو خطأ في: "It's collar is red."؟</div>
-                    <div class="quiz-options">
-                        <button data-answer="a">المفروض Its</button>
-                        <button data-answer="b">المفروض It is</button>
-                        <button data-answer="c">المفروض It's</button>
-                    </div>
-                    <div class="quiz-feedback"></div>
-                </div>
-            </div>
-
-            <!-- Streak -->
-            <div class="streak-notification" id="streakNotification">
-                🎉 +50 XP! لقد أتقنت صفات الملكية!
-                <div class="stars" id="starsContainer"></div>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 7: SPEAK UP!
-        ========================================================== -->
-        <section class="section-box" id="speak">
-            <div class="section-title">🎤 Speak Up!</div>
-
-            <div class="speak-container">
-                <button class="big-btn" id="speakBtn">🎤 اضغط وتحدث!</button>
-                <div style="margin-top:6px;font-size:13px;color:#888;direction:rtl;">
-                    Describe your family! Who's in your family? Do you have any pets?
-                </div>
-                <div class="speak-result" id="speakResult">
-                    ⏳ اضغط الزر وابدأ التحدث...
-                </div>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 8: POWER RECAP
-        ========================================================== -->
-        <section class="section-box" id="recap">
-            <div class="section-title">⚡ Power Recap</div>
-
-            <div class="mindmap">
-                <div class="center" id="mindCenter">Possessive Adjectives</div>
-                <div class="branches">
-                    <span class="branch" data-example="This is my book. (ده كتابي)">my</span>
-                    <span class="branch" data-example="Is this your phone? (ده تلفونك؟)">your</span>
-                    <span class="branch" data-example="His car is red. (عربيته حمرا)">his</span>
-                    <span class="branch" data-example="Her name is Sarah. (اسمها سارة)">her</span>
-                    <span class="branch" data-example="The cat likes its toy. (القطة بتحب لعبتها)">its</span>
-                    <span class="branch" data-example="Our house is big. (بيتنا كبير)">our</span>
-                    <span class="branch" data-example="Their teacher is nice. (مدرسهم لطيف)">their</span>
-                </div>
-                <div class="branch-example" id="branchExample">👆 اضغط على أي فرع لترى مثالاً</div>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 9: VIDEO ZONE
-        ========================================================== -->
-        <section class="section-box" id="video">
-            <div class="section-title">🎥 Video Zone</div>
-
-            <button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
-        </section>
-
-        <!-- ==========================================================
-        SECTION 10: HOMEWORK
-        ========================================================== -->
-        <section class="section-box" id="homework">
-            <div class="section-title">✍️ Homework</div>
-
-            <div class="homework-area">
-                <p style="direction:rtl;margin-bottom:6px;color:#888;font-size:13px;">
-                    ✏️ اكتب <strong>5 جمل</strong> عن عائلتك باستخدام <strong>my, your, his, her, our, their</strong>.
-                </p>
-                <textarea id="homeworkText" placeholder="اكتب جملك هنا..." spellcheck="true"></textarea>
-                <button class="save-btn" id="saveHomework">💾 حفظ الواجب</button>
-                <div class="save-status" id="saveStatus"></div>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-        NAVIGATION
-        ========================================================== -->
-        <div class="nav-buttons">
-            <button class="prev" id="prevBtn">← السابق</button>
-            <button class="next" id="nextBtn">التالي →</button>
-        </div>
-
-    </div><!-- /.lesson-content -->
-
-    <!-- ============================================================
-    HIDDEN AUDIO
-    ============================================================ -->
-    <audio id="audio-player" style="display:none;">
-        <source src="" type="audio/mpeg">
-    </audio>
-
-    <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
-    <script>
-        // ============================================================
-        // 1. DARK MODE
-        // ============================================================
-        const themeToggle = document.getElementById('themeToggle');
-        let currentTheme = localStorage.getItem('babbleTheme') || 'light';
-
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-            localStorage.setItem('babbleTheme', theme);
-            currentTheme = theme;
-        }
-
-        setTheme(currentTheme);
-        themeToggle.addEventListener('click', function() {
-            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-        });
-
-        // ============================================================
-        // 2. TRANSLATION TOGGLE
-        // ============================================================
-        document.querySelectorAll('.translation-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const target = this.dataset.target;
-                const arElement = this.closest('.bubble-content').querySelector('.' + target);
-                if (arElement) {
-                    arElement.classList.toggle('show');
-                    this.textContent = arElement.classList.contains('show') ? '🇪🇬 Hide Translation' :
-                        '🇪🇬 Show Translation';
-                }
-            });
-        });
-
-        // ============================================================
-        // 3. DISCOVERY TABS
-        // ============================================================
-        const discoveryTabs = document.querySelectorAll('.discovery-tab');
-        const discoveryContents = {
-            disc1: document.getElementById('disc1'),
-            disc2: document.getElementById('disc2'),
-            disc3: document.getElementById('disc3')
-        };
-
-        discoveryTabs.forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                discoveryTabs.forEach(t => t.classList.remove('active'));
-                Object.values(discoveryContents).forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                const target = this.dataset.tab;
-                if (discoveryContents[target]) {
-                    discoveryContents[target].classList.add('active');
-                }
-            });
-        });
-
-        // ============================================================
-        // 4. FLIP CARDS
-        // ============================================================
-        document.querySelectorAll('.flip-card').forEach(function(card) {
-            card.addEventListener('click', function(e) {
-                if (e.target.closest('.audio-btn-small')) return;
-                this.classList.toggle('flipped');
-            });
-        });
-
-        // ============================================================
-        // 5. SPEECH SYNTHESIS
-        // ============================================================
-        let maleVoice = null;
-        let femaleVoice = null;
-
-        function getVoices() {
-            const voices = window.speechSynthesis.getVoices();
-            maleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices.find(v => v
-                .lang.startsWith('en')) || null;
-            femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google') && v.name.includes(
-                'Female')) || maleVoice || null;
-        }
-
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.getVoices();
-            window.speechSynthesis.onvoiceschanged = getVoices;
-            setTimeout(getVoices, 300);
-        }
-
-        function speakText(text, voiceType = 'male', rate = 0.85) {
-            if (!('speechSynthesis' in window)) {
-                alert('⚠️ متصفحك لا يدعم خاصية النطق.');
-                return;
-            }
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = rate;
-            utterance.pitch = voiceType === 'male' ? 0.9 : 1.2;
-            utterance.volume = 1;
-
-            if (voiceType === 'male' && maleVoice) utterance.voice = maleVoice;
-            else if (voiceType === 'female' && femaleVoice) utterance.voice = femaleVoice;
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        // Conversation audio
-        document.querySelectorAll('.audio-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const text = this.dataset.text;
-                const voice = this.dataset.voice || 'male';
-                if (text) speakText(text, voice, 0.85);
-            });
-        });
-
-        // Vocabulary audio
-        document.querySelectorAll('.audio-btn-small').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const word = this.dataset.word;
-                if (word) speakText(word, 'female', 0.75);
-            });
-        });
-
-        // ============================================================
-        // 6. QUIZ LOGIC
-        // ============================================================
-        const correctAnswers = {
-            '1': 'my',
-            '2': 'His',
-            '4': 'b',
-            '5': 'a'
-        };
-
-        let quizCompleted = 0;
-        const totalQuestions = 5;
-        let streakShown = false;
-        let quizLocked = false;
-
-        const quizProgressFill = document.getElementById('quizProgressFill');
-        const quizProgressCount = document.getElementById('quizProgressCount');
-
-        let dailyCompleted = parseInt(localStorage.getItem('babbleDaily')) || 0;
-        const dailyProgressFill = document.getElementById('dailyProgressFill');
-        const dailyProgressCount = document.getElementById('dailyProgressCount');
-
-        function updateDailyProgress() {
-            const pct = (dailyCompleted / 5) * 100;
-            dailyProgressFill.style.width = pct + '%';
-            dailyProgressCount.textContent = dailyCompleted + '/5';
-            localStorage.setItem('babbleDaily', dailyCompleted);
-        }
-        updateDailyProgress();
-
-        function updateQuizProgress() {
-            const pct = (quizCompleted / totalQuestions) * 100;
-            quizProgressFill.style.width = pct + '%';
-            quizProgressCount.textContent = quizCompleted + '/' + totalQuestions;
-
-            if (quizCompleted === totalQuestions && !streakShown && !quizLocked) {
-                showStreak();
-                streakShown = true;
-                quizLocked = true;
-                dailyCompleted = Math.min(dailyCompleted + 1, 5);
-                updateDailyProgress();
-
-                let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
-                if (maxUnlocked < 3) {
-                    maxUnlocked = 3;
-                    localStorage.setItem('babbleMaxUnit', maxUnlocked);
-                    localStorage.setItem('babbleUnit2Complete', 'true');
-                }
-
-                setTimeout(function() {
-                    alert('🎉 وحدة 3 أصبحت مفتوحة! ارجع للصفحة الرئيسية.');
-                }, 1500);
-            }
-        }
-
-        function showStreak() {
-            const notification = document.getElementById('streakNotification');
-            notification.classList.add('show');
-
-            const container = document.getElementById('starsContainer');
-            container.innerHTML = '';
-            const emojis = ['⭐', '🌟', '✨', '🎉', '💫'];
-            for (let i = 0; i < 25; i++) {
-                const star = document.createElement('span');
-                star.className = 'star';
-                star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                star.style.left = Math.random() * 90 + '%';
-                star.style.animationDelay = (Math.random() * 1.5) + 's';
-                star.style.fontSize = (14 + Math.random() * 22) + 'px';
-                container.appendChild(star);
-            }
-            speakText('Congratulations! You mastered possessive adjectives!', 'female', 0.9);
-            setTimeout(function() {
-                notification.classList.remove('show');
-            }, 5000);
-        }
-
-        // Choice questions
-        document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(function(card) {
-            const qNum = card.dataset.question;
-            const buttons = card.querySelectorAll('.quiz-options button');
-            const feedback = card.querySelector('.quiz-feedback');
-
-            buttons.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    if (quizLocked) return;
-                    buttons.forEach(b => b.disabled = true);
-
-                    const selected = this.dataset.answer;
-                    const isCorrect = (selected === correctAnswers[qNum]);
-
-                    if (isCorrect) {
-                        this.classList.add('correct');
-                        feedback.innerHTML = '<span class="correct-text">✅ صح!</span>';
-                        quizCompleted++;
-                        updateQuizProgress();
-                        speakText('Correct! Well done.', 'female', 0.9);
-                    } else {
-                        this.classList.add('wrong');
-                        feedback.innerHTML = '<span class="wrong-text">❌ خطأ!</span>';
-                        buttons.forEach(b => {
-                            if (b.dataset.answer === correctAnswers[qNum]) {
-                                b.classList.add('correct');
-                            }
-                        });
-                        speakText('Incorrect. Try again.', 'male', 0.85);
-                    }
-                });
-            });
-        });
-
-        // ============================================================
-        // 7. DRAG & DROP (Q3)
-        // ============================================================
-        const dragWords = document.querySelectorAll('.drag-word');
-        const dropZone = document.getElementById('dropZone');
-        const dragFeedback = document.getElementById('dragFeedback');
-        let dragQ3Completed = false;
-
-        dragWords.forEach(function(word) {
-            word.addEventListener('dragstart', function(e) {
-                e.dataTransfer.setData('text/plain', this.dataset.word);
-                this.classList.add('dragging');
-            });
-            word.addEventListener('dragend', function(e) {
-                this.classList.remove('dragging');
-            });
-        });
-
-        dropZone.addEventListener('dragover', function(e) { e.preventDefault(); });
-
-        dropZone.addEventListener('drop', function(e) {
-            e.preventDefault();
-            if (dragQ3Completed || quizLocked) return;
-
-            const word = e.dataTransfer.getData('text/plain');
-            const wordElement = document.querySelector('.drag-word[data-word="' + word + '"]');
-
-            if (wordElement) {
-                wordElement.remove();
-                const span = document.createElement('span');
-                span.className = 'word-placed';
-                span.textContent = word;
-                dropZone.appendChild(span);
-
-                const placed = dropZone.querySelectorAll('.word-placed');
-                if (placed.length === 4) {
-                    const text = Array.from(placed).map(el => el.textContent).join(' ');
-                    if (text === 'This is her sister') {
-                        dragFeedback.innerHTML = '<span class="correct-text">✅ صح!</span>';
-                        dragQ3Completed = true;
-                        quizCompleted++;
-                        updateQuizProgress();
-                        speakText('Correct! Well done.', 'female', 0.9);
-                    } else {
-                        dragFeedback.innerHTML = '<span class="wrong-text">❌ خطأ! الترتيب غلط.</span>';
-                        setTimeout(function() {
-                            dropZone.innerHTML = '';
-                            dragWords.forEach(w => {
-                                document.getElementById('dragContainer').appendChild(w);
-                            });
-                            dragFeedback.innerHTML = '';
-                            dragQ3Completed = false;
-                        }, 1500);
-                    }
-                }
-            }
-        });
-
-        // ============================================================
-        // 8. LISTENING (Q4)
-        // ============================================================
-        let listenQ4Answered = false;
-
-        document.getElementById('listenQ4').addEventListener('click', function() {
-            speakText('This is my sister.', 'female', 0.8);
-        });
-
-        document.querySelectorAll('.quiz-card[data-question="4"] .quiz-options button').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                if (listenQ4Answered || quizLocked) return;
-                const qNum = '4';
-                const buttons = this.closest('.quiz-options').querySelectorAll('button');
-                buttons.forEach(b => b.disabled = true);
-
-                const selected = this.dataset.answer;
-                const isCorrect = (selected === correctAnswers[qNum]);
-
-                if (isCorrect) {
-                    this.classList.add('correct');
-                    this.closest('.quiz-card').querySelector('.quiz-feedback').innerHTML =
-                        '<span class="correct-text">✅ صح!</span>';
-                    listenQ4Answered = true;
-                    quizCompleted++;
-                    updateQuizProgress();
-                    speakText('Correct! Well done.', 'female', 0.9);
-                } else {
-                    this.classList.add('wrong');
-                    this.closest('.quiz-card').querySelector('.quiz-feedback').innerHTML =
-                        '<span class="wrong-text">❌ خطأ!</span>';
-                    buttons.forEach(b => {
-                        if (b.dataset.answer === correctAnswers[qNum]) {
-                            b.classList.add('correct');
-                        }
-                    });
-                    speakText('Incorrect. Try again.', 'male', 0.85);
-                }
-            });
-        });
-
-        // ============================================================
-        // 9. SPEAK UP!
-        // ============================================================
-        const speakBtn = document.getElementById('speakBtn');
-        const speakResult = document.getElementById('speakResult');
-
-        speakBtn.addEventListener('click', function() {
-            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                speakResult.textContent = '❌ متصفحك لا يدعم التعرف على الصوت. استخدم Chrome.';
-                return;
-            }
-
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'en-US';
-            recognition.continuous = false;
-            recognition.interimResults = false;
-
-            speakResult.textContent = '🎤 جاري الاستماع...';
-            speakBtn.textContent = '⏳ جاري الاستماع...';
-
-            recognition.onresult = function(event) {
-                const transcript = event.results[0][0].transcript;
-                speakResult.textContent = '🗣️ ' + transcript;
-                speakBtn.textContent = '🎤 اضغط وتحدث!';
-            };
-
-            recognition.onerror = function() {
-                speakResult.textContent = '❌ حدث خطأ. حاول مرة أخرى.';
-                speakBtn.textContent = '🎤 اضغط وتحدث!';
-            };
-
-            recognition.onend = function() {
-                speakBtn.textContent = '🎤 اضغط وتحدث!';
-            };
-
-            recognition.start();
-        });
-
-        // ============================================================
-        // 10. MIND MAP
-        // ============================================================
-        const branchExample = document.getElementById('branchExample');
-
-        document.querySelectorAll('.mindmap .branch').forEach(function(branch) {
-            branch.addEventListener('click', function() {
-                branchExample.textContent = '📌 ' + this.dataset.example;
-                branchExample.style.borderColor = 'var(--gold)';
-            });
-        });
-
-        document.getElementById('mindCenter').addEventListener('click', function() {
-            branchExample.textContent = '👆 اضغط على أي فرع لترى مثالاً';
-            branchExample.style.borderColor = 'var(--gold)';
-        });
-
-        // ============================================================
-        // 11. HOMEWORK
-        // ============================================================
-        const homeworkText = document.getElementById('homeworkText');
-        const saveHomework = document.getElementById('saveHomework');
-        const saveStatus = document.getElementById('saveStatus');
-
-        const savedHomework = localStorage.getItem('babbleHomework-unit2');
-        if (savedHomework) {
-            homeworkText.value = savedHomework;
-            saveStatus.textContent = '✅ تم استرجاع الواجب المحفوظ.';
-            saveStatus.style.color = 'var(--green)';
-        }
-
-        saveHomework.addEventListener('click', function() {
-            let text = homeworkText.value.trim();
-            // Auto-correction
-            text = text.replace(/\bim\b/gi, 'I\'m');
-            text = text.replace(/\bhes\b/gi, 'he\'s');
-            text = text.replace(/\bshes\b/gi, 'she\'s');
-            text = text.replace(/\btheres\b/gi, 'there\'s');
-            homeworkText.value = text;
-
-            if (text.length < 5) {
-                saveStatus.textContent = '⚠️ اكتب 5 جمل على الأقل.';
-                saveStatus.style.color = 'var(--red)';
-                return;
-            }
-            localStorage.setItem('babbleHomework-unit2', text);
-            saveStatus.textContent = '✅ تم حفظ الواجب بنجاح!';
-            saveStatus.style.color = 'var(--green)';
-            speakText('Homework saved successfully.', 'female', 0.9);
-        });
-
-        // ============================================================
-        // 12. VIDEO
-        // ============================================================
-        document.getElementById('videoBtn').addEventListener('click', function() {
-            window.open('https://youtube.com/@omar.youssif.english', '_blank');
-        });
-
-        // ============================================================
-        // 13. NAVIGATION
-        // ============================================================
-        document.getElementById('prevBtn').addEventListener('click', function() {
-            window.location.href = 'unit1.html';
-        });
-
-        document.getElementById('nextBtn').addEventListener('click', function() {
-            window.location.href = 'unit3.html';
-        });
-
-        // ============================================================
-        // 14. PRELOAD VOICES
-        // ============================================================
-        if ('speechSynthesis' in window) {
-            setTimeout(function() {
-                window.speechSynthesis.getVoices();
-                getVoices();
-            }, 500);
-        }
-
-        console.log('%c📘 Unit 2 Loaded!', 'font-size:16px;font-weight:bold;color:#FFC107;');
-        console.log('%c📌 Complete 5/5 to unlock Unit 3!', 'font-size:14px;color:#4CAF50;');
-    </script>
-
+<!-- ============================================================
+HEADER
+============================================================ -->
+<header class="header">
+<div class="brand">Babble <span>Box</span></div>
+<div class="unit-title">Unit 2: My Family</div>
+<div class="top-actions">
+<a href="index.html" class="back-btn">🏠 الرئيسية</a>
+<button class="reset-unit-btn" id="resetUnitBtn">🔄 إعادة دراسة الوحدة</button>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+</div>
+</header>
+
+<!-- ============================================================
+UNIT NAVIGATION TABS
+============================================================ -->
+<div class="unit-tabs-wrapper" id="unitTabsWrapper">
+<div class="unit-tabs" id="unitTabs"></div>
+</div>
+
+<!-- ============================================================
+PROGRESS BAR (10 sections)
+============================================================ -->
+<div class="daily-progress">
+<span class="label">📊 تقدم الوحدة</span>
+<div class="bar-wrap">
+<div class="bar-fill" id="dailyProgressFill"></div>
+</div>
+<span class="count" id="dailyProgressCount">0/10</span>
+</div>
+
+<!-- ============================================================
+LESSON CONTENT
+============================================================ -->
+<div class="lesson-content">
+
+<div class="unit-header">
+<div class="badge">📖 الوحدة الثانية</div>
+<h1>My Family & Friends</h1>
+<p>تعلم كيف تتحدث عن عائلتك وأصدقائك بالإنجليزية.</p>
+</div>
+
+<!-- ==========================================================
+SECTION 1: THE REAL TALK
+========================================================== -->
+<section class="section-box" id="conversation">
+<div class="section-title">🗣️ The Real Talk</div>
+<div class="convo-container">
+<div class="convo-bubble john">
+<span class="avatar">👤</span>
+<div class="bubble-content">
+<div class="en">So, tell me about your family. <button class="audio-btn" data-text="So, tell me about your family." data-voice="male">🔊</button></div>
+<div class="ar">طب، قولي لي عن عيلتك.</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+<div class="convo-bubble sarah">
+<span class="avatar">👩</span>
+<div class="bubble-content">
+<div class="en">Well, it's a bit crazy, honestly. <button class="audio-btn" data-text="Well, it's a bit crazy, honestly." data-voice="female">🔊</button></div>
+<div class="ar">هي، هي مجنونة شوية، بصراحة.</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+<div class="convo-bubble john">
+<span class="avatar">👤</span>
+<div class="bubble-content">
+<div class="en">Ha! Aren't all families? <button class="audio-btn" data-text="Ha! Aren't all families?" data-voice="male">🔊</button></div>
+<div class="ar">هه! مش كل العائلات كدة؟</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+<div class="convo-bubble sarah">
+<span class="avatar">👩</span>
+<div class="bubble-content">
+<div class="en">True. My mom is a superhero. My dad's always working. <button class="audio-btn" data-text="True. My mom is a superhero. My dad's always working." data-voice="female">🔊</button></div>
+<div class="ar">صح. ماما بطلة خارقة. بابا شغال طول الوقت.</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+<div class="convo-bubble sarah">
+<span class="avatar">👩</span>
+<div class="bubble-content">
+<div class="en">I've got a little brother who's annoying, and an older sister who thinks she's my boss. <button class="audio-btn" data-text="I've got a little brother who's annoying, and an older sister who thinks she's my boss." data-voice="female">🔊</button></div>
+<div class="ar">عندي أخ صغير مزعج، وأخت كبيرة فاكرة نفسها مديرتي.</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+<div class="convo-bubble john">
+<span class="avatar">👤</span>
+<div class="bubble-content">
+<div class="en">Sounds familiar! Any pets? <button class="audio-btn" data-text="Sounds familiar! Any pets?" data-voice="male">🔊</button></div>
+<div class="ar">يبدو مألوفاً! في أي حيوانات أليفة؟</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+<div class="convo-bubble sarah">
+<span class="avatar">👩</span>
+<div class="bubble-content">
+<div class="en">Yeah, a dog named Max. He's the real boss. <button class="audio-btn" data-text="Yeah, a dog named Max. He's the real boss." data-voice="female">🔊</button></div>
+<div class="ar">أه، كلب اسمه ماكس. هو المدير الحقيقي.</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+<div class="convo-bubble john">
+<span class="avatar">👤</span>
+<div class="bubble-content">
+<div class="en">Ha! Dogs usually are. <button class="audio-btn" data-text="Ha! Dogs usually are." data-voice="male">🔊</button></div>
+<div class="ar">هه! الكلاب عادة كدة.</div>
+<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ==========================================================
+SECTION 2: DISCOVER THE RULE
+========================================================== -->
+<section class="section-box" id="discover">
+<div class="section-title">🔍 Discover the Rule</div>
+<div class="discovery-question">❓ لاحظ الفرق بين الجمل دي:</div>
+<div class="discovery-tabs" id="discoveryTabs">
+<button class="discovery-tab active" data-tab="disc1">My mom</button>
+<button class="discovery-tab" data-tab="disc2">Your family</button>
+<button class="discovery-tab" data-tab="disc3">His dog / Her brother</button>
+</div>
+<div class="discovery-content active" id="disc1">
+<strong>🔹 My</strong> — لما أتكلم عن حاجة بتاعتي<br>✅ <span class="en-highlight">"My mom"</span> = ماما.
+</div>
+<div class="discovery-content" id="disc2">
+<strong>🔹 Your</strong> — لما أكلم الشخص عن حاجته<br>✅ <span class="en-highlight">"Your family"</span> = عيلتك.
+</div>
+<div class="discovery-content" id="disc3">
+<strong>🔹 His / Her</strong> — لما أتكلم عن حاجة بتاعة شخص تالت<br>✅ <span class="en-highlight">"His dog"</span> = كلبه / <span class="en-highlight">"Her brother"</span> = أخوها.
+</div>
+</section>
+
+<!-- ==========================================================
+SECTION 3: GRAMMAR LAB
+========================================================== -->
+<section class="section-box" id="grammar">
+<div class="section-title">🧠 Grammar Lab – Possessive Adjectives</div>
+<div class="grammar-grid">
+<div class="grammar-card green"><div class="title">👤 I / You</div><div class="examples">I → my<br>You → your</div></div>
+<div class="grammar-card blue"><div class="title">👤 He / She / It</div><div class="examples">He → his<br>She → her<br>It → its</div></div>
+<div class="grammar-card gold"><div class="title">👥 We / They</div><div class="examples">We → our<br>They → their</div></div>
+<div class="grammar-card red"><div class="title">⚠️ Warning</div><div class="examples">its = ملكية<br>it's = اختصار It is</div></div>
+</div>
+</section>
+
+<!-- ==========================================================
+SECTION 4: WORD VAULT
+========================================================== -->
+<section class="section-box" id="vocabulary">
+<div class="section-title">💎 Word Vault</div>
+<div class="vocab-grid" id="vocabGrid">
+<div class="flip-card" data-word="Mother"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👩‍👧</span><span class="word">Mother</span><button class="audio-btn-small" data-word="Mother">🔊</button></div><div class="flip-card-back"><span class="meaning">أم</span></div></div></div>
+<div class="flip-card" data-word="Father"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👨‍👦</span><span class="word">Father</span><button class="audio-btn-small" data-word="Father">🔊</button></div><div class="flip-card-back"><span class="meaning">أب</span></div></div></div>
+<div class="flip-card" data-word="Brother"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👦</span><span class="word">Brother</span><button class="audio-btn-small" data-word="Brother">🔊</button></div><div class="flip-card-back"><span class="meaning">أخ</span></div></div></div>
+<div class="flip-card" data-word="Sister"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👧</span><span class="word">Sister</span><button class="audio-btn-small" data-word="Sister">🔊</button></div><div class="flip-card-back"><span class="meaning">أخت</span></div></div></div>
+<div class="flip-card" data-word="Baby"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👶</span><span class="word">Baby</span><button class="audio-btn-small" data-word="Baby">🔊</button></div><div class="flip-card-back"><span class="meaning">طفل</span></div></div></div>
+<div class="flip-card" data-word="Pet"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🐶</span><span class="word">Pet</span><button class="audio-btn-small" data-word="Pet">🔊</button></div><div class="flip-card-back"><span class="meaning">حيوان أليف</span></div></div></div>
+<div class="flip-card" data-word="Family"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👨‍👩‍👧‍👦</span><span class="word">Family</span><button class="audio-btn-small" data-word="Family">🔊</button></div><div class="flip-card-back"><span class="meaning">عائلة</span></div></div></div>
+<div class="flip-card" data-word="Friend"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👫</span><span class="word">Friend</span><button class="audio-btn-small" data-word="Friend">🔊</button></div><div class="flip-card-back"><span class="meaning">صديق</span></div></div></div>
+</div>
+</section>
+
+<!-- ==========================================================
+SECTION 5: BABBLE WARNING
+========================================================== -->
+<section class="section-box" id="warning">
+<div class="section-title">🚨 Babble Warning – الكلمة الخائنة</div>
+<div style="text-align:center;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:8px;direction:ltr;">Parents</div>
+<div class="warning-grid">
+<div class="warning-card safe"><div class="label">✅ المعنى الصحيح</div><div class="example">"My parents are here."</div><div class="meaning">والداي هنا.</div></div>
+<div class="warning-card danger"><div class="label">❌ الخطأ الشائع</div><div class="example">"My parents are 50 people."</div><div class="meaning">لا تستخدم parents لتعني "أقارب". الأقارب = relatives.</div></div>
+</div>
+<div class="warning-joke">😂 يعني لو قلت "My parents are 50 people"، يبقى أنت من عيلة غريبة جداً!</div>
+</section>
+
+<!-- ==========================================================
+SECTION 6: CHALLENGE ARENA
+========================================================== -->
+<section class="section-box" id="challenge">
+<div class="section-title">⚔️ Challenge Arena</div>
+<div class="quiz-progress-bar">
+<span class="label">📊 السؤال</span>
+<div class="bar-wrap"><div class="bar-fill" id="quizProgressFill"></div></div>
+<span class="count" id="quizProgressCount">0/5</span>
+</div>
+
+<div id="quizContainer">
+<!-- Q1 -->
+<div class="quiz-card" data-question="1" data-type="choice">
+<div class="q-text">1. This is ___ book.</div>
+<div class="quiz-options">
+<button data-answer="my">my</button>
+<button data-answer="I">I</button>
+<button data-answer="mine">mine</button>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<!-- Q2 -->
+<div class="quiz-card" data-question="2" data-type="choice">
+<div class="q-text">2. ___ name is John.</div>
+<div class="quiz-options">
+<button data-answer="He">He</button>
+<button data-answer="His">His</button>
+<button data-answer="Him">Him</button>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<!-- Q3: Click to Order (سيتم خلط الكلمات) -->
+<div class="quiz-card" data-question="3" data-type="order">
+<div class="q-text">3. رتب الكلمات لتكوين جملة: <span class="hint-icon">❓</span></div>
+<div class="order-hint">❓ انقر على الكلمات بالترتيب الصحيح.</div>
+<div class="order-pool" id="orderPool3"></div>
+<div class="order-result-box" id="orderResult3"></div>
+<div class="quiz-feedback" id="orderFeedback3"></div>
+</div>
+
+<!-- Q4: Listening -->
+<div class="quiz-card" data-question="4" data-type="listening">
+<div class="q-text">4. 🔊 استمع للجملة واختر الترجمة الصحيحة:</div>
+<button class="listen-btn" id="listenQ4">🔊 استمع</button>
+<div class="quiz-options" style="margin-top:6px;">
+<button data-answer="a">هذا أخي</button>
+<button data-answer="b">هذه أختي</button>
+<button data-answer="c">هذا صديقي</button>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<!-- Q5 -->
+<div class="quiz-card" data-question="5" data-type="choice">
+<div class="q-text">5. ما هو خطأ في: "It's collar is red."؟</div>
+<div class="quiz-options">
+<button data-answer="a">المفروض Its</button>
+<button data-answer="b">المفروض It is</button>
+<button data-answer="c">المفروض It's</button>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+</div>
+
+<div class="streak-notification" id="streakNotification">
+🎉 +50 XP! لقد أتقنت صفات الملكية!
+<div class="stars" id="starsContainer"></div>
+</div>
+</section>
+
+<!-- ==========================================================
+SECTION 7: SPEAK UP!
+========================================================== -->
+<section class="section-box" id="speak">
+<div class="section-title">🎤 Speak Up!</div>
+<div class="speak-container">
+<button class="big-btn" id="speakBtn">🎤 اضغط وتحدث!</button>
+<div style="margin-top:6px;font-size:13px;color:#888;direction:rtl;text-align:right;">Describe your family! Who's in your family? Do you have any pets?</div>
+<div class="speak-result" id="speakResult">⏳ اضغط الزر وابدأ التحدث...</div>
+</div>
+</section>
+
+<!-- ==========================================================
+SECTION 8: POWER RECAP
+========================================================== -->
+<section class="section-box" id="recap">
+<div class="section-title">⚡ Power Recap</div>
+<div class="mindmap">
+<div class="center" id="mindCenter">Possessive Adjectives</div>
+<div class="branches">
+<span class="branch" data-example="This is my book. (ده كتابي)">my</span>
+<span class="branch" data-example="Is this your phone? (ده تلفونك؟)">your</span>
+<span class="branch" data-example="His car is red. (عربيته حمرا)">his</span>
+<span class="branch" data-example="Her name is Sarah. (اسمها سارة)">her</span>
+<span class="branch" data-example="The cat likes its toy. (القطة بتحب لعبتها)">its</span>
+<span class="branch" data-example="Our house is big. (بيتنا كبير)">our</span>
+<span class="branch" data-example="Their teacher is nice. (مدرسهم لطيف)">their</span>
+</div>
+<div class="branch-example" id="branchExample">👆 اضغط على أي فرع لترى مثالاً</div>
+</div>
+</section>
+
+<!-- ==========================================================
+SECTION 9: VIDEO ZONE
+========================================================== -->
+<section class="section-box" id="video">
+<div class="section-title">🎥 Video Zone</div>
+<button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
+</section>
+
+<!-- ==========================================================
+SECTION 10: HOMEWORK
+========================================================== -->
+<section class="section-box" id="homework">
+<div class="section-title">✍️ Homework</div>
+<div class="homework-area">
+<p style="direction:rtl;margin-bottom:6px;color:#888;font-size:13px;text-align:right;">✏️ اكتب <strong>5 جمل</strong> عن عائلتك باستخدام <strong>my, your, his, her, our, their</strong>.</p>
+<textarea id="homeworkText" placeholder="اكتب جملك هنا..."></textarea>
+<button class="save-btn" id="saveHomework">💾 حفظ الواجب</button>
+<div class="save-status" id="saveStatus"></div>
+</div>
+</section>
+
+<!-- ==========================================================
+NAVIGATION
+========================================================== -->
+<div class="nav-buttons">
+<button class="prev" id="prevBtn">← السابق</button>
+<button class="next" id="nextBtn">التالي →</button>
+</div>
+
+</div><!-- /.lesson-content -->
+
+<!-- ============================================================
+CELEBRATION OVERLAY
+============================================================ -->
+<div class="celebration-overlay" id="celebrationOverlay">
+<div class="celeb-box">
+<button class="close-celeb" id="closeCelebBtn">✕</button>
+<div class="big-emoji">🎉</div>
+<h2>أحسنت! الوحدة الثانية اكتملت!</h2>
+<div class="sub-text">لقد أتممت جميع الأقسام بنجاح!</div>
+<div class="xp-text">+50 XP! أنت بطل! 💪</div>
+<div class="celeb-buttons">
+<button class="btn-next" id="celebNextBtn">→ الوحدة التالية</button>
+<button class="btn-home" id="celebHomeBtn">🏠 العودة للرئيسية</button>
+<button class="btn-retry-unit" id="celebRetryBtn">🔄 إعادة دراسة الوحدة</button>
+</div>
+</div>
+</div>
+
+<div class="celeb-confetti-container" id="celebConfettiContainer"></div>
+
+<!-- ============================================================
+HIDDEN AUDIO PLAYER
+============================================================ -->
+<audio id="audio-player" style="display:none;"><source src="" type="audio/mpeg"></audio>
+
+<!-- ============================================================
+JAVASCRIPT
+============================================================ -->
+<script>
+// ============================================================
+// 1. DARK MODE
+// ============================================================
+const themeToggle = document.getElementById('themeToggle');
+let currentTheme = localStorage.getItem('babbleTheme') || 'light';
+
+function setTheme(theme) {
+document.documentElement.setAttribute('data-theme', theme);
+themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+localStorage.setItem('babbleTheme', theme);
+}
+setTheme(currentTheme);
+themeToggle.addEventListener('click', () => {
+const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+setTheme(newTheme);
+});
+
+// ============================================================
+// 2. UNIT NAVIGATION TABS
+// ============================================================
+const unitTabs = document.getElementById('unitTabs');
+const totalUnits = 12;
+let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnlocked')) || 1;
+
+function renderUnitTabs() {
+unitTabs.innerHTML = '';
+for (let i = 1; i <= totalUnits; i++) {
+const tab = document.createElement('div');
+tab.className = 'unit-tab';
+tab.textContent = i;
+if (i === 2) {
+tab.classList.add('active');
+} else if (i < maxUnlocked) {
+tab.classList.add('completed');
+tab.textContent = i + ' ✅';
+tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
+} else if (i === maxUnlocked) {
+tab.classList.add('unlocked');
+tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
+} else {
+tab.classList.add('locked');
+tab.innerHTML = i + ' <span class="lock-icon">🔒</span>';
+}
+unitTabs.appendChild(tab);
+}
+}
+renderUnitTabs();
+
+// ============================================================
+// 3. PROGRESS BAR (10 sections)
+// ============================================================
+const progressFill = document.getElementById('dailyProgressFill');
+const progressCount = document.getElementById('dailyProgressCount');
+const totalSections = 10;
+let unitCompleted = localStorage.getItem('unit2Completed') === 'true';
+
+function updateProgress() {
+let done = unitCompleted ? 10 : 0;
+const quizDone = JSON.parse(localStorage.getItem('unit2QuizStatus') || '[]');
+if (quizDone.length === 5 && quizDone.every(q => q === true) && !unitCompleted) {
+done = 6;
+}
+const pct = (done / totalSections) * 100;
+progressFill.style.width = pct + '%';
+progressCount.textContent = done + '/' + totalSections;
+
+const nextBtn = document.getElementById('nextBtn');
+if (unitCompleted) {
+nextBtn.style.opacity = '1';
+nextBtn.style.cursor = 'pointer';
+nextBtn.textContent = 'التالي →';
+nextBtn.dataset.target = 'unit3.html';
+} else if (quizDone.length === 5 && quizDone.every(q => q === true)) {
+nextBtn.style.opacity = '1';
+nextBtn.style.cursor = 'pointer';
+nextBtn.textContent = 'إنهاء الوحدة ✅';
+nextBtn.dataset.target = 'complete';
+} else {
+nextBtn.style.opacity = '0.5';
+nextBtn.style.cursor = 'not-allowed';
+nextBtn.textContent = 'أكمل التحدي أولاً';
+nextBtn.dataset.target = '';
+}
+}
+
+// ============================================================
+// 4. CHALLENGE ARENA - CLICK TO ORDER
+// ============================================================
+const orderPools = {
+3: { correct: ['This', 'is', 'her', 'sister'], words: ['This', 'is', 'her', 'sister'] }
+};
+
+function shuffleArray(arr) {
+for (let i = arr.length - 1; i > 0; i--) {
+const j = Math.floor(Math.random() * (i + 1));
+[arr[i], arr[j]] = [arr[j], arr[i]];
+}
+return arr;
+}
+
+// Fill order pools with shuffled words
+Object.keys(orderPools).forEach(qNum => {
+const pool = document.getElementById('orderPool' + qNum);
+const words = orderPools[qNum].words;
+const shuffled = shuffleArray([...words]);
+pool.innerHTML = '';
+shuffled.forEach(word => {
+const btn = document.createElement('button');
+btn.className = 'order-word';
+btn.dataset.word = word;
+btn.textContent = word;
+pool.appendChild(btn);
+});
+});
+
+const orderConfigs = {
+3: { correct: ['This', 'is', 'her', 'sister'], pool: 'orderPool3', result: 'orderResult3', feedback: 'orderFeedback3' }
+};
+
+let quizCorrectCount = 0;
+const totalQuestions = 5;
+let maleVoice = null;
+let femaleVoice = null;
+const encouragingPhrases = ['Great job!', 'Excellent!', 'Well done!', 'Perfect!', 'Awesome!', 'Fantastic!', 'Amazing!', 'Brilliant!'];
+
+function loadVoices() {
+const voices = window.speechSynthesis.getVoices();
+maleVoice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Google US English') || v.name.includes('David'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
+femaleVoice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Google UK') || v.name.includes('Victoria'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
+}
+
+if (window.speechSynthesis.onvoiceschanged !== undefined) {
+window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+loadVoices();
+
+function speakText(text, voice) {
+if (!window.speechSynthesis) return;
+const utterance = new SpeechSynthesisUtterance(text);
+utterance.lang = 'en-US';
+utterance.rate = 0.9;
+if (voice) utterance.voice = voice;
+window.speechSynthesis.speak(utterance);
+}
+
+function updateQuizProgress() {
+const pct = (quizCorrectCount / totalQuestions) * 100;
+document.getElementById('quizProgressFill').style.width = pct + '%';
+document.getElementById('quizProgressCount').textContent = quizCorrectCount + '/' + totalQuestions;
+
+if (quizCorrectCount === totalQuestions) {
+const streak = document.getElementById('streakNotification');
+streak.classList.add('show');
+launchStars();
+updateProgress();
+}
+}
+
+// Initialize order questions
+Object.keys(orderConfigs).forEach(qNum => {
+const config = orderConfigs[qNum];
+const pool = document.getElementById(config.pool);
+const resultBox = document.getElementById(config.result);
+const feedback = document.getElementById(config.feedback);
+let selectedWords = [];
+const words = Array.from(pool.children);
+
+function resetOrder() {
+selectedWords = [];
+resultBox.innerHTML = '';
+feedback.innerHTML = '';
+words.forEach(btn => {
+btn.disabled = false;
+btn.classList.remove('used', 'correct-answer', 'wrong-answer');
+});
+}
+
+words.forEach(btn => {
+btn.addEventListener('click', function() {
+if (this.disabled) return;
+const word = this.dataset.word;
+selectedWords.push(word);
+this.classList.add('used');
+this.disabled = true;
+
+const placed = document.createElement('span');
+placed.className = 'placed-word';
+placed.textContent = word;
+placed.addEventListener('click', function() {
+const idx = selectedWords.indexOf(word);
+if (idx > -1) {
+selectedWords.splice(idx, 1);
+this.remove();
+words.forEach(b => {
+if (b.dataset.word === word) {
+b.disabled = false;
+b.classList.remove('used');
+}
+});
+}
+});
+resultBox.appendChild(placed);
+
+if (selectedWords.length === config.correct.length) {
+const isCorrect = selectedWords.every((w, i) => w === config.correct[i]);
+if (isCorrect) {
+feedback.innerHTML = '<span class="correct-text">✅ صحيح! الترتيب ممتاز!</span>';
+words.forEach(b => { b.disabled = true; });
+resultBox.querySelectorAll('.placed-word').forEach(el => {
+el.style.background = 'var(--green)';
+el.style.color = '#fff';
+});
+const qIndex = parseInt(qNum) - 1;
+if (!window.questionStatus) window.questionStatus = [];
+if (!window.questionStatus[qIndex]) {
+window.questionStatus[qIndex] = true;
+quizCorrectCount++;
+updateQuizProgress();
+speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
+}
+} else {
+feedback.innerHTML = '<span class="wrong-text">❌ ترتيب غير صحيح. حاول مرة أخرى!</span>';
+const placedWords = resultBox.querySelectorAll('.placed-word');
+placedWords.forEach((el, i) => {
+if (i < config.correct.length && el.textContent !== config.correct[i]) {
+el.style.background = 'var(--red)';
+el.style.color = '#fff';
+} else if (i < config.correct.length) {
+el.style.background = 'var(--green)';
+el.style.color = '#fff';
+}
+});
+setTimeout(() => {
+resetOrder();
+}, 1800);
+}
+}
+});
+});
+
+resetOrder();
+});
+
+// Multiple choice questions
+document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(card => {
+const btns = card.querySelectorAll('.quiz-options button');
+const feedback = card.querySelector('.quiz-feedback');
+let answered = false;
+
+btns.forEach(btn => {
+btn.addEventListener('click', function() {
+if (answered || this.disabled) return;
+answered = true;
+const qNum = parseInt(card.dataset.question);
+const correctAnswers = { '1': 'my', '2': 'His', '5': 'a' };
+const isCorrect = this.dataset.answer === correctAnswers[qNum];
+
+if (isCorrect) {
+this.classList.add('correct');
+feedback.innerHTML = '<span class="correct-text">✅ صحيح!</span>';
+const qIndex = qNum - 1;
+if (!window.questionStatus) window.questionStatus = [];
+if (!window.questionStatus[qIndex]) {
+window.questionStatus[qIndex] = true;
+quizCorrectCount++;
+updateQuizProgress();
+speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
+}
+} else {
+this.classList.add('wrong');
+const correctAns = correctAnswers[qNum];
+feedback.innerHTML = '<span class="wrong-text">❌ خطأ. الإجابة الصحيحة هي "' + correctAns + '"</span>';
+btns.forEach(b => {
+if (b.dataset.answer === correctAns) {
+b.classList.add('correct');
+}
+});
+}
+btns.forEach(b => b.disabled = true);
+});
+});
+});
+
+// Listening Q4
+let listenQ4Answered = false;
+document.getElementById('listenQ4').addEventListener('click', function() {
+speakText('This is my sister.', femaleVoice);
+});
+document.querySelectorAll('.quiz-card[data-question="4"] .quiz-options button').forEach(function(btn) {
+btn.addEventListener('click', function() {
+if (listenQ4Answered || this.disabled) return;
+const btns = this.closest('.quiz-options').querySelectorAll('button');
+btns.forEach(b => b.disabled = true);
+const isCorrect = this.dataset.answer === 'b';
+if (isCorrect) {
+this.classList.add('correct');
+this.closest('.quiz-card').querySelector('.quiz-feedback').innerHTML = '<span class="correct-text">✅ صحيح!</span>';
+listenQ4Answered = true;
+const qIndex = 3;
+if (!window.questionStatus) window.questionStatus = [];
+if (!window.questionStatus[qIndex]) {
+window.questionStatus[qIndex] = true;
+quizCorrectCount++;
+updateQuizProgress();
+speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
+}
+} else {
+this.classList.add('wrong');
+this.closest('.quiz-card').querySelector('.quiz-feedback').innerHTML = '<span class="wrong-text">❌ خطأ!</span>';
+btns.forEach(b => { if (b.dataset.answer === 'b') b.classList.add('correct'); });
+}
+});
+});
+
+// ============================================================
+// 5. CELEBRATION OVERLAY
+// ============================================================
+function showCelebration() {
+const overlay = document.getElementById('celebrationOverlay');
+overlay.classList.add('show');
+launchCelebrationConfetti();
+unitCompleted = true;
+localStorage.setItem('unit2Completed', 'true');
+if (maxUnlocked < 3) {
+maxUnlocked = 3;
+localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
+renderUnitTabs();
+}
+updateProgress();
+speakText('Congratulations! You completed Unit 2!', femaleVoice);
+}
+
+document.getElementById('closeCelebBtn').addEventListener('click', function() {
+document.getElementById('celebrationOverlay').classList.remove('show');
+});
+
+document.getElementById('celebNextBtn').addEventListener('click', function() {
+window.location.href = 'unit3.html';
+});
+
+document.getElementById('celebHomeBtn').addEventListener('click', function() {
+window.location.href = 'index.html';
+});
+
+document.getElementById('celebRetryBtn').addEventListener('click', function() {
+resetUnit();
+document.getElementById('celebrationOverlay').classList.remove('show');
+});
+
+function launchCelebrationConfetti() {
+const container = document.getElementById('celebConfettiContainer');
+container.innerHTML = '';
+const colors = ['#FFC107', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FF9FF3', '#FECA57', '#FF9F43', '#FF4757', '#2ED573', '#1E90FF'];
+const shapes = ['circle', 'square', 'star'];
+for (let i = 0; i < 120; i++) {
+const el = document.createElement('div');
+el.className = 'celeb-confetti ' + shapes[Math.floor(Math.random() * shapes.length)];
+const size = 6 + Math.random() * 12;
+el.style.width = size + 'px';
+el.style.height = size + 'px';
+el.style.background = colors[Math.floor(Math.random() * colors.length)];
+el.style.left = Math.random() * 100 + '%';
+el.style.animationDuration = (2 + Math.random() * 3) + 's';
+el.style.animationDelay = (Math.random() * 2) + 's';
+container.appendChild(el);
+}
+setTimeout(() => { container.innerHTML = ''; }, 6000);
+}
+
+// ============================================================
+// 6. NEXT BUTTON
+// ============================================================
+document.getElementById('nextBtn').addEventListener('click', function() {
+const target = this.dataset.target;
+if (target === 'unit3.html') {
+window.location.href = 'unit3.html';
+} else if (target === 'complete') {
+showCelebration();
+}
+});
+
+// ============================================================
+// 7. PREV BUTTON
+// ============================================================
+document.getElementById('prevBtn').addEventListener('click', function() {
+window.location.href = 'unit1.html';
+});
+
+// ============================================================
+// 8. RESET UNIT
+// ============================================================
+function resetUnit() {
+unitCompleted = false;
+localStorage.removeItem('unit2Completed');
+localStorage.removeItem('unit2QuizStatus');
+window.questionStatus = [];
+quizCorrectCount = 0;
+listenQ4Answered = false;
+document.getElementById('celebrationOverlay').classList.remove('show');
+
+document.querySelectorAll('.quiz-card').forEach(card => {
+const btns = card.querySelectorAll('.quiz-options button, .order-word');
+btns.forEach(b => {
+b.disabled = false;
+b.classList.remove('correct', 'wrong', 'used', 'correct-answer', 'wrong-answer');
+});
+const feedback = card.querySelector('.quiz-feedback');
+if (feedback) feedback.innerHTML = '';
+const resultBox = card.querySelector('.order-result-box');
+if (resultBox) resultBox.innerHTML = '';
+});
+document.getElementById('quizProgressFill').style.width = '0%';
+document.getElementById('quizProgressCount').textContent = '0/5';
+document.getElementById('streakNotification').classList.remove('show');
+updateProgress();
+}
+
+document.getElementById('resetUnitBtn').addEventListener('click', function() {
+if (confirm('⚠️ هل أنت متأكد من إعادة دراسة الوحدة؟ سيتم مسح تقدمك الحالي.')) {
+resetUnit();
+}
+});
+
+// ============================================================
+// 9. STARS ANIMATION
+// ============================================================
+function launchStars() {
+const container = document.getElementById('starsContainer');
+container.innerHTML = '';
+const emojis = ['⭐', '🌟', '✨'];
+for (let i = 0; i < 20; i++) {
+const star = document.createElement('span');
+star.className = 'star';
+star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+star.style.left = Math.random() * 100 + '%';
+star.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+star.style.animationDelay = (Math.random() * 0.8) + 's';
+container.appendChild(star);
+}
+}
+
+// ============================================================
+// 10. SPEAK UP
+// ============================================================
+document.getElementById('speakBtn').addEventListener('click', function() {
+const result = document.getElementById('speakResult');
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+result.textContent = '🎤 استمع...';
+result.style.color = 'var(--gold)';
+recognition.onresult = function(event) {
+const transcript = event.results[0][0].transcript.toLowerCase();
+const keywords = ['family', 'mother', 'father', 'brother', 'sister', 'pet', 'dog', 'cat'];
+const hasKeyword = keywords.some(k => transcript.includes(k));
+if (hasKeyword) {
+result.textContent = '✅ أحسنت! إجابة ممتازة: "' + transcript + '"';
+result.style.color = 'var(--green)';
+speakText('Great job!', femaleVoice);
+} else {
+result.textContent = '❌ حاول مرة أخرى. تحدث عن عائلتك. مثال: "I have a brother and a sister."';
+result.style.color = 'var(--red)';
+}
+};
+recognition.onerror = function() {
+result.textContent = '❌ لم نتمكن من السماع. حاول مرة أخرى.';
+result.style.color = 'var(--red)';
+};
+recognition.start();
+} else {
+result.textContent = '⚠️ متصفحك لا يدعم خاصية التعرف على الصوت.';
+result.style.color = 'var(--red)';
+}
+});
+
+// ============================================================
+// 11. HOMEWORK
+// ============================================================
+const homeworkText = document.getElementById('homeworkText');
+const saveStatus = document.getElementById('saveStatus');
+let savedHomework = localStorage.getItem('unit2Homework') || '';
+if (savedHomework) {
+homeworkText.value = savedHomework;
+saveStatus.textContent = '💾 تم حفظ الواجب';
+saveStatus.style.color = 'var(--green)';
+}
+document.getElementById('saveHomework').addEventListener('click', function() {
+const text = homeworkText.value.trim();
+if (text.length === 0) {
+saveStatus.textContent = '⚠️ الرجاء كتابة بعض الجمل';
+saveStatus.style.color = 'var(--red)';
+return;
+}
+const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+if (sentences.length < 3) {
+saveStatus.textContent = '⚠️ اكتب على الأقل 3 جمل كاملة';
+saveStatus.style.color = 'var(--red)';
+return;
+}
+const hasPosAdj = /\b(my|your|his|her|our|their)\b/i.test(text);
+if (!hasPosAdj) {
+saveStatus.textContent = '⚠️ استخدم my, your, his, her, our, their في جملك';
+saveStatus.style.color = 'var(--red)';
+return;
+}
+localStorage.setItem('unit2Homework', text);
+saveStatus.textContent = '💾 تم حفظ الواجب بنجاح! ✅';
+saveStatus.style.color = 'var(--green)';
+speakText('Homework saved successfully!', femaleVoice);
+});
+
+// ============================================================
+// 12. AUDIO BUTTONS
+// ============================================================
+document.querySelectorAll('.audio-btn, .audio-btn-small').forEach(btn => {
+btn.addEventListener('click', function(e) {
+e.stopPropagation();
+const text = this.dataset.text || this.dataset.word || '';
+if (!text) return;
+const voiceType = this.dataset.voice || 'male';
+let voice = voiceType === 'male' ? maleVoice : femaleVoice;
+if (!voice) {
+const voices = window.speechSynthesis.getVoices();
+if (voiceType === 'male') {
+voice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Google US English') || v.name.includes('David'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
+} else {
+voice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Google UK') || v.name.includes('Victoria'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
+}
+}
+speakText(text, voice);
+});
+});
+
+// ============================================================
+// 13. TRANSLATION BUTTONS
+// ============================================================
+document.querySelectorAll('.translation-btn').forEach(btn => {
+btn.addEventListener('click', function() {
+const arDiv = this.parentElement.querySelector('.ar');
+if (arDiv) {
+arDiv.classList.toggle('show');
+this.textContent = arDiv.classList.contains('show') ? '🇪🇬 Hide Translation' : '🇪🇬 Show Translation';
+}
+});
+});
+
+// ============================================================
+// 14. FLIP CARDS
+// ============================================================
+document.querySelectorAll('.flip-card').forEach(card => {
+card.addEventListener('click', function() {
+this.classList.toggle('flipped');
+});
+});
+
+// ============================================================
+// 15. DISCOVERY TABS
+// ============================================================
+document.querySelectorAll('.discovery-tab').forEach(tab => {
+tab.addEventListener('click', function() {
+document.querySelectorAll('.discovery-tab').forEach(t => t.classList.remove('active'));
+this.classList.add('active');
+document.querySelectorAll('.discovery-content').forEach(c => c.classList.remove('active'));
+document.getElementById(this.dataset.tab).classList.add('active');
+});
+});
+
+// ============================================================
+// 16. POWER RECAP
+// ============================================================
+document.querySelectorAll('.mindmap .branch').forEach(branch => {
+branch.addEventListener('click', function() {
+document.getElementById('branchExample').textContent = '📌 ' + this.dataset.example;
+});
+});
+document.getElementById('mindCenter').addEventListener('click', function() {
+document.getElementById('branchExample').textContent = '👆 اضغط على أي فرع لترى مثالاً';
+});
+
+// ============================================================
+// 17. VIDEO
+// ============================================================
+document.getElementById('videoBtn').addEventListener('click', function() {
+window.open('https://youtube.com/@omar.youssif.english', '_blank');
+});
+
+// ============================================================
+// 18. INIT
+// ============================================================
+const savedQuiz = JSON.parse(localStorage.getItem('unit2QuizStatus') || '[]');
+if (savedQuiz.length > 0) {
+window.questionStatus = savedQuiz;
+quizCorrectCount = savedQuiz.filter(q => q === true).length;
+updateQuizProgress();
+}
+
+unitCompleted = localStorage.getItem('unit2Completed') === 'true';
+if (unitCompleted) {
+updateProgress();
+}
+updateProgress();
+
+setInterval(() => {
+if (window.questionStatus) {
+localStorage.setItem('unit2QuizStatus', JSON.stringify(window.questionStatus));
+}
+}, 1000);
+
+console.log('✅ Babble Box Unit 2 loaded successfully!');
+console.log('📊 Quiz status:', window.questionStatus || 'Not started');
+console.log('📈 Unit completed:', unitCompleted);
+</script>
 </body>
-  </html>
+</html>
