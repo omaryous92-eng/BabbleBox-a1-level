@@ -1,2336 +1,2175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Babble Box - Unit 1: Hello!</title>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-L42M2EDW3H');
-</script>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ============================================================
-ROOT & RESET
-============================================================ */
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-}
-
-:root {
---gold: #FFC107;
---black: #1A1A1A;
---white: #FAFAFA;
---bg: #FAFAFA;
---text: #1A1A1A;
---card-bg: #FFFFFF;
---shadow: 0 8px 30px rgba(0,0,0,0.06);
---radius: 18px;
---transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
---green: #4CAF50;
---red: #F44336;
---blue: #2196F3;
-}
-
-[data-theme="dark"] {
---bg: #121212;
---text: #F0F0F0;
---card-bg: #1E1E1E;
---shadow: 0 8px 30px rgba(0,0,0,0.4);
-}
-
-html {
-scroll-behavior: smooth;
-}
-
-body {
-font-family: 'Cairo', 'Segoe UI', sans-serif;
-background: var(--bg);
-color: var(--text);
-min-height: 100vh;
-transition: background var(--transition), color var(--transition);
-}
-
-/* ============================================================
-HEADER
-============================================================ */
-.header {
-background: var(--card-bg);
-padding: 12px 16px;
-box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-display: flex;
-align-items: center;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 8px;
-transition: background var(--transition);
-border-bottom: 2px solid rgba(0,0,0,0.04);
-position: sticky;
-top: 0;
-z-index: 100;
-}
-
-[data-theme="dark"] .header {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.header .brand {
-font-family: 'Poppins', sans-serif;
-font-size: 16px;
-font-weight: 800;
-color: var(--text);
-direction: ltr;
-text-align: left;
-}
-
-.header .brand span {
-color: var(--gold);
-}
-
-.header .unit-title {
-font-size: 13px;
-font-weight: 600;
-color: #888;
-direction: ltr;
-text-align: left;
-}
-
-.header .top-actions {
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.theme-toggle {
-background: none;
-border: none;
-font-size: 20px;
-cursor: pointer;
-color: var(--text);
-transition: 0.3s;
-padding: 4px;
-}
-
-.theme-toggle:hover {
-transform: rotate(20deg);
-}
-
-.back-btn {
-background: var(--gold);
-border: none;
-padding: 5px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-text-decoration: none;
-}
-
-.back-btn:hover {
-transform: scale(1.03);
-}
-
-.reset-unit-btn {
-background: rgba(255,0,0,0.1);
-border: 2px solid var(--red);
-color: var(--red);
-padding: 5px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-}
-
-.reset-unit-btn:hover {
-background: var(--red);
-color: #fff;
-transform: scale(1.02);
-}
-
-/* ============================================================
-UNIT NAVIGATION TABS
-============================================================ */
-.unit-tabs-wrapper {
-background: var(--card-bg);
-padding: 8px 16px;
-border-bottom: 1px solid rgba(0,0,0,0.04);
-overflow-x: auto;
-scrollbar-width: thin;
-transition: background var(--transition);
-}
-
-[data-theme="dark"] .unit-tabs-wrapper {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.unit-tabs-wrapper::-webkit-scrollbar {
-height: 3px;
-}
-
-.unit-tabs-wrapper::-webkit-scrollbar-thumb {
-background: var(--gold);
-border-radius: 10px;
-}
-
-.unit-tabs {
-display: flex;
-gap: 6px;
-min-width: max-content;
-padding-bottom: 4px;
-}
-
-.unit-tab {
-min-width: 36px;
-height: 36px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 11px;
-font-weight: 700;
-font-family: 'Poppins', sans-serif;
-border: 2px solid transparent;
-cursor: pointer;
-transition: 0.2s;
-background: rgba(0,0,0,0.04);
-color: var(--text);
-}
-
-[data-theme="dark"] .unit-tab {
-background: rgba(255,255,255,0.04);
-color: #aaa;
-}
-
-.unit-tab.active {
-background: var(--gold);
-color: var(--black);
-border-color: var(--gold);
-}
-
-.unit-tab.completed {
-background: var(--green);
-color: #fff;
-border-color: var(--green);
-}
-
-.unit-tab.unlocked {
-border-color: var(--gold);
-background: transparent;
-color: var(--text);
-}
-
-.unit-tab.unlocked:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-.unit-tab.locked {
-background: rgba(0,0,0,0.04);
-color: #999;
-cursor: not-allowed;
-border-color: rgba(0,0,0,0.06);
-}
-
-[data-theme="dark"] .unit-tab.locked {
-background: rgba(255,255,255,0.04);
-color: #555;
-border-color: rgba(255,255,255,0.04);
-}
-
-.unit-tab.locked .lock-icon {
-font-size: 10px;
-}
-
-/* ============================================================
-PROGRESS BAR
-============================================================ */
-.daily-progress {
-padding: 8px 16px;
-background: var(--card-bg);
-border-bottom: 1px solid rgba(0,0,0,0.04);
-display: flex;
-align-items: center;
-gap: 12px;
-flex-wrap: wrap;
-transition: background var(--transition);
-}
-
-[data-theme="dark"] .daily-progress {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.daily-progress .label {
-font-size: 13px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-text-align: right;
-}
-
-.daily-progress .bar-wrap {
-flex: 1;
-height: 6px;
-background: rgba(0,0,0,0.06);
-border-radius: 10px;
-overflow: hidden;
-min-width: 80px;
-}
-
-[data-theme="dark"] .daily-progress .bar-wrap {
-background: rgba(255,255,255,0.06);
-}
-
-.daily-progress .bar-fill {
-height: 100%;
-width: 0%;
-background: linear-gradient(90deg, var(--gold), #FFA000);
-border-radius: 10px;
-transition: width 0.6s ease;
-}
-
-.daily-progress .count {
-font-size: 13px;
-font-weight: 700;
-color: var(--gold);
-min-width: 40px;
-text-align: left;
-direction: ltr;
-}
-
-/* ============================================================
-LESSON CONTENT
-============================================================ */
-.lesson-content {
-max-width: 820px;
-margin: 0 auto;
-padding: 14px 16px 30px;
-}
-
-.unit-header {
-margin-bottom: 18px;
-}
-
-.unit-header .badge {
-display: inline-block;
-background: var(--gold);
-color: var(--black);
-padding: 2px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-margin-bottom: 2px;
-direction: rtl;
-text-align: right;
-}
-
-.unit-header h1 {
-font-family: 'Poppins', sans-serif;
-font-size: 24px;
-color: var(--text);
-line-height: 1.2;
-direction: ltr;
-text-align: left;
-}
-
-.unit-header p {
-color: #888;
-font-size: 14px;
-margin-top: 2px;
-direction: rtl;
-text-align: right;
-}
-
-.section-box {
-background: var(--card-bg);
-border-radius: var(--radius);
-padding: 16px 16px;
-margin-bottom: 18px;
-box-shadow: var(--shadow);
-transition: background var(--transition), box-shadow var(--transition);
-}
-
-.section-box .section-title {
-font-family: 'Poppins', sans-serif;
-font-size: 17px;
-font-weight: 700;
-color: var(--text);
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 8px;
-direction: ltr;
-text-align: left;
-}
-
-/* ============================================================
-SECTION 1: CONVERSATION
-============================================================ */
-.convo-container {
-display: flex;
-flex-direction: column;
-gap: 8px;
-}
-
-.convo-bubble {
-display: flex;
-align-items: flex-start;
-gap: 6px;
-max-width: 92%;
-padding: 8px 12px;
-border-radius: 14px;
-position: relative;
-animation: fadeInUp 0.4s ease;
-}
-
-.convo-bubble.john {
-align-self: flex-start;
-background: #D6E4FF;
-color: #1A1A2E;
-border-bottom-left-radius: 4px;
-}
-
-.convo-bubble.sarah {
-align-self: flex-end;
-background: #FFE4E6;
-color: #1A1A2E;
-border-bottom-right-radius: 4px;
-}
-
-[data-theme="dark"] .convo-bubble.john {
-background: #1E3A5F;
-color: #fff;
-}
-
-[data-theme="dark"] .convo-bubble.sarah {
-background: #5F2E3A;
-color: #fff;
-}
-
-.convo-bubble .avatar {
-font-size: 20px;
-flex-shrink: 0;
-margin-top: 2px;
-}
-
-.convo-bubble .bubble-content {
-flex: 1;
-}
-
-.convo-bubble .bubble-content .en {
-font-size: 13px;
-font-weight: 500;
-display: flex;
-align-items: center;
-gap: 4px;
-flex-wrap: wrap;
-direction: ltr;
-text-align: left;
-}
-
-.convo-bubble .bubble-content .en .audio-btn {
-background: none;
-border: none;
-font-size: 15px;
-cursor: pointer;
-color: #555;
-padding: 2px 4px;
-border-radius: 50%;
-transition: 0.2s;
-}
-
-.convo-bubble .bubble-content .en .audio-btn:hover {
-background: rgba(0,0,0,0.06);
-color: var(--gold);
-}
-
-.convo-bubble .bubble-content .ar {
-font-size: 12px;
-color: #888;
-margin-top: 2px;
-direction: rtl;
-text-align: right;
-display: none;
-}
-
-.convo-bubble .bubble-content .ar.show {
-display: block;
-}
-
-.translation-btn {
-background: none;
-border: 1px solid var(--gold);
-color: var(--gold);
-padding: 1px 10px;
-border-radius: 20px;
-font-size: 10px;
-font-weight: 600;
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-margin-top: 2px;
-}
-
-.translation-btn:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-/* ============================================================
-SECTION 2: DISCOVER
-============================================================ */
-.discovery-question {
-background: rgba(255,193,7,0.08);
-padding: 10px 14px;
-border-radius: 12px;
-font-size: 14px;
-font-weight: 600;
-color: var(--text);
-margin-bottom: 10px;
-border-right: 4px solid var(--gold);
-direction: rtl;
-text-align: right;
-}
-
-.discovery-tabs {
-display: flex;
-gap: 6px;
-flex-wrap: wrap;
-margin-bottom: 10px;
-}
-
-.discovery-tab {
-padding: 8px 14px;
-border: 2px solid rgba(0,0,0,0.06);
-border-radius: 10px;
-background: transparent;
-color: var(--text);
-font-weight: 600;
-font-size: 13px;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Poppins', 'Cairo', sans-serif;
-direction: ltr;
-text-align: center;
-flex: 1;
-min-width: 70px;
-}
-
-[data-theme="dark"] .discovery-tab {
-border-color: rgba(255,255,255,0.06);
-color: #ddd;
-}
-
-.discovery-tab.active {
-background: var(--gold);
-border-color: var(--gold);
-color: var(--black);
-}
-
-.discovery-tab:hover:not(.active) {
-background: rgba(0,0,0,0.04);
-}
-
-.discovery-content {
-display: none;
-animation: fadeInUp 0.4s ease;
-background: rgba(0,0,0,0.02);
-padding: 10px 14px;
-border-radius: 10px;
-font-size: 13px;
-color: var(--text);
-border-right: 3px solid var(--gold);
-direction: rtl;
-text-align: right;
-}
-
-[data-theme="dark"] .discovery-content {
-background: rgba(255,255,255,0.03);
-}
-
-.discovery-content.active {
-display: block;
-}
-
-.discovery-content .en-highlight {
-direction: ltr;
-display: inline-block;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-color: var(--gold);
-}
-
-/* ============================================================
-SECTION 3: GRAMMAR LAB
-============================================================ */
-.grammar-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-}
-
-.grammar-card {
-padding: 12px 14px;
-border-radius: 12px;
-color: #fff;
-transition: 0.2s;
-}
-
-.grammar-card:hover {
-transform: translateY(-2px);
-}
-
-.grammar-card.green { background: var(--green); }
-.grammar-card.red { background: var(--red); }
-.grammar-card.blue { background: var(--blue); }
-.grammar-card.gold { background: var(--gold); color: var(--black); }
-
-.grammar-card .title {
-font-weight: 700;
-font-size: 13px;
-font-family: 'Poppins', sans-serif;
-direction: ltr;
-text-align: left;
-margin-bottom: 3px;
-}
-
-.grammar-card .examples {
-font-size: 12px;
-opacity: 0.9;
-direction: ltr;
-text-align: left;
-line-height: 1.5;
-}
-
-/* ============================================================
-SECTION 4: WORD VAULT
-============================================================ */
-.vocab-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 10px;
-}
-
-.flip-card {
-perspective: 800px;
-height: 100px;
-cursor: pointer;
-}
-
-.flip-card-inner {
-position: relative;
-width: 100%;
-height: 100%;
-transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-transform-style: preserve-3d;
-}
-
-.flip-card.flipped .flip-card-inner {
-transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
-position: absolute;
-inset: 0;
-border-radius: 12px;
-backface-visibility: hidden;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 6px;
-text-align: center;
-box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-border: 1px solid rgba(0,0,0,0.04);
-}
-
-.flip-card-front {
-background: var(--card-bg);
-color: var(--text);
-}
-
-.flip-card-front .emoji {
-font-size: 22px;
-}
-
-.flip-card-front .word {
-font-family: 'Poppins', sans-serif;
-font-size: 13px;
-font-weight: 700;
-margin-top: 2px;
-direction: ltr;
-}
-
-.flip-card-front .audio-btn-small {
-background: none;
-border: none;
-font-size: 13px;
-cursor: pointer;
-margin-top: 2px;
-color: #888;
-transition: 0.2s;
-}
-
-.flip-card-front .audio-btn-small:hover {
-color: var(--gold);
-}
-
-.flip-card-back {
-background: var(--gold);
-color: var(--black);
-transform: rotateY(180deg);
-}
-
-.flip-card-back .meaning {
-font-size: 16px;
-font-weight: 700;
-direction: rtl;
-}
-
-[data-theme="dark"] .flip-card-front {
-background: #2A2A2A;
-color: #fff;
-border-color: rgba(255,255,255,0.06);
-}
-
-/* ============================================================
-SECTION 5: BABBLE WARNING
-============================================================ */
-.warning-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-}
-
-.warning-card {
-padding: 12px 14px;
-border-radius: 12px;
-text-align: center;
-transition: 0.2s;
-}
-
-.warning-card:hover {
-transform: scale(1.02);
-}
-
-.warning-card.safe {
-background: rgba(76, 175, 80, 0.1);
-border: 2px solid var(--green);
-}
-
-.warning-card.danger {
-background: rgba(244, 67, 54, 0.1);
-border: 2px solid var(--red);
-}
-
-.warning-card .label {
-font-weight: 700;
-font-size: 13px;
-direction: ltr;
-}
-
-.warning-card .example {
-font-size: 15px;
-font-weight: 600;
-direction: ltr;
-margin: 3px 0;
-}
-
-.warning-card .meaning {
-font-size: 12px;
-direction: rtl;
-color: #888;
-}
-
-.warning-joke {
-margin-top: 8px;
-padding: 8px 12px;
-background: rgba(255,193,7,0.08);
-border-radius: 10px;
-font-size: 13px;
-font-weight: 600;
-direction: rtl;
-text-align: center;
-border-right: 3px solid var(--gold);
-}
-
-/* ============================================================
-SECTION 6: CHALLENGE ARENA
-============================================================ */
-.quiz-progress-bar {
-display: flex;
-align-items: center;
-gap: 8px;
-margin-bottom: 12px;
-}
-
-.quiz-progress-bar .label {
-font-size: 12px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-text-align: right;
-}
-
-.quiz-progress-bar .bar-wrap {
-flex: 1;
-height: 5px;
-background: rgba(0,0,0,0.06);
-border-radius: 10px;
-overflow: hidden;
-}
-
-[data-theme="dark"] .quiz-progress-bar .bar-wrap {
-background: rgba(255,255,255,0.06);
-}
-
-.quiz-progress-bar .bar-fill {
-height: 100%;
-width: 0%;
-background: var(--gold);
-border-radius: 10px;
-transition: width 0.5s ease;
-}
-
-.quiz-progress-bar .count {
-font-size: 12px;
-font-weight: 700;
-color: var(--gold);
-min-width: 35px;
-text-align: left;
-direction: ltr;
-}
-
-.quiz-card {
-background: rgba(0,0,0,0.02);
-border-radius: 10px;
-padding: 12px 14px;
-margin-bottom: 10px;
-border: 1px solid rgba(0,0,0,0.04);
-transition: 0.3s;
-}
-
-[data-theme="dark"] .quiz-card {
-background: rgba(255,255,255,0.03);
-border-color: rgba(255,255,255,0.04);
-}
-
-.quiz-card .q-text {
-font-weight: 600;
-font-size: 14px;
-color: var(--text);
-margin-bottom: 5px;
-direction: ltr;
-text-align: left;
-}
-
-.quiz-card .q-text .hint-icon {
-font-size: 14px;
-margin-right: 4px;
-cursor: help;
-}
-
-.quiz-options {
-display: flex;
-flex-wrap: wrap;
-gap: 5px;
-}
-
-.quiz-options button {
-padding: 4px 14px;
-border: 2px solid rgba(0,0,0,0.08);
-border-radius: 30px;
-background: transparent;
-font-size: 13px;
-font-weight: 500;
-cursor: pointer;
-transition: 0.25s;
-color: var(--text);
-font-family: 'Poppins', 'Cairo', sans-serif;
-direction: ltr;
-}
-
-[data-theme="dark"] .quiz-options button {
-border-color: rgba(255,255,255,0.1);
-color: #ddd;
-}
-
-.quiz-options button:hover:not(:disabled) {
-background: rgba(0,0,0,0.04);
-}
-
-.quiz-options button:disabled {
-cursor: not-allowed;
-opacity: 0.6;
-}
-
-.quiz-options button.correct {
-background: var(--green);
-border-color: var(--green);
-color: #fff;
-animation: pop 0.3s ease;
-}
-
-.quiz-options button.wrong {
-background: var(--red);
-border-color: var(--red);
-color: #fff;
-animation: shake 0.4s ease;
-}
-
-.quiz-feedback {
-margin-top: 3px;
-font-size: 13px;
-font-weight: 600;
-min-height: 20px;
-direction: rtl;
-text-align: right;
-}
-
-.quiz-feedback .correct-text { color: var(--green); }
-.quiz-feedback .wrong-text { color: var(--red); }
-
-/* ===== CLICK TO ORDER ===== */
-.order-hint {
-font-size: 12px;
-color: var(--gold);
-font-weight: 600;
-direction: rtl;
-text-align: right;
-margin-bottom: 4px;
-}
-
-.order-pool {
-display: flex;
-gap: 6px;
-flex-wrap: wrap;
-margin: 4px 0;
-}
-
-.order-word {
-padding: 5px 14px;
-background: var(--card-bg);
-border: 2px solid var(--gold);
-border-radius: 30px;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-font-size: 13px;
-cursor: pointer;
-color: var(--text);
-transition: 0.2s;
-}
-
-.order-word:hover:not(:disabled) {
-transform: scale(1.05);
-background: rgba(255,193,7,0.1);
-}
-
-.order-word:disabled {
-cursor: not-allowed;
-opacity: 0.4;
-}
-
-.order-word.used {
-background: var(--gold);
-color: var(--black);
-border-color: var(--gold);
-}
-
-.order-word.correct-answer {
-background: var(--green);
-color: #fff;
-border-color: var(--green);
-}
-
-.order-word.wrong-answer {
-background: var(--red);
-color: #fff;
-border-color: var(--red);
-}
-
-.order-result-box {
-display: flex;
-gap: 4px;
-flex-wrap: wrap;
-padding: 6px 10px;
-min-height: 32px;
-background: rgba(0,0,0,0.03);
-border-radius: 8px;
-margin: 4px 0;
-border: 2px dashed rgba(0,0,0,0.08);
-align-items: center;
-}
-
-[data-theme="dark"] .order-result-box {
-background: rgba(255,255,255,0.03);
-border-color: rgba(255,255,255,0.06);
-}
-
-.order-result-box .placed-word {
-padding: 2px 10px;
-background: var(--gold);
-border-radius: 20px;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-font-size: 12px;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-}
-
-.order-result-box .placed-word:hover {
-transform: scale(1.05);
-}
-
-/* ============================================================
-STREAK NOTIFICATION
-============================================================ */
-.streak-notification {
-display: none;
-background: var(--gold);
-color: var(--black);
-padding: 10px 16px;
-border-radius: var(--radius);
-font-weight: 700;
-font-size: 16px;
-text-align: center;
-margin-top: 10px;
-animation: pop 0.5s ease;
-position: relative;
-overflow: hidden;
-direction: rtl;
-}
-
-.streak-notification.show {
-display: block;
-}
-
-.streak-notification .stars {
-position: absolute;
-inset: 0;
-pointer-events: none;
-overflow: hidden;
-}
-
-.streak-notification .star {
-position: absolute;
-font-size: 16px;
-animation: starFall 2s linear forwards;
-}
-
-/* ============================================================
-CELEBRATION OVERLAY
-============================================================ */
-.celebration-overlay {
-display: none;
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.85);
-z-index: 1000;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-gap: 20px;
-animation: fadeInUp 0.5s ease;
-}
-
-.celebration-overlay.show {
-display: flex;
-}
-
-.celebration-overlay .celeb-box {
-background: var(--card-bg);
-border-radius: var(--radius);
-padding: 30px 24px;
-max-width: 420px;
-width: 90%;
-text-align: center;
-box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-animation: pop 0.6s ease;
-position: relative;
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box {
-background: #1E1E1E;
-}
-
-.celebration-overlay .celeb-box .close-celeb {
-position: absolute;
-top: 10px;
-right: 14px;
-background: none;
-border: none;
-font-size: 24px;
-cursor: pointer;
-color: var(--text);
-transition: 0.2s;
-padding: 4px 8px;
-border-radius: 50%;
-}
-
-.celebration-overlay .celeb-box .close-celeb:hover {
-background: rgba(0,0,0,0.06);
-transform: rotate(90deg);
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box .close-celeb:hover {
-background: rgba(255,255,255,0.06);
-}
-
-.celebration-overlay .celeb-box .big-emoji {
-font-size: 48px;
-}
-
-.celebration-overlay .celeb-box h2 {
-font-size: 22px;
-font-weight: 800;
-color: var(--gold);
-margin: 6px 0;
-direction: rtl;
-}
-
-.celebration-overlay .celeb-box .sub-text {
-font-size: 16px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-}
-
-.celebration-overlay .celeb-box .xp-text {
-font-size: 20px;
-font-weight: 800;
-color: var(--gold);
-margin: 4px 0 12px;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons {
-display: flex;
-gap: 10px;
-justify-content: center;
-flex-wrap: wrap;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons button {
-padding: 8px 24px;
-border: none;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-next {
-background: var(--gold);
-color: var(--black);
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-next:hover {
-transform: scale(1.05);
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-home {
-background: transparent;
-border: 2px solid var(--gold);
-color: var(--text);
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-home {
-color: #eee;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-home:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
-background: transparent;
-border: 2px solid var(--gold);
-color: var(--text);
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
-color: #eee;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-.celeb-confetti-container {
-position: fixed;
-inset: 0;
-pointer-events: none;
-z-index: 999;
-overflow: hidden;
-}
-
-.celeb-confetti {
-position: absolute;
-width: 10px;
-height: 10px;
-border-radius: 2px;
-animation: confettiFall linear forwards;
-}
-
-@keyframes confettiFall {
-0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
-
-/* ============================================================
-SECTION 7: SPEAK UP!
-============================================================ */
-.speak-container {
-text-align: center;
-padding: 12px 0;
-}
-
-.speak-container .big-btn {
-background: var(--gold);
-border: none;
-padding: 12px 32px;
-border-radius: 50px;
-font-size: 18px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.3s;
-font-family: 'Cairo', sans-serif;
-}
-
-.speak-container .big-btn:hover {
-transform: scale(1.05);
-}
-
-.speak-container .speak-result {
-margin-top: 10px;
-padding: 10px 14px;
-background: rgba(0,0,0,0.03);
-border-radius: 10px;
-font-size: 15px;
-direction: rtl;
-text-align: right;
-min-height: 40px;
-border-right: 3px solid var(--gold);
-}
-
-[data-theme="dark"] .speak-container .speak-result {
-background: rgba(255,255,255,0.03);
-}
-
-/* ============================================================
-SECTION 8: POWER RECAP
-============================================================ */
-.mindmap {
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 12px 0;
-}
-
-.mindmap .center {
-background: var(--gold);
-color: var(--black);
-padding: 8px 20px;
-border-radius: 30px;
-font-weight: 800;
-font-size: 17px;
-margin-bottom: 12px;
-font-family: 'Poppins', sans-serif;
-direction: ltr;
-cursor: pointer;
-transition: 0.2s;
-}
-
-.mindmap .center:hover {
-transform: scale(1.05);
-}
-
-.mindmap .branches {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 6px 12px;
-}
-
-.mindmap .branch {
-background: var(--card-bg);
-padding: 5px 14px;
-border-radius: 20px;
-border: 2px solid var(--gold);
-font-size: 13px;
-font-weight: 600;
-color: var(--text);
-box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-transition: 0.2s;
-font-family: 'Poppins', sans-serif;
-direction: ltr;
-cursor: pointer;
-}
-
-.mindmap .branch:hover {
-transform: scale(1.05);
-background: var(--gold);
-color: var(--black);
-}
-
-.mindmap .branch-example {
-margin-top: 8px;
-padding: 8px 14px;
-background: rgba(0,0,0,0.03);
-border-radius: 10px;
-font-size: 13px;
-direction: rtl;
-text-align: center;
-min-height: 25px;
-border-right: 3px solid var(--gold);
-width: 100%;
-}
-
-[data-theme="dark"] .mindmap .branch-example {
-background: rgba(255,255,255,0.03);
-}
-
-/* ============================================================
-SECTION 9: VIDEO
-============================================================ */
-.video-btn {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-background: #FF0000;
-color: #fff;
-border: none;
-padding: 8px 24px;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-direction: rtl;
-}
-
-.video-btn:hover {
-background: #cc0000;
-transform: scale(1.02);
-}
-
-/* ============================================================
-SECTION 10: HOMEWORK
-============================================================ */
-.homework-area textarea {
-width: 100%;
-min-height: 100px;
-padding: 10px 14px;
-border: 2px solid rgba(0,0,0,0.06);
-border-radius: 10px;
-font-family: 'Cairo', sans-serif;
-font-size: 13px;
-color: var(--text);
-background: var(--bg);
-resize: vertical;
-transition: 0.2s;
-direction: rtl;
-text-align: right;
-}
-
-[data-theme="dark"] .homework-area textarea {
-border-color: rgba(255,255,255,0.06);
-background: var(--card-bg);
-}
-
-.homework-area textarea:focus {
-outline: none;
-border-color: var(--gold);
-}
-
-.homework-area .save-btn {
-background: var(--gold);
-border: none;
-padding: 6px 20px;
-border-radius: 30px;
-font-size: 13px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-margin-top: 6px;
-}
-
-.homework-area .save-btn:hover {
-transform: scale(1.02);
-}
-
-.homework-area .save-status {
-margin-top: 4px;
-font-size: 12px;
-color: var(--green);
-direction: rtl;
-text-align: right;
-}
-
-/* ============================================================
-NAVIGATION
-============================================================ */
-.nav-buttons {
-display: flex;
-justify-content: space-between;
-margin-top: 20px;
-gap: 10px;
-}
-
-.nav-buttons button {
-padding: 8px 24px;
-border: none;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-direction: rtl;
-}
-
-.nav-buttons .prev {
-background: rgba(0,0,0,0.05);
-color: #999;
-cursor: not-allowed;
-}
-
-[data-theme="dark"] .nav-buttons .prev {
-background: rgba(255,255,255,0.05);
-}
-
-.nav-buttons .next {
-background: var(--gold);
-color: var(--black);
-}
-
-.nav-buttons .next:hover {
-background: #e6b800;
-transform: scale(1.02);
-}
-
-/* ============================================================
-ANIMATIONS
-============================================================ */
-@keyframes fadeInUp {
-from { opacity: 0; transform: translateY(12px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pop {
-0% { transform: scale(0.8); opacity: 0; }
-100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes shake {
-0%, 100% { transform: translateX(0); }
-25% { transform: translateX(-5px); }
-75% { transform: translateX(5px); }
-}
-
-@keyframes starFall {
-0% { transform: translateY(-15px) rotate(0deg); opacity: 1; }
-100% { transform: translateY(150px) rotate(360deg); opacity: 0; }
-}
-
-/* ============================================================
-RESPONSIVE
-============================================================ */
-@media (max-width: 768px) {
-.vocab-grid { grid-template-columns: repeat(2, 1fr); }
-.grammar-grid { grid-template-columns: 1fr; }
-.warning-grid { grid-template-columns: 1fr; }
-.unit-header h1 { font-size: 20px; }
-.section-box { padding: 12px 12px; }
-.nav-buttons { flex-direction: column; }
-.nav-buttons button { width: 100%; text-align: center; }
-.discovery-tabs { flex-direction: column; }
-.discovery-tab { text-align: center; }
-.quiz-options { flex-direction: column; }
-.quiz-options button { width: 100%; text-align: center; }
-.unit-tab { min-width: 30px; height: 30px; font-size: 10px; }
-.celebration-overlay .celeb-box { padding: 20px 16px; }
-.celebration-overlay .celeb-box h2 { font-size: 18px; }
-}
-
-@media (max-width: 400px) {
-.vocab-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
-.flip-card { height: 85px; }
-.flip-card-front .emoji { font-size: 18px; }
-.flip-card-front .word { font-size: 11px; }
-.convo-bubble .bubble-content .en { font-size: 12px; }
-.convo-bubble .bubble-content .ar { font-size: 11px; }
-}
-
-#audio-player { display: none; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babble Box - Unit 12: Final Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           ROOT & RESET
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #FFC107;
+            --gold-dark: #FFA000;
+            --black: #1A1A1A;
+            --white: #FAFAFA;
+            --bg: #FAFAFA;
+            --text: #1A1A1A;
+            --card-bg: #FFFFFF;
+            --shadow: 0 8px 30px rgba(0,0,0,0.06);
+            --radius: 18px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --green: #4CAF50;
+            --red: #F44336;
+            --blue: #2196F3;
+        }
+
+        [data-theme="dark"] {
+            --bg: #121212;
+            --text: #F0F0F0;
+            --card-bg: #1E1E1E;
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .header {
+            background: var(--card-bg);
+            padding: 12px 16px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            transition: background var(--transition);
+            border-bottom: 2px solid rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        [data-theme="dark"] .header {
+            border-bottom-color: rgba(255,255,255,0.05);
+        }
+
+        .header .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            direction: ltr;
+        }
+
+        .header .brand span {
+            color: var(--gold);
+        }
+
+        .header .unit-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            direction: ltr;
+        }
+
+        .header .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text);
+            transition: 0.3s;
+            padding: 4px;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        .back-btn {
+            background: var(--gold);
+            border: none;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* ============================================================
+           DAILY PROGRESS
+           ============================================================ */
+        .daily-progress {
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            transition: background var(--transition);
+        }
+
+        [data-theme="dark"] .daily-progress {
+            border-bottom-color: rgba(255,255,255,0.05);
+        }
+
+        .daily-progress .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            direction: rtl;
+        }
+
+        .daily-progress .bar-wrap {
+            flex: 1;
+            height: 6px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+            min-width: 80px;
+        }
+
+        [data-theme="dark"] .daily-progress .bar-wrap {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .daily-progress .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), #FFA000);
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        .daily-progress .count {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 40px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        /* ============================================================
+           LESSON CONTENT
+           ============================================================ */
+        .lesson-content {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 14px 16px 30px;
+        }
+
+        .unit-header {
+            margin-bottom: 18px;
+        }
+
+        .unit-header .badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--black);
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            direction: rtl;
+        }
+
+        .unit-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            color: var(--text);
+            line-height: 1.2;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .unit-header p {
+            color: #888;
+            font-size: 14px;
+            margin-top: 2px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* ===== SECTION BOX ===== */
+        .section-box {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 16px 16px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow);
+            transition: background var(--transition), box-shadow var(--transition);
+        }
+
+        .section-box .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* ============================================================
+           CONVERSATION
+           ============================================================ */
+        .convo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .convo-bubble {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            max-width: 92%;
+            padding: 8px 12px;
+            border-radius: 14px;
+            position: relative;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        .convo-bubble.john {
+            align-self: flex-start;
+            background: #D6E4FF;
+            color: #1A1A2E;
+            border-bottom-left-radius: 4px;
+        }
+
+        .convo-bubble.sarah {
+            align-self: flex-end;
+            background: #FFE4E6;
+            color: #1A1A2E;
+            border-bottom-right-radius: 4px;
+        }
+
+        [data-theme="dark"] .convo-bubble.john {
+            background: #1E3A5F;
+            color: #fff;
+        }
+
+        [data-theme="dark"] .convo-bubble.sarah {
+            background: #5F2E3A;
+            color: #fff;
+        }
+
+        .convo-bubble .avatar {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .convo-bubble .bubble-content {
+            flex: 1;
+        }
+
+        .convo-bubble .bubble-content .en {
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .convo-bubble .bubble-content .en .audio-btn {
+            background: none;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            color: #555;
+            padding: 2px 4px;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .convo-bubble .bubble-content .en .audio-btn:hover {
+            background: rgba(0,0,0,0.06);
+            color: var(--gold);
+        }
+
+        .convo-bubble .bubble-content .ar {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+            direction: rtl;
+            text-align: right;
+            display: none;
+        }
+
+        .convo-bubble .bubble-content .ar.show {
+            display: block;
+        }
+
+        .translation-btn {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 1px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 2px;
+        }
+
+        .translation-btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* ============================================================
+           GRAMMAR RECAP - CARDS
+           ============================================================ */
+        .grammar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .grammar-card {
+            background: #FFF8E1;
+            padding: 14px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,193,7,0.3);
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: center;
+        }
+
+        [data-theme="dark"] .grammar-card {
+            background: #2A2A1A;
+            border-color: rgba(255,193,7,0.2);
+        }
+
+        .grammar-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,193,7,0.15);
+        }
+
+        .grammar-card .title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--black);
+            direction: ltr;
+        }
+
+        [data-theme="dark"] .grammar-card .title {
+            color: #FFD700;
+        }
+
+        .grammar-card .example {
+            font-size: 13px;
+            color: #666;
+            direction: ltr;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        [data-theme="dark"] .grammar-card .example {
+            color: #aaa;
+        }
+
+        .grammar-card .extra-example {
+            font-size: 12px;
+            color: #888;
+            direction: ltr;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed rgba(0,0,0,0.06);
+            display: none;
+        }
+
+        [data-theme="dark"] .grammar-card .extra-example {
+            border-top-color: rgba(255,255,255,0.06);
+            color: #999;
+        }
+
+        .grammar-card .extra-example.show {
+            display: block;
+        }
+
+        /* ============================================================
+           FINAL TEST
+           ============================================================ */
+        .quiz-progress-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .quiz-progress-bar .label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            direction: rtl;
+        }
+
+        .quiz-progress-bar .bar-wrap {
+            flex: 1;
+            height: 5px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .quiz-progress-bar .bar-wrap {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .quiz-progress-bar .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gold);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-progress-bar .count {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 35px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .quiz-card {
+            background: rgba(0,0,0,0.02);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: 0.3s;
+        }
+
+        [data-theme="dark"] .quiz-card {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.04);
+        }
+
+        .quiz-card .q-text {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 5px;
+            direction: ltr;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .quiz-options button {
+            padding: 4px 14px;
+            border: 2px solid rgba(0,0,0,0.08);
+            border-radius: 30px;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.25s;
+            color: var(--text);
+            font-family: 'Poppins', 'Cairo', sans-serif;
+            direction: ltr;
+        }
+
+        [data-theme="dark"] .quiz-options button {
+            border-color: rgba(255,255,255,0.1);
+            color: #ddd;
+        }
+
+        .quiz-options button:hover:not(:disabled) {
+            background: rgba(0,0,0,0.04);
+        }
+
+        .quiz-options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .quiz-options button.correct {
+            background: var(--green);
+            border-color: var(--green);
+            color: #fff;
+            animation: pop 0.3s ease;
+        }
+
+        .quiz-options button.wrong {
+            background: var(--red);
+            border-color: var(--red);
+            color: #fff;
+            animation: shake 0.4s ease;
+        }
+
+        .quiz-feedback {
+            margin-top: 3px;
+            font-size: 13px;
+            font-weight: 600;
+            min-height: 20px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .quiz-feedback .correct-text { color: var(--green); }
+        .quiz-feedback .wrong-text { color: var(--red); }
+
+        /* ===== INPUT ===== */
+        .quiz-input {
+            padding: 5px 12px;
+            border: 2px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            width: 180px;
+            transition: 0.2s;
+            direction: ltr;
+        }
+
+        [data-theme="dark"] .quiz-input {
+            border-color: rgba(255,255,255,0.1);
+            background: var(--card-bg);
+        }
+
+        .quiz-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .quiz-input.correct-input {
+            border-color: var(--green);
+            background: rgba(76,175,80,0.1);
+        }
+
+        .quiz-input.wrong-input {
+            border-color: var(--red);
+            background: rgba(244,67,54,0.1);
+        }
+
+        .check-btn {
+            background: var(--gold);
+            border: none;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--black);
+            margin-top: 6px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .check-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* ===== DRAG & DROP (CLICK-BASED) ===== */
+        .drag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px 0;
+        }
+
+        .drag-word {
+            padding: 5px 14px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--text);
+            transition: 0.2s;
+            user-select: none;
+        }
+
+        .drag-word:hover {
+            transform: scale(1.05);
+        }
+
+        .drag-word.selected {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold-dark);
+        }
+
+        .drag-word.placed {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold-dark);
+            cursor: pointer;
+        }
+
+        .drag-word.placed:hover {
+            transform: scale(1.05);
+        }
+
+        .drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 10px 12px;
+            border: 2px dashed rgba(0,0,0,0.1);
+            border-radius: 10px;
+            min-height: 50px;
+            align-items: center;
+            margin: 6px 0;
+        }
+
+        [data-theme="dark"] .drop-zone {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .drop-zone .word-placed {
+            padding: 3px 12px;
+            background: var(--gold);
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--black);
+            cursor: pointer;
+        }
+
+        .drop-zone .word-placed:hover {
+            transform: scale(1.05);
+        }
+
+        .drag-instruction {
+            font-size: 12px;
+            color: #888;
+            direction: rtl;
+            margin-bottom: 4px;
+        }
+
+        /* ===== LISTENING ===== */
+        .listen-btn {
+            background: var(--gold);
+            border: none;
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .listen-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+           TEST RESULT
+           ============================================================ */
+        .test-result {
+            display: none;
+            margin-top: 12px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .test-result.success {
+            display: block;
+            background: rgba(76,175,80,0.1);
+            color: var(--green);
+            border: 2px solid var(--green);
+        }
+
+        .test-result.fail {
+            display: block;
+            background: rgba(244,67,54,0.1);
+            color: var(--red);
+            border: 2px solid var(--red);
+        }
+
+        .test-result .sub {
+            font-size: 14px;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
+           CONGRATULATIONS
+           ============================================================ */
+        .congrats-section {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(145deg, #FFD700, #FFA000);
+            border-radius: var(--radius);
+            color: var(--black);
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+        }
+
+        .congrats-section.show {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .congrats-section .title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+        }
+
+        .congrats-section .message {
+            font-size: 18px;
+            margin: 10px 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .congrats-section .cert-btn {
+            background: var(--black);
+            color: var(--gold);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Cairo', sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+
+        .congrats-section .cert-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            font-size: 24px;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(300px) rotate(720deg); opacity: 0; }
+        }
+
+        /* ============================================================
+           CERTIFICATE
+           ============================================================ */
+        .certificate-section {
+            display: none;
+            margin-top: 20px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .certificate-section.show {
+            display: block;
+        }
+
+        .certificate {
+            background: #FFFDF5;
+            border: 8px double var(--gold);
+            border-radius: 20px;
+            padding: 30px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        [data-theme="dark"] .certificate {
+            background: #1E1E1E;
+            border-color: var(--gold);
+        }
+
+        .certificate .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .certificate .border-line {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 10px auto;
+        }
+
+        .certificate .title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        [data-theme="dark"] .certificate .title {
+            color: #eee;
+        }
+
+        .certificate .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin: 6px 0;
+        }
+
+        [data-theme="dark"] .certificate .subtitle {
+            color: #aaa;
+        }
+
+        .certificate .student-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--black);
+            margin: 10px 0;
+            display: inline-block;
+            min-width: 200px;
+        }
+
+        .certificate .student-name-input {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--black);
+            border: none;
+            border-bottom: 3px solid var(--gold);
+            background: transparent;
+            text-align: center;
+            min-width: 200px;
+            padding: 0 10px;
+            outline: none;
+        }
+
+        [data-theme="dark"] .certificate .student-name-input {
+            color: #eee;
+        }
+
+        .certificate .text {
+            font-size: 15px;
+            color: #555;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        [data-theme="dark"] .certificate .text {
+            color: #aaa;
+        }
+
+        .certificate .date {
+            font-size: 14px;
+            color: #888;
+            margin: 8px 0;
+        }
+
+        .certificate .signature {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .certificate .signature .name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        [data-theme="dark"] .certificate .signature .name {
+            color: #eee;
+        }
+
+        .certificate .signature .title {
+            font-size: 14px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .certificate .disclaimer {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 12px;
+            direction: rtl;
+        }
+
+        .certificate-actions {
+            text-align: center;
+            margin-top: 15px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .certificate-actions button {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .certificate-actions .print-btn {
+            background: var(--black);
+            color: #fff;
+        }
+
+        .certificate-actions .print-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .certificate-actions .pdf-btn {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .certificate-actions .pdf-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* ============================================================
+           STATS
+           ============================================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 14px 10px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: var(--shadow);
+            transition: 0.2s;
+        }
+
+        [data-theme="dark"] .stat-card {
+            border-color: rgba(255,255,255,0.04);
+        }
+
+        .stat-card .number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: #888;
+            direction: rtl;
+        }
+
+        /* ============================================================
+           WHAT'S NEXT
+           ============================================================ */
+        .next-btn {
+            background: var(--gold);
+            border: none;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--black);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* ============================================================
+           NAVIGATION
+           ============================================================ */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .nav-buttons button {
+            padding: 8px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: 'Cairo', sans-serif;
+            direction: rtl;
+        }
+
+        .nav-buttons .prev {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .nav-buttons .prev:hover {
+            background: #e6b800;
+            transform: scale(1.02);
+        }
+
+        /* ============================================================
+           ANIMATIONS
+           ============================================================ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* ============================================================
+           PRINT STYLES
+           ============================================================ */
+        @media print {
+            .header, .daily-progress, .nav-buttons, .certificate-actions, .back-btn, .theme-toggle,
+            .section-box:not(.certificate-section), .congrats-section, .no-print {
+                display: none !important;
+            }
+
+            .certificate-section {
+                display: block !important;
+                margin: 0;
+                padding: 20px;
+            }
+
+            .certificate {
+                border: 4px solid var(--gold);
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .certificate .student-name-input {
+                border-bottom: 2px solid var(--gold);
+            }
+
+            body {
+                background: white !important;
+                padding: 0;
+            }
+
+            .lesson-content {
+                padding: 0;
+                max-width: 100%;
+            }
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .grammar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .certificate {
+                padding: 20px;
+            }
+
+            .certificate .student-name-input {
+                font-size: 22px;
+                min-width: 150px;
+            }
+
+            .congrats-section .title {
+                font-size: 26px;
+            }
+
+            .section-box {
+                padding: 12px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .nav-buttons button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .quiz-options {
+                flex-direction: column;
+            }
+
+            .quiz-options button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .certificate-actions {
+                flex-direction: column;
+            }
+
+            .certificate-actions button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grammar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .congrats-section .title {
+                font-size: 22px;
+            }
+        }
+
+        /* ============================================================
+           HIDDEN AUDIO
+           ============================================================ */
+        #audio-player {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<!-- ============================================================
-HEADER
-============================================================ -->
-<header class="header">
-<div class="brand">Babble <span>Box</span></div>
-<div class="unit-title">Unit 1: Hello!</div>
-<div class="top-actions">
-<a href="index.html" class="back-btn">🏠 الرئيسية</a>
-<button class="reset-unit-btn" id="resetUnitBtn">🔄 إعادة دراسة الوحدة</button>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-</div>
-</header>
-
-<!-- ============================================================
-UNIT NAVIGATION TABS
-============================================================ -->
-<div class="unit-tabs-wrapper" id="unitTabsWrapper">
-<div class="unit-tabs" id="unitTabs"></div>
-</div>
-
-<!-- ============================================================
-PROGRESS BAR
-============================================================ -->
-<div class="daily-progress">
-<span class="label">📊 تقدم الوحدة</span>
-<div class="bar-wrap">
-<div class="bar-fill" id="dailyProgressFill"></div>
-</div>
-<span class="count" id="dailyProgressCount">0/10</span>
-</div>
-
-<!-- ============================================================
-LESSON CONTENT
-============================================================ -->
-<div class="lesson-content">
-
-<div class="unit-header">
-<div class="badge">📖 الوحدة الأولى</div>
-<h1>Hello! How are you?</h1>
-<p>تعلم كيف تقدم نفسك وتلقي التحية بالإنجليزية.</p>
-</div>
-
-<!-- ==========================================================
-SECTION 1: THE REAL TALK
-========================================================== -->
-<section class="section-box" id="conversation">
-<div class="section-title">🗣️ The Real Talk</div>
-<div class="convo-container">
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Hey! How's it going? <button class="audio-btn" data-text="Hey! How's it going?" data-voice="male">🔊</button></div>
-<div class="ar">إزاي الدنيا يا عم؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">Oh, hey! Pretty good, and you? <button class="audio-btn" data-text="Oh, hey! Pretty good, and you?" data-voice="female">🔊</button></div>
-<div class="ar">آه، أهلاً! كويسة أوي، وإنت؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Can't complain. By the way, I'm John. <button class="audio-btn" data-text="Can't complain. By the way, I'm John." data-voice="male">🔊</button></div>
-<div class="ar">مش وحشة الحمدلله. بالمناسبة، أنا جون.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">Nice to meet you, John. I'm Sarah. <button class="audio-btn" data-text="Nice to meet you, John. I'm Sarah." data-voice="female">🔊</button></div>
-<div class="ar">فرصة سعيدة يا جون. أنا سارة.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Likewise. So, you new here? <button class="audio-btn" data-text="Likewise. So, you new here?" data-voice="male">🔊</button></div>
-<div class="ar">وأنا كمان. يعني إنت جديدة هنا؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">Yeah, just moved in last week. <button class="audio-btn" data-text="Yeah, just moved in last week." data-voice="female">🔊</button></div>
-<div class="ar">أه، سكنت هنا الأسبوع اللي فات.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Well, welcome to the neighborhood! Are you from around here? <button class="audio-btn" data-text="Well, welcome to the neighborhood! Are you from around here?" data-voice="male">🔊</button></div>
-<div class="ar">أهلاً بيكي في الحتة! إنت من هنا؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">No, I'm from Boston originally. But I'm here for work now. <button class="audio-btn" data-text="No, I'm from Boston originally. But I'm here for work now." data-voice="female">🔊</button></div>
-<div class="ar">لا، أنا من بوسطن في الأصل. بس أنا هنا للشغل دلوقتي.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-</div>
-</section>
-
-<!-- ==========================================================
-SECTION 2: DISCOVER THE RULE
-========================================================== -->
-<section class="section-box" id="discover">
-<div class="section-title">🔍 Discover the Rule</div>
-<div class="discovery-question">❓ لاحظ الفرق بين الجمل دي:</div>
-<div class="discovery-tabs" id="discoveryTabs">
-<button class="discovery-tab active" data-tab="disc1">I am John.</button>
-<button class="discovery-tab" data-tab="disc2">You are new.</button>
-<button class="discovery-tab" data-tab="disc3">He is my friend.</button>
-</div>
-<div class="discovery-content active" id="disc1">
-<strong>🔹 I am</strong> — لما أتكلم عن نفسي<br>✅ <span class="en-highlight">"I'm John"</span> = أنا جون.
-</div>
-<div class="discovery-content" id="disc2">
-<strong>🔹 You are</strong> — لما أكلم الشخص اللي قدامي<br>✅ <span class="en-highlight">"You're new here"</span> = إنت جديد هنا.
-</div>
-<div class="discovery-content" id="disc3">
-<strong>🔹 He is / She is</strong> — لما أتكلم عن شخص تالت<br>✅ <span class="en-highlight">"He's my friend"</span> = هو صاحبي.
-</div>
-</section>
-
-<!-- ==========================================================
-SECTION 3: GRAMMAR LAB
-========================================================== -->
-<section class="section-box" id="grammar">
-<div class="section-title">🧠 Grammar Lab</div>
-<div class="grammar-grid">
-<div class="grammar-card green"><div class="title">➕ Positive</div><div class="examples">I am / I'm<br>He/She/It is / He's<br>You/We/They are / You're</div></div>
-<div class="grammar-card red"><div class="title">➖ Negative</div><div class="examples">I am not / I'm not<br>He/She/It is not / isn't<br>You/We/They are not / aren't</div></div>
-<div class="grammar-card blue"><div class="title">❓ Question</div><div class="examples">Am I?<br>Is he/she/it?<br>Are you/we/they?</div></div>
-<div class="grammar-card gold"><div class="title">✅ Short Answer</div><div class="examples">Yes, I am. / No, I'm not.<br>Yes, he is. / No, he isn't.<br>Yes, they are. / No, they aren't.</div></div>
-</div>
-</section>
-
-<!-- ==========================================================
-SECTION 4: WORD VAULT
-========================================================== -->
-<section class="section-box" id="vocabulary">
-<div class="section-title">💎 Word Vault</div>
-<div class="vocab-grid" id="vocabGrid">
-<div class="flip-card" data-word="Hello"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👋</span><span class="word">Hello</span><button class="audio-btn-small" data-word="Hello">🔊</button></div><div class="flip-card-back"><span class="meaning">أهلاً</span></div></div></div>
-<div class="flip-card" data-word="Goodbye"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🚶</span><span class="word">Goodbye</span><button class="audio-btn-small" data-word="Goodbye">🔊</button></div><div class="flip-card-back"><span class="meaning">مع السلامة</span></div></div></div>
-<div class="flip-card" data-word="Please"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🙏</span><span class="word">Please</span><button class="audio-btn-small" data-word="Please">🔊</button></div><div class="flip-card-back"><span class="meaning">من فضلك</span></div></div></div>
-<div class="flip-card" data-word="Thank you"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">❤️</span><span class="word">Thank you</span><button class="audio-btn-small" data-word="Thank you">🔊</button></div><div class="flip-card-back"><span class="meaning">شكراً</span></div></div></div>
-<div class="flip-card" data-word="Sorry"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">😔</span><span class="word">Sorry</span><button class="audio-btn-small" data-word="Sorry">🔊</button></div><div class="flip-card-back"><span class="meaning">آسف</span></div></div></div>
-<div class="flip-card" data-word="Likewise"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🤝</span><span class="word">Likewise</span><button class="audio-btn-small" data-word="Likewise">🔊</button></div><div class="flip-card-back"><span class="meaning">بالمثل</span></div></div></div>
-<div class="flip-card" data-word="Friend"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">👫</span><span class="word">Friend</span><button class="audio-btn-small" data-word="Friend">🔊</button></div><div class="flip-card-back"><span class="meaning">صديق</span></div></div></div>
-<div class="flip-card" data-word="Welcome"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🏠</span><span class="word">Welcome</span><button class="audio-btn-small" data-word="Welcome">🔊</button></div><div class="flip-card-back"><span class="meaning">أهلاً وسهلاً</span></div></div></div>
-</div>
-</section>
-
-<!-- ==========================================================
-SECTION 5: BABBLE WARNING
-========================================================== -->
-<section class="section-box" id="warning">
-<div class="section-title">🚨 Babble Warning – الكلمة الخائنة</div>
-<div style="text-align:center;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:8px;direction:ltr;">Fine</div>
-<div class="warning-grid">
-<div class="warning-card safe"><div class="label">✅ المعنى الآمن</div><div class="example">"I'm fine, thanks."</div><div class="meaning">أنا بخير، شكراً.</div></div>
-<div class="warning-card danger"><div class="label">❌ المعنى الخطر</div><div class="example">"I got a parking fine."</div><div class="meaning">أخذت غرامة وقوف.</div></div>
-</div>
-<div class="warning-joke">😂 يعني لو قلت "I'm fine" أنت تمام. لو قلت "I got a fine" أنت دفعت فلوس!</div>
-</section>
-
-<!-- ==========================================================
-SECTION 6: CHALLENGE ARENA
-========================================================== -->
-<section class="section-box" id="challenge">
-<div class="section-title">⚔️ Challenge Arena</div>
-<div class="quiz-progress-bar">
-<span class="label">📊 السؤال</span>
-<div class="bar-wrap"><div class="bar-fill" id="quizProgressFill"></div></div>
-<span class="count" id="quizProgressCount">0/5</span>
-</div>
-
-<div id="quizContainer">
-<!-- Q1: Multiple Choice -->
-<div class="quiz-card" data-question="1" data-type="choice">
-<div class="q-text">1. I ___ a student.</div>
-<div class="quiz-options">
-<button data-answer="am">am</button>
-<button data-answer="is">is</button>
-<button data-answer="are">are</button>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<!-- Q2: Multiple Choice -->
-<div class="quiz-card" data-question="2" data-type="choice">
-<div class="q-text">2. They ___ from Egypt.</div>
-<div class="quiz-options">
-<button data-answer="am">am</button>
-<button data-answer="is">is</button>
-<button data-answer="are">are</button>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<!-- Q3: Click to Order -->
-<div class="quiz-card" data-question="3" data-type="order">
-<div class="q-text">3. رتب الكلمات لتكوين جملة: <span class="hint-icon">❓</span></div>
-<div class="order-hint">❓ انقر على الكلمات بالترتيب الصحيح.</div>
-<div class="order-pool" id="orderPool3">
-<button class="order-word" data-word="You">You</button>
-<button class="order-word" data-word="are">are</button>
-<button class="order-word" data-word="welcome">welcome</button>
-</div>
-<div class="order-result-box" id="orderResult3"></div>
-<div class="quiz-feedback" id="orderFeedback3"></div>
-</div>
-
-<!-- Q4: Click to Order -->
-<div class="quiz-card" data-question="4" data-type="order">
-<div class="q-text">4. رتب الكلمات لتكوين جملة: <span class="hint-icon">❓</span></div>
-<div class="order-hint">❓ انقر على الكلمات بالترتيب الصحيح.</div>
-<div class="order-pool" id="orderPool4">
-<button class="order-word" data-word="She">She</button>
-<button class="order-word" data-word="is">is</button>
-<button class="order-word" data-word="my">my</button>
-<button class="order-word" data-word="friend">friend</button>
-</div>
-<div class="order-result-box" id="orderResult4"></div>
-<div class="quiz-feedback" id="orderFeedback4"></div>
-</div>
-
-<!-- Q5: Click to Order -->
-<div class="quiz-card" data-question="5" data-type="order">
-<div class="q-text">5. رتب الكلمات لتكوين جملة: <span class="hint-icon">❓</span></div>
-<div class="order-hint">❓ انقر على الكلمات بالترتيب الصحيح.</div>
-<div class="order-pool" id="orderPool5">
-<button class="order-word" data-word="Are">Are</button>
-<button class="order-word" data-word="you">you</button>
-<button class="order-word" data-word="okay">okay</button>
-<button class="order-word" data-word="?">?</button>
-</div>
-<div class="order-result-box" id="orderResult5"></div>
-<div class="quiz-feedback" id="orderFeedback5"></div>
-</div>
-</div>
-
-<div class="streak-notification" id="streakNotification">
-🎉 +50 XP! أنت عبقري!
-<div class="stars" id="starsContainer"></div>
-</div>
-</section>
-
-<!-- ==========================================================
-SECTION 7: SPEAK UP!
-========================================================== -->
-<section class="section-box" id="speak">
-<div class="section-title">🎤 Speak Up!</div>
-<div class="speak-container">
-<button class="big-btn" id="speakBtn">🎤 اضغط وتحدث!</button>
-<div style="margin-top:6px;font-size:13px;color:#888;direction:rtl;text-align:right;">قدم نفسك! ما اسمك؟ من أين أنت؟</div>
-<div class="speak-result" id="speakResult">⏳ اضغط الزر وابدأ التحدث...</div>
-</div>
-</section>
-
-<!-- ==========================================================
-SECTION 8: POWER RECAP
-========================================================== -->
-<section class="section-box" id="recap">
-<div class="section-title">⚡ Power Recap</div>
-<div class="mindmap">
-<div class="center" id="mindCenter">Verb to be</div>
-<div class="branches">
-<span class="branch" data-example="I am a student. (أنا طالب)">I am</span>
-<span class="branch" data-example="He is my teacher. (هو معلمي)">He is</span>
-<span class="branch" data-example="They are here. (هم هنا)">They are</span>
-<span class="branch" data-example="I'm not tired. (أنا مش تعبان)">I'm not</span>
-<span class="branch" data-example="Are you ready? (هل أنت جاهز؟)">Are you?</span>
-</div>
-<div class="branch-example" id="branchExample">👆 اضغط على أي فرع لترى مثالاً</div>
-</div>
-</section>
-
-<!-- ==========================================================
-SECTION 9: VIDEO ZONE
-========================================================== -->
-<section class="section-box" id="video">
-<div class="section-title">🎥 Video Zone</div>
-<button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
-</section>
-
-<!-- ==========================================================
-SECTION 10: HOMEWORK
-========================================================== -->
-<section class="section-box" id="homework">
-<div class="section-title">✍️ Homework</div>
-<div class="homework-area">
-<p style="direction:rtl;margin-bottom:6px;color:#888;font-size:13px;text-align:right;">✏️ اكتب <strong>5 جمل كاملة</strong> عن نفسك باستخدام <strong>am, is, are</strong>.</p>
-<textarea id="homeworkText" placeholder="أكتب جملك هنا..."></textarea>
-<button class="save-btn" id="saveHomework">💾 حفظ الواجب</button>
-<div class="save-status" id="saveStatus"></div>
-</div>
-</section>
-
-<!-- ==========================================================
-NAVIGATION
-========================================================== -->
-<div class="nav-buttons">
-<button class="prev" disabled>← السابق</button>
-<button class="next" id="nextBtn">التالي →</button>
-</div>
-
-</div><!-- /.lesson-content -->
-
-<!-- ============================================================
-CELEBRATION OVERLAY
-============================================================ -->
-<div class="celebration-overlay" id="celebrationOverlay">
-<div class="celeb-box">
-<button class="close-celeb" id="closeCelebBtn">✕</button>
-<div class="big-emoji">🎉</div>
-<h2>أحسنت! الوحدة الأولى اكتملت!</h2>
-<div class="sub-text">لقد أتممت جميع الأقسام بنجاح!</div>
-<div class="xp-text">+50 XP! أنت بطل! 💪</div>
-<div class="celeb-buttons">
-<button class="btn-next" id="celebNextBtn">→ الوحدة التالية</button>
-<button class="btn-home" id="celebHomeBtn">🏠 العودة للرئيسية</button>
-<button class="btn-retry-unit" id="celebRetryBtn">🔄 إعادة دراسة الوحدة</button>
-</div>
-</div>
-</div>
-
-<div class="celeb-confetti-container" id="celebConfettiContainer"></div>
-
-<!-- ============================================================
-HIDDEN AUDIO PLAYER
-============================================================ -->
-<audio id="audio-player" style="display:none;"><source src="" type="audio/mpeg"></audio>
-
-<!-- ============================================================
-JAVASCRIPT
-============================================================ -->
-<script>
-// ============================================================
-// 1. DARK MODE
-// ============================================================
-const themeToggle = document.getElementById('themeToggle');
-let currentTheme = localStorage.getItem('babbleTheme') || 'light';
-
-function setTheme(theme) {
-document.documentElement.setAttribute('data-theme', theme);
-themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-localStorage.setItem('babbleTheme', theme);
-}
-setTheme(currentTheme);
-themeToggle.addEventListener('click', () => {
-const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-setTheme(newTheme);
-});
-
-// ============================================================
-// 2. UNIT NAVIGATION TABS
-// ============================================================
-const unitTabs = document.getElementById('unitTabs');
-const totalUnits = 12;
-let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnlocked')) || 1;
-
-function renderUnitTabs() {
-unitTabs.innerHTML = '';
-for (let i = 1; i <= totalUnits; i++) {
-const tab = document.createElement('div');
-tab.className = 'unit-tab';
-tab.textContent = i;
-if (i === 1) {
-tab.classList.add('active');
-} else if (i < maxUnlocked) {
-tab.classList.add('completed');
-tab.textContent = i + ' ✅';
-tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
-} else if (i === maxUnlocked) {
-tab.classList.add('unlocked');
-tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
-} else {
-tab.classList.add('locked');
-tab.innerHTML = i + ' <span class="lock-icon">🔒</span>';
-}
-unitTabs.appendChild(tab);
-}
-}
-renderUnitTabs();
-
-// ============================================================
-// 3. PROGRESS BAR
-// ============================================================
-const progressFill = document.getElementById('dailyProgressFill');
-const progressCount = document.getElementById('dailyProgressCount');
-const totalSections = 10;
-let unitCompleted = localStorage.getItem('unit1Completed') === 'true';
-
-function updateProgress() {
-let done = unitCompleted ? 10 : 0;
-const quizDone = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
-if (quizDone.length === 5 && quizDone.every(q => q === true) && !unitCompleted) {
-done = 6;
-}
-const pct = (done / totalSections) * 100;
-progressFill.style.width = pct + '%';
-progressCount.textContent = done + '/' + totalSections;
-
-const nextBtn = document.getElementById('nextBtn');
-if (unitCompleted) {
-nextBtn.style.opacity = '1';
-nextBtn.style.cursor = 'pointer';
-nextBtn.textContent = 'التالي →';
-} else if (quizDone.length === 5 && quizDone.every(q => q === true)) {
-nextBtn.style.opacity = '1';
-nextBtn.style.cursor = 'pointer';
-nextBtn.textContent = 'إنهاء الوحدة ✅';
-} else {
-nextBtn.style.opacity = '0.5';
-nextBtn.style.cursor = 'not-allowed';
-nextBtn.textContent = 'أكمل التحدي أولاً';
-}
-}
-
-// ============================================================
-// 4. CHALLENGE ARENA - CLICK TO ORDER
-// ============================================================
-const orderConfigs = {
-3: { correct: ['You', 'are', 'welcome'], pool: 'orderPool3', result: 'orderResult3', feedback: 'orderFeedback3' },
-4: { correct: ['She', 'is', 'my', 'friend'], pool: 'orderPool4', result: 'orderResult4', feedback: 'orderFeedback4' },
-5: { correct: ['Are', 'you', 'okay', '?'], pool: 'orderPool5', result: 'orderResult5', feedback: 'orderFeedback5' }
-};
-
-let quizCorrectCount = 0;
-const totalQuestions = 5;
-
-function updateQuizProgress() {
-const pct = (quizCorrectCount / totalQuestions) * 100;
-document.getElementById('quizProgressFill').style.width = pct + '%';
-document.getElementById('quizProgressCount').textContent = quizCorrectCount + '/' + totalQuestions;
-
-if (quizCorrectCount === totalQuestions) {
-const streak = document.getElementById('streakNotification');
-streak.classList.add('show');
-launchStars();
-updateProgress();
-}
-}
-
-// Initialize order questions
-Object.keys(orderConfigs).forEach(qNum => {
-const config = orderConfigs[qNum];
-const pool = document.getElementById(config.pool);
-const resultBox = document.getElementById(config.result);
-const feedback = document.getElementById(config.feedback);
-let selectedWords = [];
-const words = Array.from(pool.children);
-
-function resetOrder() {
-selectedWords = [];
-resultBox.innerHTML = '';
-feedback.innerHTML = '';
-words.forEach(btn => {
-btn.disabled = false;
-btn.classList.remove('used', 'correct-answer', 'wrong-answer');
-});
-}
-
-words.forEach(btn => {
-btn.addEventListener('click', function() {
-if (this.disabled) return;
-const word = this.dataset.word;
-selectedWords.push(word);
-this.classList.add('used');
-this.disabled = true;
-
-const placed = document.createElement('span');
-placed.className = 'placed-word';
-placed.textContent = word;
-placed.addEventListener('click', function() {
-const idx = selectedWords.indexOf(word);
-if (idx > -1) {
-selectedWords.splice(idx, 1);
-this.remove();
-words.forEach(b => {
-if (b.dataset.word === word) {
-b.disabled = false;
-b.classList.remove('used');
-}
-});
-}
-});
-resultBox.appendChild(placed);
-
-if (selectedWords.length === config.correct.length) {
-const isCorrect = selectedWords.every((w, i) => w === config.correct[i]);
-if (isCorrect) {
-feedback.innerHTML = '<span class="correct-text">✅ صحيح! الترتيب ممتاز!</span>';
-words.forEach(b => { b.disabled = true; });
-resultBox.querySelectorAll('.placed-word').forEach(el => {
-el.style.background = 'var(--green)';
-el.style.color = '#fff';
-});
-const qIndex = parseInt(qNum) - 1;
-if (!window.questionStatus) window.questionStatus = [];
-if (!window.questionStatus[qIndex]) {
-window.questionStatus[qIndex] = true;
-quizCorrectCount++;
-updateQuizProgress();
-}
-} else {
-feedback.innerHTML = '<span class="wrong-text">❌ ترتيب غير صحيح. حاول مرة أخرى!</span>';
-const placedWords = resultBox.querySelectorAll('.placed-word');
-placedWords.forEach((el, i) => {
-if (i < config.correct.length && el.textContent !== config.correct[i]) {
-el.style.background = 'var(--red)';
-el.style.color = '#fff';
-} else if (i < config.correct.length) {
-el.style.background = 'var(--green)';
-el.style.color = '#fff';
-}
-});
-setTimeout(() => {
-resetOrder();
-}, 1800);
-}
-}
-});
-});
-
-resetOrder();
-});
-
-// Multiple choice questions - FIXED: always works, shows correct/wrong properly
-document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(card => {
-const btns = card.querySelectorAll('.quiz-options button');
-const feedback = card.querySelector('.quiz-feedback');
-let answered = false;
-
-btns.forEach(btn => {
-btn.addEventListener('click', function() {
-if (answered || this.disabled) return;
-answered = true;
-const qNum = parseInt(card.dataset.question);
-const isCorrect = this.dataset.answer === (qNum === 1 ? 'am' : 'are');
-
-if (isCorrect) {
-this.classList.add('correct');
-feedback.innerHTML = '<span class="correct-text">✅ صحيح!</span>';
-const qIndex = qNum - 1;
-if (!window.questionStatus) window.questionStatus = [];
-if (!window.questionStatus[qIndex]) {
-window.questionStatus[qIndex] = true;
-quizCorrectCount++;
-updateQuizProgress();
-}
-} else {
-this.classList.add('wrong');
-const correctAns = qNum === 1 ? 'am' : 'are';
-feedback.innerHTML = '<span class="wrong-text">❌ خطأ. الإجابة الصحيحة هي "' + correctAns + '"</span>';
-btns.forEach(b => {
-if (b.dataset.answer === correctAns) {
-b.classList.add('correct');
-}
-});
-}
-btns.forEach(b => b.disabled = true);
-});
-});
-});
-
-// ============================================================
-// 5. CELEBRATION OVERLAY
-// ============================================================
-function showCelebration() {
-const overlay = document.getElementById('celebrationOverlay');
-overlay.classList.add('show');
-launchCelebrationConfetti();
-unitCompleted = true;
-localStorage.setItem('unit1Completed', 'true');
-if (maxUnlocked < 2) {
-maxUnlocked = 2;
-localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
-renderUnitTabs();
-}
-updateProgress();
-}
-
-document.getElementById('closeCelebBtn').addEventListener('click', function() {
-document.getElementById('celebrationOverlay').classList.remove('show');
-});
-
-document.getElementById('celebNextBtn').addEventListener('click', function() {
-window.location.href = 'unit2.html';
-});
-
-document.getElementById('celebHomeBtn').addEventListener('click', function() {
-window.location.href = 'index.html';
-});
-
-document.getElementById('celebRetryBtn').addEventListener('click', function() {
-resetUnit();
-document.getElementById('celebrationOverlay').classList.remove('show');
-});
-
-function launchCelebrationConfetti() {
-const container = document.getElementById('celebConfettiContainer');
-container.innerHTML = '';
-const colors = ['#FFC107', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FF9FF3', '#FECA57', '#FF9F43', '#FF4757'];
-for (let i = 0; i < 80; i++) {
-const el = document.createElement('div');
-el.className = 'celeb-confetti';
-const size = 6 + Math.random() * 10;
-el.style.width = size + 'px';
-el.style.height = size + 'px';
-el.style.background = colors[Math.floor(Math.random() * colors.length)];
-el.style.left = Math.random() * 100 + '%';
-el.style.animationDuration = (2 + Math.random() * 3) + 's';
-el.style.animationDelay = (Math.random() * 2) + 's';
-el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-container.appendChild(el);
-}
-setTimeout(() => { container.innerHTML = ''; }, 6000);
-}
-
-// ============================================================
-// 6. NEXT BUTTON
-// ============================================================
-document.getElementById('nextBtn').addEventListener('click', function() {
-const quizDone = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
-if (unitCompleted) {
-window.location.href = 'unit2.html';
-} else if (quizDone.length === 5 && quizDone.every(q => q === true)) {
-showCelebration();
-}
-});
-
-// ============================================================
-// 7. RESET UNIT
-// ============================================================
-function resetUnit() {
-unitCompleted = false;
-localStorage.removeItem('unit1Completed');
-localStorage.removeItem('unit1QuizStatus');
-window.questionStatus = [];
-quizCorrectCount = 0;
-document.getElementById('celebrationOverlay').classList.remove('show');
-
-// Reset quiz UI
-document.querySelectorAll('.quiz-card').forEach(card => {
-const btns = card.querySelectorAll('.quiz-options button, .order-word');
-btns.forEach(b => {
-b.disabled = false;
-b.classList.remove('correct', 'wrong', 'used', 'correct-answer', 'wrong-answer');
-});
-const feedback = card.querySelector('.quiz-feedback');
-if (feedback) feedback.innerHTML = '';
-const resultBox = card.querySelector('.order-result-box');
-if (resultBox) resultBox.innerHTML = '';
-});
-document.getElementById('quizProgressFill').style.width = '0%';
-document.getElementById('quizProgressCount').textContent = '0/5';
-document.getElementById('streakNotification').classList.remove('show');
-updateProgress();
-}
-
-document.getElementById('resetUnitBtn').addEventListener('click', function() {
-if (confirm('⚠️ هل أنت متأكد من إعادة دراسة الوحدة؟ سيتم مسح تقدمك الحالي.')) {
-resetUnit();
-}
-});
-
-// ============================================================
-// 8. STARS ANIMATION
-// ============================================================
-function launchStars() {
-const container = document.getElementById('starsContainer');
-container.innerHTML = '';
-const emojis = ['⭐', '🌟', '✨'];
-for (let i = 0; i < 20; i++) {
-const star = document.createElement('span');
-star.className = 'star';
-star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-star.style.left = Math.random() * 100 + '%';
-star.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
-star.style.animationDelay = (Math.random() * 0.8) + 's';
-container.appendChild(star);
-}
-}
-
-// ============================================================
-// 9. SPEAK UP
-// ============================================================
-document.getElementById('speakBtn').addEventListener('click', function() {
-const result = document.getElementById('speakResult');
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.lang = 'en-US';
-recognition.interimResults = false;
-result.textContent = '🎤 استمع...';
-result.style.color = 'var(--gold)';
-recognition.onresult = function(event) {
-const transcript = event.results[0][0].transcript;
-result.textContent = '✅ سمعنا: "' + transcript + '"';
-result.style.color = 'var(--green)';
-};
-recognition.onerror = function() {
-result.textContent = '❌ لم نتمكن من السماع. حاول مرة أخرى.';
-result.style.color = 'var(--red)';
-};
-recognition.start();
-} else {
-result.textContent = '⚠️ متصفحك لا يدعم خاصية التعرف على الصوت.';
-result.style.color = 'var(--red)';
-}
-});
-
-// ============================================================
-// 10. POWER RECAP
-// ============================================================
-document.querySelectorAll('.branch').forEach(branch => {
-branch.addEventListener('click', function() {
-document.getElementById('branchExample').textContent = '📌 ' + this.dataset.example;
-});
-});
-document.getElementById('mindCenter').addEventListener('click', function() {
-document.getElementById('branchExample').textContent = '👆 اضغط على أي فرع لترى مثالاً';
-});
-
-// ============================================================
-// 11. VIDEO ZONE
-// ============================================================
-document.getElementById('videoBtn').addEventListener('click', function() {
-window.open('https://youtube.com/@omar.youssif.english', '_blank');
-});
-
-// ============================================================
-// 12. HOMEWORK
-// ============================================================
-const homeworkText = document.getElementById('homeworkText');
-const saveStatus = document.getElementById('saveStatus');
-let savedHomework = localStorage.getItem('unit1Homework') || '';
-if (savedHomework) {
-homeworkText.value = savedHomework;
-saveStatus.textContent = '💾 تم حفظ الواجب';
-saveStatus.style.color = 'var(--green)';
-}
-document.getElementById('saveHomework').addEventListener('click', function() {
-const text = homeworkText.value;
-localStorage.setItem('unit1Homework', text);
-saveStatus.textContent = '💾 تم حفظ الواجب';
-saveStatus.style.color = 'var(--green)';
-});
-
-// ============================================================
-// 13. AUDIO BUTTONS
-// ============================================================
-document.querySelectorAll('.audio-btn, .audio-btn-small').forEach(btn => {
-btn.addEventListener('click', function(e) {
-e.stopPropagation();
-const text = this.dataset.text || this.dataset.word || '';
-if (!text) return;
-const utterance = new SpeechSynthesisUtterance(text);
-utterance.lang = 'en-US';
-utterance.rate = 0.9;
-const voices = window.speechSynthesis.getVoices();
-const selected = voices.find(v => v.name.includes('Google') || v.name.includes('Samantha'));
-if (selected) utterance.voice = selected;
-window.speechSynthesis.speak(utterance);
-});
-});
-
-// ============================================================
-// 14. TRANSLATION BUTTONS
-// ============================================================
-document.querySelectorAll('.translation-btn').forEach(btn => {
-btn.addEventListener('click', function() {
-const arDiv = this.parentElement.querySelector('.ar');
-if (arDiv) {
-arDiv.classList.toggle('show');
-this.textContent = arDiv.classList.contains('show') ? '🇪🇬 Hide Translation' : '🇪🇬 Show Translation';
-}
-});
-});
-
-// ============================================================
-// 15. FLIP CARDS
-// ============================================================
-document.querySelectorAll('.flip-card').forEach(card => {
-card.addEventListener('click', function() {
-this.classList.toggle('flipped');
-});
-});
-
-// ============================================================
-// 16. DISCOVERY TABS
-// ============================================================
-document.querySelectorAll('.discovery-tab').forEach(tab => {
-tab.addEventListener('click', function() {
-document.querySelectorAll('.discovery-tab').forEach(t => t.classList.remove('active'));
-this.classList.add('active');
-document.querySelectorAll('.discovery-content').forEach(c => c.classList.remove('active'));
-document.getElementById(this.dataset.tab).classList.add('active');
-});
-});
-
-// ============================================================
-// 17. INIT
-// ============================================================
-const savedQuiz = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
-if (savedQuiz.length > 0) {
-window.questionStatus = savedQuiz;
-quizCorrectCount = savedQuiz.filter(q => q === true).length;
-updateQuizProgress();
-}
-
-unitCompleted = localStorage.getItem('unit1Completed') === 'true';
-if (unitCompleted) {
-updateProgress();
-}
-updateProgress();
-
-setInterval(() => {
-if (window.questionStatus) {
-localStorage.setItem('unit1QuizStatus', JSON.stringify(window.questionStatus));
-}
-}, 1000);
-
-console.log('✅ Babble Box Unit 1 loaded successfully!');
-console.log('📊 Quiz status:', window.questionStatus || 'Not started');
-console.log('📈 Unit completed:', unitCompleted);
-</script>
+    <!-- ============================================================
+    LOCK CHECK
+    ============================================================ -->
+    <script>
+        (function() {
+            const maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnit')) || 1;
+            if (maxUnlocked < 12) {
+                alert('🔒 الوحدة 12 مقفلة! أكمل الوحدات السابقة أولاً.');
+                window.location.href = 'index.html';
+            }
+        })();
+    </script>
+
+    <!-- ============================================================
+    HEADER
+    ============================================================ -->
+    <header class="header">
+        <div class="brand">Babble <span>Box</span></div>
+        <div class="unit-title">Unit 12: Final Adventure</div>
+        <div class="top-actions">
+            <a href="index.html" class="back-btn">🏠 الرئيسية</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    DAILY PROGRESS
+    ============================================================ -->
+    <div class="daily-progress">
+        <span class="label">⭐ التقدم اليومي</span>
+        <div class="bar-wrap">
+            <div class="bar-fill" id="dailyProgressFill"></div>
+        </div>
+        <span class="count" id="dailyProgressCount">0/25</span>
+    </div>
+
+    <!-- ============================================================
+    LESSON CONTENT
+    ============================================================ -->
+    <div class="lesson-content">
+
+        <!-- ===== UNIT HEADER ===== -->
+        <div class="unit-header">
+            <div class="badge">🏆 الوحدة الأخيرة</div>
+            <h1>Final Adventure</h1>
+            <p>اختبر كل ما تعلمته واحتفل بإنجازك!</p>
+        </div>
+
+        <!-- ==========================================================
+        SECTION 1: THE REAL TALK
+        ========================================================== -->
+        <section class="section-box" id="conversation">
+            <div class="section-title">🗣️ The Real Talk – Final Conversation</div>
+
+            <div class="convo-container">
+                <!-- John 1 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Hey Sarah! How are you? You look great in that dress!
+                            <button class="audio-btn" data-text="Hey Sarah! How are you? You look great in that dress!" data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">أهلاً سارة! إنتي عاملة إيه؟ شكلك رائع في الفستان ده!</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- Sarah 1 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Thanks, John! I'm feeling good. I just moved to a new apartment.
+                            <button class="audio-btn" data-text="Thanks, John! I'm feeling good. I just moved to a new apartment." data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">شكراً يا جون! أنا حاسة بتحسن. أنا سكنت في شقة جديدة.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- John 2 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Really? Tell me about it. Is there a big kitchen?
+                            <button class="audio-btn" data-text="Really? Tell me about it. Is there a big kitchen?" data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">بجد؟ قولي لي عنها. فيه مطبخ كبير؟</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- Sarah 2 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            There's a small kitchen, but the living room is huge. I love it.
+                            <button class="audio-btn" data-text="There's a small kitchen, but the living room is huge. I love it." data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">في مطبخ صغير، بس غرفة المعيشة كبيرة أوي. بحبها.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- John 3 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Sounds nice. I can help you move if you need.
+                            <button class="audio-btn" data-text="Sounds nice. I can help you move if you need." data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">يبدو حلو. أنا أقدر أساعدك في النقل لو محتاجة.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- Sarah 3 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Thanks, but I finished moving last week. It was exhausting!
+                            <button class="audio-btn" data-text="Thanks, but I finished moving last week. It was exhausting!" data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">شكراً، بس أنا خلصت نقل الأسبوع الماضي. كان مرهق!</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- John 4 -->
+                <div class="convo-bubble john">
+                    <span class="avatar">👤</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            I can imagine. But now you can relax and enjoy your new home.
+                            <button class="audio-btn" data-text="I can imagine. But now you can relax and enjoy your new home." data-voice="male">🔊</button>
+                        </div>
+                        <div class="ar">أنا أتخيل. بس دلوقتي تقدري تسترخي وتستمتعي ببيتك الجديد.</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+
+                <!-- Sarah 4 -->
+                <div class="convo-bubble sarah">
+                    <span class="avatar">👩</span>
+                    <div class="bubble-content">
+                        <div class="en">
+                            Exactly. And you're welcome to visit anytime. I make a mean cup of coffee!
+                            <button class="audio-btn" data-text="Exactly. And you're welcome to visit anytime. I make a mean cup of coffee!" data-voice="female">🔊</button>
+                        </div>
+                        <div class="ar">بالضبط. وإنت مرحب بيك تزور أي وقت. أنا بعمل فنجان قهوة رهيب!</div>
+                        <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 2: GRAMMAR POWER RECAP - CARDS
+        ========================================================== -->
+        <section class="section-box" id="grammar-recap">
+            <div class="section-title">⚡ Grammar Power Recap</div>
+
+            <div class="grammar-grid" id="grammarGrid">
+                <div class="grammar-card" data-extra="I am happy. / He is a doctor. / They are students.">
+                    <div class="title">1. Verb to be</div>
+                    <div class="example">I am, He is, They are</div>
+                    <div class="extra-example">✨ I am happy. / He is a doctor. / They are students.</div>
+                </div>
+                <div class="grammar-card" data-extra="This is my book. / Is this your pen? / His name is John.">
+                    <div class="title">2. Possessive Adjectives</div>
+                    <div class="example">my, your, his, her</div>
+                    <div class="extra-example">✨ This is my book. / Is this your pen? / His name is John.</div>
+                </div>
+                <div class="grammar-card" data-extra="I work every day. / She works at a hospital.">
+                    <div class="title">3. Present Simple</div>
+                    <div class="example">I work, He works</div>
+                    <div class="extra-example">✨ I work every day. / She works at a hospital.</div>
+                </div>
+                <div class="grammar-card" data-extra="I like tea. / I don't like coffee.">
+                    <div class="title">4. like / don't like</div>
+                    <div class="example">I like tea. I don't like coffee.</div>
+                    <div class="extra-example">✨ I like tea. / I don't like coffee.</div>
+                </div>
+                <div class="grammar-card" data-extra="I'd like a coffee, please. / What would you like?">
+                    <div class="title">5. would like</div>
+                    <div class="example">I'd like a coffee.</div>
+                    <div class="extra-example">✨ I'd like a coffee, please. / What would you like?</div>
+                </div>
+                <div class="grammar-card" data-extra="There is a sofa. / There are two chairs.">
+                    <div class="title">6. There is / There are</div>
+                    <div class="example">There is a sofa. There are two chairs.</div>
+                    <div class="extra-example">✨ There is a sofa. / There are two chairs.</div>
+                </div>
+                <div class="grammar-card" data-extra="The book is on the table. / I am at home.">
+                    <div class="title">7. Prepositions of Place</div>
+                    <div class="example">in, on, at, next to</div>
+                    <div class="extra-example">✨ The book is on the table. / I am at home.</div>
+                </div>
+                <div class="grammar-card" data-extra="I am wearing a jacket. / They are playing football.">
+                    <div class="title">8. Present Continuous</div>
+                    <div class="example">I am wearing a jacket.</div>
+                    <div class="extra-example">✨ I am wearing a jacket. / They are playing football.</div>
+                </div>
+                <div class="grammar-card" data-extra="It's sunny today. / It's raining outside.">
+                    <div class="title">9. Weather</div>
+                    <div class="example">It's sunny. It's raining.</div>
+                    <div class="extra-example">✨ It's sunny today. / It's raining outside.</div>
+                </div>
+                <div class="grammar-card" data-extra="I can swim. / He can't cook.">
+                    <div class="title">10. can / can't</div>
+                    <div class="example">I can swim. He can't cook.</div>
+                    <div class="extra-example">✨ I can swim. / He can't cook.</div>
+                </div>
+                <div class="grammar-card" data-extra="I went home. / I didn't work yesterday.">
+                    <div class="title">11. Past Simple</div>
+                    <div class="example">I went home. I didn't work.</div>
+                    <div class="extra-example">✨ I went home. / I didn't work yesterday.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 3: FINAL TEST
+        ========================================================== -->
+        <section class="section-box" id="final-test">
+            <div class="section-title">📝 Final Test – Level A1</div>
+
+            <div class="quiz-progress-bar">
+                <span class="label">📊 السؤال</span>
+                <div class="bar-wrap">
+                    <div class="bar-fill" id="quizProgressFill"></div>
+                </div>
+                <span class="count" id="quizProgressCount">0/25</span>
+            </div>
+
+            <div id="quizContainer">
+                <!-- Questions will be rendered by JavaScript -->
+            </div>
+
+            <div class="test-result" id="testResult">
+                <div id="resultMessage"></div>
+                <div class="sub" id="resultSub"></div>
+            </div>
+
+            <button class="retry-btn" id="retryBtn">🔄 إعادة الاختبار</button>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 4: CONGRATULATIONS
+        ========================================================== -->
+        <section class="congrats-section" id="congratsSection">
+            <div class="confetti-container" id="confettiContainer"></div>
+            <div class="title">🎉 عاااش يا بطل! 💪</div>
+            <div class="message">
+                لقد أكملت جميع وحدات Babble Box Level A1 بنجاح!<br>
+                أنت الآن مستعد للانتقال للمستوى التالي.
+            </div>
+            <button class="cert-btn" id="showCertificateBtn">🎓 احصل على شهادتك الآن!</button>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 5: CERTIFICATE
+        ========================================================== -->
+        <section class="certificate-section" id="certificateSection">
+            <div class="certificate" id="certificate">
+                <div class="logo">📘 Babble Box</div>
+                <div class="border-line"></div>
+                <div class="title">🎓 Certificate of Completion</div>
+                <div class="subtitle">This certifies that</div>
+                <input type="text" id="studentNameInput" class="student-name-input" placeholder="أدخل اسمك الكامل" value="">
+                <div class="text">
+                    has successfully completed the <strong>Babble Box English Level A1</strong> course<br>
+                    with a score of <strong>25/25</strong>, demonstrating dedication and hard work.
+                </div>
+                <div class="date" id="certificateDate"></div>
+                <div class="border-line"></div>
+                <div class="signature">
+                    <div class="name">Omar Youssif</div>
+                    <div class="title">Founder of Babble Box</div>
+                </div>
+                <div class="disclaimer">⚠️ This is a non-accredited certificate of completion.</div>
+            </div>
+
+            <div class="certificate-actions">
+                <button class="print-btn" onclick="window.print()">🖨️ طباعة الشهادة</button>
+                <button class="pdf-btn" id="pdfBtn">📥 تحميل PDF</button>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 6: STATS
+        ========================================================== -->
+        <section class="section-box" id="stats">
+            <div class="section-title">📊 رحلتك في أرقام</div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">12/12</div>
+                    <div class="label">الوحدات المكتملة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">840 XP</div>
+                    <div class="label">إجمالي XP المكتسبة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="learningDays">0</div>
+                    <div class="label">أيام التعلم</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="testScore">-/25</div>
+                    <div class="label">الاختبار النهائي</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+        SECTION 7: WHAT'S NEXT
+        ========================================================== -->
+        <section class="section-box" id="whats-next">
+            <div class="section-title">🚀 ماذا بعد؟</div>
+
+            <p style="direction:rtl;font-size:15px;color:#888;margin-bottom:12px;">
+                أنت الآن جاهز للمستوى A2. تابعنا ليصلك كل جديد!
+            </p>
+            <a href="https://www.facebook.com/omar.youssif.english" target="_blank" class="next-btn">
+                📘 تابعنا على فيسبوك
+            </a>
+        </section>
+
+        <!-- ==========================================================
+        NAVIGATION
+        ========================================================== -->
+        <div class="nav-buttons">
+            <button class="prev" id="prevBtn">← السابق</button>
+        </div>
+
+    </div><!-- /.lesson-content -->
+
+    <!-- ============================================================
+    HIDDEN AUDIO
+    ============================================================ -->
+    <audio id="audio-player" style="display:none;">
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // 1. DARK MODE
+        // ============================================================
+        const themeToggle = document.getElementById('themeToggle');
+        let currentTheme = localStorage.getItem('babbleTheme') || 'light';
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('babbleTheme', theme);
+            currentTheme = theme;
+        }
+
+        setTheme(currentTheme);
+        themeToggle.addEventListener('click', function() {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // ============================================================
+        // 2. TRANSLATION TOGGLE
+        // ============================================================
+        document.querySelectorAll('.translation-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const target = this.dataset.target;
+                const arElement = this.closest('.bubble-content').querySelector('.' + target);
+                if (arElement) {
+                    arElement.classList.toggle('show');
+                    this.textContent = arElement.classList.contains('show') ? '🇪🇬 Hide Translation' :
+                        '🇪🇬 Show Translation';
+                }
+            });
+        });
+
+        // ============================================================
+        // 3. GRAMMAR CARDS - CLICK TO SHOW EXTRA
+        // ============================================================
+        document.querySelectorAll('.grammar-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                const extra = this.querySelector('.extra-example');
+                if (extra) {
+                    extra.classList.toggle('show');
+                }
+            });
+        });
+
+        // ============================================================
+        // 4. SPEECH SYNTHESIS
+        // ============================================================
+        let maleVoice = null;
+        let femaleVoice = null;
+
+        function getVoices() {
+            const voices = window.speechSynthesis.getVoices();
+            maleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices.find(v => v
+                .lang.startsWith('en')) || null;
+            femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google') && v.name.includes(
+                'Female')) || maleVoice || null;
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = getVoices;
+            setTimeout(getVoices, 300);
+        }
+
+        function speakText(text, voiceType = 'male', rate = 0.85) {
+            if (!('speechSynthesis' in window)) {
+                alert('⚠️ متصفحك لا يدعم خاصية النطق.');
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = rate;
+            utterance.pitch = voiceType === 'male' ? 0.9 : 1.2;
+            utterance.volume = 1;
+
+            if (voiceType === 'male' && maleVoice) utterance.voice = maleVoice;
+            else if (voiceType === 'female' && femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        document.querySelectorAll('.audio-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const text = this.dataset.text;
+                const voice = this.dataset.voice || 'male';
+                if (text) speakText(text, voice, 0.85);
+            });
+        });
+
+        // ============================================================
+        // 5. FINAL TEST (25 Questions)
+        // ============================================================
+        const testQuestions = [
+            // Q1-12: Choice
+            { type: 'choice', question: '1. She ____ a teacher.', options: ['am', 'is', 'are', 'was'], answer: 'is' },
+            { type: 'choice', question: '2. This is ____ book. (أنا)', options: ['my', 'your', 'his', 'her'], answer: 'my' },
+            { type: 'choice', question: '3. He ____ to work every day.', options: ['go', 'goes', 'going', 'went'],
+            answer: 'goes' },
+            { type: 'choice', question: '4. I ____ a coffee, please.', options: ['like', 'likes', 'would like', 'am liking'],
+                answer: 'would like' },
+            { type: 'choice', question: '5. ____ two chairs in the kitchen.', options: ['There is', 'There are', 'It is',
+                    'They are'
+                ], answer: 'There are' },
+            { type: 'choice', question: '6. The book is ____ the table.', options: ['in', 'on', 'at', 'next'],
+            answer: 'on' },
+            { type: 'choice', question: '7. They ____ a movie right now.', options: ['watch', 'watches', 'are watching',
+                    'watched'
+                ], answer: 'are watching' },
+            { type: 'choice', question: '8. Look outside! It ____.', options: ['rains', 'raining', 'is raining',
+                    'rained'], answer: 'is raining' },
+            { type: 'choice', question: '9. She ____ sing very well.', options: ['can', 'cans', 'can to', 'is can'],
+                answer: 'can' },
+            { type: 'choice', question: '10. I wake up ____ 7 AM.', options: ['at', 'on', 'in', 'every'], answer: 'at' },
+            { type: 'choice', question: '11. Yesterday, I ____ to the store.', options: ['go', 'goes', 'went', 'gone'],
+                answer: 'went' },
+            { type: 'choice', question: '12. She ____ the bus yesterday.', options: ['didn\'t miss', 'didn\'t missed',
+                    'not miss', 'doesn\'t miss'
+                ], answer: 'didn\'t miss' },
+
+            // Q13-18: Drag & Drop (Click-based)
+            { type: 'drag', question: '13. رتب الكلمات: "I / every / day / work"', words: ['I', 'work', 'every', 'day'],
+                answer: 'I work every day' },
+            { type: 'drag', question: '14. رتب الكلمات: "is / she / wearing / a / hat"', words: ['She', 'is', 'wearing',
+                    'a', 'hat'
+                ], answer: 'She is wearing a hat' },
+            { type: 'drag', question: '15. رتب الكلمات: "there / two / are / bedrooms"', words: ['There', 'are', 'two',
+                    'bedrooms'
+                ], answer: 'There are two bedrooms' },
+            { type: 'drag', question: '16. رتب الكلمات: "on / the / is / book / table"', words: ['The', 'book', 'is', 'on',
+                    'the', 'table'
+                ], answer: 'The book is on the table' },
+            { type: 'drag', question: '17. رتب الكلمات: "can / I / swim / well / very"', words: ['I', 'can', 'swim', 'very',
+                    'well'
+                ], answer: 'I can swim very well' },
+            { type: 'drag', question: '18. رتب الكلمات: "did / go / you / where / yesterday"', words: ['Where', 'did',
+                    'you', 'go', 'yesterday'
+                ], answer: 'Where did you go yesterday' },
+
+            // Q19-23: Fill in the blank
+            { type: 'fill', question: '19. I ____ (be) a student.', answer: 'am' },
+            { type: 'fill', question: '20. She ____ (have) a new car.', answer: 'has' },
+            { type: 'fill', question: '21. They ____ (be) at home yesterday.', answer: 'were' },
+            { type: 'fill', question: '22. He ____ (not / like) spicy food.', answer: 'doesn\'t like' },
+            { type: 'fill', question: '23. ____ you (can / help) me?', answer: 'Can you help' },
+
+            // Q24-25: Listening
+            { type: 'listening', question: '24. 🔊 استمع واكتب الجملة التي سمعتها.', audioText: 'I am going to the store.',
+                answer: 'I am going to the store' },
+            { type: 'listening', question: '25. 🔊 استمع واكتب الجملة التي سمعتها.', audioText: 'She went to the park yesterday.',
+                answer: 'She went to the park yesterday' }
+        ];
+
+        let quizCompleted = 0;
+        const totalQuestions = 25;
+        let testPassed = false;
+        let answeredQuestions = new Array(totalQuestions).fill(false);
+        let userAnswers = new Array(totalQuestions).fill(null);
+
+        const quizProgressFill = document.getElementById('quizProgressFill');
+        const quizProgressCount = document.getElementById('quizProgressCount');
+        const retryBtn = document.getElementById('retryBtn');
+        const testResult = document.getElementById('testResult');
+        const resultMessage = document.getElementById('resultMessage');
+        const resultSub = document.getElementById('resultSub');
+
+        let dailyCompleted = parseInt(localStorage.getItem('babbleDaily')) || 0;
+        const dailyProgressFill = document.getElementById('dailyProgressFill');
+        const dailyProgressCount = document.getElementById('dailyProgressCount');
+
+        function updateDailyProgress() {
+            const pct = (dailyCompleted / 25) * 100;
+            dailyProgressFill.style.width = pct + '%';
+            dailyProgressCount.textContent = dailyCompleted + '/25';
+            localStorage.setItem('babbleDaily', dailyCompleted);
+        }
+        updateDailyProgress();
+
+        function updateQuizProgress() {
+            const pct = (quizCompleted / totalQuestions) * 100;
+            quizProgressFill.style.width = pct + '%';
+            quizProgressCount.textContent = quizCompleted + '/' + totalQuestions;
+
+            if (quizCompleted === totalQuestions && !testPassed) {
+                // Auto-check when all answered
+                checkFinalTest();
+            }
+        }
+
+        function checkFinalTest() {
+            let score = 0;
+            let allAnswered = true;
+
+            // Check all questions
+            for (let i = 0; i < totalQuestions; i++) {
+                if (!answeredQuestions[i]) {
+                    allAnswered = false;
+                    break;
+                }
+                // Check if answer is correct (for fill and listening we check input value)
+                const q = testQuestions[i];
+                const card = document.querySelectorAll('.quiz-card')[i];
+                if (!card) continue;
+
+                if (q.type === 'choice') {
+                    const selected = card.querySelector('.quiz-options button.correct');
+                    if (selected && selected.textContent === q.answer) {
+                        score++;
+                    }
+                } else if (q.type === 'drag') {
+                    const dropZone = card.querySelector('.drop-zone');
+                    const placed = dropZone.querySelectorAll('.word-placed');
+                    if (placed.length === q.words.length) {
+                        const text = Array.from(placed).map(el => el.textContent).join(' ');
+                        if (text === q.answer) score++;
+                    }
+                } else if (q.type === 'fill' || q.type === 'listening') {
+                    const input = card.querySelector('.quiz-input');
+                    if (input && input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
+                        score++;
+                    }
+                }
+            }
+
+            const resultDiv = document.getElementById('testResult');
+            const msgDiv = document.getElementById('resultMessage');
+            const subDiv = document.getElementById('resultSub');
+
+            if (score === 25 && allAnswered) {
+                // SUCCESS!
+                resultDiv.className = 'test-result success';
+                msgDiv.textContent = '🎉 مبروك! لقد حصلت على 25/25!';
+                subDiv.textContent = 'أنت الآن جاهز للمستوى التالي!';
+
+                // Hide test, show congrats
+                document.getElementById('final-test').style.display = 'none';
+                document.getElementById('congratsSection').classList.add('show');
+                launchConfetti();
+
+                localStorage.setItem('babbleUnit12Complete', 'true');
+                localStorage.setItem('babbleFinalTestCompleted', 'true');
+
+                // Update stats
+                document.getElementById('testScore').textContent = '25/25';
+
+                let days = parseInt(localStorage.getItem('babbleLearningDays')) || 0;
+                if (days === 0) {
+                    days = 1;
+                    localStorage.setItem('babbleLearningDays', days);
+                }
+                document.getElementById('learningDays').textContent = days;
+
+                testPassed = true;
+                retryBtn.style.display = 'none';
+            } else if (!allAnswered) {
+                resultDiv.className = 'test-result fail';
+                msgDiv.textContent = '⚠️ لم تكمل جميع الأسئلة!';
+                subDiv.textContent = 'تأكد من الإجابة على جميع الأسئلة الـ 25.';
+                retryBtn.style.display = 'inline-block';
+            } else {
+                resultDiv.className = 'test-result fail';
+                msgDiv.textContent = '❌ للأسف، لديك بعض الأخطاء. راجع إجاباتك وحاول مرة أخرى.';
+                subDiv.textContent = 'نقاطك: ' + score + '/25';
+                retryBtn.style.display = 'inline-block';
+            }
+
+            resultDiv.style.display = 'block';
+        }
+
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            const emojis = ['🎉', '⭐', '🌟', '✨', '🎊', '💫', '🏆', '🥇'];
+            for (let i = 0; i < 50; i++) {
+                const el = document.createElement('span');
+                el.className = 'confetti';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = Math.random() * 90 + '%';
+                el.style.animationDuration = (2 + Math.random() * 3) + 's';
+                el.style.animationDelay = (Math.random() * 2) + 's';
+                el.style.fontSize = (16 + Math.random() * 24) + 'px';
+                container.appendChild(el);
+            }
+        }
+
+        // ============================================================
+        // 6. RENDER QUESTIONS
+        // ============================================================
+        function renderQuestions() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = '';
+            answeredQuestions.fill(false);
+            quizCompleted = 0;
+            testPassed = false;
+            document.getElementById('testResult').style.display = 'none';
+            document.getElementById('final-test').style.display = 'block';
+            document.getElementById('congratsSection').classList.remove('show');
+            document.getElementById('certificateSection').classList.remove('show');
+            quizProgressFill.style.width = '0%';
+            quizProgressCount.textContent = '0/' + totalQuestions;
+            retryBtn.style.display = 'none';
+
+            testQuestions.forEach(function(q, index) {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.dataset.index = index;
+
+                const qText = document.createElement('div');
+                qText.className = 'q-text';
+                qText.innerHTML = q.question;
+                card.appendChild(qText);
+
+                if (q.type === 'choice') {
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'quiz-options';
+                    q.options.forEach(function(opt) {
+                        const btn = document.createElement('button');
+                        btn.textContent = opt;
+                        btn.dataset.answer = opt;
+                        btn.addEventListener('click', function() {
+                            if (answeredQuestions[index]) return;
+                            const buttons = this.parentElement.querySelectorAll('button');
+                            buttons.forEach(b => b.disabled = true);
+
+                            const isCorrect = (opt === q.answer);
+                            if (isCorrect) {
+                                this.classList.add('correct');
+                                answeredQuestions[index] = true;
+                                quizCompleted++;
+                                updateQuizProgress();
+                                speakText('Correct!', 'female', 0.9);
+                            } else {
+                                this.classList.add('wrong');
+                                const feedback = document.createElement('div');
+                                feedback.className = 'quiz-feedback';
+                                feedback.innerHTML = '<span class="wrong-text">❌ خطأ!</span>';
+                                card.appendChild(feedback);
+                                buttons.forEach(b => {
+                                    if (b.textContent === q.answer) {
+                                        b.classList.add('correct');
+                                    }
+                                });
+                                speakText('Incorrect.', 'male', 0.85);
+                            }
+                        });
+                        optionsDiv.appendChild(btn);
+                    });
+                    card.appendChild(optionsDiv);
+
+                } else if (q.type === 'drag') {
+                    // Instructions
+                    const instruction = document.createElement('div');
+                    instruction.className = 'drag-instruction';
+                    instruction.textContent = '👆 انقر على الكلمات بالترتيب الصحيح.';
+                    card.appendChild(instruction);
+
+                    // Available words
+                    const dragDiv = document.createElement('div');
+                    dragDiv.className = 'drag-container';
+                    dragDiv.id = 'dragContainer' + index;
+                    const shuffled = [...q.words].sort(() => Math.random() - 0.5);
+                    shuffled.forEach(function(word) {
+                        const span = document.createElement('span');
+                        span.className = 'drag-word';
+                        span.dataset.word = word;
+                        span.textContent = word;
+                        span.addEventListener('click', function() {
+                            if (answeredQuestions[index]) return;
+                            const dropZone = document.getElementById('dropZone' + index);
+                            if (this.classList.contains('selected')) {
+                                this.classList.remove('selected');
+                            } else {
+                                // Deselect others
+                                dragDiv.querySelectorAll('.drag-word').forEach(w => w.classList.remove(
+                                'selected'));
+                                this.classList.add('selected');
+                            }
+                        });
+                        dragDiv.appendChild(span);
+                    });
+                    card.appendChild(dragDiv);
+
+                    // Drop zone
+                    const dropDiv = document.createElement('div');
+                    dropDiv.className = 'drop-zone';
+                    dropDiv.id = 'dropZone' + index;
+                    dropDiv.addEventListener('click', function(e) {
+                        if (answeredQuestions[index]) return;
+                        const selected = dragDiv.querySelector('.drag-word.selected');
+                        if (selected) {
+                            const word = selected.dataset.word;
+                            // Check if already in drop zone
+                            const existing = dropDiv.querySelector('.word-placed[data-word="' + word + '"]');
+                            if (existing) return;
+
+                            const span = document.createElement('span');
+                            span.className = 'word-placed';
+                            span.dataset.word = word;
+                            span.textContent = word;
+                            span.addEventListener('click', function() {
+                                // Return to drag container
+                                if (answeredQuestions[index]) return;
+                                const w = this.dataset.word;
+                                const original = dragDiv.querySelector('.drag-word[data-word="' + w + '"]');
+                                if (original) {
+                                    original.style.display = 'inline-block';
+                                } else {
+                                    const s = document.createElement('span');
+                                    s.className = 'drag-word';
+                                    s.dataset.word = w;
+                                    s.textContent = w;
+                                    s.addEventListener('click', function() {
+                                        if (answeredQuestions[index]) return;
+                                        if (this.classList.contains('selected')) {
+                                            this.classList.remove('selected');
+                                        } else {
+                                            dragDiv.querySelectorAll('.drag-word').forEach(wd => wd
+                                                .classList.remove('selected'));
+                                            this.classList.add('selected');
+                                        }
+                                    });
+                                    dragDiv.appendChild(s);
+                                }
+                                this.remove();
+
+                                // Reset validation
+                                const feedback = document.getElementById('dragFeedback' + index);
+                                if (feedback) feedback.innerHTML = '';
+                            });
+                            dropDiv.appendChild(span);
+                            selected.remove();
+
+                            // Check if complete
+                            const placed = dropDiv.querySelectorAll('.word-placed');
+                            if (placed.length === q.words.length) {
+                                const text = Array.from(placed).map(el => el.textContent).join(' ');
+                                const feedback = document.getElementById('dragFeedback' + index);
+                                if (text === q.answer) {
+                                    feedback.innerHTML = '<span class="correct-text">✅ صح!</span>';
+                                    answeredQuestions[index] = true;
+                                    quizCompleted++;
+                                    updateQuizProgress();
+                                    speakText('Correct!', 'female', 0.9);
+                                } else {
+                                    feedback.innerHTML = '<span class="wrong-text">❌ خطأ! الترتيب غلط.</span>';
+                                    speakText('Incorrect.', 'male', 0.85);
+                                }
+                            }
+                        }
+                    });
+                    card.appendChild(dropDiv);
+
+                    const feedbackDiv = document.createElement('div');
+                    feedbackDiv.className = 'quiz-feedback';
+                    feedbackDiv.id = 'dragFeedback' + index;
+                    card.appendChild(feedbackDiv);
+
+                } else if (q.type === 'fill' || q.type === 'listening') {
+                    if (q.type === 'listening') {
+                        const listenBtn = document.createElement('button');
+                        listenBtn.className = 'listen-btn';
+                        listenBtn.textContent = '🔊 استمع';
+                        listenBtn.addEventListener('click', function() {
+                            speakText(q.audioText, 'female', 0.8);
+                        });
+                        card.appendChild(listenBtn);
+                    }
+
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'quiz-input';
+                    input.placeholder = 'اكتب إجابتك...';
+                    card.appendChild(input);
+
+                    const checkBtn = document.createElement('button');
+                    checkBtn.className = 'check-btn';
+                    checkBtn.textContent = '✅ تحقق';
+                    card.appendChild(checkBtn);
+
+                    const feedbackDiv = document.createElement('div');
+                    feedbackDiv.className = 'quiz-feedback';
+                    card.appendChild(feedbackDiv);
+
+                    checkBtn.addEventListener('click', function() {
+                        if (answeredQuestions[index]) return;
+                        const userAnswer = input.value.trim().toLowerCase();
+                        const correct = q.answer.toLowerCase();
+                        const isCorrect = userAnswer === correct;
+
+                        if (isCorrect) {
+                            input.classList.add('correct-input');
+                            feedbackDiv.innerHTML = '<span class="correct-text">✅ صح!</span>';
+                            answeredQuestions[index] = true;
+                            quizCompleted++;
+                            updateQuizProgress();
+                            speakText('Correct!', 'female', 0.9);
+                        } else {
+                            input.classList.add('wrong-input');
+                            feedbackDiv.innerHTML = '<span class="wrong-text">❌ خطأ! الإجابة الصحيحة: ' + q.answer +
+                                '</span>';
+                            speakText('Incorrect.', 'male', 0.85);
+                        }
+                    });
+                }
+
+                container.appendChild(card);
+            });
+        }
+
+        // ============================================================
+        // 7. RETRY BUTTON
+        // ============================================================
+        retryBtn.addEventListener('click', function() {
+            renderQuestions();
+            document.getElementById('testResult').style.display = 'none';
+            speakText('Quiz reset. Try again!', 'male', 0.85);
+        });
+
+        // ============================================================
+        // 8. CERTIFICATE
+        // ============================================================
+        const studentNameInput = document.getElementById('studentNameInput');
+        const certificateDate = document.getElementById('certificateDate');
+
+        const now = new Date();
+        certificateDate.textContent = 'Date: ' + now.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Update certificate name on input
+        studentNameInput.addEventListener('input', function() {
+            // The name appears directly in the input field
+        });
+
+        document.getElementById('showCertificateBtn').addEventListener('click', function() {
+            document.getElementById('certificateSection').classList.toggle('show');
+            document.getElementById('certificateSection').scrollIntoView({ behavior: 'smooth' });
+            speakText('Congratulations! You earned your certificate!', 'female', 0.9);
+        });
+
+        // ============================================================
+        // 9. PDF DOWNLOAD
+        // ============================================================
+        document.getElementById('pdfBtn').addEventListener('click', function() {
+            window.print();
+        });
+
+        // ============================================================
+        // 10. NAVIGATION
+        // ============================================================
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            window.location.href = 'unit11.html';
+        });
+
+        // ============================================================
+        // 11. INIT
+        // ============================================================
+        let days = parseInt(localStorage.getItem('babbleLearningDays')) || 0;
+        if (days === 0) {
+            days = 1;
+            localStorage.setItem('babbleLearningDays', days);
+        }
+        document.getElementById('learningDays').textContent = days;
+
+        if (localStorage.getItem('babbleFinalTestCompleted') === 'true') {
+            document.getElementById('testScore').textContent = '25/25';
+            document.getElementById('congratsSection').classList.add('show');
+            document.getElementById('certificateSection').classList.add('show');
+            document.getElementById('final-test').style.display = 'none';
+            launchConfetti();
+        }
+
+        renderQuestions();
+
+        if ('speechSynthesis' in window) {
+            setTimeout(function() {
+                window.speechSynthesis.getVoices();
+                getVoices();
+            }, 500);
+        }
+
+        console.log('%c🏆 Unit 12 Loaded!', 'font-size:16px;font-weight:bold;color:#FFD700;');
+        console.log('%c🎯 Complete 25/25 to finish!', 'font-size:14px;color:#4CAF50;');
+    </script>
+
 </body>
-  </html>
+</html>
