@@ -14,7 +14,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-L42M2EDW3H');
@@ -155,15 +154,19 @@
             gap: 16px;
             align-items: center;
         }
-        .nav-menu a {
+        .nav-menu button {
+            background: none;
+            border: none;
+            color: var(--nav-link-color);
+            font-family: 'Cairo', sans-serif;
             font-size: 14px;
             font-weight: 600;
-            color: var(--nav-link-color);
+            cursor: pointer;
+            padding: 4px 0;
             transition: color var(--transition);
             position: relative;
-            padding: 4px 0;
         }
-        .nav-menu a::after {
+        .nav-menu button::after {
             content: '';
             position: absolute;
             bottom: -2px;
@@ -173,10 +176,10 @@
             background: var(--gold);
             transition: width var(--transition);
         }
-        .nav-menu a:hover {
+        .nav-menu button:hover {
             color: var(--nav-link-hover);
         }
-        .nav-menu a:hover::after {
+        .nav-menu button:hover::after {
             width: 100%;
         }
         .header-actions {
@@ -1146,7 +1149,7 @@
             .logo-link img {
                 height: 28px;
             }
-            .nav-menu a {
+            .nav-menu button {
                 font-size: 12px;
             }
             .header-actions .social-icons a {
@@ -1312,12 +1315,12 @@
                 <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" />
             </a>
 
-            <!-- شريط التنقل -->
+            <!-- شريط التنقل (تبويب) -->
             <nav class="nav-menu">
-                <a href="index.html">الرئيسية</a>
-                <a href="#roadmap">المستويات</a>
-                <a href="test.html">اختبر مستواك</a>
-                <a href="#contact">اتصل بنا</a>
+                <button onclick="location.href='index.html'">الرئيسية</button>
+                <button onclick="scrollToSection('section6')">المستويات</button>
+                <button onclick="location.href='test.html'">اختبر مستواك</button>
+                <button onclick="scrollToSection('footer')">اتصل بنا</button>
             </nav>
 
             <!-- أيقونات السوشيال + زر الوضع -->
@@ -1359,7 +1362,7 @@
         القسم 1: 🗣️ The Real Talk
         ============================================================ -->
         <section class="unit-section fade-up" id="section1">
-            <h2>🗣️ The Real Talk</h2>
+            <h2 lang="en" dir="ltr">🗣️ The Real Talk</h2>
             <div class="chat-container" id="chatContainer">
                 <!-- سيتم توليد فقاعات المحادثة بواسطة JS -->
             </div>
@@ -1369,7 +1372,7 @@
         القسم 2: 🔍 Discover the Rule
         ============================================================ -->
         <section class="unit-section fade-up" id="section2">
-            <h2>🔍 Discover the Rule</h2>
+            <h2 lang="en" dir="ltr">🔍 Discover the Rule</h2>
             <div class="glass" style="padding:18px;">
                 <p style="font-size:18px; margin-bottom:12px; text-align:right; direction:rtl;">لاحظ الفرق بين الجمل دي:</p>
                 <div class="tabs" id="ruleTabs">
@@ -1378,15 +1381,15 @@
                     <button data-tab="tab3">He is my friend.</button>
                 </div>
                 <div id="tab1" class="tab-content active">
-                    <div class="example">I am John.</div>
+                    <div class="example" dir="ltr" lang="en">I am John.</div>
                     <div class="explanation">لما أتكلم عن نفسي</div>
                 </div>
                 <div id="tab2" class="tab-content">
-                    <div class="example">You are new.</div>
+                    <div class="example" dir="ltr" lang="en">You are new.</div>
                     <div class="explanation">لما أكلم اللي قدامي</div>
                 </div>
                 <div id="tab3" class="tab-content">
-                    <div class="example">He is my friend.</div>
+                    <div class="example" dir="ltr" lang="en">He is my friend.</div>
                     <div class="explanation">لما أتكلم عن شخص تالت</div>
                 </div>
             </div>
@@ -1396,23 +1399,23 @@
         القسم 3: 🧠 Grammar Lab
         ============================================================ -->
         <section class="unit-section fade-up" id="section3">
-            <h2>🧠 Grammar Lab</h2>
+            <h2 lang="en" dir="ltr">🧠 Grammar Lab</h2>
             <div class="grammar-grid">
                 <div class="grammar-card green">
                     <div class="title">➕ الإثبات</div>
-                    <div class="examples" dir="ltr">I am<br />He/She/It is<br />You/We/They are</div>
+                    <div class="examples" dir="ltr" lang="en">I am<br />He/She/It is<br />You/We/They are</div>
                 </div>
                 <div class="grammar-card red">
                     <div class="title">➖ النفي</div>
-                    <div class="examples" dir="ltr">I'm not<br />isn't<br />aren't</div>
+                    <div class="examples" dir="ltr" lang="en">I'm not<br />isn't<br />aren't</div>
                 </div>
                 <div class="grammar-card blue">
                     <div class="title">❓ السؤال</div>
-                    <div class="examples" dir="ltr">Am I?<br />Is...?<br />Are...?</div>
+                    <div class="examples" dir="ltr" lang="en">Am I?<br />Is...?<br />Are...?</div>
                 </div>
                 <div class="grammar-card yellow">
                     <div class="title">✅ الإجابة القصيرة</div>
-                    <div class="examples" dir="ltr">Yes, I am.<br />No, I'm not.</div>
+                    <div class="examples" dir="ltr" lang="en">Yes, I am.<br />No, I'm not.</div>
                 </div>
             </div>
         </section>
@@ -1421,7 +1424,7 @@
         القسم 4: 💎 Word Vault
         ============================================================ -->
         <section class="unit-section fade-up" id="section4">
-            <h2>💎 Word Vault</h2>
+            <h2 lang="en" dir="ltr">💎 Word Vault</h2>
             <div class="flip-grid" id="flipGrid">
                 <!-- سيتم توليد البطاقات بواسطة JS -->
             </div>
@@ -1431,27 +1434,35 @@
         القسم 5: 🚨 Babble Warning
         ============================================================ -->
         <section class="unit-section fade-up" id="section5">
-            <h2>🚨 Babble Warning</h2>
+            <h2 lang="en" dir="ltr">🚨 Babble Warning</h2>
             <div class="warning-grid">
                 <div class="warning-card green">
-                    <div class="sentence" dir="ltr">I'm fine, thanks.</div>
+                    <div class="sentence" dir="ltr" lang="en">I'm fine, thanks.</div>
                     <div class="meaning">أنا بخير، شكراً.</div>
                 </div>
                 <div class="warning-card red">
-                    <div class="sentence" dir="ltr">I got a parking fine.</div>
+                    <div class="sentence" dir="ltr" lang="en">I got a parking fine.</div>
                     <div class="meaning">أخذت غرامة وقوف سيارات.</div>
                 </div>
             </div>
-            <div class="warning-note">
-                😄 يعني لو قلت "I'm fine" أنت تمام. لو قلت "I got a fine" أنت دفعت فلوس!
+            <div style="text-align: center; margin-top: 14px;">
+                <p style="direction: ltr; text-align: center; color: var(--gold); font-weight: 600;" lang="en">
+                    "I'm fine" → أنت بخير ✅
+                </p>
+                <p style="direction: ltr; text-align: center; color: var(--gold); font-weight: 600;" lang="en">
+                    "I got a fine" → أنت دفعت فلوس! ❌
+                </p>
+                <p style="direction: rtl; text-align: center; color: var(--text-secondary); margin-top: 8px;">
+                    ⬆️ الكلمة واحدة... والمعنى مختلف تماماً! خلي بالك 😉
+                </p>
             </div>
         </section>
 
         <!-- ============================================================
-        القسم 6: ⚔️ Challenge Arena (النظام الهجين)
+        القسم 6: ⚔️ Challenge Arena
         ============================================================ -->
         <section class="unit-section fade-up" id="section6">
-            <h2>⚔️ Challenge Arena</h2>
+            <h2 lang="en" dir="ltr">⚔️ Challenge Arena</h2>
             <div class="challenge-progress">
                 <span>النتيجة: <span id="challengeScore">0</span> / 7</span>
                 <div class="bar"><div class="fill" id="challengeFill" style="width:0%"></div></div>
@@ -1466,9 +1477,9 @@
         القسم 7: 🎤 Speak Up!
         ============================================================ -->
         <section class="unit-section fade-up" id="section7">
-            <h2>🎤 Speak Up!</h2>
+            <h2 lang="en" dir="ltr">🎤 Speak Up!</h2>
             <div class="speak-box">
-                <div class="prompt" dir="ltr">🗣️ حاول أن تقول:<br />
+                <div class="prompt" dir="ltr" lang="en">🗣️ حاول أن تقول:<br />
                     <span style="font-weight:400; font-size:20px; direction:ltr;">Hello! My name is... I am from...</span>
                 </div>
                 <button class="record-btn" id="recordBtn" aria-label="ابدأ التسجيل">🎤</button>
@@ -1480,15 +1491,15 @@
         القسم 8: ⚡ Power Recap
         ============================================================ -->
         <section class="unit-section fade-up" id="section8">
-            <h2>⚡ Power Recap</h2>
+            <h2 lang="en" dir="ltr">⚡ Power Recap</h2>
             <div class="recap-title">📝 ملخص قوانين الوحدة</div>
             <div class="recap-map">
-                <div class="recap-node">Verb to be <span class="example">(be)</span></div>
-                <div class="recap-node">I am <span class="example" dir="ltr">I am a student.</span></div>
-                <div class="recap-node">He is <span class="example" dir="ltr">He is my brother.</span></div>
-                <div class="recap-node">They are <span class="example" dir="ltr">They are happy.</span></div>
-                <div class="recap-node">I'm not <span class="example" dir="ltr">I'm not tired.</span></div>
-                <div class="recap-node">Are you? <span class="example" dir="ltr">Are you ready?</span></div>
+                <div class="recap-node">Verb to be <span class="example" dir="ltr" lang="en">(be)</span></div>
+                <div class="recap-node">I am <span class="example" dir="ltr" lang="en">I am a student.</span></div>
+                <div class="recap-node">He is <span class="example" dir="ltr" lang="en">He is my brother.</span></div>
+                <div class="recap-node">They are <span class="example" dir="ltr" lang="en">They are happy.</span></div>
+                <div class="recap-node">I'm not <span class="example" dir="ltr" lang="en">I'm not tired.</span></div>
+                <div class="recap-node">Are you? <span class="example" dir="ltr" lang="en">Are you ready?</span></div>
             </div>
         </section>
 
@@ -1496,7 +1507,7 @@
         القسم 9: 🎥 Video Zone
         ============================================================ -->
         <section class="unit-section fade-up" id="section9">
-            <h2>🎥 Video Zone</h2>
+            <h2 lang="en" dir="ltr">🎥 Video Zone</h2>
             <div class="video-box">
                 <div class="icon">🎬</div>
                 <a href="https://youtube.com/@omar.youssif.english" target="_blank">شاهد شرح الوحدة على يوتيوب</a>
@@ -1507,10 +1518,10 @@
         القسم 10: ✍️ Homework
         ============================================================ -->
         <section class="unit-section fade-up" id="section10">
-            <h2>✍️ Homework</h2>
+            <h2 lang="en" dir="ltr">✍️ Homework</h2>
             <div class="homework-box glass" style="padding:18px;">
                 <p style="margin-bottom:10px; font-weight:600; text-align:right; direction:rtl;">اكتب 5 جمل عن نفسك باستخدام am, is, are.</p>
-                <textarea id="homeworkText" spellcheck="true" dir="ltr" placeholder="Example: I am a student. My father is a teacher. We are happy."></textarea>
+                <textarea id="homeworkText" spellcheck="true" dir="ltr" lang="en" placeholder="Example: I am a student. My father is a teacher. We are happy."></textarea>
                 <div class="btn-group">
                     <button class="btn btn-primary btn-sm" id="saveHomework">💾 حفظ</button>
                     <button class="btn btn-secondary btn-sm" id="checkHomework">✅ تدقيق</button>
@@ -1526,7 +1537,7 @@
         </div>
 
         <!-- ===== تذييل الصفحة ===== -->
-        <footer class="footer">
+        <footer class="footer" id="footer">
             <p>© 2026 Babble Box Academy. الوحدة 1 - المستوى A1</p>
             <div class="social-row">
                 <a href="https://www.facebook.com/omar.youssif.english" target="_blank">
@@ -1556,6 +1567,14 @@
     <script>
         (function() {
             'use strict';
+
+            // دالة للتمرير إلى قسم معين
+            window.scrollToSection = function(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
 
             // ============================================================
             // 1. الوضع الليلي/النهاري
@@ -1648,7 +1667,7 @@
                 bubble.className = `chat-bubble ${idx % 2 === 0 ? 'left' : 'right'}`;
                 bubble.innerHTML = `
                     <div class="speaker">${msg.speaker}</div>
-                    <div class="text-en">${msg.text}</div>
+                    <div class="text-en" dir="ltr" lang="en">${msg.text}</div>
                     <div class="text-ar">${msg.translation}</div>
                     <div class="actions">
                         <button class="play-voice" data-index="${idx}">🔊 تشغيل الصوت</button>
@@ -1665,8 +1684,8 @@
                 utterance.rate = 0.9;
                 const voices = speechSynthesis.getVoices();
                 const voice = voices.find(v =>
-                    gender === 'male' ? v.name.includes('Google UK') || v.name.includes('Male') :
-                    v.name.includes('Google UK') || v.name.includes('Female')
+                    gender === 'male' ? v.name.includes('Google US') || v.name.includes('Male') : v.name.includes(
+                        'Google US') || v.name.includes('Female')
                 ) || voices[0];
                 if (voice) utterance.voice = voice;
                 speechSynthesis.speak(utterance);
@@ -1720,13 +1739,13 @@
                 card.className = 'flip-card';
                 card.innerHTML = `
                     <div class="flip-card-inner">
-                        <div class="flip-card-front" dir="ltr">
+                        <div class="flip-card-front" dir="ltr" lang="en">
                             ${item.word}
                             <span class="audio-icon" data-vocab="${i}">🔊</span>
                         </div>
                         <div class="flip-card-back">
                             <div class="meaning">${item.meaning}</div>
-                            <div class="example" dir="ltr">${item.example}</div>
+                            <div class="example" dir="ltr" lang="en">${item.example}</div>
                         </div>
                     </div>
                 `;
@@ -1840,7 +1859,7 @@
 
                     html += `<div class="challenge-item" data-qid="${idx}">`;
                     html += `<div class="q-row">`;
-                    html += `<div class="q-text" dir="ltr">${q.text}</div>`;
+                    html += `<div class="q-text" dir="ltr" lang="en">${q.text}</div>`;
 
                     if (q.type === 'choice') {
                         html += `<div class="options">`;
@@ -1871,10 +1890,12 @@
                         // صف الإجابة
                         html += `<div class="order-answer">`;
                         if (selectedWords.length === 0) {
-                            html += `<span style="color:var(--text-muted); font-size:14px;">👆 انقر على الكلمات لتكوين الجملة</span>`;
+                            html +=
+                                `<span style="color:var(--text-muted); font-size:14px;">👆 انقر على الكلمات لتكوين الجملة</span>`;
                         } else {
                             selectedWords.forEach(w => {
-                                html += `<span class="word" data-word="${w}" data-action="deselect">${w}</span>`;
+                                html +=
+                                `<span class="word" data-word="${w}" data-action="deselect">${w}</span>`;
                             });
                         }
                         html += `</div>`;
@@ -1890,7 +1911,8 @@
                     } else if (q.type === 'listening') {
                         html += `<div class="audio-challenge">`;
                         html += `<button class="listen-audio-btn" data-audio="${q.audio}">🔊 استمع</button>`;
-                        html += `<span style="font-size:14px; color:var(--text-secondary);">(الجملة باللغة الإنجليزية)</span>`;
+                        html +=
+                            `<span style="font-size:14px; color:var(--text-secondary);">(الجملة باللغة الإنجليزية)</span>`;
                         html += `</div>`;
                         html += `<div class="options">`;
                         q.options.forEach((opt, oi) => {
@@ -1948,7 +1970,6 @@
                         const qid = parseInt(item.dataset.qid);
                         if (answers[qid] !== null) return;
                         const wordText = this.dataset.word;
-                        // ننقل الكلمة إلى صف الإجابة
                         const answerRow = item.querySelector('.order-answer');
                         const newWord = document.createElement('span');
                         newWord.className = 'word';
@@ -1956,7 +1977,6 @@
                         newWord.dataset.action = 'deselect';
                         newWord.textContent = wordText;
                         newWord.addEventListener('click', function() {
-                            // إعادة الكلمة إلى القائمة المتاحة
                             const parentItem = this.closest('.challenge-item');
                             const qid2 = parseInt(parentItem.dataset.qid);
                             if (answers[qid2] !== null) return;
@@ -1976,7 +1996,7 @@
                     });
                 });
 
-                // إعادة تعريف handler لاختيار الكلمات (لتجنب التكرار)
+                // إعادة تعريف handler لاختيار الكلمات
                 function selectWordHandler(e) {
                     const word = e.currentTarget;
                     const item = word.closest('.challenge-item');
@@ -2104,11 +2124,9 @@
 
             // إذا كانت النتيجة 7 من قبل، نظهر الاحتفال عند التحميل (مرة واحدة)
             if (calcScore() === challengeQuestions.length) {
-                // نفتح الوحدة التالية
                 localStorage.setItem('maxUnitUnlocked', Math.max(maxUnitUnlocked, 2));
                 renderUnitTabs();
                 nextUnitBtn.classList.add('show');
-                // لكن لا نظهر الاحتفال تلقائياً إلا إذا كان جديداً
             }
 
             // ============================================================
@@ -2181,7 +2199,6 @@
             const saveStatus = document.getElementById('saveStatus');
             const correctionList = document.getElementById('correctionList');
 
-            // تحميل النص المحفوظ
             const savedHomework = localStorage.getItem('unit1_homework');
             if (savedHomework) {
                 homeworkText.value = savedHomework;
@@ -2199,7 +2216,6 @@
                 let corrections = [];
                 let newText = text;
 
-                // قواعد التصحيح الإملائي والنحوي
                 const rules = [
                     { pattern: /\bim\b/gi, replacement: "I'm", desc: 'im -> I\'m' },
                     { pattern: /\bhes\b/gi, replacement: "he's", desc: 'hes -> he\'s' },
@@ -2267,7 +2283,7 @@
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 1 fully loaded.');
+            console.log('📚 Babble Box - Unit 1 fully loaded and corrected.');
         })();
     </script>
 
