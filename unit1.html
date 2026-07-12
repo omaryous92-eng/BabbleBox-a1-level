@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Babble Box - Unit 1: Hello!</title>
 
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) - Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -255,7 +255,7 @@ font-size: 10px;
 }
 
 /* ============================================================
-PROGRESS BAR
+PROGRESS BAR (10 sections)
 ============================================================ */
 .daily-progress {
 padding: 8px 16px;
@@ -904,7 +904,7 @@ text-align: right;
 .quiz-feedback .correct-text { color: var(--green); }
 .quiz-feedback .wrong-text { color: var(--red); }
 
-/* ===== CLICK TO ORDER ===== */
+/* ===== CLICK TO ORDER (بدلاً من Drag & Drop) ===== */
 .order-hint {
 font-size: 12px;
 color: var(--gold);
@@ -1189,7 +1189,6 @@ height: 10px;
 animation: confettiFall linear forwards;
 }
 
-/* أشكال مختلفة للكونفيتي */
 .celeb-confetti.circle { border-radius: 50%; }
 .celeb-confetti.square { border-radius: 0; }
 .celeb-confetti.star {
@@ -1516,7 +1515,7 @@ UNIT NAVIGATION TABS
 </div>
 
 <!-- ============================================================
-PROGRESS BAR
+PROGRESS BAR (10 sections)
 ============================================================ -->
 <div class="daily-progress">
 <span class="label">📊 تقدم الوحدة</span>
@@ -1543,6 +1542,7 @@ SECTION 1: THE REAL TALK
 <section class="section-box" id="conversation">
 <div class="section-title">🗣️ The Real Talk</div>
 <div class="convo-container">
+<!-- John 1 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
@@ -1551,6 +1551,7 @@ SECTION 1: THE REAL TALK
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
+<!-- Sarah 1 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
@@ -1559,6 +1560,7 @@ SECTION 1: THE REAL TALK
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
+<!-- John 2 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
@@ -1567,6 +1569,7 @@ SECTION 1: THE REAL TALK
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
+<!-- Sarah 2 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
@@ -1575,6 +1578,7 @@ SECTION 1: THE REAL TALK
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
+<!-- John 3 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
@@ -1583,6 +1587,7 @@ SECTION 1: THE REAL TALK
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
+<!-- Sarah 3 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
@@ -1591,6 +1596,7 @@ SECTION 1: THE REAL TALK
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
+<!-- John 4 -->
 <div class="convo-bubble john">
 <span class="avatar">👤</span>
 <div class="bubble-content">
@@ -1599,6 +1605,7 @@ SECTION 1: THE REAL TALK
 <button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
 </div>
 </div>
+<!-- Sarah 4 -->
 <div class="convo-bubble sarah">
 <span class="avatar">👩</span>
 <div class="bubble-content">
@@ -1882,7 +1889,7 @@ unitTabs.appendChild(tab);
 renderUnitTabs();
 
 // ============================================================
-// 3. PROGRESS BAR
+// 3. PROGRESS BAR (10 sections)
 // ============================================================
 const progressFill = document.getElementById('dailyProgressFill');
 const progressCount = document.getElementById('dailyProgressCount');
@@ -1921,14 +1928,12 @@ nextBtn.dataset.target = '';
 // ============================================================
 // 4. CHALLENGE ARENA - CLICK TO ORDER
 // ============================================================
-// تعريف الكلمات مع خلط عشوائي
 const orderPools = {
 3: { correct: ['You', 'are', 'welcome'], words: ['You', 'are', 'welcome'] },
 4: { correct: ['She', 'is', 'my', 'friend'], words: ['She', 'is', 'my', 'friend'] },
 5: { correct: ['Are', 'you', 'okay', '?'], words: ['Are', 'you', 'okay', '?'] }
 };
 
-// دالة الخلط العشوائي
 function shuffleArray(arr) {
 for (let i = arr.length - 1; i > 0; i--) {
 const j = Math.floor(Math.random() * (i + 1));
@@ -1937,7 +1942,7 @@ const j = Math.floor(Math.random() * (i + 1));
 return arr;
 }
 
-// ملء pools بالكلمات المخلوطة
+// Fill order pools with shuffled words
 Object.keys(orderPools).forEach(qNum => {
 const pool = document.getElementById('orderPool' + qNum);
 const words = orderPools[qNum].words;
@@ -2081,6 +2086,8 @@ window.questionStatus[qIndex] = true;
 quizCorrectCount++;
 updateQuizProgress();
 }
+// Play encouraging sound
+speakText(['Great job!', 'Excellent!', 'Well done!', 'Perfect!', 'Awesome!'][Math.floor(Math.random() * 5)], femaleVoice);
 } else {
 this.classList.add('wrong');
 const correctAns = qNum === 1 ? 'am' : 'are';
@@ -2097,28 +2104,24 @@ btns.forEach(b => b.disabled = true);
 });
 
 // ============================================================
-// 5. CELEBRATION OVERLAY
+// 5. VOICES (US English Male/Female)
 // ============================================================
 let maleVoice = null;
 let femaleVoice = null;
+const encouragingPhrases = [
+'Great job!', 'Excellent!', 'Well done!', 'Perfect!', 'Awesome!',
+'Fantastic!', 'Amazing!', 'Brilliant!', 'Wonderful!', 'Outstanding!'
+];
 
-// تحميل الأصوات
 function loadVoices() {
 const voices = window.speechSynthesis.getVoices();
-// اختيار صوت ذكر أمريكي
 maleVoice = voices.find(v => 
 v.lang.startsWith('en-US') && 
-(v.name.includes('Google US English') || 
- v.name.includes('David') || 
- /male/i.test(v.name))
+(v.name.includes('Google US English') || v.name.includes('David'))
 ) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-// اختيار صوت أنثى أمريكي
 femaleVoice = voices.find(v => 
 v.lang.startsWith('en-US') && 
-(v.name.includes('Samantha') || 
- v.name.includes('Google UK') || 
- v.name.includes('Victoria') ||
- /female/i.test(v.name))
+(v.name.includes('Samantha') || v.name.includes('Google UK') || v.name.includes('Victoria'))
 ) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
 }
 
@@ -2136,6 +2139,9 @@ if (voice) utterance.voice = voice;
 window.speechSynthesis.speak(utterance);
 }
 
+// ============================================================
+// 6. CELEBRATION OVERLAY
+// ============================================================
 function showCelebration() {
 const overlay = document.getElementById('celebrationOverlay');
 overlay.classList.add('show');
@@ -2148,7 +2154,6 @@ localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
 renderUnitTabs();
 }
 updateProgress();
-// نطق Congratulations!
 speakText('Congratulations!', femaleVoice);
 }
 
@@ -2172,7 +2177,7 @@ document.getElementById('celebrationOverlay').classList.remove('show');
 function launchCelebrationConfetti() {
 const container = document.getElementById('celebConfettiContainer');
 container.innerHTML = '';
-const colors = ['#FFC107', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FF9FF3', '#FECA57', '#FF9F43', '#FF4757', '#2ED573', '#1E90FF', '#FF6348', '#7B68EE'];
+const colors = ['#FFC107', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FF9FF3', '#FECA57', '#FF9F43', '#FF4757', '#2ED573', '#1E90FF'];
 const shapes = ['circle', 'square', 'star'];
 for (let i = 0; i < 120; i++) {
 const el = document.createElement('div');
@@ -2190,22 +2195,19 @@ setTimeout(() => { container.innerHTML = ''; }, 6000);
 }
 
 // ============================================================
-// 6. NEXT BUTTON - ينتقل إلى unit2.html فقط بعد إكمال الوحدة
+// 7. NEXT BUTTON - Navigate to unit2.html only after completion
 // ============================================================
 document.getElementById('nextBtn').addEventListener('click', function() {
 const target = this.dataset.target;
 if (target === 'unit2.html') {
 window.location.href = 'unit2.html';
 } else if (target === 'complete') {
-const quizDone = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
-if (quizDone.length === 5 && quizDone.every(q => q === true)) {
 showCelebration();
-}
 }
 });
 
 // ============================================================
-// 7. RESET UNIT
+// 8. RESET UNIT
 // ============================================================
 function resetUnit() {
 unitCompleted = false;
@@ -2215,7 +2217,6 @@ window.questionStatus = [];
 quizCorrectCount = 0;
 document.getElementById('celebrationOverlay').classList.remove('show');
 
-// Reset quiz UI
 document.querySelectorAll('.quiz-card').forEach(card => {
 const btns = card.querySelectorAll('.quiz-options button, .order-word');
 btns.forEach(b => {
@@ -2240,7 +2241,7 @@ resetUnit();
 });
 
 // ============================================================
-// 8. STARS ANIMATION
+// 9. STARS ANIMATION
 // ============================================================
 function launchStars() {
 const container = document.getElementById('starsContainer');
@@ -2258,7 +2259,7 @@ container.appendChild(star);
 }
 
 // ============================================================
-// 9. SPEAK UP
+// 10. SPEAK UP (with flexible answer checking)
 // ============================================================
 document.getElementById('speakBtn').addEventListener('click', function() {
 const result = document.getElementById('speakResult');
@@ -2270,9 +2271,18 @@ recognition.interimResults = false;
 result.textContent = '🎤 استمع...';
 result.style.color = 'var(--gold)';
 recognition.onresult = function(event) {
-const transcript = event.results[0][0].transcript;
-result.textContent = '✅ سمعنا: "' + transcript + '"';
+const transcript = event.results[0][0].transcript.toLowerCase();
+// Check if the answer contains key phrases (flexible checking)
+const keywords = ['my name', 'i am', 'i\'m', 'from'];
+const hasKeyword = keywords.some(k => transcript.includes(k));
+if (hasKeyword) {
+result.textContent = '✅ أحسنت! إجابة ممتازة: "' + transcript + '"';
 result.style.color = 'var(--green)';
+speakText('Great job!', femaleVoice);
+} else {
+result.textContent = '❌ حاول مرة أخرى. قل اسمك ومكانك. مثال: "My name is Ahmed, I\'m from Egypt."';
+result.style.color = 'var(--red)';
+}
 };
 recognition.onerror = function() {
 result.textContent = '❌ لم نتمكن من السماع. حاول مرة أخرى.';
@@ -2286,26 +2296,7 @@ result.style.color = 'var(--red)';
 });
 
 // ============================================================
-// 10. POWER RECAP
-// ============================================================
-document.querySelectorAll('.branch').forEach(branch => {
-branch.addEventListener('click', function() {
-document.getElementById('branchExample').textContent = '📌 ' + this.dataset.example;
-});
-});
-document.getElementById('mindCenter').addEventListener('click', function() {
-document.getElementById('branchExample').textContent = '👆 اضغط على أي فرع لترى مثالاً';
-});
-
-// ============================================================
-// 11. VIDEO ZONE
-// ============================================================
-document.getElementById('videoBtn').addEventListener('click', function() {
-window.open('https://youtube.com/@omar.youssif.english', '_blank');
-});
-
-// ============================================================
-// 12. HOMEWORK
+// 11. HOMEWORK (with basic grammar checking)
 // ============================================================
 const homeworkText = document.getElementById('homeworkText');
 const saveStatus = document.getElementById('saveStatus');
@@ -2315,15 +2306,36 @@ homeworkText.value = savedHomework;
 saveStatus.textContent = '💾 تم حفظ الواجب';
 saveStatus.style.color = 'var(--green)';
 }
+
 document.getElementById('saveHomework').addEventListener('click', function() {
-const text = homeworkText.value;
+const text = homeworkText.value.trim();
+if (text.length === 0) {
+saveStatus.textContent = '⚠️ الرجاء كتابة بعض الجمل';
+saveStatus.style.color = 'var(--red)';
+return;
+}
+// Basic check: count sentences (split by . or ? or !)
+const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+if (sentences.length < 3) {
+saveStatus.textContent = '⚠️ اكتب على الأقل 3 جمل كاملة';
+saveStatus.style.color = 'var(--red)';
+return;
+}
+// Check if contains am/is/are
+const hasVerb = /am|is|are/i.test(text);
+if (!hasVerb) {
+saveStatus.textContent = '⚠️ استخدم am, is, are في جملك';
+saveStatus.style.color = 'var(--red)';
+return;
+}
 localStorage.setItem('unit1Homework', text);
-saveStatus.textContent = '💾 تم حفظ الواجب';
+saveStatus.textContent = '💾 تم حفظ الواجب بنجاح! ✅';
 saveStatus.style.color = 'var(--green)';
+speakText('Great job!', femaleVoice);
 });
 
 // ============================================================
-// 13. AUDIO BUTTONS - مع تفريق بين ذكر وأنثى بصوت أمريكي
+// 12. AUDIO BUTTONS (US English Male/Female)
 // ============================================================
 document.querySelectorAll('.audio-btn, .audio-btn-small').forEach(btn => {
 btn.addEventListener('click', function(e) {
@@ -2345,7 +2357,7 @@ speakText(text, voice);
 });
 
 // ============================================================
-// 14. TRANSLATION BUTTONS
+// 13. TRANSLATION BUTTONS
 // ============================================================
 document.querySelectorAll('.translation-btn').forEach(btn => {
 btn.addEventListener('click', function() {
@@ -2358,7 +2370,7 @@ this.textContent = arDiv.classList.contains('show') ? '🇪🇬 Hide Translation
 });
 
 // ============================================================
-// 15. FLIP CARDS
+// 14. FLIP CARDS
 // ============================================================
 document.querySelectorAll('.flip-card').forEach(card => {
 card.addEventListener('click', function() {
@@ -2367,7 +2379,7 @@ this.classList.toggle('flipped');
 });
 
 // ============================================================
-// 16. DISCOVERY TABS
+// 15. DISCOVERY TABS
 // ============================================================
 document.querySelectorAll('.discovery-tab').forEach(tab => {
 tab.addEventListener('click', function() {
@@ -2376,6 +2388,13 @@ this.classList.add('active');
 document.querySelectorAll('.discovery-content').forEach(c => c.classList.remove('active'));
 document.getElementById(this.dataset.tab).classList.add('active');
 });
+});
+
+// ============================================================
+// 16. VIDEO ZONE
+// ============================================================
+document.getElementById('videoBtn').addEventListener('click', function() {
+window.open('https://youtube.com/@omar.youssif.english', '_blank');
 });
 
 // ============================================================
