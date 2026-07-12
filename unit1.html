@@ -21,7 +21,7 @@
 
     <style>
         /* ============================================================
-           المتغيرات العامة (نفس تصميم الموقع الرئيسي)
+           المتغيرات العامة
            ============================================================ */
         :root {
             --bg-primary: #050505;
@@ -52,6 +52,7 @@
             --nav-link-hover: #FFD700;
             --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
             --header-height: 60px;
+            --nav-height: 44px;
             --unit-tabs-height: 44px;
             --progress-height: 36px;
         }
@@ -105,7 +106,7 @@
             transition: background-color var(--transition), color var(--transition);
             overflow-x: hidden;
             min-height: 100vh;
-            padding-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height));
+            padding-top: calc(var(--header-height) + var(--nav-height) + var(--unit-tabs-height) + var(--progress-height));
         }
         ::-webkit-scrollbar {
             width: 8px;
@@ -125,7 +126,7 @@
             list-style: none;
         }
 
-        /* ===== الهيدر والتنقل ===== */
+        /* ===== الهيدر (الصف الأول: الشعار + منصات التواصل) ===== */
         .header {
             position: fixed;
             top: 0;
@@ -137,7 +138,7 @@
             border-bottom: 1px solid var(--border-glass);
             transition: background var(--transition);
         }
-        .header-inner {
+        .header-top {
             height: var(--header-height);
             padding: 0 16px;
             display: flex;
@@ -148,35 +149,6 @@
         .logo-link img {
             height: 36px;
             width: auto;
-        }
-        .nav-menu {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-        .nav-menu a {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--nav-link-color);
-            transition: color var(--transition);
-            position: relative;
-            padding: 4px 0;
-        }
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width var(--transition);
-        }
-        .nav-menu a:hover {
-            color: var(--nav-link-hover);
-        }
-        .nav-menu a:hover::after {
-            width: 100%;
         }
         .header-actions {
             display: flex;
@@ -231,10 +203,46 @@
             transform: rotate(20deg);
         }
 
+        /* ===== شريط التنقل (الصف الثاني: روابط رئيسية) ===== */
+        .nav-bar {
+            height: var(--nav-height);
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            border-bottom: 1px solid var(--border-glass);
+            background: var(--bg-secondary);
+        }
+        .nav-bar a {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--nav-link-color);
+            transition: color var(--transition);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-bar a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width var(--transition);
+        }
+        .nav-bar a:hover {
+            color: var(--nav-link-hover);
+        }
+        .nav-bar a:hover::after {
+            width: 100%;
+        }
+
         /* ===== شريط تبويبات الوحدات (Unit Tabs) ===== */
         .unit-tabs {
             position: fixed;
-            top: var(--header-height);
+            top: calc(var(--header-height) + var(--nav-height));
             left: 0;
             right: 0;
             z-index: 999;
@@ -259,7 +267,7 @@
             font-family: 'Cairo', 'Poppins', sans-serif;
             font-size: 13px;
             font-weight: 600;
-            cursor: default;
+            cursor: pointer;
             transition: all var(--transition);
             min-width: 36px;
             text-align: center;
@@ -281,7 +289,7 @@
         /* ===== شريط التقدم اليومي ===== */
         .progress-bar {
             position: fixed;
-            top: calc(var(--header-height) + var(--unit-tabs-height));
+            top: calc(var(--header-height) + var(--nav-height) + var(--unit-tabs-height));
             left: 0;
             right: 0;
             z-index: 998;
@@ -323,7 +331,7 @@
         /* ===== الأقسام ===== */
         .unit-section {
             margin-bottom: 48px;
-            scroll-margin-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height) + 12px);
+            scroll-margin-top: calc(var(--header-height) + var(--nav-height) + var(--unit-tabs-height) + var(--progress-height) + 12px);
         }
         .unit-section h2 {
             font-size: 26px;
@@ -332,9 +340,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-        .unit-section h2 .gold {
-            color: var(--gold);
         }
 
         /* ===== الزجاج والبطاقات ===== */
@@ -345,9 +350,6 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             transition: all var(--transition);
-        }
-        .glass:hover {
-            border-color: rgba(255, 215, 0, 0.15);
         }
 
         /* ===== فقاعات المحادثة ===== */
@@ -463,6 +465,7 @@
             text-align: left;
             direction: ltr;
             margin-bottom: 4px;
+            display: block;
         }
         .tab-content .explanation {
             color: var(--text-secondary);
@@ -709,12 +712,17 @@
         .challenge-item .status.wrong { color: #ef4444; }
         .challenge-item .status.pending { color: var(--text-muted); }
 
-        /* ترتيب الكلمات (Click-to-Order) */
+        /* ترتيب الكلمات (Click-to-Order) - إصلاح الخلط */
+        .order-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
         .order-words {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin: 8px 0;
             justify-content: center;
         }
         .order-words .word {
@@ -733,23 +741,18 @@
             border-color: var(--gold);
             background: var(--gold-dim);
         }
-        .order-words .word.in-answer {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            cursor: pointer;
-        }
         .order-answer {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            min-height: 40px;
+            min-height: 44px;
             padding: 6px;
             border: 2px dashed var(--border-glass);
             border-radius: 12px;
-            margin: 6px 0;
             justify-content: center;
             align-items: center;
             background: var(--bg-card);
+            direction: ltr;
         }
         .order-answer .word {
             padding: 4px 12px;
@@ -765,6 +768,11 @@
         .order-answer .word:hover {
             background: var(--gold);
             color: var(--bg-primary);
+        }
+        .order-placeholder {
+            color: var(--text-muted);
+            font-size: 14px;
+            direction: rtl;
         }
 
         /* استماع */
@@ -1104,18 +1112,20 @@
         @media (max-width: 768px) {
             :root {
                 --header-height: 52px;
+                --nav-height: 38px;
                 --unit-tabs-height: 38px;
                 --progress-height: 32px;
             }
             body {
-                padding-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height));
+                padding-top: calc(var(--header-height) + var(--nav-height) + var(--unit-tabs-height) + var(--progress-height));
             }
-            .header-inner { padding: 0 10px; }
+            .header-top { padding: 0 10px; }
             .logo-link img { height: 28px; }
-            .nav-menu a { font-size: 12px; }
             .header-actions .social-icons a { width: 28px; height: 28px; }
             .header-actions .social-icons a svg { width: 14px; height: 14px; }
             .theme-toggle { width: 30px; height: 30px; font-size: 16px; }
+            .nav-bar { padding: 0 10px; gap: 14px; }
+            .nav-bar a { font-size: 12px; }
             .unit-tabs { padding: 0 8px; gap: 4px; }
             .unit-tabs button { font-size: 11px; padding: 2px 8px; min-width: 30px; }
             .progress-bar { font-size: 12px; padding: 0 10px; }
@@ -1136,6 +1146,7 @@
             .challenge-item .options button { padding: 2px 10px; font-size: 13px; }
             .celebrate-modal h2 { font-size: 32px; }
             .celebrate-modal p { font-size: 18px; }
+            .nav-bar { gap: 10px; flex-wrap: wrap; justify-content: center; }
         }
 
         /* ===== تأثيرات إضافية ===== */
@@ -1207,24 +1218,16 @@
 <body>
 
     <!-- ============================================================
-    الهيدر والتنقل
+    الهيدر (الصف الأول: الشعار + منصات التواصل)
     ============================================================ -->
     <header class="header" id="header">
-        <div class="header-inner">
+        <div class="header-top">
             <!-- لوجو في أقصى اليمين (RTL) -->
             <a href="index.html" class="logo-link">
                 <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" />
             </a>
 
-            <!-- شريط التنقل -->
-            <nav class="nav-menu">
-                <a href="index.html">الرئيسية</a>
-                <a href="index.html#roadmap">المستويات</a>
-                <a href="test.html">اختبر مستواك</a>
-                <a href="index.html#contact">اتصل بنا</a>
-            </nav>
-
-            <!-- أيقونات السوشيال + زر الوضع -->
+            <!-- منصات التواصل + زر الوضع -->
             <div class="header-actions">
                 <div class="social-icons">
                     <a href="https://www.facebook.com/omar.youssif.english" target="_blank">
@@ -1240,6 +1243,14 @@
                 <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">🌓</button>
             </div>
         </div>
+
+        <!-- ===== شريط التنقل (الصف الثاني: روابط رئيسية) ===== -->
+        <nav class="nav-bar">
+            <a href="index.html">الرئيسية</a>
+            <a href="index.html#roadmap">المستويات</a>
+            <a href="test.html">اختبر مستواك</a>
+            <a href="index.html#contact">اتصل بنا</a>
+        </nav>
     </header>
 
     <!-- ===== شريط تبويبات الوحدات (Unit Tabs) ===== -->
@@ -1497,6 +1508,21 @@
                     `;
                 }
                 unitTabsContainer.innerHTML = tabsHtml;
+
+                // إضافة حدث النقر للتنقل بين الوحدات (للأزرار الغير مقفلة)
+                document.querySelectorAll('.unit-tabs button:not(.locked)').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const unitNum = parseInt(this.dataset.unit);
+                        if (unitNum === 1) {
+                            // الوحدة 1 هي الصفحة الحالية
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        } else if (unitNum === 2 && maxUnitUnlocked >= 2) {
+                            window.location.href = 'unit2.html';
+                        } else {
+                            alert('هذه الوحدة غير مفتوحة بعد. أكمل التحدي لفتحها.');
+                        }
+                    });
+                });
             }
             renderUnitTabs();
 
@@ -1555,7 +1581,6 @@
                 chatContainer.appendChild(bubble);
             });
 
-            // دالة تشغيل الصوت
             function speakText(text, gender) {
                 if (!window.speechSynthesis) return;
                 const utterance = new SpeechSynthesisUtterance(text);
@@ -1694,7 +1719,6 @@
             const nextUnitBtn = document.getElementById('nextUnitBtn');
             const celebrateModal = document.getElementById('celebrateModal');
 
-            // تحميل الحالة من localStorage
             let answers = JSON.parse(localStorage.getItem('unit1_challenge_answers')) || new Array(challengeQuestions.length).fill(null);
             let challengeCompleted = false;
 
@@ -1742,11 +1766,13 @@
                         });
                         html += `</div>`;
                     } else if (q.type === 'order') {
+                        // سؤال الترتيب - إصلاح الخلط
                         const userOrder = answers[idx] === true ? q.correct : null;
                         const availableWords = userOrder ? [] : [...q.words];
                         const selectedWords = userOrder ? [...userOrder] : [];
 
-                        html += `<div style="flex:1; min-width:120px;">`;
+                        html += `<div class="order-section">`;
+                        // الكلمات المتاحة
                         if (availableWords.length > 0) {
                             html += `<div class="order-words">`;
                             availableWords.forEach(w => {
@@ -1754,9 +1780,10 @@
                             });
                             html += `</div>`;
                         }
+                        // صف الإجابة (بدون نصوص عربية داخلية)
                         html += `<div class="order-answer">`;
                         if (selectedWords.length === 0) {
-                            html += `<span style="color:var(--text-muted); font-size:14px;">👆 انقر على الكلمات لتكوين الجملة</span>`;
+                            html += `<span class="order-placeholder">👆 انقر على الكلمات لتكوين الجملة</span>`;
                         } else {
                             selectedWords.forEach(w => {
                                 html += `<span class="word" data-word="${w}" data-action="deselect">${w}</span>`;
@@ -1789,7 +1816,7 @@
                 });
                 challengeContainer.innerHTML = html;
 
-                // ربط الأحداث للأزرار
+                // ربط الأحداث
                 document.querySelectorAll('.opt-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
@@ -1819,7 +1846,7 @@
                     });
                 });
 
-                // أزرار الترتيب (Click-to-Order)
+                // أزرار الترتيب (مع إصلاح الخلط)
                 document.querySelectorAll('.order-words .word').forEach(word => {
                     word.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
@@ -1827,6 +1854,10 @@
                         if (answers[qid] !== null) return;
                         const wordText = this.dataset.word;
                         const answerRow = item.querySelector('.order-answer');
+                        // إزالة placeholder إن وجد
+                        const placeholder = answerRow.querySelector('.order-placeholder');
+                        if (placeholder) placeholder.remove();
+                        // إضافة الكلمة إلى صف الإجابة
                         const newWord = document.createElement('span');
                         newWord.className = 'word';
                         newWord.dataset.word = wordText;
@@ -1846,6 +1877,13 @@
                             newWord2.addEventListener('click', selectWordHandler);
                             availableContainer.appendChild(newWord2);
                             this.remove();
+                            // إذا أصبح صف الإجابة فارغاً، أعد placeholder
+                            if (parentItem.querySelector('.order-answer').children.length === 0) {
+                                const ph = document.createElement('span');
+                                ph.className = 'order-placeholder';
+                                ph.textContent = '👆 انقر على الكلمات لتكوين الجملة';
+                                parentItem.querySelector('.order-answer').appendChild(ph);
+                            }
                         });
                         answerRow.appendChild(newWord);
                         this.remove();
@@ -1859,6 +1897,8 @@
                     if (answers[qid] !== null) return;
                     const wordText = word.dataset.word;
                     const answerRow = item.querySelector('.order-answer');
+                    const placeholder = answerRow.querySelector('.order-placeholder');
+                    if (placeholder) placeholder.remove();
                     const newWord = document.createElement('span');
                     newWord.className = 'word';
                     newWord.dataset.word = wordText;
@@ -1878,6 +1918,12 @@
                         newWord2.addEventListener('click', selectWordHandler);
                         availableContainer.appendChild(newWord2);
                         this.remove();
+                        if (parentItem.querySelector('.order-answer').children.length === 0) {
+                            const ph = document.createElement('span');
+                            ph.className = 'order-placeholder';
+                            ph.textContent = '👆 انقر على الكلمات لتكوين الجملة';
+                            parentItem.querySelector('.order-answer').appendChild(ph);
+                        }
                     });
                     answerRow.appendChild(newWord);
                     word.remove();
@@ -1926,7 +1972,6 @@
                 saveState();
             }
 
-            // زر إعادة التحدي بالكامل
             document.getElementById('resetChallengeBtn').addEventListener('click', function() {
                 if (confirm('هل أنت متأكد من إعادة التحدي بالكامل؟ سيتم مسح جميع الإجابات.')) {
                     answers = new Array(challengeQuestions.length).fill(null);
@@ -1966,7 +2011,6 @@
                 document.querySelectorAll('.confetti-container').forEach(el => el.remove());
             });
 
-            // تهيئة التحدي
             renderChallenge();
             updateScoreDisplay();
 
@@ -2096,7 +2140,6 @@
                 }
             });
 
-            // حفظ تلقائي
             setInterval(() => {
                 const text = homeworkText.value;
                 localStorage.setItem('unit1_homework', text);
@@ -2124,7 +2167,7 @@
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 1 fully loaded.');
+            console.log('📚 Babble Box - Unit 1 fully loaded with all fixes.');
         })();
     </script>
 
