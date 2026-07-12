@@ -57,6 +57,8 @@
             --roadmap-paid-bar: #FFD700;
             --footer-border: rgba(255, 255, 255, 0.05);
             --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            --nav-link-color: #ffffff;
+            --nav-link-hover: #FFD700;
         }
 
         /* --- النسخة الفاتحة (Light Mode) --- */
@@ -91,6 +93,8 @@
             --roadmap-free-bar: #16a34a;
             --roadmap-paid-bar: #d4a800;
             --footer-border: rgba(0, 0, 0, 0.06);
+            --nav-link-color: #0f0f12;
+            --nav-link-hover: #d4a800;
         }
 
         /* ===== 2. إعادة تعيين وإعدادات عامة ===== */
@@ -184,7 +188,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 16px 0;
+            padding: 14px 0;
             background: transparent;
             transition: background var(--transition), box-shadow var(--transition);
             backdrop-filter: blur(0px);
@@ -199,6 +203,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px 20px;
         }
 
         /* اللوجو */
@@ -207,7 +213,7 @@
             flex-shrink: 0;
         }
         .logo-link img {
-            height: 48px;
+            height: 44px;
             width: auto;
             transition: transform var(--transition);
         }
@@ -215,11 +221,49 @@
             transform: scale(1.03);
         }
 
+        /* شريط التنقل (قائمة أفقية) */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .nav-menu a {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--nav-link-color);
+            transition: color var(--transition), transform var(--transition);
+            position: relative;
+            padding: 4px 0;
+            letter-spacing: 0.3px;
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width var(--transition);
+        }
+        .nav-menu a:hover {
+            color: var(--nav-link-hover);
+            transform: translateY(-1px);
+        }
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        .nav-menu a:active {
+            transform: scale(0.96);
+        }
+
         /* أزرار الهيدر (المجموعة) */
         .header-actions {
             display: flex;
             align-items: center;
             gap: 14px;
+            flex-shrink: 0;
         }
 
         /* أيقونات السوشيال ميديا */
@@ -300,7 +344,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 20px 80px;
+            padding: 140px 20px 80px;
             overflow: hidden;
         }
         .hero .grid-pattern {
@@ -763,14 +807,37 @@
             .logo-link img {
                 height: 40px;
             }
+            .nav-menu {
+                gap: 18px;
+            }
+            .nav-menu a {
+                font-size: 14px;
+            }
         }
 
         @media (max-width: 768px) {
             .header {
-                padding: 12px 0;
+                padding: 10px 0;
+            }
+            .header .container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
             }
             .logo-link img {
                 height: 36px;
+            }
+            .nav-menu {
+                order: 3;
+                flex-basis: 100%;
+                justify-content: center;
+                gap: 16px;
+                padding-top: 6px;
+                border-top: 1px solid var(--border-glass);
+            }
+            .nav-menu a {
+                font-size: 14px;
+                padding: 4px 0;
             }
             .social-icons a {
                 width: 32px;
@@ -793,7 +860,7 @@
             }
 
             .hero {
-                padding: 100px 16px 60px;
+                padding: 120px 16px 60px;
                 min-height: 90vh;
             }
             .hero-title {
@@ -868,6 +935,9 @@
             .logo-link img {
                 height: 30px;
             }
+            .nav-menu a {
+                font-size: 13px;
+            }
             .social-icons a {
                 width: 28px;
                 height: 28px;
@@ -940,9 +1010,17 @@
                 <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy Logo" />
             </a>
 
+            <!-- شريط التنقل (قائمة أفقية) -->
+            <nav class="nav-menu" aria-label="القائمة الرئيسية">
+                <a href="#roadmap">المستويات</a>
+                <a href="#coming-soon">الكتب</a>
+                <a href="test.html">اختبر مستواك</a>
+                <a href="#contact">اتصل بنا</a>
+            </nav>
+
             <!-- المجموعة اليمنى: أيقونات السوشيال + زر التبديل -->
             <div class="header-actions">
-                <nav class="social-icons" aria-label="وسائل التواصل الاجتماعي">
+                <div class="social-icons" aria-label="وسائل التواصل الاجتماعي">
                     <!-- فيسبوك -->
                     <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -961,7 +1039,7 @@
                             <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.76-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.3-.69.32-1.06.11-1.64.04-3.28.06-4.93.02-1.37.02-2.74.02-4.11z"/>
                         </svg>
                     </a>
-                </nav>
+                </div>
 
                 <!-- زر تبديل الوضع (Dark/Light) -->
                 <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الفاتح / الداكن">
@@ -991,7 +1069,7 @@
                 <a href="#features" class="btn btn-primary btn-ripple">
                     ابدأ التعلم مجاناً 🚀
                 </a>
-                <a href="#test" class="btn btn-secondary btn-ripple">
+                <a href="test.html" class="btn btn-secondary btn-ripple">
                     اختبر مستواك الآن 📝
                 </a>
             </div>
@@ -1047,7 +1125,7 @@
                         <div class="level-sub">مبتدئ · مجاني</div>
                         <p class="level-desc">انطلق من الصفر وابنِ أساساً متيناً في اللغة.</p>
                         <div class="level-status"><span class="free-tag">✅ مجاني بالكامل</span></div>
-                        <a href="#features" class="btn btn-primary btn-sm btn-block">ابدأ مجاناً</a>
+                        <a href="unit1.html" class="btn btn-primary btn-sm btn-block">ابدأ مجاناً</a>
                     </div>
                 </div>
                 <!-- A2 -->
@@ -1142,7 +1220,7 @@
                     اختبارنا المبني على CEFR سيحدد مستواك بدقة في 15 دقيقة.
                     مجاني بالكامل.
                 </p>
-                <a href="#" class="btn btn-primary btn-ripple" style="min-width:200px;">
+                <a href="test.html" class="btn btn-primary btn-ripple" style="min-width:200px;">
                     ابدأ الاختبار 📝
                 </a>
             </div>
@@ -1279,13 +1357,8 @@
                 });
             }, 150);
 
-            // ------------------------------------------------------------
-            // 4. إغلاق الهيدر تلقائياً (لا حاجة في هذا التصميم، لكنه جاهز)
-            // ------------------------------------------------------------
-            // لا يوجد قائمة منسدلة، لكننا نحتفظ بالكود لسهولة التوسع
-
-            console.log('🚀 Babble Box Academy — Landing Page loaded successfully.');
-            console.log('💛 Designed with care for a global learning experience.');
+            console.log('🚀 Babble Box Academy — Landing Page updated with navigation.');
+            console.log('💛 All requested links have been configured.');
 
         })();
     </script>
