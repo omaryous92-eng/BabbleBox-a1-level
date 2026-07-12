@@ -14,15 +14,15 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-L42M2EDW3H');
     </script>
 
     <style>
         /* ============================================================
-               المتغيرات العامة (نفس تصميم الموقع الرئيسي)
-               ============================================================ */
+           المتغيرات العامة (نفس تصميم الموقع الرئيسي)
+           ============================================================ */
         :root {
             --bg-primary: #050505;
             --bg-secondary: #0a0a0a;
@@ -85,7 +85,7 @@
             --nav-link-hover: #d4a800;
         }
 
-        /* ===== 2. إعادة تعيين وإعدادات عامة ===== */
+        /* ===== إعادة تعيين وإعدادات عامة ===== */
         *,
         *::before,
         *::after {
@@ -125,7 +125,7 @@
             list-style: none;
         }
 
-        /* ===== 3. الهيدر والتنقل ===== */
+        /* ===== الهيدر والتنقل ===== */
         .header {
             position: fixed;
             top: 0;
@@ -154,19 +154,15 @@
             gap: 16px;
             align-items: center;
         }
-        .nav-menu button {
-            background: none;
-            border: none;
-            color: var(--nav-link-color);
-            font-family: 'Cairo', sans-serif;
+        .nav-menu a {
             font-size: 14px;
             font-weight: 600;
-            cursor: pointer;
-            padding: 4px 0;
+            color: var(--nav-link-color);
             transition: color var(--transition);
             position: relative;
+            padding: 4px 0;
         }
-        .nav-menu button::after {
+        .nav-menu a::after {
             content: '';
             position: absolute;
             bottom: -2px;
@@ -176,10 +172,10 @@
             background: var(--gold);
             transition: width var(--transition);
         }
-        .nav-menu button:hover {
+        .nav-menu a:hover {
             color: var(--nav-link-hover);
         }
-        .nav-menu button:hover::after {
+        .nav-menu a:hover::after {
             width: 100%;
         }
         .header-actions {
@@ -235,7 +231,7 @@
             transform: rotate(20deg);
         }
 
-        /* ===== 4. شريط تبويبات الوحدات (Unit Tabs) ===== */
+        /* ===== شريط تبويبات الوحدات (Unit Tabs) ===== */
         .unit-tabs {
             position: fixed;
             top: var(--header-height);
@@ -282,7 +278,7 @@
             font-size: 11px;
         }
 
-        /* ===== 5. شريط التقدم اليومي ===== */
+        /* ===== شريط التقدم اليومي ===== */
         .progress-bar {
             position: fixed;
             top: calc(var(--header-height) + var(--unit-tabs-height));
@@ -317,14 +313,14 @@
             transition: width 0.4s ease;
         }
 
-        /* ===== 6. المحتوى الرئيسي ===== */
+        /* ===== المحتوى الرئيسي ===== */
         .main-content {
             max-width: 900px;
             margin: 0 auto;
             padding: 20px 16px 60px;
         }
 
-        /* ===== 7. الأقسام ===== */
+        /* ===== الأقسام ===== */
         .unit-section {
             margin-bottom: 48px;
             scroll-margin-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height) + 12px);
@@ -341,7 +337,7 @@
             color: var(--gold);
         }
 
-        /* ===== 8. الزجاج والبطاقات ===== */
+        /* ===== الزجاج والبطاقات ===== */
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -354,7 +350,7 @@
             border-color: rgba(255, 215, 0, 0.15);
         }
 
-        /* ===== 9. فقاعات المحادثة ===== */
+        /* ===== فقاعات المحادثة ===== */
         .chat-container {
             display: flex;
             flex-direction: column;
@@ -427,7 +423,7 @@
             color: var(--gold);
         }
 
-        /* ===== 10. Tabs ===== */
+        /* ===== Tabs ===== */
         .tabs {
             display: flex;
             gap: 6px;
@@ -475,7 +471,7 @@
             direction: rtl;
         }
 
-        /* ===== 11. Grammar Lab ===== */
+        /* ===== Grammar Lab ===== */
         .grammar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -505,20 +501,12 @@
             text-align: left;
             direction: ltr;
         }
-        .grammar-card.green {
-            border-right: 4px solid #22c55e;
-        }
-        .grammar-card.red {
-            border-right: 4px solid #ef4444;
-        }
-        .grammar-card.blue {
-            border-right: 4px solid #3b82f6;
-        }
-        .grammar-card.yellow {
-            border-right: 4px solid var(--gold);
-        }
+        .grammar-card.green { border-right: 4px solid #22c55e; }
+        .grammar-card.red { border-right: 4px solid #ef4444; }
+        .grammar-card.blue { border-right: 4px solid #3b82f6; }
+        .grammar-card.yellow { border-right: 4px solid var(--gold); }
 
-        /* ===== 12. Flip Cards ===== */
+        /* ===== Flip Cards ===== */
         .flip-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -584,7 +572,7 @@
             text-align: center;
         }
 
-        /* ===== 13. Babble Warning ===== */
+        /* ===== Babble Warning ===== */
         .warning-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -599,12 +587,8 @@
             text-align: center;
             transition: all var(--transition);
         }
-        .warning-card.green {
-            border-right: 4px solid #22c55e;
-        }
-        .warning-card.red {
-            border-right: 4px solid #ef4444;
-        }
+        .warning-card.green { border-right: 4px solid #22c55e; }
+        .warning-card.red { border-right: 4px solid #ef4444; }
         .warning-card .sentence {
             font-size: 18px;
             font-weight: 600;
@@ -627,7 +611,7 @@
             direction: rtl;
         }
 
-        /* ===== 14. Challenge Arena ===== */
+        /* ===== Challenge Arena ===== */
         .challenge-progress {
             display: flex;
             align-items: center;
@@ -721,15 +705,10 @@
             min-width: 50px;
             text-align: center;
         }
-        .challenge-item .status.correct {
-            color: #22c55e;
-        }
-        .challenge-item .status.wrong {
-            color: #ef4444;
-        }
-        .challenge-item .status.pending {
-            color: var(--text-muted);
-        }
+        .challenge-item .status.correct { color: #22c55e; }
+        .challenge-item .status.wrong { color: #ef4444; }
+        .challenge-item .status.pending { color: var(--text-muted); }
+
         /* ترتيب الكلمات (Click-to-Order) */
         .order-words {
             display: flex;
@@ -787,6 +766,7 @@
             background: var(--gold);
             color: var(--bg-primary);
         }
+
         /* استماع */
         .audio-challenge {
             display: flex;
@@ -808,7 +788,7 @@
             background: var(--gold);
             color: var(--bg-primary);
         }
-        /* زر إعادة التحدي */
+
         .reset-challenge-btn {
             margin-top: 12px;
             padding: 10px 28px;
@@ -831,7 +811,7 @@
             background: var(--gold-dim);
         }
 
-        /* ===== 15. Speak Up ===== */
+        /* ===== Speak Up ===== */
         .speak-box {
             padding: 28px;
             text-align: center;
@@ -864,14 +844,10 @@
             min-height: 24px;
             font-weight: 600;
         }
-        .speak-box .result.success {
-            color: #22c55e;
-        }
-        .speak-box .result.fail {
-            color: #ef4444;
-        }
+        .speak-box .result.success { color: #22c55e; }
+        .speak-box .result.fail { color: #ef4444; }
 
-        /* ===== 16. Power Recap ===== */
+        /* ===== Power Recap ===== */
         .recap-title {
             font-size: 22px;
             font-weight: 800;
@@ -914,7 +890,7 @@
             background: var(--gold-dim);
         }
 
-        /* ===== 17. Video & Homework ===== */
+        /* ===== Video & Homework ===== */
         .video-box {
             padding: 22px;
             text-align: center;
@@ -934,6 +910,7 @@
         .video-box a:hover {
             text-decoration: underline;
         }
+
         .homework-box textarea {
             width: 100%;
             min-height: 110px;
@@ -983,7 +960,7 @@
             margin-top: 10px;
         }
 
-        /* ===== 18. زر الوحدة التالية (يظهر بعد الـ Homework) ===== */
+        /* ===== زر الوحدة التالية ===== */
         .next-unit-wrapper {
             text-align: center;
             margin-top: 32px;
@@ -1011,7 +988,7 @@
             display: inline-block;
         }
 
-        /* ===== 19. Modal الاحتفال ===== */
+        /* ===== Modal الاحتفال ===== */
         .celebrate-modal {
             position: fixed;
             inset: 0;
@@ -1055,25 +1032,15 @@
             font-family: 'Cairo', 'Poppins', sans-serif;
         }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* ===== 20. Confetti ===== */
+        /* ===== Confetti ===== */
         .confetti-container {
             position: fixed;
             inset: 0;
@@ -1095,7 +1062,7 @@
             }
         }
 
-        /* ===== 21. Footer ===== */
+        /* ===== Footer ===== */
         .footer {
             border-top: 1px solid var(--border-glass);
             padding: 24px 0 18px;
@@ -1133,7 +1100,7 @@
             fill: var(--gold);
         }
 
-        /* ===== 22. استجابة ===== */
+        /* ===== استجابة ===== */
         @media (max-width: 768px) {
             :root {
                 --header-height: 52px;
@@ -1143,95 +1110,35 @@
             body {
                 padding-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height));
             }
-            .header-inner {
-                padding: 0 10px;
-            }
-            .logo-link img {
-                height: 28px;
-            }
-            .nav-menu button {
-                font-size: 12px;
-            }
-            .header-actions .social-icons a {
-                width: 28px;
-                height: 28px;
-            }
-            .header-actions .social-icons a svg {
-                width: 14px;
-                height: 14px;
-            }
-            .theme-toggle {
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-            }
-            .unit-tabs {
-                padding: 0 8px;
-                gap: 4px;
-            }
-            .unit-tabs button {
-                font-size: 11px;
-                padding: 2px 8px;
-                min-width: 30px;
-            }
-            .progress-bar {
-                font-size: 12px;
-                padding: 0 10px;
-            }
-            .progress-bar .progress-track {
-                max-width: 100px;
-            }
-            .main-content {
-                padding: 12px 10px 40px;
-            }
-            .unit-section h2 {
-                font-size: 22px;
-            }
-            .chat-bubble {
-                max-width: 95%;
-                padding: 10px 14px;
-            }
-            .grammar-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .flip-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .warning-grid {
-                grid-template-columns: 1fr;
-            }
-            .challenge-item .q-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .challenge-item .options {
-                justify-content: center;
-            }
-            .recap-map {
-                flex-direction: column;
-                align-items: center;
-            }
+            .header-inner { padding: 0 10px; }
+            .logo-link img { height: 28px; }
+            .nav-menu a { font-size: 12px; }
+            .header-actions .social-icons a { width: 28px; height: 28px; }
+            .header-actions .social-icons a svg { width: 14px; height: 14px; }
+            .theme-toggle { width: 30px; height: 30px; font-size: 16px; }
+            .unit-tabs { padding: 0 8px; gap: 4px; }
+            .unit-tabs button { font-size: 11px; padding: 2px 8px; min-width: 30px; }
+            .progress-bar { font-size: 12px; padding: 0 10px; }
+            .progress-bar .progress-track { max-width: 100px; }
+            .main-content { padding: 12px 10px 40px; }
+            .unit-section h2 { font-size: 22px; }
+            .chat-bubble { max-width: 95%; padding: 10px 14px; }
+            .grammar-grid { grid-template-columns: 1fr 1fr; }
+            .flip-grid { grid-template-columns: repeat(2, 1fr); }
+            .warning-grid { grid-template-columns: 1fr; }
+            .challenge-item .q-row { flex-direction: column; align-items: stretch; }
+            .challenge-item .options { justify-content: center; }
+            .recap-map { flex-direction: column; align-items: center; }
         }
         @media (max-width: 480px) {
-            .grammar-grid {
-                grid-template-columns: 1fr;
-            }
-            .flip-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .challenge-item .options button {
-                padding: 2px 10px;
-                font-size: 13px;
-            }
-            .celebrate-modal h2 {
-                font-size: 32px;
-            }
-            .celebrate-modal p {
-                font-size: 18px;
-            }
+            .grammar-grid { grid-template-columns: 1fr; }
+            .flip-grid { grid-template-columns: 1fr 1fr; }
+            .challenge-item .options button { padding: 2px 10px; font-size: 13px; }
+            .celebrate-modal h2 { font-size: 32px; }
+            .celebrate-modal p { font-size: 18px; }
         }
 
-        /* ===== 23. تأثيرات إضافية ===== */
+        /* ===== تأثيرات إضافية ===== */
         .fade-up {
             opacity: 0;
             transform: translateY(20px);
@@ -1245,19 +1152,12 @@
             animation: shake 0.4s ease;
         }
         @keyframes shake {
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(-8px);
-            }
-            75% {
-                transform: translateX(8px);
-            }
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
         }
 
-        /* ===== 24. الأزرار العامة ===== */
+        /* ===== الأزرار العامة ===== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -1307,20 +1207,21 @@
 <body>
 
     <!-- ============================================================
-    =====  الهيدر والتنقل ===== -->
+    الهيدر والتنقل
+    ============================================================ -->
     <header class="header" id="header">
         <div class="header-inner">
-            <!-- لوجو في أقصى اليمين (لأنه RTL) -->
+            <!-- لوجو في أقصى اليمين (RTL) -->
             <a href="index.html" class="logo-link">
                 <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" />
             </a>
 
-            <!-- شريط التنقل (تبويب) -->
+            <!-- شريط التنقل -->
             <nav class="nav-menu">
-                <button onclick="location.href='index.html'">الرئيسية</button>
-                <button onclick="scrollToSection('section6')">المستويات</button>
-                <button onclick="location.href='test.html'">اختبر مستواك</button>
-                <button onclick="scrollToSection('footer')">اتصل بنا</button>
+                <a href="index.html">الرئيسية</a>
+                <a href="index.html#roadmap">المستويات</a>
+                <a href="test.html">اختبر مستواك</a>
+                <a href="index.html#contact">اتصل بنا</a>
             </nav>
 
             <!-- أيقونات السوشيال + زر الوضع -->
@@ -1362,7 +1263,7 @@
         القسم 1: 🗣️ The Real Talk
         ============================================================ -->
         <section class="unit-section fade-up" id="section1">
-            <h2 lang="en" dir="ltr">🗣️ The Real Talk</h2>
+            <h2 style="text-align:left; direction:ltr;">🗣️ The Real Talk</h2>
             <div class="chat-container" id="chatContainer">
                 <!-- سيتم توليد فقاعات المحادثة بواسطة JS -->
             </div>
@@ -1372,7 +1273,7 @@
         القسم 2: 🔍 Discover the Rule
         ============================================================ -->
         <section class="unit-section fade-up" id="section2">
-            <h2 lang="en" dir="ltr">🔍 Discover the Rule</h2>
+            <h2 style="text-align:left; direction:ltr;">🔍 Discover the Rule</h2>
             <div class="glass" style="padding:18px;">
                 <p style="font-size:18px; margin-bottom:12px; text-align:right; direction:rtl;">لاحظ الفرق بين الجمل دي:</p>
                 <div class="tabs" id="ruleTabs">
@@ -1381,15 +1282,15 @@
                     <button data-tab="tab3">He is my friend.</button>
                 </div>
                 <div id="tab1" class="tab-content active">
-                    <div class="example" dir="ltr" lang="en">I am John.</div>
+                    <div class="example">I am John.</div>
                     <div class="explanation">لما أتكلم عن نفسي</div>
                 </div>
                 <div id="tab2" class="tab-content">
-                    <div class="example" dir="ltr" lang="en">You are new.</div>
+                    <div class="example">You are new.</div>
                     <div class="explanation">لما أكلم اللي قدامي</div>
                 </div>
                 <div id="tab3" class="tab-content">
-                    <div class="example" dir="ltr" lang="en">He is my friend.</div>
+                    <div class="example">He is my friend.</div>
                     <div class="explanation">لما أتكلم عن شخص تالت</div>
                 </div>
             </div>
@@ -1399,23 +1300,23 @@
         القسم 3: 🧠 Grammar Lab
         ============================================================ -->
         <section class="unit-section fade-up" id="section3">
-            <h2 lang="en" dir="ltr">🧠 Grammar Lab</h2>
+            <h2 style="text-align:left; direction:ltr;">🧠 Grammar Lab</h2>
             <div class="grammar-grid">
                 <div class="grammar-card green">
                     <div class="title">➕ الإثبات</div>
-                    <div class="examples" dir="ltr" lang="en">I am<br />He/She/It is<br />You/We/They are</div>
+                    <div class="examples" dir="ltr">I am<br />He/She/It is<br />You/We/They are</div>
                 </div>
                 <div class="grammar-card red">
                     <div class="title">➖ النفي</div>
-                    <div class="examples" dir="ltr" lang="en">I'm not<br />isn't<br />aren't</div>
+                    <div class="examples" dir="ltr">I'm not<br />isn't<br />aren't</div>
                 </div>
                 <div class="grammar-card blue">
                     <div class="title">❓ السؤال</div>
-                    <div class="examples" dir="ltr" lang="en">Am I?<br />Is...?<br />Are...?</div>
+                    <div class="examples" dir="ltr">Am I?<br />Is...?<br />Are...?</div>
                 </div>
                 <div class="grammar-card yellow">
                     <div class="title">✅ الإجابة القصيرة</div>
-                    <div class="examples" dir="ltr" lang="en">Yes, I am.<br />No, I'm not.</div>
+                    <div class="examples" dir="ltr">Yes, I am.<br />No, I'm not.</div>
                 </div>
             </div>
         </section>
@@ -1424,7 +1325,7 @@
         القسم 4: 💎 Word Vault
         ============================================================ -->
         <section class="unit-section fade-up" id="section4">
-            <h2 lang="en" dir="ltr">💎 Word Vault</h2>
+            <h2 style="text-align:left; direction:ltr;">💎 Word Vault</h2>
             <div class="flip-grid" id="flipGrid">
                 <!-- سيتم توليد البطاقات بواسطة JS -->
             </div>
@@ -1434,27 +1335,19 @@
         القسم 5: 🚨 Babble Warning
         ============================================================ -->
         <section class="unit-section fade-up" id="section5">
-            <h2 lang="en" dir="ltr">🚨 Babble Warning</h2>
+            <h2 style="text-align:left; direction:ltr;">🚨 Babble Warning</h2>
             <div class="warning-grid">
                 <div class="warning-card green">
-                    <div class="sentence" dir="ltr" lang="en">I'm fine, thanks.</div>
+                    <div class="sentence" dir="ltr">I'm fine, thanks.</div>
                     <div class="meaning">أنا بخير، شكراً.</div>
                 </div>
                 <div class="warning-card red">
-                    <div class="sentence" dir="ltr" lang="en">I got a parking fine.</div>
+                    <div class="sentence" dir="ltr">I got a parking fine.</div>
                     <div class="meaning">أخذت غرامة وقوف سيارات.</div>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 14px;">
-                <p style="direction: ltr; text-align: center; color: var(--gold); font-weight: 600;" lang="en">
-                    "I'm fine" → أنت بخير ✅
-                </p>
-                <p style="direction: ltr; text-align: center; color: var(--gold); font-weight: 600;" lang="en">
-                    "I got a fine" → أنت دفعت فلوس! ❌
-                </p>
-                <p style="direction: rtl; text-align: center; color: var(--text-secondary); margin-top: 8px;">
-                    ⬆️ الكلمة واحدة... والمعنى مختلف تماماً! خلي بالك 😉
-                </p>
+            <div class="warning-note">
+                😄 يعني لو قلت "I'm fine" أنت تمام. لو قلت "I got a fine" أنت دفعت فلوس!
             </div>
         </section>
 
@@ -1462,7 +1355,7 @@
         القسم 6: ⚔️ Challenge Arena
         ============================================================ -->
         <section class="unit-section fade-up" id="section6">
-            <h2 lang="en" dir="ltr">⚔️ Challenge Arena</h2>
+            <h2 style="text-align:left; direction:ltr;">⚔️ Challenge Arena</h2>
             <div class="challenge-progress">
                 <span>النتيجة: <span id="challengeScore">0</span> / 7</span>
                 <div class="bar"><div class="fill" id="challengeFill" style="width:0%"></div></div>
@@ -1477,9 +1370,9 @@
         القسم 7: 🎤 Speak Up!
         ============================================================ -->
         <section class="unit-section fade-up" id="section7">
-            <h2 lang="en" dir="ltr">🎤 Speak Up!</h2>
+            <h2 style="text-align:left; direction:ltr;">🎤 Speak Up!</h2>
             <div class="speak-box">
-                <div class="prompt" dir="ltr" lang="en">🗣️ حاول أن تقول:<br />
+                <div class="prompt" dir="ltr">🗣️ حاول أن تقول:<br />
                     <span style="font-weight:400; font-size:20px; direction:ltr;">Hello! My name is... I am from...</span>
                 </div>
                 <button class="record-btn" id="recordBtn" aria-label="ابدأ التسجيل">🎤</button>
@@ -1491,15 +1384,15 @@
         القسم 8: ⚡ Power Recap
         ============================================================ -->
         <section class="unit-section fade-up" id="section8">
-            <h2 lang="en" dir="ltr">⚡ Power Recap</h2>
+            <h2 style="text-align:left; direction:ltr;">⚡ Power Recap</h2>
             <div class="recap-title">📝 ملخص قوانين الوحدة</div>
             <div class="recap-map">
-                <div class="recap-node">Verb to be <span class="example" dir="ltr" lang="en">(be)</span></div>
-                <div class="recap-node">I am <span class="example" dir="ltr" lang="en">I am a student.</span></div>
-                <div class="recap-node">He is <span class="example" dir="ltr" lang="en">He is my brother.</span></div>
-                <div class="recap-node">They are <span class="example" dir="ltr" lang="en">They are happy.</span></div>
-                <div class="recap-node">I'm not <span class="example" dir="ltr" lang="en">I'm not tired.</span></div>
-                <div class="recap-node">Are you? <span class="example" dir="ltr" lang="en">Are you ready?</span></div>
+                <div class="recap-node">Verb to be <span class="example">(be)</span></div>
+                <div class="recap-node">I am <span class="example" dir="ltr">I am a student.</span></div>
+                <div class="recap-node">He is <span class="example" dir="ltr">He is my brother.</span></div>
+                <div class="recap-node">They are <span class="example" dir="ltr">They are happy.</span></div>
+                <div class="recap-node">I'm not <span class="example" dir="ltr">I'm not tired.</span></div>
+                <div class="recap-node">Are you? <span class="example" dir="ltr">Are you ready?</span></div>
             </div>
         </section>
 
@@ -1507,7 +1400,7 @@
         القسم 9: 🎥 Video Zone
         ============================================================ -->
         <section class="unit-section fade-up" id="section9">
-            <h2 lang="en" dir="ltr">🎥 Video Zone</h2>
+            <h2 style="text-align:left; direction:ltr;">🎥 Video Zone</h2>
             <div class="video-box">
                 <div class="icon">🎬</div>
                 <a href="https://youtube.com/@omar.youssif.english" target="_blank">شاهد شرح الوحدة على يوتيوب</a>
@@ -1518,10 +1411,10 @@
         القسم 10: ✍️ Homework
         ============================================================ -->
         <section class="unit-section fade-up" id="section10">
-            <h2 lang="en" dir="ltr">✍️ Homework</h2>
+            <h2 style="text-align:left; direction:ltr;">✍️ Homework</h2>
             <div class="homework-box glass" style="padding:18px;">
                 <p style="margin-bottom:10px; font-weight:600; text-align:right; direction:rtl;">اكتب 5 جمل عن نفسك باستخدام am, is, are.</p>
-                <textarea id="homeworkText" spellcheck="true" dir="ltr" lang="en" placeholder="Example: I am a student. My father is a teacher. We are happy."></textarea>
+                <textarea id="homeworkText" spellcheck="true" dir="ltr" placeholder="Example: I am a student. My father is a teacher. We are happy."></textarea>
                 <div class="btn-group">
                     <button class="btn btn-primary btn-sm" id="saveHomework">💾 حفظ</button>
                     <button class="btn btn-secondary btn-sm" id="checkHomework">✅ تدقيق</button>
@@ -1531,13 +1424,13 @@
             </div>
         </section>
 
-        <!-- ===== زر الوحدة التالية (يظهر بعد 7/7) ===== -->
+        <!-- ===== زر الوحدة التالية ===== -->
         <div class="next-unit-wrapper">
             <a href="unit2.html" class="next-unit-btn" id="nextUnitBtn">→ الوحدة التالية</a>
         </div>
 
         <!-- ===== تذييل الصفحة ===== -->
-        <footer class="footer" id="footer">
+        <footer class="footer">
             <p>© 2026 Babble Box Academy. الوحدة 1 - المستوى A1</p>
             <div class="social-row">
                 <a href="https://www.facebook.com/omar.youssif.english" target="_blank">
@@ -1563,18 +1456,11 @@
     </div>
 
     <!-- ============================================================
-    =====  JavaScript ===== -->
+    JavaScript
+    ============================================================ -->
     <script>
         (function() {
             'use strict';
-
-            // دالة للتمرير إلى قسم معين
-            window.scrollToSection = function(sectionId) {
-                const element = document.getElementById(sectionId);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            };
 
             // ============================================================
             // 1. الوضع الليلي/النهاري
@@ -1645,20 +1531,13 @@
             // ============================================================
             const chatData = [
                 { speaker: 'John', text: "Hey! How's it going?", translation: "إيه أخبارك؟ إزاي الأمور؟", gender: 'male' },
-                { speaker: 'Sarah', text: "Oh, hey! Pretty good, and you?", translation: "أوه، إيه! كويسة، وإنت؟",
-                    gender: 'female' },
-                { speaker: 'John', text: "Can't complain. By the way, I'm John.", translation: "مش بقدر أشتكي. بالمناسبة، أنا جون.",
-                    gender: 'male' },
-                { speaker: 'Sarah', text: "Nice to meet you, John. I'm Sarah.", translation: "سعيد بلقائك يا جون. أنا سارة.",
-                    gender: 'female' },
-                { speaker: 'John', text: "Likewise. So, you new here?", translation: "وأنا كمان. إذن، أنت جديدة هنا؟",
-                    gender: 'male' },
-                { speaker: 'Sarah', text: "Yeah, just moved in last week.", translation: "أيوة، نقلت الأسبوع اللي فات.",
-                    gender: 'female' },
-                { speaker: 'John', text: "Well, welcome to the neighborhood! Are you from around here?",
-                    translation: "أهلاً بك في الحي! إنت من هنا؟", gender: 'male' },
-                { speaker: 'Sarah', text: "No, I'm from Boston originally. But I'm here for work now.",
-                    translation: "لا، أنا من بوسطن في الأصل. لكن أنا هنا للشغل دلوقتي.", gender: 'female' }
+                { speaker: 'Sarah', text: "Oh, hey! Pretty good, and you?", translation: "أوه، إيه! كويسة، وإنت؟", gender: 'female' },
+                { speaker: 'John', text: "Can't complain. By the way, I'm John.", translation: "مش بقدر أشتكي. بالمناسبة، أنا جون.", gender: 'male' },
+                { speaker: 'Sarah', text: "Nice to meet you, John. I'm Sarah.", translation: "سعيد بلقائك يا جون. أنا سارة.", gender: 'female' },
+                { speaker: 'John', text: "Likewise. So, you new here?", translation: "وأنا كمان. إذن، أنت جديدة هنا؟", gender: 'male' },
+                { speaker: 'Sarah', text: "Yeah, just moved in last week.", translation: "أيوة، نقلت الأسبوع اللي فات.", gender: 'female' },
+                { speaker: 'John', text: "Well, welcome to the neighborhood! Are you from around here?", translation: "أهلاً بك في الحي! إنت من هنا؟", gender: 'male' },
+                { speaker: 'Sarah', text: "No, I'm from Boston originally. But I'm here for work now.", translation: "لا، أنا من بوسطن في الأصل. لكن أنا هنا للشغل دلوقتي.", gender: 'female' }
             ];
 
             const chatContainer = document.getElementById('chatContainer');
@@ -1667,7 +1546,7 @@
                 bubble.className = `chat-bubble ${idx % 2 === 0 ? 'left' : 'right'}`;
                 bubble.innerHTML = `
                     <div class="speaker">${msg.speaker}</div>
-                    <div class="text-en" dir="ltr" lang="en">${msg.text}</div>
+                    <div class="text-en">${msg.text}</div>
                     <div class="text-ar">${msg.translation}</div>
                     <div class="actions">
                         <button class="play-voice" data-index="${idx}">🔊 تشغيل الصوت</button>
@@ -1684,8 +1563,8 @@
                 utterance.rate = 0.9;
                 const voices = speechSynthesis.getVoices();
                 const voice = voices.find(v =>
-                    gender === 'male' ? v.name.includes('Google US') || v.name.includes('Male') : v.name.includes(
-                        'Google US') || v.name.includes('Female')
+                    gender === 'male' ? v.name.includes('Google UK') || v.name.includes('Male') :
+                    v.name.includes('Google UK') || v.name.includes('Female')
                 ) || voices[0];
                 if (voice) utterance.voice = voice;
                 speechSynthesis.speak(utterance);
@@ -1739,13 +1618,13 @@
                 card.className = 'flip-card';
                 card.innerHTML = `
                     <div class="flip-card-inner">
-                        <div class="flip-card-front" dir="ltr" lang="en">
+                        <div class="flip-card-front" dir="ltr">
                             ${item.word}
                             <span class="audio-icon" data-vocab="${i}">🔊</span>
                         </div>
                         <div class="flip-card-back">
                             <div class="meaning">${item.meaning}</div>
-                            <div class="example" dir="ltr" lang="en">${item.example}</div>
+                            <div class="example" dir="ltr">${item.example}</div>
                         </div>
                     </div>
                 `;
@@ -1762,7 +1641,7 @@
             });
 
             // ============================================================
-            // 7. Challenge Arena (7 أسئلة: 5 اختيار + 1 ترتيب + 1 استماع)
+            // 7. Challenge Arena (7 أسئلة)
             // ============================================================
             const challengeQuestions = [{
                 id: 0,
@@ -1816,27 +1695,22 @@
             const celebrateModal = document.getElementById('celebrateModal');
 
             // تحميل الحالة من localStorage
-            let answers = JSON.parse(localStorage.getItem('unit1_challenge_answers')) || new Array(challengeQuestions.length)
-            .fill(null);
+            let answers = JSON.parse(localStorage.getItem('unit1_challenge_answers')) || new Array(challengeQuestions.length).fill(null);
             let challengeCompleted = false;
 
-            // دالة لحساب النتيجة
             function calcScore() {
                 return answers.filter(a => a === true).length;
             }
 
-            // دالة لحفظ الحالة
             function saveState() {
                 localStorage.setItem('unit1_challenge_answers', JSON.stringify(answers));
                 localStorage.setItem('unit1_challenge_score', calcScore());
-                // إذا كانت النتيجة 7، نفتح الوحدة التالية ونظهر الزر
                 if (calcScore() === challengeQuestions.length) {
                     localStorage.setItem('maxUnitUnlocked', Math.max(maxUnitUnlocked, 2));
                     renderUnitTabs();
                     nextUnitBtn.classList.add('show');
                     if (!challengeCompleted) {
                         challengeCompleted = true;
-                        // إظهار الاحتفال
                         celebrateModal.classList.add('show');
                         launchConfetti();
                     }
@@ -1845,41 +1719,34 @@
                 }
             }
 
-            // دالة لتوليد واجهة الأسئلة
             function renderChallenge() {
                 let html = '';
                 challengeQuestions.forEach((q, idx) => {
                     const status = answers[idx];
                     let statusText = '⏳ لم يجب';
                     let statusClass = 'pending';
-                    if (status === true) { statusText = '✅ صحيح';
-                        statusClass = 'correct'; }
-                    if (status === false) { statusText = '❌ خاطئ';
-                        statusClass = 'wrong'; }
+                    if (status === true) { statusText = '✅ صحيح'; statusClass = 'correct'; }
+                    if (status === false) { statusText = '❌ خاطئ'; statusClass = 'wrong'; }
 
                     html += `<div class="challenge-item" data-qid="${idx}">`;
                     html += `<div class="q-row">`;
-                    html += `<div class="q-text" dir="ltr" lang="en">${q.text}</div>`;
+                    html += `<div class="q-text" dir="ltr">${q.text}</div>`;
 
                     if (q.type === 'choice') {
                         html += `<div class="options">`;
                         q.options.forEach((opt, oi) => {
                             const disabled = (status !== null) ? 'disabled' : '';
                             const correctClass = (status === true && oi === q.correct) ? 'correct' : '';
-                            const wrongClass = (status === false && oi === parseInt(localStorage.getItem(
-                                `unit1_wrong_${idx}`)) && oi !== q.correct) ? 'wrong' : '';
-                            html +=
-                                `<button class="opt-btn ${correctClass} ${wrongClass}" data-opt="${oi}" ${disabled}>${opt}</button>`;
+                            const wrongClass = (status === false && oi === parseInt(localStorage.getItem(`unit1_wrong_${idx}`)) && oi !== q.correct) ? 'wrong' : '';
+                            html += `<button class="opt-btn ${correctClass} ${wrongClass}" data-opt="${oi}" ${disabled}>${opt}</button>`;
                         });
                         html += `</div>`;
                     } else if (q.type === 'order') {
-                        // سؤال الترتيب (Click-to-Order)
                         const userOrder = answers[idx] === true ? q.correct : null;
                         const availableWords = userOrder ? [] : [...q.words];
                         const selectedWords = userOrder ? [...userOrder] : [];
 
                         html += `<div style="flex:1; min-width:120px;">`;
-                        // الكلمات المتاحة (غير المختارة)
                         if (availableWords.length > 0) {
                             html += `<div class="order-words">`;
                             availableWords.forEach(w => {
@@ -1887,41 +1754,32 @@
                             });
                             html += `</div>`;
                         }
-                        // صف الإجابة
                         html += `<div class="order-answer">`;
                         if (selectedWords.length === 0) {
-                            html +=
-                                `<span style="color:var(--text-muted); font-size:14px;">👆 انقر على الكلمات لتكوين الجملة</span>`;
+                            html += `<span style="color:var(--text-muted); font-size:14px;">👆 انقر على الكلمات لتكوين الجملة</span>`;
                         } else {
                             selectedWords.forEach(w => {
-                                html +=
-                                `<span class="word" data-word="${w}" data-action="deselect">${w}</span>`;
+                                html += `<span class="word" data-word="${w}" data-action="deselect">${w}</span>`;
                             });
                         }
                         html += `</div>`;
-                        // زر التحقق
                         if (status === null) {
-                            html +=
-                                `<button class="btn btn-secondary btn-sm check-order-btn" style="margin-top:6px;">✅ تحقق</button>`;
+                            html += `<button class="btn btn-secondary btn-sm check-order-btn" style="margin-top:6px;">✅ تحقق</button>`;
                         } else {
-                            html +=
-                                `<span style="font-size:14px; color:var(--text-secondary);">${status ? '✅ صحيح' : '❌ خاطئ'}</span>`;
+                            html += `<span style="font-size:14px; color:var(--text-secondary);">${status ? '✅ صحيح' : '❌ خاطئ'}</span>`;
                         }
                         html += `</div>`;
                     } else if (q.type === 'listening') {
                         html += `<div class="audio-challenge">`;
                         html += `<button class="listen-audio-btn" data-audio="${q.audio}">🔊 استمع</button>`;
-                        html +=
-                            `<span style="font-size:14px; color:var(--text-secondary);">(الجملة باللغة الإنجليزية)</span>`;
+                        html += `<span style="font-size:14px; color:var(--text-secondary);">(الجملة باللغة الإنجليزية)</span>`;
                         html += `</div>`;
                         html += `<div class="options">`;
                         q.options.forEach((opt, oi) => {
                             const disabled = (status !== null) ? 'disabled' : '';
                             const correctClass = (status === true && oi === q.correct) ? 'correct' : '';
-                            const wrongClass = (status === false && oi === parseInt(localStorage.getItem(
-                                `unit1_wrong_${idx}`)) && oi !== q.correct) ? 'wrong' : '';
-                            html +=
-                                `<button class="opt-btn ${correctClass} ${wrongClass}" data-opt="${oi}" ${disabled}>${opt}</button>`;
+                            const wrongClass = (status === false && oi === parseInt(localStorage.getItem(`unit1_wrong_${idx}`)) && oi !== q.correct) ? 'wrong' : '';
+                            html += `<button class="opt-btn ${correctClass} ${wrongClass}" data-opt="${oi}" ${disabled}>${opt}</button>`;
                         });
                         html += `</div>`;
                     }
@@ -1932,7 +1790,6 @@
                 challengeContainer.innerHTML = html;
 
                 // ربط الأحداث للأزرار
-                // اختيار من متعدد واستماع
                 document.querySelectorAll('.opt-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
@@ -1955,7 +1812,6 @@
                     });
                 });
 
-                // أزرار الاستماع
                 document.querySelectorAll('.listen-audio-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const audioText = this.dataset.audio;
@@ -1996,7 +1852,6 @@
                     });
                 });
 
-                // إعادة تعريف handler لاختيار الكلمات
                 function selectWordHandler(e) {
                     const word = e.currentTarget;
                     const item = word.closest('.challenge-item');
@@ -2028,7 +1883,6 @@
                     word.remove();
                 }
 
-                // أزرار "تحقق" للترتيب
                 document.querySelectorAll('.check-order-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
@@ -2036,8 +1890,7 @@
                         if (answers[qid] !== null) return;
                         const q = challengeQuestions[qid];
                         const answerRow = item.querySelector('.order-answer');
-                        const selectedWords = Array.from(answerRow.querySelectorAll('.word')).map(el => el
-                            .textContent);
+                        const selectedWords = Array.from(answerRow.querySelectorAll('.word')).map(el => el.textContent);
                         const isCorrect = JSON.stringify(selectedWords) === JSON.stringify(q.correct);
                         answers[qid] = isCorrect;
                         if (isCorrect) {
@@ -2060,7 +1913,6 @@
                 challengeScoreSpan.textContent = score;
                 const pct = (score / challengeQuestions.length) * 100;
                 challengeFill.style.width = pct + '%';
-                // تحديث زر الوحدة التالية
                 if (score === challengeQuestions.length) {
                     nextUnitBtn.classList.add('show');
                     if (!challengeCompleted) {
@@ -2079,20 +1931,17 @@
                 if (confirm('هل أنت متأكد من إعادة التحدي بالكامل؟ سيتم مسح جميع الإجابات.')) {
                     answers = new Array(challengeQuestions.length).fill(null);
                     challengeCompleted = false;
-                    // مسح الأخطاء المخزنة
                     challengeQuestions.forEach((q, idx) => {
                         localStorage.removeItem(`unit1_wrong_${idx}`);
                     });
                     saveState();
                     renderChallenge();
                     updateScoreDisplay();
-                    // إخفاء الاحتفال
                     celebrateModal.classList.remove('show');
                     document.querySelectorAll('.confetti-container').forEach(el => el.remove());
                 }
             });
 
-            // ===== إطلاق المفرقعات =====
             function launchConfetti() {
                 const container = document.createElement('div');
                 container.className = 'confetti-container';
@@ -2112,7 +1961,6 @@
                 setTimeout(() => container.remove(), 4000);
             }
 
-            // إغلاق الاحتفال
             document.getElementById('celebrateClose').addEventListener('click', function() {
                 celebrateModal.classList.remove('show');
                 document.querySelectorAll('.confetti-container').forEach(el => el.remove());
@@ -2121,13 +1969,6 @@
             // تهيئة التحدي
             renderChallenge();
             updateScoreDisplay();
-
-            // إذا كانت النتيجة 7 من قبل، نظهر الاحتفال عند التحميل (مرة واحدة)
-            if (calcScore() === challengeQuestions.length) {
-                localStorage.setItem('maxUnitUnlocked', Math.max(maxUnitUnlocked, 2));
-                renderUnitTabs();
-                nextUnitBtn.classList.add('show');
-            }
 
             // ============================================================
             // 8. Speak Up! (نسبة 60%)
@@ -2283,7 +2124,7 @@
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 1 fully loaded and corrected.');
+            console.log('📚 Babble Box - Unit 1 fully loaded.');
         })();
     </script>
 
