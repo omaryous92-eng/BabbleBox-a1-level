@@ -14,6 +14,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-L42M2EDW3H');
@@ -53,6 +54,7 @@
             --sidebar-width: 220px;
             --header-height: 64px;
             --progress-height: 40px;
+            --unit-nav-height: 56px;
         }
 
         [data-theme="light"] {
@@ -104,7 +106,7 @@
             transition: background-color var(--transition), color var(--transition);
             overflow-x: hidden;
             min-height: 100vh;
-            padding-top: calc(var(--header-height) + var(--progress-height) + 50px);
+            padding-top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height));
         }
         ::-webkit-scrollbar {
             width: 8px;
@@ -272,68 +274,68 @@
             white-space: nowrap;
         }
 
-        /* ===== 5. شريط الوحدات العلوي ===== */
+        /* ===== 5. شريط الوحدات العلوي (Unit Navigation Bar) ===== */
         .unit-nav {
             position: fixed;
             top: calc(var(--header-height) + var(--progress-height));
             left: 0;
             right: 0;
             z-index: 998;
+            height: var(--unit-nav-height);
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-glass);
-            padding: 8px 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            padding: 0 16px;
+            gap: 6px;
             overflow-x: auto;
             backdrop-filter: blur(4px);
-            white-space: nowrap;
-            height: 50px;
         }
-        .unit-nav button {
-            padding: 4px 12px;
-            border-radius: 20px;
+        .unit-nav .unit-btn {
+            flex: 0 0 auto;
+            padding: 6px 14px;
+            border-radius: 30px;
             border: 1px solid var(--border-glass);
             background: var(--bg-card);
             color: var(--text-secondary);
             font-family: inherit;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: default;
             transition: all var(--transition);
-            flex-shrink: 0;
             display: flex;
             align-items: center;
             gap: 4px;
+            white-space: nowrap;
         }
-        .unit-nav button.active {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .unit-nav button.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: var(--bg-card);
-            color: var(--text-muted);
-        }
-        .unit-nav button.unlocked {
+        .unit-nav .unit-btn.active {
             background: var(--gold-dim);
             border-color: var(--gold);
             color: var(--gold);
             cursor: pointer;
+        }
+        .unit-nav .unit-btn.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
+        }
+        .unit-nav .unit-btn.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .unit-nav .unit-btn .lock-icon {
+            font-size: 12px;
         }
 
         /* ===== 6. تخطيط الصفحة (sidebar + محتوى) ===== */
         .page-layout {
             display: flex;
-            min-height: calc(100vh - var(--header-height) - var(--progress-height) - 50px);
+            min-height: calc(100vh - var(--header-height) - var(--progress-height) - var(--unit-nav-height));
         }
         .sidebar {
             position: sticky;
-            top: calc(var(--header-height) + var(--progress-height) + 50px);
+            top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height));
             width: var(--sidebar-width);
-            height: calc(100vh - var(--header-height) - var(--progress-height) - 50px);
+            height: calc(100vh - var(--header-height) - var(--progress-height) - var(--unit-nav-height));
             overflow-y: auto;
             background: var(--bg-secondary);
             border-left: 1px solid var(--border-glass);
@@ -368,6 +370,14 @@
         .sidebar ul li.locked {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+        .sidebar ul li.unlocked {
+            opacity: 1;
+            cursor: pointer;
+        }
+        .sidebar ul li.unlocked:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--gold);
         }
         .sidebar ul li .lock-icon {
             margin-right: auto;
@@ -460,7 +470,7 @@
         /* ===== 9. أقسام المحتوى ===== */
         .unit-section {
             margin-bottom: 48px;
-            scroll-margin-top: calc(var(--header-height) + var(--progress-height) + 50px + 20px);
+            scroll-margin-top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height) + 20px);
         }
         .unit-section h2 {
             font-size: 28px;
@@ -769,7 +779,7 @@
         .challenge-grid {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
         .challenge-item {
             background: var(--glass-bg);
@@ -831,6 +841,20 @@
             cursor: not-allowed;
             opacity: 0.6;
         }
+        .challenge-item .reset-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 30px;
+            transition: all var(--transition);
+        }
+        .challenge-item .reset-btn:hover {
+            color: var(--gold);
+            background: var(--gold-dim);
+        }
         .challenge-item .status {
             font-size: 14px;
             font-weight: 600;
@@ -846,105 +870,70 @@
         .challenge-item .status.pending {
             color: var(--text-muted);
         }
-        .challenge-item .click-order {
+        /* Click-to-Select Drag & Drop */
+        .drag-container {
             display: flex;
-            gap: 8px;
             flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
             margin: 8px 0;
         }
-        .challenge-item .click-order .word-btn {
+        .drag-container .word-item {
             padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--gold);
-            background: var(--gold-dim);
-            color: var(--gold);
+            border-radius: 30px;
+            border: 1px solid var(--border-glass);
+            background: var(--bg-card);
+            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
             transition: all var(--transition);
+            direction: ltr;
+            user-select: none;
         }
-        .challenge-item .click-order .word-btn.placed {
-            background: var(--gold);
-            color: var(--bg-primary);
+        .drag-container .word-item:hover {
+            border-color: var(--gold);
+            background: var(--gold-dim);
         }
-        .challenge-item .click-order .word-btn:hover {
-            transform: scale(1.05);
+        .drag-container .word-item.selected {
+            border-color: var(--gold);
+            background: var(--gold-dim);
         }
-        .challenge-item .answer-slot {
+        .drop-zone {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
-            min-height: 40px;
-            padding: 8px;
+            padding: 12px;
+            min-height: 56px;
             border: 2px dashed var(--border-glass);
             border-radius: 12px;
             margin: 8px 0;
-            align-items: center;
-        }
-        .challenge-item .answer-slot .word-btn {
-            cursor: pointer;
-        }
-
-        /* ===== 16. Celebrate ===== */
-        .celebrate {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
             justify-content: center;
-            flex-direction: column;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            animation: fadeIn 0.5s ease;
-            padding: 20px;
-            text-align: center;
+            align-items: center;
+            background: var(--bg-card);
+            transition: border-color var(--transition);
         }
-        .celebrate.show {
-            display: flex;
-        }
-        .celebrate h2 {
-            font-size: 48px;
+        .drop-zone .word-item {
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--gold);
+            background: var(--gold-dim);
             color: var(--gold);
-            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            direction: ltr;
+            user-select: none;
         }
-        .celebrate p {
-            font-size: 24px;
-            color: var(--text-primary);
+        .drop-zone .word-item:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
         }
-        .celebrate .stars {
-            font-size: 40px;
-            animation: spin 2s linear infinite;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .confetti-container {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2001;
-            overflow: hidden;
-        }
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            top: -20px;
-            animation: confettiFall linear forwards;
-        }
-        @keyframes confettiFall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
+        .drop-zone .placeholder {
+            color: var(--text-muted);
+            font-size: 15px;
         }
 
-        /* ===== 17. Speak Up ===== */
+        /* ===== 16. Speak Up ===== */
         .speak-box {
             padding: 30px;
             text-align: center;
@@ -983,7 +972,7 @@
             color: #ef4444;
         }
 
-        /* ===== 18. Power Recap ===== */
+        /* ===== 17. Power Recap ===== */
         .recap-title {
             font-size: 24px;
             font-weight: 800;
@@ -1025,13 +1014,13 @@
             background: var(--gold-dim);
         }
 
-        /* ===== 19. Video & Homework ===== */
+        /* ===== 18. Video & Homework ===== */
         .video-box {
             padding: 24px;
             text-align: center;
             background: var(--glass-bg);
             border-radius: 20px;
-            border: 1px solid var(--border-glass);
+            border: 1px solid var(--glass-border);
         }
         .video-box .icon {
             font-size: 48px;
@@ -1092,10 +1081,13 @@
             margin-top: 12px;
         }
 
-        /* ===== 20. زر الوحدة التالية ===== */
+        /* ===== 19. زر الوحدة التالية ===== */
+        .next-unit-wrapper {
+            text-align: center;
+            margin-top: 30px;
+        }
         .next-unit-btn {
             display: none;
-            margin: 20px auto 0;
             padding: 16px 48px;
             font-size: 22px;
             font-weight: 800;
@@ -1108,15 +1100,108 @@
             transition: all var(--transition);
             text-align: center;
         }
-        .next-unit-btn.show {
-            display: block;
-        }
         .next-unit-btn:hover {
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 40px rgba(255, 215, 0, 0.6);
         }
+        .next-unit-btn.show {
+            display: inline-block;
+        }
 
-        /* ===== 21. Footer ===== */
+        /* ===== 20. الاحتفالية (Celebrate Modal) ===== */
+        .celebrate {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            animation: fadeIn 0.5s ease;
+            padding: 20px;
+            text-align: center;
+        }
+        .celebrate.show {
+            display: flex;
+        }
+        .celebrate h2 {
+            font-size: 48px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .celebrate p {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        .celebrate .stars {
+            font-size: 40px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .celebrate .btn {
+            margin-top: 20px;
+        }
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2001;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -20px;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== 21. إعادة التحدي كاملاً ===== */
+        .reset-challenge-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 32px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 60px;
+            background: var(--btn-secondary-bg);
+            color: var(--text-secondary);
+            border: 1.5px solid var(--btn-secondary-border);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .reset-challenge-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: var(--gold-dim);
+        }
+
+        /* ===== 22. Footer ===== */
         .footer {
             border-top: 1px solid var(--footer-border);
             padding: 30px 0 24px;
@@ -1154,43 +1239,127 @@
             fill: var(--gold);
         }
 
-        /* ===== 22. استجابة ===== */
+        /* ===== 23. استجابة ===== */
         @media (max-width: 992px) {
-            .sidebar { width: 180px; padding: 12px 8px; }
-            .sidebar ul li { font-size: 13px; padding: 8px 10px; }
-            .main-content { padding: 20px 16px; max-width: calc(100% - 180px); }
+            .sidebar {
+                width: 180px;
+                padding: 12px 8px;
+            }
+            .sidebar ul li {
+                font-size: 13px;
+                padding: 8px 10px;
+            }
+            .main-content {
+                padding: 20px 16px;
+                max-width: calc(100% - 180px);
+            }
         }
         @media (max-width: 768px) {
-            :root { --sidebar-width: 0px; --header-height: 56px; --progress-height: 36px; }
-            body { padding-top: calc(var(--header-height) + var(--progress-height) + 50px); }
-            .sidebar { display: none; }
-            .main-content { max-width: 100%; padding: 16px 12px; }
-            .header .nav-menu { display: none; }
-            .header .logo-link img { height: 30px; }
-            .header-actions .social-icons a { width: 28px; height: 28px; }
-            .header-actions .social-icons a svg { width: 14px; height: 14px; }
-            .theme-toggle { width: 32px; height: 32px; font-size: 16px; }
-            .progress-bar { font-size: 13px; padding: 0 12px; gap: 8px; }
-            .progress-bar .progress-track { max-width: 120px; }
-            .unit-nav { padding: 4px 12px; gap: 4px; }
-            .unit-nav button { padding: 2px 8px; font-size: 11px; }
-            .unit-section h2 { font-size: 22px; }
-            .chat-bubble { max-width: 95%; padding: 10px 14px; }
-            .grammar-grid { grid-template-columns: 1fr 1fr; }
-            .flip-grid { grid-template-columns: repeat(2, 1fr); }
-            .warning-grid { grid-template-columns: 1fr; }
-            .recap-map { flex-direction: column; align-items: center; }
-            .challenge-item .q-row { flex-direction: column; align-items: stretch; }
-            .challenge-item .options { justify-content: center; }
+            :root {
+                --sidebar-width: 0px;
+                --header-height: 56px;
+                --progress-height: 36px;
+                --unit-nav-height: 48px;
+            }
+            body {
+                padding-top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height));
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                max-width: 100%;
+                padding: 16px 12px;
+            }
+            .header .nav-menu {
+                display: none;
+            }
+            .header .logo-link img {
+                height: 30px;
+            }
+            .header-actions .social-icons a {
+                width: 28px;
+                height: 28px;
+            }
+            .header-actions .social-icons a svg {
+                width: 14px;
+                height: 14px;
+            }
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+            .progress-bar {
+                font-size: 13px;
+                padding: 0 12px;
+                gap: 8px;
+            }
+            .progress-bar .progress-track {
+                max-width: 120px;
+            }
+            .unit-nav {
+                padding: 0 8px;
+                gap: 4px;
+            }
+            .unit-nav .unit-btn {
+                padding: 4px 10px;
+                font-size: 13px;
+            }
+            .unit-section h2 {
+                font-size: 22px;
+            }
+            .chat-bubble {
+                max-width: 95%;
+                padding: 10px 14px;
+            }
+            .grammar-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .flip-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .warning-grid {
+                grid-template-columns: 1fr;
+            }
+            .recap-map {
+                flex-direction: column;
+                align-items: center;
+            }
+            .challenge-item .q-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .challenge-item .options {
+                justify-content: center;
+            }
+            .drag-container .word-item,
+            .drop-zone .word-item {
+                font-size: 16px;
+                padding: 6px 12px;
+            }
         }
         @media (max-width: 480px) {
-            .grammar-grid { grid-template-columns: 1fr; }
-            .flip-grid { grid-template-columns: 1fr 1fr; }
-            .progress-bar .progress-track { max-width: 80px; }
-            .challenge-item .options button { padding: 4px 12px; font-size: 14px; }
+            .grammar-grid {
+                grid-template-columns: 1fr;
+            }
+            .flip-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .progress-bar .progress-track {
+                max-width: 80px;
+            }
+            .challenge-item .options button {
+                padding: 4px 12px;
+                font-size: 14px;
+            }
+            .unit-nav .unit-btn {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
         }
 
-        /* ===== 23. تأثيرات إضافية ===== */
+        /* ===== 24. تأثيرات إضافية ===== */
         .fade-up {
             opacity: 0;
             transform: translateY(20px);
@@ -1204,9 +1373,16 @@
             animation: shake 0.4s ease;
         }
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-8px);
+            }
+            75% {
+                transform: translateX(8px);
+            }
         }
     </style>
 </head>
@@ -1245,16 +1421,16 @@
     <!-- ===== شريط التقدم اليومي ===== -->
     <div class="progress-bar" id="progressBar">
         <span>⭐</span>
-        <span id="progressLabel">0/7 تمارين مكتملة اليوم</span>
+        <span id="progressLabel">0/5 تمارين مكتملة اليوم</span>
         <div class="progress-track">
             <div class="progress-fill" id="progressFill" style="width:0%"></div>
         </div>
     </div>
 
-    <!-- ===== شريط الوحدات العلوي ===== -->
-    <div class="unit-nav" id="unitNav">
-        <!-- سيتم توليدها بواسطة JS -->
-    </div>
+    <!-- ===== شريط الوحدات العلوي (Unit Navigation Bar) ===== -->
+    <nav class="unit-nav" id="unitNav">
+        <!-- سيتم توليد الأزرار بواسطة JS -->
+    </nav>
 
     <!-- ===== التخطيط الرئيسي ===== -->
     <div class="page-layout">
@@ -1287,21 +1463,21 @@
                 <div class="glass" style="padding:20px;">
                     <p style="font-size:18px; margin-bottom:12px;">لاحظ الفرق بين الجمل دي:</p>
                     <div class="tabs" id="ruleTabs">
-                        <button class="active" data-tab="tab1">I am John.</button>
-                        <button data-tab="tab2">You are new.</button>
-                        <button data-tab="tab3">He is my friend.</button>
+                        <button class="active" data-tab="tab1">This is my book.</button>
+                        <button data-tab="tab2">This is your pen.</button>
+                        <button data-tab="tab3">This is his car.</button>
                     </div>
                     <div id="tab1" class="tab-content active">
-                        <div class="example" dir="ltr">I am John.</div>
-                        <div class="explanation">لما أتكلم عن نفسي</div>
+                        <div class="example" dir="ltr">This is my book.</div>
+                        <div class="explanation">الكتاب بتاعي (للمتكلم)</div>
                     </div>
                     <div id="tab2" class="tab-content">
-                        <div class="example" dir="ltr">You are new.</div>
-                        <div class="explanation">لما أكلم اللي قدامي</div>
+                        <div class="example" dir="ltr">This is your pen.</div>
+                        <div class="explanation">القلم بتاعك (للمخاطب)</div>
                     </div>
                     <div id="tab3" class="tab-content">
-                        <div class="example" dir="ltr">He is my friend.</div>
-                        <div class="explanation">لما أتكلم عن شخص تالت</div>
+                        <div class="example" dir="ltr">This is his car.</div>
+                        <div class="explanation">العربية بتاعته (لشخص تالت)</div>
                     </div>
                 </div>
             </section>
@@ -1313,20 +1489,20 @@
                 <h2>🧠 Grammar Lab</h2>
                 <div class="grammar-grid">
                     <div class="grammar-card green">
-                        <div class="title">➕ Positive</div>
-                        <div class="examples" dir="ltr">I am<br />He/She/It is<br />You/We/They are</div>
+                        <div class="title">➕ Possessive Adjectives</div>
+                        <div class="examples" dir="ltr">I → my<br />You → your<br />He → his<br />She → her<br />It → its<br />We → our<br />They → their</div>
                     </div>
                     <div class="grammar-card red">
-                        <div class="title">➖ Negative</div>
-                        <div class="examples" dir="ltr">I'm not<br />isn't<br />aren't</div>
+                        <div class="title">➖ Don't confuse</div>
+                        <div class="examples" dir="ltr">He's = He is (وليس "his")</div>
                     </div>
                     <div class="grammar-card blue">
-                        <div class="title">❓ Question</div>
-                        <div class="examples" dir="ltr">Am I?<br />Is...?<br />Are...?</div>
+                        <div class="title">❓ Examples</div>
+                        <div class="examples" dir="ltr">This is my book.<br />(وليس "This is mine book.")</div>
                     </div>
                     <div class="grammar-card yellow">
-                        <div class="title">✅ Short Answers</div>
-                        <div class="examples" dir="ltr">Yes, I am.<br />No, I'm not.</div>
+                        <div class="title">✅ Remember</div>
+                        <div class="examples" dir="ltr">my, your, his... يأتي بعدهم اسم.</div>
                     </div>
                 </div>
             </section>
@@ -1348,21 +1524,21 @@
                 <h2>🚨 Babble Warning</h2>
                 <div class="warning-grid">
                     <div class="warning-card green">
-                        <div class="sentence" dir="ltr">I'm fine, thanks.</div>
-                        <div class="meaning">أنا بخير، شكراً.</div>
+                        <div class="sentence" dir="ltr">He's my brother.</div>
+                        <div class="meaning">هو أخي.</div>
                     </div>
                     <div class="warning-card red">
-                        <div class="sentence" dir="ltr">I got a parking fine.</div>
-                        <div class="meaning">أخذت غرامة وقوف سيارات.</div>
+                        <div class="sentence" dir="ltr">His brother is nice.</div>
+                        <div class="meaning">أخوه لطيف.</div>
                     </div>
                 </div>
                 <div class="warning-note">
-                    😄 يعني لو قلت "I'm fine" أنت تمام. لو قلت "I got a fine" أنت دفعت فلوس!
+                    😄 He's اختصار He is. His بتاعة الملكية. "متخلطش بينهم عشان متقولش: 'His my brother'."
                 </div>
             </section>
 
             <!-- ============================================================
-            القسم 6: ⚔️ Challenge Arena
+            القسم 6: ⚔️ Challenge Arena (7 أسئلة)
             ============================================================ -->
             <section class="unit-section fade-up" id="section6">
                 <h2>⚔️ Challenge Arena</h2>
@@ -1373,7 +1549,7 @@
                 <div id="challengeContainer" class="challenge-grid">
                     <!-- سيتم توليد الأسئلة بواسطة JS -->
                 </div>
-                <button class="btn btn-secondary" id="resetChallenge" style="margin-top:20px;">🔄 إعادة التحدي كاملاً</button>
+                <button class="reset-challenge-btn" id="resetChallengeBtn">🔄 إعادة التحدي كاملاً</button>
             </section>
 
             <!-- ============================================================
@@ -1383,7 +1559,7 @@
                 <h2>🎤 Speak Up!</h2>
                 <div class="speak-box">
                     <div class="prompt" dir="ltr">🗣️ حاول أن تقول:<br />
-                        <span style="font-weight:400; font-size:20px; direction:ltr;">Hello! My name is... I am from...</span>
+                        <span style="font-weight:400; font-size:20px; direction:ltr;">My name is... My father's name is... My mother's name is...</span>
                     </div>
                     <button class="record-btn" id="recordBtn" aria-label="ابدأ التسجيل">🎤</button>
                     <div class="result" id="speechResult">اضغط الزر وابدأ التحدث</div>
@@ -1397,12 +1573,12 @@
                 <h2>⚡ Power Recap</h2>
                 <div class="recap-title">📝 ملخص قوانين الوحدة</div>
                 <div class="recap-map">
-                    <div class="recap-node">Verb to be <span class="example">(be)</span></div>
-                    <div class="recap-node">I am <span class="example" dir="ltr">I am a student.</span></div>
-                    <div class="recap-node">He is <span class="example" dir="ltr">He is my brother.</span></div>
-                    <div class="recap-node">They are <span class="example" dir="ltr">They are happy.</span></div>
-                    <div class="recap-node">I'm not <span class="example" dir="ltr">I'm not tired.</span></div>
-                    <div class="recap-node">Are you? <span class="example" dir="ltr">Are you ready?</span></div>
+                    <div class="recap-node">I → <span class="example" dir="ltr">my</span></div>
+                    <div class="recap-node">You → <span class="example" dir="ltr">your</span></div>
+                    <div class="recap-node">He → <span class="example" dir="ltr">his</span></div>
+                    <div class="recap-node">She → <span class="example" dir="ltr">her</span></div>
+                    <div class="recap-node">We → <span class="example" dir="ltr">our</span></div>
+                    <div class="recap-node">They → <span class="example" dir="ltr">their</span></div>
                 </div>
             </section>
 
@@ -1423,8 +1599,8 @@
             <section class="unit-section fade-up" id="section10">
                 <h2>✍️ Homework</h2>
                 <div class="homework-box glass" style="padding:20px;">
-                    <p style="margin-bottom:12px; font-weight:600;">اكتب 5 جمل عن نفسك باستخدام am, is, are.</p>
-                    <textarea id="homeworkText" spellcheck="true" dir="ltr" placeholder="Example: I am a student. My father is a teacher. We are happy."></textarea>
+                    <p style="margin-bottom:12px; font-weight:600;">اكتب 5 جمل عن أسرتك (أو عائلة خيالية) باستخدام my, your, his, her, our, their.</p>
+                    <textarea id="homeworkText" spellcheck="true" dir="ltr" placeholder="Example: My father is a doctor. His name is Ahmed. Our family is happy."></textarea>
                     <div class="btn-group">
                         <button class="btn btn-primary btn-sm" id="saveHomework">💾 حفظ</button>
                         <button class="btn btn-secondary btn-sm" id="checkHomework">✅ تدقيق</button>
@@ -1432,13 +1608,15 @@
                     <div class="save-status" id="saveStatus">تم الحفظ تلقائياً</div>
                     <div class="correction-list" id="correctionList"></div>
                 </div>
-                <!-- زر الوحدة التالية (يظهر عند اكتمال 7/7) -->
-                <a href="unit2.html" class="next-unit-btn" id="nextUnitBtn">الوحدة التالية ←</a>
+                <!-- زر الوحدة التالية -->
+                <div class="next-unit-wrapper">
+                    <a href="unit3.html" class="next-unit-btn" id="nextUnitBtn">الوحدة التالية ←</a>
+                </div>
             </section>
 
             <!-- ===== التذييل ===== -->
             <footer class="footer">
-                <p>© 2026 Babble Box Academy. الوحدة 1 - المستوى A1</p>
+                <p>© 2026 Babble Box Academy. الوحدة 2 - المستوى A1</p>
                 <div class="social-row">
                     <a href="https://www.facebook.com/omar.youssif.english" target="_blank">
                         <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -1484,71 +1662,95 @@
             });
 
             // ============================================================
-            // 2. القوائم (Sidebar + Unit Nav)
+            // 2. شريط الوحدات العلوي (12 زراً) - الوحدة 2 نشطة، الوحدة 1 مفتوحة
             // ============================================================
-            const maxUnit = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
-            const currentUnit = 1;
+            const unitNav = document.getElementById('unitNav');
+            let maxUnitUnlocked = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
+
+            function renderUnitNav() {
+                let html = '';
+                for (let i = 1; i <= 12; i++) {
+                    const isActive = (i === 2); // الوحدة 2 هي النشطة
+                    const isLocked = (i > maxUnitUnlocked);
+                    // الوحدة 1 تعتبر مفتوحة دائماً (لأنها سابقة)
+                    const isUnlocked = (i <= maxUnitUnlocked);
+                    const lockIcon = isLocked ? '<span class="lock-icon">🔒</span>' : '';
+                    let extraClass = '';
+                    let clickHandler = '';
+                    if (isActive) {
+                        extraClass = 'active';
+                    } else if (isUnlocked && !isActive) {
+                        extraClass = 'active'; // مفتوحة وقابلة للنقر
+                        clickHandler = `onclick="window.location.href='unit${i}.html'"`;
+                    } else {
+                        extraClass = 'locked';
+                    }
+                    // استثناء: الوحدة 1 مفتوحة ولكن ليست نشطة
+                    if (i === 1 && maxUnitUnlocked >= 1) {
+                        extraClass = 'active';
+                        clickHandler = `onclick="window.location.href='unit1.html'"`;
+                    }
+                    html += `
+                        <button class="unit-btn ${extraClass}" ${clickHandler} data-unit="${i}">
+                            ${i} ${lockIcon}
+                        </button>
+                    `;
+                }
+                unitNav.innerHTML = html;
+            }
+            renderUnitNav();
+
+            // ============================================================
+            // 3. القائمة الجانبية (12 وحدة) - الوحدة 2 نشطة، الوحدة 1 مفتوحة
+            // ============================================================
+            const unitList = document.getElementById('unitList');
 
             function renderSidebar() {
-                const unitList = document.getElementById('unitList');
                 let htmlStr = '';
                 for (let i = 1; i <= 12; i++) {
-                    const active = i === currentUnit ? 'active' : '';
-                    const locked = i > maxUnit ? 'locked' : '';
-                    const lockIcon = i > maxUnit ? '<span class="lock-icon">🔒</span>' : '';
+                    const active = i === 2 ? 'active' : '';
+                    const locked = i > maxUnitUnlocked ? 'locked' : '';
+                    const unlocked = (i <= maxUnitUnlocked && i !== 2) ? 'unlocked' : '';
+                    const lockIcon = i > maxUnitUnlocked ? '<span class="lock-icon">🔒</span>' : '';
+                    let clickAttr = '';
+                    if (i <= maxUnitUnlocked && i !== 2) {
+                        clickAttr = `onclick="window.location.href='unit${i}.html'"`;
+                    } else if (i === 2) {
+                        // الوحدة 2 نشطة، لا نضيف click
+                    } else {
+                        clickAttr = '';
+                    }
                     htmlStr += `
-                        <li class="${active} ${locked}" data-unit="${i}">
+                        <li class="${active} ${locked} ${unlocked}" data-unit="${i}" ${clickAttr}>
                             <span>الوحدة ${i}</span>
-                            <span class="unit-badge">${i === currentUnit ? 'A1' : ''}</span>
+                            <span class="unit-badge">${i === 2 ? 'A1' : ''}</span>
                             ${lockIcon}
                         </li>
                     `;
                 }
                 unitList.innerHTML = htmlStr;
             }
-
-            function renderUnitNav() {
-                const unitNav = document.getElementById('unitNav');
-                let htmlStr = '';
-                for (let i = 1; i <= 12; i++) {
-                    const active = i === currentUnit ? 'active' : '';
-                    const locked = i > maxUnit ? 'locked' : (i === currentUnit ? 'active' : 'unlocked');
-                    const lockIcon = i > maxUnit ? '🔒' : '';
-                    htmlStr += `<button class="${locked}" data-unit="${i}" ${i > maxUnit ? 'disabled' : ''}>${i} ${lockIcon}</button>`;
-                }
-                unitNav.innerHTML = htmlStr;
-                unitNav.querySelectorAll('button.unlocked, button.active').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const unit = parseInt(this.dataset.unit);
-                        if (unit !== currentUnit && unit <= maxUnit) {
-                            window.location.href = `unit${unit}.html`;
-                        }
-                    });
-                });
-            }
-
             renderSidebar();
-            renderUnitNav();
 
             // ============================================================
-            // 3. شريط التقدم اليومي (0/7) - إصلاح ليمتلئ إلى 100%
+            // 4. شريط التقدم اليومي (0/5)
             // ============================================================
             let completedCount = parseInt(localStorage.getItem('dailyProgress')) || 0;
-            if (completedCount > 7) completedCount = 7;
+            if (completedCount > 5) completedCount = 5;
             const progressFill = document.getElementById('progressFill');
             const progressLabel = document.getElementById('progressLabel');
 
             function updateProgress() {
-                if (completedCount > 7) completedCount = 7;
-                const pct = (completedCount / 7) * 100;
+                if (completedCount > 5) completedCount = 5;
+                const pct = (completedCount / 5) * 100;
                 progressFill.style.width = pct + '%';
-                progressLabel.textContent = `${completedCount}/7 تمارين مكتملة اليوم`;
+                progressLabel.textContent = `${completedCount}/5 تمارين مكتملة اليوم`;
                 localStorage.setItem('dailyProgress', completedCount);
             }
             updateProgress();
 
             function incrementProgress() {
-                if (completedCount < 7) {
+                if (completedCount < 5) {
                     completedCount++;
                     updateProgress();
                     return true;
@@ -1557,17 +1759,24 @@
             }
 
             // ============================================================
-            // 4. المحادثة (The Real Talk) - مع dir="ltr" للنصوص الإنجليزية
+            // 5. المحادثة (The Real Talk) - نص الوحدة 2
             // ============================================================
             const chatData = [
-                { speaker: 'John', text: "Hey! How's it going?", translation: "إيه أخبارك؟ إزاي الأمور؟", gender: 'male' },
-                { speaker: 'Sarah', text: "Oh, hey! Pretty good, and you?", translation: "أوه، إيه! كويسة، وإنت؟", gender: 'female' },
-                { speaker: 'John', text: "Can't complain. By the way, I'm John.", translation: "مش بقدر أشتكي. بالمناسبة، أنا جون.", gender: 'male' },
-                { speaker: 'Sarah', text: "Nice to meet you, John. I'm Sarah.", translation: "سعيد بلقائك يا جون. أنا سارة.", gender: 'female' },
-                { speaker: 'John', text: "Likewise. So, you new here?", translation: "وأنا كمان. إذن، أنت جديدة هنا؟", gender: 'male' },
-                { speaker: 'Sarah', text: "Yeah, just moved in last week.", translation: "أيوة، نقلت الأسبوع اللي فات.", gender: 'female' },
-                { speaker: 'John', text: "Well, welcome to the neighborhood! Are you from around here?", translation: "أهلاً بك في الحي! إنت من هنا؟", gender: 'male' },
-                { speaker: 'Sarah', text: "No, I'm from Boston originally. But I'm here for work now.", translation: "لا، أنا من بوسطن في الأصل. لكن أنا هنا للشغل دلوقتي.", gender: 'female' }
+                { speaker: 'John', text: "Hey Sarah, who is that?", translation: "أهلاً سارة، مين ده؟", gender: 'male' },
+                { speaker: 'Sarah', text: "Oh, that's my brother, Tom. He is a student.", translation: "أوه، ده أخي توم. هو طالب.",
+                    gender: 'female' },
+                { speaker: 'John', text: "He looks friendly. Is he older than you?", translation: "شكله ودود. هو أكبر منك؟",
+                    gender: 'male' },
+                { speaker: 'Sarah', text: "Yes, he is. He's 20. And this is my sister, Lily. She is very funny.",
+                    translation: "أيوة، هو كده. هو 20 سنة. ودي أختي ليلي. هي مضحكة جداً.", gender: 'female' },
+                { speaker: 'John', text: "You have a nice family. Are your parents here?",
+                    translation: "عندك عائلة لطيفة. والديك هنا؟", gender: 'male' },
+                { speaker: 'Sarah', text: "My mom is here. She's the one in the blue dress. My dad is at work.",
+                    translation: "ماما هنا. هي اللي لابسة الفستان الأزرق. بابا في الشغل.", gender: 'female' },
+                { speaker: 'John', text: "I see. So, your mom's name is...?", translation: "فهمت. إذن، اسم مامتك...؟",
+                    gender: 'male' },
+                { speaker: 'Sarah', text: "Her name is Nancy. His name is Robert. And our dog's name is Max!",
+                    translation: "اسمها نانسي. اسمه روبرت. واسم كلبنا ماكس!", gender: 'female' }
             ];
 
             const chatContainer = document.getElementById('chatContainer');
@@ -1593,7 +1802,8 @@
                 utterance.rate = 0.9;
                 const voices = speechSynthesis.getVoices();
                 const voice = voices.find(v =>
-                    gender === 'male' ? v.name.includes('Google US') || v.name.includes('Male') : v.name.includes('Google US') || v.name.includes('Female')
+                    gender === 'male' ? v.name.includes('Google UK') || v.name.includes('Male') :
+                    v.name.includes('Google UK') || v.name.includes('Female')
                 ) || voices[0];
                 if (voice) utterance.voice = voice;
                 speechSynthesis.speak(utterance);
@@ -1616,12 +1826,13 @@
                     const idx = parseInt(transBtn.dataset.index);
                     const transEl = document.getElementById(`trans-${idx}`);
                     transEl.classList.toggle('show');
-                    transBtn.textContent = transEl.classList.contains('show') ? '🇪🇬 Hide Translation' : '🇪🇬 Show Translation';
+                    transBtn.textContent = transEl.classList.contains('show') ? '🇪🇬 Hide Translation' :
+                        '🇪🇬 Show Translation';
                 }
             });
 
             // ============================================================
-            // 5. Tabs في Discover the Rule
+            // 6. Tabs في Discover the Rule
             // ============================================================
             const tabBtns = document.querySelectorAll('#ruleTabs button');
             const tabContents = document.querySelectorAll('.tab-content');
@@ -1635,17 +1846,17 @@
             });
 
             // ============================================================
-            // 6. Flip Cards (Word Vault)
+            // 7. Flip Cards (Word Vault) - مفردات الوحدة 2
             // ============================================================
             const vocab = [
-                { word: 'Mother', meaning: 'أم', example: 'My mother is a teacher.' },
-                { word: 'Father', meaning: 'أب', example: 'His father works in a hospital.' },
-                { word: 'Brother', meaning: 'أخ', example: 'Her brother is funny.' },
-                { word: 'Sister', meaning: 'أخت', example: 'I have one sister.' },
-                { word: 'Baby', meaning: 'طفل رضيع', example: 'The baby is sleeping.' },
-                { word: 'Pet', meaning: 'حيوان أليف', example: 'We have a pet dog.' },
-                { word: 'Friend', meaning: 'صديق', example: 'He is my best friend.' },
-                { word: 'Family', meaning: 'عائلة', example: 'Family is important.' }
+                { word: 'Family 👨‍👩‍👧‍👦', meaning: 'عائلة', example: 'My family is big.' },
+                { word: 'Brother 👦', meaning: 'أخ', example: 'My brother is kind.' },
+                { word: 'Sister 👧', meaning: 'أخت', example: 'Her sister is young.' },
+                { word: 'Mother 👩', meaning: 'أم', example: 'His mother is nice.' },
+                { word: 'Father 👨', meaning: 'أب', example: 'Our father is tall.' },
+                { word: 'Parents 👨‍👩‍👦', meaning: 'والدان', example: 'Her parents are friendly.' },
+                { word: 'Dog 🐕', meaning: 'كلب', example: 'Their dog is cute.' },
+                { word: 'Friendly 😊', meaning: 'ودود', example: 'He is very friendly.' }
             ];
 
             const flipGrid = document.getElementById('flipGrid');
@@ -1665,35 +1876,73 @@
                     </div>
                 `;
                 flipGrid.appendChild(card);
-                card.addEventListener('click', function() { this.classList.toggle('flipped'); });
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                });
                 const audioIcon = card.querySelector('.audio-icon');
                 audioIcon.addEventListener('click', function(e) {
                     e.stopPropagation();
                     const idx = parseInt(this.dataset.vocab);
-                    speakText(vocab[idx].word, 'male');
+                    speakText(vocab[idx].word.replace(/[^a-zA-Z ]/g, '').trim(), 'male');
                 });
             });
 
             // ============================================================
-            // 7. Challenge Arena (7 أسئلة)
+            // 8. Challenge Arena (7 أسئلة: 5 اختيار، 1 ترتيب، 1 استماع)
             // ============================================================
-            const challengeQuestions = [
-                { id: 0, type: 'choice', text: 'I ___ a student.', options: ['am', 'is', 'are'], correct: 0 },
-                { id: 1, type: 'choice', text: 'They ___ from Egypt.', options: ['am', 'is', 'are'], correct: 2 },
-                { id: 2, type: 'choice', text: 'She ___ my friend.', options: ['am', 'is', 'are'], correct: 1 },
-                { id: 3, type: 'choice', text: 'We ___ happy.', options: ['am', 'is', 'are'], correct: 2 },
-                { id: 4, type: 'choice', text: 'He ___ a teacher.', options: ['am', 'is', 'are'], correct: 1 },
-                { id: 5, type: 'clickOrder', text: 'رتب الكلمات لتكوين جملة:', words: ['You', 'are', 'welcome'], correct: ['You', 'are', 'welcome'] },
-                { id: 6, type: 'listening', text: 'استمع للجملة واختر الترجمة الصحيحة:', audio: 'Are you ready?', options: ['هل أنت مستعد؟', 'أنت جاهز؟', 'هل هم مستعدون؟'], correct: 0 }
-            ];
+            const challengeQuestions = [{
+                id: 0,
+                type: 'choice',
+                text: 'This is ___ book. (I)',
+                options: ['my', 'your', 'his'],
+                correct: 0
+            }, {
+                id: 1,
+                type: 'choice',
+                text: '___ name is John. (He)',
+                options: ['My', 'His', 'Her'],
+                correct: 1
+            }, {
+                id: 2,
+                type: 'choice',
+                text: 'Sarah and ___ sister are here. (she)',
+                options: ['my', 'his', 'her'],
+                correct: 2
+            }, {
+                id: 3,
+                type: 'choice',
+                text: 'We love ___ school. (we)',
+                options: ['our', 'their', 'your'],
+                correct: 0
+            }, {
+                id: 4,
+                type: 'choice',
+                text: 'Is that ___ dog? (you)',
+                options: ['my', 'your', 'his'],
+                correct: 1
+            }, {
+                id: 5,
+                type: 'drag',
+                text: 'رتب الكلمات لتكوين جملة (انقر على الكلمات بالترتيب):',
+                words: ['My', 'name', 'is', 'Omar.'],
+                correct: ['My', 'name', 'is', 'Omar.']
+            }, {
+                id: 6,
+                type: 'listening',
+                text: 'استمع للجملة واختر الترجمة الصحيحة:',
+                audio: 'Our family is big.',
+                options: ['عائلتنا كبيرة.', 'عائلته كبيرة.', 'عائلتي كبيرة.'],
+                correct: 0
+            }];
 
             const challengeContainer = document.getElementById('challengeContainer');
-            const challengeScoreEl = document.getElementById('challengeScore');
+            const challengeScore = document.getElementById('challengeScore');
             const challengeFill = document.getElementById('challengeFill');
             const nextUnitBtn = document.getElementById('nextUnitBtn');
+            const resetBtn = document.getElementById('resetChallengeBtn');
 
             let answers = new Array(challengeQuestions.length).fill(null);
-            let score = 0;
+            let dragOrder = challengeQuestions.map(q => q.type === 'drag' ? [] : null);
 
             function renderChallenge() {
                 let html = '';
@@ -1701,135 +1950,205 @@
                     const status = answers[idx];
                     let statusText = '⏳ لم يجب';
                     let statusClass = 'pending';
-                    if (status === true) { statusText = '✅ صحيح'; statusClass = 'correct'; }
-                    if (status === false) { statusText = '❌ خاطئ'; statusClass = 'wrong'; }
+                    if (status === true) { statusText = '✅ صحيح';
+                        statusClass = 'correct'; }
+                    if (status === false) { statusText = '❌ خاطئ';
+                        statusClass = 'wrong'; }
 
                     html += `<div class="challenge-item" data-qid="${idx}">`;
                     html += `<div class="q-row"><div class="q-text" dir="ltr">${q.text}</div>`;
 
                     if (q.type === 'choice') {
-                        html += `<div class="options">${q.options.map((opt, oi) => `<button class="opt-btn" data-opt="${oi}" ${status !== null ? 'disabled' : ''}>${opt}</button>`).join('')}</div>`;
-                    } else if (q.type === 'clickOrder') {
+                        html += `<div class="options">`;
+                        q.options.forEach((opt, oi) => {
+                            const disabled = (status !== null);
+                            html +=
+                                `<button class="opt-btn" data-opt="${oi}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
+                        });
+                        html += `</div>`;
+                    } else if (q.type === 'drag') {
                         const shuffled = [...q.words].sort(() => Math.random() - 0.5);
-                        html += `<div class="click-order" id="clickOrder${idx}">${shuffled.map(w => `<span class="word-btn" data-word="${w}">${w}</span>`).join('')}</div>`;
-                        html += `<div class="answer-slot" id="answerSlot${idx}"></div>`;
-                        html += `<button class="btn btn-sm btn-secondary check-order" data-qid="${idx}" ${status !== null ? 'disabled' : ''}>تحقق من الترتيب</button>`;
+                        const selected = dragOrder[idx] || [];
+                        const remaining = shuffled.filter(w => !selected.includes(w));
+                        html += `<div class="drag-container" data-drag="${idx}">`;
+                        remaining.forEach(w => {
+                            html += `<span class="word-item" data-word="${w}">${w}</span>`;
+                        });
+                        html += `</div>`;
+                        html += `<div class="drop-zone" data-drop="${idx}">`;
+                        if (selected.length === 0) {
+                            html += `<span class="placeholder">👆 انقر على الكلمات هنا بالترتيب</span>`;
+                        } else {
+                            selected.forEach(w => {
+                                html += `<span class="word-item" data-word="${w}">${w}</span>`;
+                            });
+                        }
+                        html += `</div>`;
+                        if (status === null) {
+                            html +=
+                                `<button class="btn btn-secondary btn-sm check-drag" data-check="${idx}">تحقق</button>`;
+                        }
                     } else if (q.type === 'listening') {
-                        html += `<div class="options">${q.options.map((opt, oi) => `<button class="opt-btn" data-opt="${oi}" ${status !== null ? 'disabled' : ''}>${opt}</button>`).join('')}</div>`;
-                        html += `<button class="btn btn-sm btn-primary listen-btn" data-qid="${idx}" style="margin-right:8px;">🔊 استمع</button>`;
+                        html += `<div class="options">`;
+                        q.options.forEach((opt, oi) => {
+                            const disabled = (status !== null);
+                            html +=
+                                `<button class="opt-btn" data-opt="${oi}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
+                        });
+                        html += `</div>`;
+                        if (status === null) {
+                            html +=
+                                `<button class="btn btn-secondary btn-sm listen-btn" data-listen="${idx}">🔊 استمع</button>`;
+                        }
                     }
 
-                    html += `<span class="status ${statusClass}">${statusText}</span></div></div>`;
+                    html += `<button class="reset-btn" data-reset="${idx}" title="إعادة المحاولة">🔄</button>`;
+                    html += `<span class="status ${statusClass}">${statusText}</span>`;
+                    html += `</div></div>`;
                 });
                 challengeContainer.innerHTML = html;
 
-                // ربط الأحداث
                 document.querySelectorAll('.opt-btn').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
+                    btn.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
                         const qid = parseInt(item.dataset.qid);
                         const opt = parseInt(this.dataset.opt);
                         if (answers[qid] !== null) return;
-                        const correct = challengeQuestions[qid].correct;
-                        const isCorrect = (opt === correct);
+                        const q = challengeQuestions[qid];
+                        const isCorrect = (opt === q.correct);
                         answers[qid] = isCorrect;
-                        if (isCorrect) { score++; incrementProgress(); speakText('Excellent!', 'male'); }
-                        else { speakText('Try again.', 'male'); }
+                        if (isCorrect) {
+                            incrementProgress();
+                            speakText('Excellent!', 'male');
+                        } else {
+                            speakText('Try again.', 'male');
+                        }
                         renderChallenge();
                         updateChallengeScore();
-                        if (score === challengeQuestions.length) completeUnit();
+                        checkCompletion();
                     });
                 });
 
                 document.querySelectorAll('.listen-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
-                        const qid = parseInt(this.dataset.qid);
-                        speakText(challengeQuestions[qid].audio, 'female');
+                        const qid = parseInt(this.dataset.listen);
+                        const q = challengeQuestions[qid];
+                        speakText(q.audio, 'female');
                     });
                 });
 
-                document.querySelectorAll('.word-btn').forEach(btn => {
+                document.querySelectorAll('.check-drag').forEach(btn => {
                     btn.addEventListener('click', function() {
-                        const word = this.dataset.word;
-                        const qid = parseInt(this.closest('.challenge-item').dataset.qid);
-                        if (answers[qid] !== null) return;
-                        const slot = document.getElementById(`answerSlot${qid}`);
-                        const wordEl = document.createElement('span');
-                        wordEl.className = 'word-btn placed';
-                        wordEl.textContent = word;
-                        wordEl.addEventListener('click', function() { this.remove(); });
-                        slot.appendChild(wordEl);
-                        this.style.display = 'none';
-                    });
-                });
-
-                document.querySelectorAll('.check-order').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const qid = parseInt(this.dataset.qid);
-                        if (answers[qid] !== null) return;
-                        const slot = document.getElementById(`answerSlot${qid}`);
-                        const placedWords = Array.from(slot.querySelectorAll('.word-btn')).map(el => el.textContent);
-                        const isCorrect = JSON.stringify(placedWords) === JSON.stringify(challengeQuestions[qid].correct);
-                        answers[qid] = isCorrect;
-                        if (isCorrect) { score++; incrementProgress(); speakText('Excellent!', 'male'); }
-                        else { speakText('Try again.', 'male'); }
+                        const qid = parseInt(this.dataset.check);
+                        const q = challengeQuestions[qid];
+                        const selected = dragOrder[qid] || [];
+                        const isCorrect = JSON.stringify(selected) === JSON.stringify(q.correct);
+                        if (isCorrect) {
+                            answers[qid] = true;
+                            incrementProgress();
+                            speakText('Excellent!', 'male');
+                        } else {
+                            answers[qid] = false;
+                            speakText('Try again.', 'male');
+                        }
                         renderChallenge();
                         updateChallengeScore();
-                        if (score === challengeQuestions.length) completeUnit();
+                        checkCompletion();
+                    });
+                });
+
+                document.querySelectorAll('.drag-container .word-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const dragIdx = parseInt(this.closest('.drag-container').dataset.drag);
+                        if (answers[dragIdx] !== null) return;
+                        const word = this.dataset.word;
+                        if (!dragOrder[dragIdx]) dragOrder[dragIdx] = [];
+                        dragOrder[dragIdx].push(word);
+                        renderChallenge();
+                    });
+                });
+
+                document.querySelectorAll('.drop-zone .word-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const dropIdx = parseInt(this.closest('.drop-zone').dataset.drop);
+                        if (answers[dropIdx] !== null) return;
+                        const word = this.dataset.word;
+                        if (dragOrder[dropIdx]) {
+                            dragOrder[dropIdx] = dragOrder[dropIdx].filter(w => w !== word);
+                            renderChallenge();
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.reset-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const qid = parseInt(this.dataset.reset);
+                        if (answers[qid] === false || answers[qid] === null) {
+                            if (answers[qid] === false) {
+                                if (completedCount > 0) completedCount--;
+                                updateProgress();
+                            }
+                            answers[qid] = null;
+                            if (challengeQuestions[qid].type === 'drag') {
+                                dragOrder[qid] = [];
+                            }
+                            renderChallenge();
+                            updateChallengeScore();
+                            if (getScore() < challengeQuestions.length) {
+                                nextUnitBtn.classList.remove('show');
+                            }
+                        } else {
+                            alert('يمكنك إعادة المحاولة فقط للأسئلة التي أجبت عليها بشكل خاطئ أو لم تجب عليها.');
+                        }
                     });
                 });
             }
 
+            function getScore() {
+                return answers.filter(a => a === true).length;
+            }
+
             function updateChallengeScore() {
-                score = answers.filter(a => a === true).length;
-                challengeScoreEl.textContent = score;
+                const score = getScore();
+                challengeScore.textContent = score;
                 const pct = (score / challengeQuestions.length) * 100;
                 challengeFill.style.width = pct + '%';
             }
 
-            function completeUnit() {
-                // فتح الوحدة 2
-                const currentMax = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
-                if (currentMax < 2) {
-                    localStorage.setItem('maxUnitUnlocked', '2');
-                    renderSidebar();
-                    renderUnitNav();
+            function checkCompletion() {
+                const score = getScore();
+                if (score === challengeQuestions.length) {
+                    // فتح الوحدة 3
+                    if (maxUnitUnlocked < 3) {
+                        maxUnitUnlocked = 3;
+                        localStorage.setItem('maxUnitUnlocked', '3');
+                        renderSidebar();
+                        renderUnitNav();
+                    }
+                    nextUnitBtn.classList.add('show');
+                    showCelebration();
                 }
-                // إظهار الاحتفالية
-                document.getElementById('celebrateModal').classList.add('show');
+            }
+
+            resetBtn.addEventListener('click', function() {
+                if (confirm('هل تريد إعادة تعيين جميع الأسئلة؟')) {
+                    answers.fill(null);
+                    dragOrder = challengeQuestions.map(q => q.type === 'drag' ? [] : null);
+                    completedCount = 0;
+                    updateProgress();
+                    renderChallenge();
+                    updateChallengeScore();
+                    nextUnitBtn.classList.remove('show');
+                    document.getElementById('celebrateModal').classList.remove('show');
+                    document.querySelectorAll('.confetti-container').forEach(el => el.remove());
+                }
+            });
+
+            function showCelebration() {
+                const modal = document.getElementById('celebrateModal');
+                modal.classList.add('show');
                 launchConfetti();
-                // إظهار زر الوحدة التالية
-                nextUnitBtn.classList.add('show');
             }
-
-            // التحقق من الحالة السابقة عند التحميل
-            if (parseInt(localStorage.getItem('maxUnitUnlocked')) >= 2) {
-                nextUnitBtn.classList.add('show');
-                challengeScoreEl.textContent = '7';
-                challengeFill.style.width = '100%';
-                progressFill.style.width = '100%';
-                progressLabel.textContent = '7/7 تمارين مكتملة اليوم';
-            }
-
-            // إعادة التحدي
-            document.getElementById('resetChallenge').addEventListener('click', function() {
-                answers = new Array(challengeQuestions.length).fill(null);
-                score = 0;
-                renderChallenge();
-                updateChallengeScore();
-                nextUnitBtn.classList.remove('show');
-            });
-
-            renderChallenge();
-            updateChallengeScore();
-
-            // ============================================================
-            // 8. الاحتفال والمفرقعات
-            // ============================================================
-            document.getElementById('celebrateClose').addEventListener('click', function() {
-                document.getElementById('celebrateModal').classList.remove('show');
-                document.querySelectorAll('.confetti-container').forEach(el => el.remove());
-            });
 
             function launchConfetti() {
                 const container = document.createElement('div');
@@ -1850,16 +2169,29 @@
                 setTimeout(() => container.remove(), 4000);
             }
 
+            document.getElementById('celebrateClose').addEventListener('click', function() {
+                document.getElementById('celebrateModal').classList.remove('show');
+                document.querySelectorAll('.confetti-container').forEach(el => el.remove());
+            });
+
+            renderChallenge();
+            updateChallengeScore();
+
+            // إذا كانت الوحدة مكتملة بالفعل (maxUnitUnlocked >= 3)
+            if (maxUnitUnlocked >= 3) {
+                nextUnitBtn.classList.add('show');
+            }
+
             // ============================================================
-            // 9. Speak Up!
+            // 9. Speak Up! (نسبة 60%)
             // ============================================================
             const recordBtn = document.getElementById('recordBtn');
             const speechResult = document.getElementById('speechResult');
-            const targetPhrase = "Hello! My name is... I am from...";
+            const targetPhrase = "My name is... My father's name is... My mother's name is...";
 
             function similarity(text1, text2) {
-                const words1 = text1.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 0);
-                const words2 = text2.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 0);
+                const words1 = text1.toLowerCase().replace(/[^a-z\s']/g, '').split(/\s+/).filter(w => w.length > 0);
+                const words2 = text2.toLowerCase().replace(/[^a-z\s']/g, '').split(/\s+/).filter(w => w.length > 0);
                 if (words1.length === 0 || words2.length === 0) return 0;
                 const common = words1.filter(w => words2.includes(w)).length;
                 const total = Math.max(words1.length, words2.length);
@@ -1885,13 +2217,16 @@
                     isRecording = false;
                     const transcript = event.results[0][0].transcript.trim();
                     const sim = similarity(transcript, targetPhrase);
+                    console.log('Transcript:', transcript, 'Similarity:', sim);
+
                     if (sim >= 0.60) {
                         speechResult.textContent = '✅ ممتاز! لقد نطقت الجملة بشكل صحيح! 🎉';
                         speechResult.className = 'result success';
                         speakText('Excellent!', 'male');
                         incrementProgress();
                     } else {
-                        speechResult.textContent = `❌ حاول مرة أخرى. النطق غير مطابق بنسبة ${Math.round(sim*100)}%. حاول أن تقول: "${targetPhrase}"`;
+                        speechResult.textContent =
+                            `❌ حاول مرة أخرى. النطق غير مطابق بنسبة ${Math.round(sim*100)}%. حاول أن تقول: "${targetPhrase}"`;
                         speechResult.className = 'result fail';
                         speakText('Try again.', 'male');
                     }
@@ -1902,7 +2237,10 @@
                     speechResult.textContent = '❌ لم يتم التعرف على الصوت، حاول مجدداً.';
                     speechResult.className = 'result fail';
                 };
-                recognizer.onend = function() { isRecording = false; };
+
+                recognizer.onend = function() {
+                    isRecording = false;
+                };
             } else {
                 recordBtn.disabled = true;
                 speechResult.textContent = '⚠️ متصفحك لا يدعم التسجيل. من فضلك اقرأ الجملة بصوت عالٍ لنفسك.';
@@ -1910,13 +2248,13 @@
             }
 
             // ============================================================
-            // 10. Homework
+            // 10. Homework (حفظ + تدقيق)
             // ============================================================
             const homeworkText = document.getElementById('homeworkText');
             const saveStatus = document.getElementById('saveStatus');
             const correctionList = document.getElementById('correctionList');
 
-            const savedHomework = localStorage.getItem('homework_unit1');
+            const savedHomework = localStorage.getItem('homework_unit2');
             if (savedHomework) {
                 homeworkText.value = savedHomework;
                 saveStatus.textContent = '✅ تم تحميل النص المحفوظ';
@@ -1924,7 +2262,7 @@
 
             document.getElementById('saveHomework').addEventListener('click', function() {
                 const text = homeworkText.value;
-                localStorage.setItem('homework_unit1', text);
+                localStorage.setItem('homework_unit2', text);
                 saveStatus.textContent = '✅ تم الحفظ في الساعة ' + new Date().toLocaleTimeString();
             });
 
@@ -1932,6 +2270,7 @@
                 let text = homeworkText.value;
                 let corrections = [];
                 let newText = text;
+
                 const rules = [
                     { pattern: /\bim\b/gi, replacement: "I'm", desc: 'im -> I\'m' },
                     { pattern: /\bhes\b/gi, replacement: "he's", desc: 'hes -> he\'s' },
@@ -1941,6 +2280,7 @@
                     { pattern: /\bwasnt\b/gi, replacement: "wasn't", desc: 'wasnt -> wasn\'t' },
                     { pattern: /\bwerent\b/gi, replacement: "weren't", desc: 'werent -> weren\'t' },
                     { pattern: /\bthats\b/gi, replacement: "that's", desc: 'thats -> that\'s' },
+                    // قواعد خاصة بـ my, your, his, her, our, their
                     { pattern: /\bI is\b/gi, replacement: "I am", desc: 'I is -> I am' },
                     { pattern: /\bhe are\b/gi, replacement: "he is", desc: 'he are -> he is' },
                     { pattern: /\bshe are\b/gi, replacement: "she is", desc: 'she are -> she is' },
@@ -1949,6 +2289,7 @@
                     { pattern: /\byou is\b/gi, replacement: "you are", desc: 'you is -> you are' },
                     { pattern: /\bI are\b/gi, replacement: "I am", desc: 'I are -> I am' },
                 ];
+
                 rules.forEach(rule => {
                     const matches = text.match(rule.pattern);
                     if (matches) {
@@ -1956,12 +2297,13 @@
                         newText = newText.replace(rule.pattern, rule.replacement);
                     }
                 });
+
                 if (corrections.length > 0) {
                     homeworkText.value = newText;
                     correctionList.innerHTML = `<strong>✅ تم تصحيح الأخطاء التالية:</strong><br>${corrections.join('<br>')}`;
                     correctionList.classList.add('show');
                     saveStatus.textContent = '📝 تم التدقيق والتصحيح!';
-                    localStorage.setItem('homework_unit1', newText);
+                    localStorage.setItem('homework_unit2', newText);
                 } else {
                     correctionList.innerHTML = '✅ لا توجد أخطاء إملائية أو نحوية شائعة. أحسنت!';
                     correctionList.classList.add('show');
@@ -1971,7 +2313,7 @@
 
             setInterval(() => {
                 const text = homeworkText.value;
-                localStorage.setItem('homework_unit1', text);
+                localStorage.setItem('homework_unit2', text);
                 saveStatus.textContent = '💾 حفظ تلقائي...';
             }, 10000);
 
@@ -1979,16 +2321,26 @@
             // 11. تأثير الظهور عند التمرير (fade-up)
             // ============================================================
             const fadeEls = document.querySelectorAll('.fade-up');
-            const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
             fadeEls.forEach(el => observer.observe(el));
 
+            // ============================================================
+            // 12. تحميل الأصوات مسبقاً
+            // ============================================================
             if (window.speechSynthesis) {
                 speechSynthesis.getVoices();
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 2 loaded successfully.');
+            console.log('📚 Babble Box - Unit 2 loaded with possessive adjectives.');
         })();
     </script>
+
 </body>
-  </html>
+    </html>
