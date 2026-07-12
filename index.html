@@ -1,1367 +1,481 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Babble Box Academy | منصة تعليم اللغة الإنجليزية</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Babble Box Academy | تعلّم الإنجليزية من الصفر</title>
+<meta name="description" content="منصة Babble Box Academy لتعليم اللغة الإنجليزية للمبتدئين (A1) بطريقة تفاعلية وممتعة">
 
-    <!-- ===== Google Fonts: Poppins (English) + Cairo (Arabic) ===== -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+<!-- Google Fonts: Poppins للإنجليزية و Cairo للعربية -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- ===== Google Analytics (G-L42M2EDW3H) ===== -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L42M2EDW3H');
+</script>
 
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-L42M2EDW3H');
-    </script>
+<style>
+  /* ===== المتغيرات الأساسية للهوية البصرية ===== */
+  :root{
+    --bg: #050505;
+    --bg-soft: #0d0d0d;
+    --gold: #FFD700;
+    --gold-dim: #b8980a;
+    --white: #FFFFFF;
+    --glass: rgba(255,255,255,0.05);
+    --glass-border: rgba(255,215,0,0.18);
+    --text-dim: rgba(255,255,255,0.65);
+    --radius: 18px;
+    --font-ar: 'Cairo', sans-serif;
+    --font-en: 'Poppins', sans-serif;
+  }
 
-    <style>
-        /* ============================================================
-               /* ===== 1. المتغيرات العامة (CSS Variables) ===== */
-        :root {
-            /* --- الألوان الأساسية (النسخة الداكنة) --- */
-            --bg-primary: #050505;
-            --bg-secondary: #0a0a0a;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --bg-card-hover: rgba(255, 255, 255, 0.08);
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --text-muted: #6b6b6b;
-            --gold: #FFD700;
-            --gold-dim: rgba(255, 215, 0, 0.15);
-            --gold-glow: rgba(255, 215, 0, 0.08);
-            --border-glass: rgba(255, 255, 255, 0.07);
-            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --header-bg: rgba(5, 5, 5, 0.85);
-            --input-bg: rgba(255, 255, 255, 0.06);
-            --input-border: rgba(255, 255, 255, 0.10);
-            --input-focus: rgba(255, 215, 0, 0.30);
-            --glass-bg: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --scrollbar-track: #0a0a0a;
-            --scrollbar-thumb: #FFD700;
-            --btn-primary-bg: #FFD700;
-            --btn-primary-text: #050505;
-            --btn-primary-hover: #ffe44d;
-            --btn-secondary-bg: transparent;
-            --btn-secondary-text: #ffffff;
-            --btn-secondary-border: rgba(255, 255, 255, 0.25);
-            --btn-secondary-hover: rgba(255, 255, 255, 0.08);
-            --roadmap-free-bar: #22c55e;
-            --roadmap-paid-bar: #FFD700;
-            --footer-border: rgba(255, 255, 255, 0.05);
-            --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            --nav-link-color: #ffffff;
-            --nav-link-hover: #FFD700;
-        }
+  /* ===== وضع النهار (Light Mode) ===== */
+  body.light{
+    --bg: #f5f5f3;
+    --bg-soft: #ffffff;
+    --white: #0a0a0a;
+    --glass: rgba(0,0,0,0.04);
+    --glass-border: rgba(184,152,10,0.35);
+    --text-dim: rgba(0,0,0,0.6);
+  }
 
-        /* --- النسخة الفاتحة (Light Mode) --- */
-        [data-theme="light"] {
-            --bg-primary: #f6f6f8;
-            --bg-secondary: #ffffff;
-            --bg-card: rgba(0, 0, 0, 0.03);
-            --bg-card-hover: rgba(0, 0, 0, 0.06);
-            --text-primary: #0f0f12;
-            --text-secondary: #3a3a44;
-            --text-muted: #8a8a96;
-            --gold: #d4a800;
-            --gold-dim: rgba(212, 168, 0, 0.12);
-            --gold-glow: rgba(212, 168, 0, 0.06);
-            --border-glass: rgba(0, 0, 0, 0.07);
-            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08);
-            --header-bg: rgba(246, 246, 248, 0.88);
-            --input-bg: rgba(0, 0, 0, 0.04);
-            --input-border: rgba(0, 0, 0, 0.10);
-            --input-focus: rgba(212, 168, 0, 0.25);
-            --glass-bg: rgba(255, 255, 255, 0.60);
-            --glass-border: rgba(0, 0, 0, 0.06);
-            --scrollbar-track: #e8e8ec;
-            --scrollbar-thumb: #d4a800;
-            --btn-primary-bg: #d4a800;
-            --btn-primary-text: #ffffff;
-            --btn-primary-hover: #c49a00;
-            --btn-secondary-bg: transparent;
-            --btn-secondary-text: #0f0f12;
-            --btn-secondary-border: rgba(0, 0, 0, 0.20);
-            --btn-secondary-hover: rgba(0, 0, 0, 0.05);
-            --roadmap-free-bar: #16a34a;
-            --roadmap-paid-bar: #d4a800;
-            --footer-border: rgba(0, 0, 0, 0.06);
-            --nav-link-color: #0f0f12;
-            --nav-link-hover: #d4a800;
-        }
+  *{margin:0;padding:0;box-sizing:border-box;}
 
-        /* ===== 2. إعادة تعيين وإعدادات عامة ===== */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  html{scroll-behavior:smooth;}
 
-        html {
-            scroll-behavior: smooth;
-            -webkit-tap-highlight-color: transparent;
-        }
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:var(--font-ar);
+    direction:rtl;
+    text-align:right;
+    overflow-x:hidden;
+    transition:background .4s ease, color .4s ease;
+    min-height:100vh;
+    line-height:1.7;
+  }
 
-        body {
-            font-family: 'Cairo', 'Poppins', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: background-color var(--transition), color var(--transition);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+  [lang="en"], .en{
+    font-family:var(--font-en);
+    direction:ltr;
+    text-align:left;
+    unicode-bidi:isolate;
+  }
 
-        /* شريط التمرير المخصص */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--scrollbar-track);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-thumb);
-            border-radius: 10px;
-        }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;}
 
-        img {
-            max-width: 100%;
-            display: block;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        ul {
-            list-style: none;
-        }
+  /* ===== خلفية زخرفية متوهجة ===== */
+  .glow-orb{
+    position:fixed;
+    width:420px;height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,215,0,0.16) 0%, transparent 70%);
+    filter:blur(20px);
+    pointer-events:none;
+    z-index:0;
+  }
+  .glow-1{top:-100px;right:-100px;}
+  .glow-2{bottom:10%;left:-150px;background:radial-gradient(circle, rgba(255,215,0,0.10) 0%, transparent 70%);}
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+  /* ===== زجاجية عامة ===== */
+  .glass{
+    background:var(--glass);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--glass-border);
+    border-radius:var(--radius);
+  }
 
-        /* ===== 3. التَّدرُّجات والخلفيات ===== */
-        .bg-glow {
-            position: relative;
-            overflow: hidden;
-        }
-        .bg-glow::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -20%;
-            width: 60%;
-            height: 80%;
-            background: radial-gradient(ellipse, var(--gold-glow) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
+  /* ===== الهيدر ===== */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(5,5,5,0.75);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--glass-border);
+  }
+  body.light header{background:rgba(245,245,243,0.85);}
 
-        /* شبكة خافتة للخلفية */
-        .grid-pattern {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
-        }
+  .header-inner{
+    max-width:1200px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 20px;
+    gap:12px;
+  }
 
-        /* ===== 4. الهيدر (الشريط العلوي) ===== */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 14px 0;
-            background: transparent;
-            transition: background var(--transition), box-shadow var(--transition);
-            backdrop-filter: blur(0px);
-        }
-        .header.scrolled {
-            background: var(--header-bg);
-            backdrop-filter: blur(16px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.30);
-            border-bottom: 1px solid var(--border-glass);
-        }
-        .header .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px 20px;
-        }
+  .logo-wrap{display:flex;align-items:center;gap:10px;}
+  .logo-wrap img{height:42px;width:auto;border-radius:8px;}
+  .logo-text{font-family:var(--font-en);font-weight:800;font-size:1.05rem;letter-spacing:.5px;}
+  .logo-text span{color:var(--gold);}
 
-        /* اللوجو */
-        .logo-link {
-            display: block;
-            flex-shrink: 0;
-        }
-        .logo-link img {
-            height: 44px;
-            width: auto;
-            transition: transform var(--transition);
-        }
-        .logo-link:hover img {
-            transform: scale(1.03);
-        }
+  nav.main-nav{display:none;}
+  nav.main-nav ul{display:flex;gap:26px;font-weight:600;font-size:.95rem;}
+  nav.main-nav a{position:relative;padding:6px 2px;transition:color .25s;}
+  nav.main-nav a:hover{color:var(--gold);}
 
-        /* شريط التنقل (قائمة أفقية) */
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            flex-wrap: wrap;
-        }
-        .nav-menu a {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--nav-link-color);
-            transition: color var(--transition), transform var(--transition);
-            position: relative;
-            padding: 4px 0;
-            letter-spacing: 0.3px;
-        }
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width var(--transition);
-        }
-        .nav-menu a:hover {
-            color: var(--nav-link-hover);
-            transform: translateY(-1px);
-        }
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        .nav-menu a:active {
-            transform: scale(0.96);
-        }
+  .header-actions{display:flex;align-items:center;gap:10px;}
 
-        /* أزرار الهيدر (المجموعة) */
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            flex-shrink: 0;
-        }
+  .social-icons{display:none;gap:10px;align-items:center;}
+  .social-icons a{
+    width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--glass);border:1px solid var(--glass-border);
+    font-size:.95rem;transition:transform .25s, background .25s;
+  }
+  .social-icons a:hover{transform:translateY(-3px);background:rgba(255,215,0,0.15);}
 
-        /* أيقونات السوشيال ميديا */
-        .social-icons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: background var(--transition), transform var(--transition), border-color var(--transition);
-        }
-        .social-icons a:hover {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            transform: translateY(-2px) scale(1.05);
-        }
-        .social-icons a svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--text-primary);
-            transition: fill var(--transition);
-        }
-        .social-icons a:hover svg {
-            fill: var(--gold);
-        }
+  #themeToggle{
+    width:42px;height:42px;border-radius:50%;
+    background:var(--glass);border:1px solid var(--glass-border);
+    font-size:1.2rem;display:flex;align-items:center;justify-content:center;
+    transition:transform .3s;
+  }
+  #themeToggle:hover{transform:rotate(20deg);}
 
-        [data-theme="light"] .social-icons a {
-            background: rgba(0, 0, 0, 0.04);
-            border-color: rgba(0, 0, 0, 0.06);
-        }
-        [data-theme="light"] .social-icons a:hover {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-        }
+  .burger{
+    display:flex;flex-direction:column;gap:5px;
+    width:30px;height:30px;justify-content:center;
+    background:none;
+  }
+  .burger span{display:block;width:100%;height:2px;background:var(--gold);border-radius:2px;}
 
-        /* زر تبديل الوضع (Dark/Light) */
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-primary);
-            font-size: 20px;
-            cursor: pointer;
-            transition: background var(--transition), transform var(--transition), border-color var(--transition);
-            user-select: none;
-        }
-        .theme-toggle:hover {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            transform: rotate(20deg) scale(1.05);
-        }
-        [data-theme="light"] .theme-toggle {
-            border-color: rgba(0, 0, 0, 0.08);
-            background: rgba(0, 0, 0, 0.04);
-        }
-        [data-theme="light"] .theme-toggle:hover {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-        }
+  .mobile-nav{
+    display:none;flex-direction:column;
+    padding:16px 20px 20px;
+    border-top:1px solid var(--glass-border);
+  }
+  .mobile-nav.open{display:flex;}
+  .mobile-nav a{padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .mobile-nav .social-icons{display:flex;margin-top:14px;}
 
-        /* ===== 5. القسم البطل (Hero) ===== */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 140px 20px 80px;
-            overflow: hidden;
-        }
-        .hero .grid-pattern {
-            background-size: 50px 50px;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 860px;
-            text-align: center;
-            margin: 0 auto;
-        }
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 100px;
-            background: var(--gold-dim);
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            color: var(--gold);
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 28px;
-            backdrop-filter: blur(4px);
-        }
-        .hero-title {
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            font-size: clamp(44px, 8vw, 72px);
-            font-weight: 900;
-            line-height: 1.08;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-        }
-        .hero-title .highlight {
-            color: var(--gold);
-            position: relative;
-            display: inline-block;
-        }
-        .hero-title .highlight::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 4px;
-            width: 100%;
-            height: 6px;
-            background: var(--gold);
-            border-radius: 4px;
-            opacity: 0.30;
-            transform: skewX(-8deg);
-        }
-        .hero-sub {
-            font-size: clamp(16px, 2vw, 22px);
-            font-weight: 400;
-            color: var(--text-secondary);
-            max-width: 620px;
-            margin: 10px auto 32px;
-            line-height: 1.7;
-        }
-        .hero-sub strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
+  @media(min-width:900px){
+    nav.main-nav{display:block;}
+    .social-icons{display:flex;}
+    .burger{display:none;}
+    .mobile-nav{display:none !important;}
+  }
 
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 8px;
-        }
+  /* ===== الهيرو ===== */
+  .hero{
+    position:relative;z-index:1;
+    max-width:1200px;margin:0 auto;
+    padding:70px 20px 50px;
+    display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 18px;border-radius:999px;
+    font-size:.85rem;font-weight:700;color:var(--gold);
+  }
+  .hero h1{
+    font-family:var(--font-en);
+    font-size:clamp(2rem, 6vw, 3.4rem);
+    font-weight:800;line-height:1.15;
+    direction:ltr;
+  }
+  .hero h1 .accent{color:var(--gold);}
+  .hero p.sub{
+    max-width:560px;color:var(--text-dim);font-size:1.05rem;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+  .btn{
+    padding:15px 30px;border-radius:14px;font-weight:700;font-size:1rem;
+    transition:transform .25s ease, box-shadow .25s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg, var(--gold), #e8b800);
+    color:#050505;
+  }
+  .btn-gold:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,215,0,0.25);}
+  .btn-outline{
+    border:1.5px solid var(--glass-border);color:var(--white);
+  }
+  .btn-outline:hover{background:var(--glass);transform:translateY(-3px);}
 
-        /* ===== 6. الأزرار ===== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 16px 36px;
-            border-radius: 60px;
-            font-family: 'Cairo', 'Poppins', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: all var(--transition);
-            text-align: center;
-            min-width: 180px;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary {
-            background: var(--btn-primary-bg);
-            color: var(--btn-primary-text);
-            box-shadow: 0 4px 24px rgba(255, 215, 0, 0.25);
-        }
-        .btn-primary:hover {
-            background: var(--btn-primary-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.35);
-        }
-        .btn-primary:active {
-            transform: translateY(0px) scale(0.97);
-        }
+  /* شارة المستوى الدائرية بتصميم "قرص لغة" — العنصر المميز للتصميم */
+  .level-dial{
+    position:relative;
+    width:200px;height:200px;
+    margin:10px auto 0;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .level-dial::before{
+    content:"";position:absolute;inset:0;border-radius:50%;
+    background:conic-gradient(var(--gold) 0deg 65deg, rgba(255,215,0,0.12) 65deg 360deg);
+    -webkit-mask:radial-gradient(circle, transparent 62%, black 63%);
+    mask:radial-gradient(circle, transparent 62%, black 63%);
+    animation:spin 12s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .level-dial-inner{
+    position:relative;z-index:2;text-align:center;
+  }
+  .level-dial-inner .lvl{font-family:var(--font-en);font-size:2rem;font-weight:800;color:var(--gold);}
+  .level-dial-inner .lvl-label{font-size:.75rem;color:var(--text-dim);direction:rtl;}
 
-        .btn-secondary {
-            background: var(--btn-secondary-bg);
-            color: var(--btn-secondary-text);
-            border: 1.5px solid var(--btn-secondary-border);
-            backdrop-filter: blur(4px);
-        }
-        .btn-secondary:hover {
-            background: var(--btn-secondary-hover);
-            border-color: var(--gold);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.20);
-        }
-        .btn-secondary:active {
-            transform: translateY(0px) scale(0.97);
-        }
+  /* ===== قسم لماذا Babble Box ===== */
+  section{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:60px 20px;}
+  .section-title{text-align:center;margin-bottom:40px;}
+  .section-title .eyebrow{color:var(--gold);font-weight:700;font-size:.85rem;letter-spacing:1px;}
+  .section-title h2{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-top:8px;}
 
-        .btn-gold-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 1.5px solid var(--gold);
-        }
-        .btn-gold-outline:hover {
-            background: var(--gold);
-            color: var(--bg-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.25);
-        }
+  .features-grid{
+    display:grid;grid-template-columns:repeat(auto-fit, minmax(220px,1fr));gap:20px;
+  }
+  .feature-card{
+    padding:26px 22px;text-align:center;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .feature-card:hover{transform:translateY(-6px);border-color:var(--gold);}
+  .feature-card .icon{font-size:2rem;margin-bottom:12px;}
+  .feature-card h3{font-size:1.05rem;margin-bottom:8px;}
+  .feature-card p{color:var(--text-dim);font-size:.9rem;}
 
-        .btn-sm {
-            padding: 10px 24px;
-            font-size: 15px;
-            min-width: auto;
-        }
-        .btn-block {
-            width: 100%;
-            justify-content: center;
-        }
-        .btn:disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
+  /* ===== خارطة الطريق - الوحدات ===== */
+  #roadmap{scroll-margin-top:80px;}
+  .roadmap-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(150px,1fr));gap:16px;
+  }
+  .unit-card{
+    padding:20px 16px;text-align:center;position:relative;overflow:hidden;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .unit-card:hover{transform:translateY(-5px);border-color:var(--gold);}
+  .unit-card .num{
+    font-family:var(--font-en);color:var(--gold);font-weight:800;font-size:.8rem;
+    display:block;margin-bottom:6px;
+  }
+  .unit-card .title{font-size:.95rem;font-weight:700;}
+  .unit-card .locked-tag{
+    position:absolute;top:8px;left:8px;font-size:.85rem;opacity:.6;
+  }
 
-        /* ===== 7. الأقسام العامة ===== */
-        section {
-            position: relative;
-            padding: 80px 0;
-        }
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 56px;
-        }
-        .section-header h2 {
-            font-size: clamp(30px, 4.5vw, 48px);
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.01em;
-        }
-        .section-header h2 .gold {
-            color: var(--gold);
-        }
-        .section-header p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin-top: 12px;
-            line-height: 1.7;
-        }
+  /* ===== قسم الاختبار ===== */
+  .test-banner{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;
+    padding:36px 30px;
+  }
+  .test-banner .txt h3{font-size:1.3rem;margin-bottom:8px;}
+  .test-banner .txt p{color:var(--text-dim);}
 
-        /* ===== 8. الزجاج (Glassmorphism) ===== */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            transition: all var(--transition);
-        }
-        .glass:hover {
-            border-color: rgba(255, 215, 0, 0.15);
-        }
+  /* ===== تواصل معنا ===== */
+  #contact .glass{padding:36px 26px;text-align:center;}
+  #contact h2{margin-bottom:10px;}
+  #contact p{color:var(--text-dim);margin-bottom:20px;}
+  .contact-socials{display:flex;justify-content:center;gap:16px;}
+  .contact-socials a{
+    width:46px;height:46px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+    background:var(--glass);border:1px solid var(--glass-border);
+    transition:transform .25s, background .25s;
+  }
+  .contact-socials a:hover{transform:translateY(-4px) scale(1.05);background:rgba(255,215,0,0.15);}
 
-        /* ===== 9. القسم الثاني: المميزات ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-            margin-top: 12px;
-        }
-        .feature-card {
-            padding: 36px 30px 40px;
-            text-align: center;
-            transition: all var(--transition);
-            border-radius: 24px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-        }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 215, 0, 0.20);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
-            background: var(--bg-card-hover);
-        }
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            display: block;
-        }
-        .feature-card h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        /* ===== 10. القسم الثالث: خريطة المستويات ===== */
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .roadmap-card {
-            border-radius: 24px;
-            overflow: hidden;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            transition: all var(--transition);
-            display: flex;
-            flex-direction: column;
-        }
-        .roadmap-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255, 215, 0, 0.15);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
-        }
-        .roadmap-bar {
-            height: 6px;
-            width: 100%;
-            flex-shrink: 0;
-        }
-        .roadmap-bar.free {
-            background: var(--roadmap-free-bar);
-        }
-        .roadmap-bar.paid {
-            background: var(--roadmap-paid-bar);
-        }
-        .roadmap-body {
-            padding: 24px 24px 28px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .roadmap-body .level-badge {
-            display: inline-block;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 2px 14px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-secondary);
-            align-self: flex-start;
-            margin-bottom: 8px;
-            border: 1px solid var(--border-glass);
-        }
-        .roadmap-body h4 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-        .roadmap-body .level-sub {
-            font-size: 15px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            font-weight: 400;
-        }
-        .roadmap-body .level-desc {
-            font-size: 15px;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-            line-height: 1.5;
-            flex: 1;
-        }
-        .roadmap-body .level-status {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-        .roadmap-body .level-status .free-tag {
-            color: var(--roadmap-free-bar);
-        }
-        .roadmap-body .level-status .paid-tag {
-            color: var(--roadmap-paid-bar);
-        }
-        .roadmap-body .btn {
-            margin-top: auto;
-        }
-
-        /* ===== 11. القسم الرابع: المكتبة الرقمية ===== */
-        .coming-soon {
-            text-align: center;
-            padding: 60px 40px;
-            border-radius: 28px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            max-width: 720px;
-            margin: 0 auto;
-        }
-        .coming-soon .icon-big {
-            font-size: 64px;
-            display: block;
-            margin-bottom: 12px;
-        }
-        .coming-soon h2 {
-            font-size: clamp(28px, 4vw, 40px);
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .coming-soon p {
-            color: var(--text-secondary);
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 28px;
-        }
-
-        /* ===== 12. القسم الخامس: اختبر مستواك ===== */
-        .test-section {
-            text-align: center;
-        }
-        .test-box {
-            padding: 48px 36px;
-            border-radius: 28px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            max-width: 640px;
-            margin: 0 auto;
-        }
-        .test-box h2 {
-            font-size: clamp(26px, 3.5vw, 38px);
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .test-box p {
-            color: var(--text-secondary);
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 28px;
-        }
-
-        /* ===== 13. القسم السادس: تواصل معنا ===== */
-        .contact-form {
-            max-width: 560px;
-            margin: 0 auto;
-            padding: 40px 32px 44px;
-            border-radius: 28px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-        }
-        .contact-form .form-group {
-            margin-bottom: 20px;
-        }
-        .contact-form label {
-            display: block;
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--text-secondary);
-        }
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 14px;
-            border: 1px solid var(--input-border);
-            background: var(--input-bg);
-            color: var(--text-primary);
-            font-family: 'Cairo', 'Poppins', sans-serif;
-            font-size: 16px;
-            transition: border var(--transition), box-shadow var(--transition);
-            outline: none;
-            resize: vertical;
-        }
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 4px var(--input-focus);
-        }
-        .contact-form textarea {
-            min-height: 130px;
-        }
-        .contact-form .btn {
-            width: 100%;
-            justify-content: center;
-        }
-        [data-theme="light"] .contact-form input,
-        [data-theme="light"] .contact-form textarea {
-            color: #0f0f12;
-        }
-
-        /* ===== 14. التذييل (Footer) ===== */
-        .footer {
-            border-top: 1px solid var(--footer-border);
-            padding: 40px 0 32px;
-            margin-top: 20px;
-        }
-        .footer .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
-            text-align: center;
-        }
-        .footer p {
-            font-size: 15px;
-            color: var(--text-muted);
-        }
-        .footer .social-icons a {
-            width: 40px;
-            height: 40px;
-        }
-        .footer .social-icons a svg {
-            width: 20px;
-            height: 20px;
-        }
-        .footer .social-row {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        /* ===== 15. استجابة (Responsive) ===== */
-        @media (max-width: 992px) {
-            .roadmap-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .hero-title {
-                font-size: clamp(38px, 7vw, 56px);
-            }
-            .logo-link img {
-                height: 40px;
-            }
-            .nav-menu {
-                gap: 18px;
-            }
-            .nav-menu a {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 10px 0;
-            }
-            .header .container {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            .logo-link img {
-                height: 36px;
-            }
-            .nav-menu {
-                order: 3;
-                flex-basis: 100%;
-                justify-content: center;
-                gap: 16px;
-                padding-top: 6px;
-                border-top: 1px solid var(--border-glass);
-            }
-            .nav-menu a {
-                font-size: 14px;
-                padding: 4px 0;
-            }
-            .social-icons a {
-                width: 32px;
-                height: 32px;
-            }
-            .social-icons a svg {
-                width: 16px;
-                height: 16px;
-            }
-            .theme-toggle {
-                width: 36px;
-                height: 36px;
-                font-size: 18px;
-            }
-            .header-actions {
-                gap: 8px;
-            }
-            .social-icons {
-                gap: 6px;
-            }
-
-            .hero {
-                padding: 120px 16px 60px;
-                min-height: 90vh;
-            }
-            .hero-title {
-                font-size: clamp(32px, 6.5vw, 44px);
-            }
-            .hero-sub {
-                font-size: 16px;
-            }
-            .hero-buttons .btn {
-                min-width: 150px;
-                padding: 14px 28px;
-                font-size: 16px;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-            .section-header {
-                margin-bottom: 40px;
-            }
-            .section-header h2 {
-                font-size: clamp(26px, 5vw, 34px);
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .feature-card {
-                padding: 28px 20px 32px;
-            }
-
-            .roadmap-grid {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-            .roadmap-body {
-                padding: 20px 20px 24px;
-            }
-
-            .coming-soon {
-                padding: 36px 24px;
-            }
-            .test-box {
-                padding: 32px 20px;
-            }
-            .contact-form {
-                padding: 28px 18px 32px;
-            }
-
-            .footer {
-                padding: 28px 0 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: clamp(28px, 6vw, 36px);
-            }
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-            .hero-buttons .btn {
-                width: 100%;
-                min-width: unset;
-            }
-            .btn {
-                padding: 14px 24px;
-                font-size: 16px;
-            }
-            .logo-link img {
-                height: 30px;
-            }
-            .nav-menu a {
-                font-size: 13px;
-            }
-            .social-icons a {
-                width: 28px;
-                height: 28px;
-            }
-            .social-icons a svg {
-                width: 14px;
-                height: 14px;
-            }
-            .theme-toggle {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
-            }
-        }
-
-        /* ===== 16. تأثيرات حركية إضافية ===== */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* تموج بسيط للأزرار عند النقر */
-        .btn-ripple {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-ripple::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.20) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        .btn-ripple:active::after {
-            opacity: 1;
-            transition: 0s;
-        }
-
-        /* ===== 17. وضع الطباعة (للأجهزة التي لا تدعم backdrop-filter) ===== */
-        @supports not (backdrop-filter: blur(12px)) {
-            .glass,
-            .feature-card,
-            .roadmap-card,
-            .coming-soon,
-            .test-box,
-            .contact-form {
-                background: var(--bg-secondary);
-                border-color: var(--border-glass);
-            }
-        }
-    </style>
+  /* ===== فوتر ===== */
+  footer{
+    position:relative;z-index:1;
+    border-top:1px solid var(--glass-border);
+    padding:30px 20px;text-align:center;color:var(--text-dim);font-size:.85rem;
+  }
+  footer .footer-socials{display:flex;justify-content:center;gap:14px;margin-top:14px;}
+  footer .footer-socials a{
+    width:36px;height:36px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--glass);border:1px solid var(--glass-border);
+  }
+</style>
 </head>
-
 <body>
 
-    <!-- ============================================================
-    =====  الهيدر (الشريط العلوي)  ===== -->
-    <header class="header" id="header" role="banner">
-        <div class="container">
-            <!-- اللوجو -->
-            <a href="#" class="logo-link" aria-label="Babble Box Academy">
-                <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy Logo" />
-            </a>
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
 
-            <!-- شريط التنقل (قائمة أفقية) -->
-            <nav class="nav-menu" aria-label="القائمة الرئيسية">
-                <a href="#roadmap">المستويات</a>
-                <a href="#coming-soon">الكتب</a>
-                <a href="test.html">اختبر مستواك</a>
-                <a href="#contact">اتصل بنا</a>
-            </nav>
+<!-- ===== الهيدر الموحد ===== -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <a href="index.html"><img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy Logo"></a>
+      <div class="logo-text">Babble<span>Box</span></div>
+    </div>
 
-            <!-- المجموعة اليمنى: أيقونات السوشيال + زر التبديل -->
-            <div class="header-actions">
-                <div class="social-icons" aria-label="وسائل التواصل الاجتماعي">
-                    <!-- فيسبوك -->
-                    <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </a>
-                    <!-- يوتيوب -->
-                    <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </a>
-                    <!-- تيك توك -->
-                    <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.76-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.3-.69.32-1.06.11-1.64.04-3.28.06-4.93.02-1.37.02-2.74.02-4.11z"/>
-                        </svg>
-                    </a>
-                </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="index.html#roadmap">المستويات</a></li>
+        <li><a href="test.html">اختبر مستواك</a></li>
+        <li><a href="index.html#contact">اتصل بنا</a></li>
+      </ul>
+    </nav>
 
-                <!-- زر تبديل الوضع (Dark/Light) -->
-                <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الفاتح / الداكن">
-                    🌓
-                </button>
-            </div>
-        </div>
-    </header>
+    <div class="header-actions">
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
+        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
+      </div>
+      <button id="themeToggle" aria-label="تبديل الوضع">🌓</button>
+      <button class="burger" id="burgerBtn" aria-label="القائمة">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
 
-    <!-- ============================================================
-    =====  1. القسم البطل (Hero) — رؤيتنا وهدفنا  ===== -->
-    <section class="hero bg-glow" id="hero">
-        <div class="grid-pattern"></div>
-        <div class="hero-content">
-            <div class="hero-badge">🚀 Babble Box Academy</div>
-            <h1 class="hero-title">
-                نتجاوز حدود <span class="highlight">اللغة</span>.<br />
-                <span style="color: var(--text-primary);">نصنع</span>
-                <span class="highlight" style="color: var(--gold);">الطلاقة</span>
-            </h1>
-            <p class="hero-sub">
-                في <strong>Babble Box</strong>، لا نكتفي بتعليمك الإنجليزية.<br />
-                نحن نبنى ثقتك، نمحو خوفك، ونطلق لسانك.<br />
-                هدفنا: أن تتحدث الإنجليزية كما تتحدث العربية. <strong>بلا تردد</strong>.
-            </p>
-            <div class="hero-buttons">
-                <a href="#features" class="btn btn-primary btn-ripple">
-                    ابدأ التعلم مجاناً 🚀
-                </a>
-                <a href="test.html" class="btn btn-secondary btn-ripple">
-                    اختبر مستواك الآن 📝
-                </a>
-            </div>
-        </div>
-    </section>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">الرئيسية</a>
+    <a href="index.html#roadmap">المستويات</a>
+    <a href="test.html">اختبر مستواك</a>
+    <a href="index.html#contact">اتصل بنا</a>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
+      <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
+      <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
+    </div>
+  </div>
+</header>
 
-    <!-- ============================================================
-    =====  2. القسم الثاني: لماذا نحن مختلفون؟ (المميزات)  ===== -->
-    <section id="features">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>💛 لماذا <span class="gold">Babble Box</span> مختلفة تماماً؟</h2>
-                <p>ثلاث ركائز تجعل رحلتك مختلفة عن أي منصة أخرى</p>
-            </div>
-            <div class="features-grid">
-                <!-- البطاقة 1 -->
-                <div class="feature-card fade-up glass">
-                    <span class="feature-icon">🗣️</span>
-                    <h3>التفاعل هو الأساس</h3>
-                    <p>لسنا كتباً جامدة. نحن محادثات حقيقية، صوتيات، تمارين تفاعلية، وتحدث مع المتصفح.</p>
-                </div>
-                <!-- البطاقة 2 -->
-                <div class="feature-card fade-up glass">
-                    <span class="feature-icon">📊</span>
-                    <h3>مبنية على CEFR</h3>
-                    <p>جميع مناهجنا مصممة وفقاً للإطار الأوروبي المرجعي للغات. دقة أكاديمية بلمسة عصرية.</p>
-                </div>
-                <!-- البطاقة 3 -->
-                <div class="feature-card fade-up glass">
-                    <span class="feature-icon">🎯</span>
-                    <h3>مجانية للمبتدئين</h3>
-                    <p>نؤمن أن بداية رحلتك يجب أن تكون خالية من العوائق. A1 و A2 مجانيان بالكامل. دوماً.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ===== قسم الهيرو ===== -->
+<section class="hero">
+  <div class="hero-badge glass">🎓 مستوى A1 · للمبتدئين تماماً</div>
+  <h1>Speak Your <span class="accent">First</span> Words<br>with Confidence</h1>
+  <p class="sub">منصة Babble Box Academy تأخذك من الصفر خطوة بخطوة عبر 12 وحدة تفاعلية، لتتحدث الإنجليزية بثقة في مواقف الحياة اليومية.</p>
 
-    <!-- ============================================================
-    =====  3. القسم الثالث: خريطة المستويات (Roadmap)  ===== -->
-    <section id="roadmap" style="background: var(--bg-secondary);">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>🗺️ خارطة طريقك <span class="gold">للإتقان</span></h2>
-                <p>6 مستويات مبنية على CEFR، من الصفر حتى الاحتراف</p>
-            </div>
-            <div class="roadmap-grid">
-                <!-- A1 -->
-                <div class="roadmap-card fade-up glass">
-                    <div class="roadmap-bar free"></div>
-                    <div class="roadmap-body">
-                        <span class="level-badge">🟢 A1</span>
-                        <h4>Beginner</h4>
-                        <div class="level-sub">مبتدئ · مجاني</div>
-                        <p class="level-desc">انطلق من الصفر وابنِ أساساً متيناً في اللغة.</p>
-                        <div class="level-status"><span class="free-tag">✅ مجاني بالكامل</span></div>
-                        <a href="unit1.html" class="btn btn-primary btn-sm btn-block">ابدأ مجاناً</a>
-                    </div>
-                </div>
-                <!-- A2 -->
-                <div class="roadmap-card fade-up glass">
-                    <div class="roadmap-bar free"></div>
-                    <div class="roadmap-body">
-                        <span class="level-badge">🟢 A2</span>
-                        <h4>Elementary</h4>
-                        <div class="level-sub">أساسي · مجاني</div>
-                        <p class="level-desc">ابن أساسك وزد ثقتك في المحادثات اليومية.</p>
-                        <div class="level-status"><span class="free-tag">✅ مجاني بالكامل</span></div>
-                        <button class="btn btn-secondary btn-sm btn-block" disabled>قريباً</button>
-                    </div>
-                </div>
-                <!-- B1 -->
-                <div class="roadmap-card fade-up glass">
-                    <div class="roadmap-bar paid"></div>
-                    <div class="roadmap-body">
-                        <span class="level-badge">🟡 B1</span>
-                        <h4>Intermediate</h4>
-                        <div class="level-sub">متوسط · مدفوع</div>
-                        <p class="level-desc">تجاوز الحدود وابدأ بالتحدث بطلاقة في مواقف الحياة.</p>
-                        <div class="level-status"><span class="paid-tag">🔒 مدفوع</span></div>
-                        <button class="btn btn-gold-outline btn-sm btn-block" disabled>قريباً 🔒</button>
-                    </div>
-                </div>
-                <!-- B2 -->
-                <div class="roadmap-card fade-up glass">
-                    <div class="roadmap-bar paid"></div>
-                    <div class="roadmap-body">
-                        <span class="level-badge">🟡 B2</span>
-                        <h4>Upper-Intermediate</h4>
-                        <div class="level-sub">متوسط متقدم · مدفوع</div>
-                        <p class="level-desc">أتقن اللغة وعبّر عن آرائك بثقة في أي موضوع.</p>
-                        <div class="level-status"><span class="paid-tag">🔒 مدفوع</span></div>
-                        <button class="btn btn-gold-outline btn-sm btn-block" disabled>قريباً 🔒</button>
-                    </div>
-                </div>
-                <!-- C1 -->
-                <div class="roadmap-card fade-up glass">
-                    <div class="roadmap-bar paid"></div>
-                    <div class="roadmap-body">
-                        <span class="level-badge">🔴 C1</span>
-                        <h4>Advanced</h4>
-                        <div class="level-sub">متقدم · مدفوع</div>
-                        <p class="level-desc">احترف الأكاديمية وكن قادراً على الدراسة والعمل باللغة.</p>
-                        <div class="level-status"><span class="paid-tag">🔒 مدفوع</span></div>
-                        <button class="btn btn-gold-outline btn-sm btn-block" disabled>قريباً 🔒</button>
-                    </div>
-                </div>
-                <!-- C2 -->
-                <div class="roadmap-card fade-up glass">
-                    <div class="roadmap-bar paid"></div>
-                    <div class="roadmap-body">
-                        <span class="level-badge">🔴 C2</span>
-                        <h4>Proficiency</h4>
-                        <div class="level-sub">خبير · مدفوع</div>
-                        <p class="level-desc">كن خبيراً وتحدث الإنجليزية بطلاقة خارقة كالمتحدث الأصلي.</p>
-                        <div class="level-status"><span class="paid-tag">🔒 مدفوع</span></div>
-                        <button class="btn btn-gold-outline btn-sm btn-block" disabled>قريباً 🔒</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="level-dial glass" style="border:none;background:transparent;">
+    <div class="level-dial-inner">
+      <div class="lvl">A1</div>
+      <div class="lvl-label">مستواك المتوقع</div>
+    </div>
+  </div>
 
-    <!-- ============================================================
-    =====  4. القسم الرابع: المكتبة الرقمية (Coming Soon)  ===== -->
-    <section id="coming-soon">
-        <div class="container">
-            <div class="coming-soon fade-up glass">
-                <span class="icon-big">📘</span>
-                <h2>المكتبة الرقمية <span class="gold">Coming Soon</span></h2>
-                <p>
-                    نحن نعد سلسلة كتب PDF تفاعلية ثورية. ليست مجرد صفحات،
-                    بل تجربة متكاملة بالصوت والتمارين.
-                </p>
-                <button class="btn btn-secondary btn-ripple" disabled>
-                    تصفح الكتب 📚 <span style="font-size:14px;opacity:0.6;">(قريباً)</span>
-                </button>
-            </div>
-        </div>
-    </section>
+  <div class="hero-ctas">
+    <a href="unit1.html" class="btn btn-gold">🚀 ابدأ الوحدة 1</a>
+    <a href="test.html" class="btn btn-outline">🧭 اختبر مستواك أولاً</a>
+  </div>
+</section>
 
-    <!-- ============================================================
-    =====  5. القسم الخامس: اختبر مستواك  ===== -->
-    <section id="test" style="background: var(--bg-secondary);">
-        <div class="container">
-            <div class="test-box fade-up glass">
-                <h2>🎯 لست متأكداً من أين <span class="gold">تبدأ؟</span></h2>
-                <p>
-                    اختبارنا المبني على CEFR سيحدد مستواك بدقة في 15 دقيقة.
-                    مجاني بالكامل.
-                </p>
-                <a href="test.html" class="btn btn-primary btn-ripple" style="min-width:200px;">
-                    ابدأ الاختبار 📝
-                </a>
-            </div>
-        </div>
-    </section>
+<!-- ===== لماذا Babble Box ===== -->
+<section id="why">
+  <div class="section-title">
+    <div class="eyebrow">WHY BABBLE BOX</div>
+    <h2>تعلّم بطريقة تلتصق في ذاكرتك</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card glass">
+      <div class="icon">🗣️</div>
+      <h3>محادثات واقعية</h3>
+      <p>مواقف حياتية حقيقية بدل الجمل الجافة المملة.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="icon">🚨</div>
+      <h3>Babble Warning</h3>
+      <p>تحذيرات من الأخطاء والمعاني المزدوجة المضحكة.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="icon">⚔️</div>
+      <h3>تحديات تفاعلية</h3>
+      <p>7 أسئلة في كل وحدة لقياس تقدمك فوراً.</p>
+    </div>
+    <div class="feature-card glass">
+      <div class="icon">🎤</div>
+      <h3>تدريب على النطق</h3>
+      <p>تحدّث والنظام يقيس مدى تطابق نطقك مع الجملة.</p>
+    </div>
+  </div>
+</section>
 
-    <!-- ============================================================
-    =====  6. القسم السادس: تواصل معنا  ===== -->
-    <section id="contact">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>📩 دعنا نسمع <span class="gold">صوتك</span></h2>
-                <p>أسئلة، اقتراحات، أو مجرد تحية — نرحب بك دائماً</p>
-            </div>
-            <div class="contact-form fade-up glass">
-                <form action="https://formspree.io/f/mgogwoky" method="POST">
-                    <div class="form-group">
-                        <label for="name">الاسم</label>
-                        <input type="text" id="name" name="name" placeholder="أدخل اسمك" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="email">البريد الإلكتروني</label>
-                        <input type="email" id="email" name="email" placeholder="example@mail.com" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="message">الرسالة</label>
-                        <textarea id="message" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-ripple">
-                        إرسال ✉️
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
+<!-- ===== خارطة الطريق ===== -->
+<section id="roadmap">
+  <div class="section-title">
+    <div class="eyebrow">ROADMAP</div>
+    <h2>خارطة الطريق - 12 وحدة</h2>
+  </div>
+  <div class="roadmap-grid" id="roadmapGrid"></div>
+</section>
 
-    <!-- ============================================================
-    =====  7. التذييل (Footer)  ===== -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <p>© 2026 Babble Box Academy. رحلة الطلاقة تبدأ بخطوة.</p>
-            <div class="social-row">
-                <!-- فيسبوك -->
-                <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
-                <!-- يوتيوب -->
-                <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                </a>
-                <!-- تيك توك -->
-                <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.76-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.3-.69.32-1.06.11-1.64.04-3.28.06-4.93.02-1.37.02-2.74.02-4.11z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </footer>
+<!-- ===== بانر الاختبار ===== -->
+<section id="test-banner">
+  <div class="test-banner glass">
+    <div class="txt">
+      <h3>🧭 لست متأكداً من مستواك؟</h3>
+      <p>خض اختبار تحديد المستوى المجاني الآن واعرف نقطة انطلاقك الصحيحة.</p>
+    </div>
+    <a href="test.html" class="btn btn-gold">ابدأ الاختبار</a>
+  </div>
+</section>
 
-    <!-- ============================================================
-    =====  JavaScript — التبديل بين الوضعين + تأثيرات التمرير  ===== -->
-    <script>
-        (function() {
-            'use strict';
+<!-- ===== تواصل معنا ===== -->
+<section id="contact">
+  <div class="glass">
+    <h2>اتصل بنا</h2>
+    <p>تابعنا على منصات التواصل الاجتماعي وكن جزءاً من مجتمع Babble Box.</p>
+    <div class="contact-socials">
+      <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
+      <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
+      <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
+    </div>
+  </div>
+</section>
 
-            // ------------------------------------------------------------
-            // 1. تبديل الوضع (Dark / Light) مع localStorage
-            // ------------------------------------------------------------
-            const themeToggle = document.getElementById('themeToggle');
-            const html = document.documentElement;
+<!-- ===== الفوتر الموحد ===== -->
+<footer>
+  <div>© 2026 Babble Box Academy. جميع الحقوق محفوظة.</div>
+  <div class="footer-socials">
+    <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
+    <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
+    <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
+  </div>
+</footer>
 
-            // استرجاع الوضع المحفوظ
-            const savedTheme = localStorage.getItem('babble-theme') || 'dark';
-            html.setAttribute('data-theme', savedTheme);
+<script>
+  /* ===== تبديل الوضع الليلي/النهاري وحفظه في localStorage ===== */
+  const themeBtn = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('bb_theme');
+  if(savedTheme === 'light'){ document.body.classList.add('light'); }
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    localStorage.setItem('bb_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  });
 
-            themeToggle.addEventListener('click', function() {
-                const current = html.getAttribute('data-theme');
-                const next = current === 'dark' ? 'light' : 'dark';
-                html.setAttribute('data-theme', next);
-                localStorage.setItem('babble-theme', next);
-            });
+  /* ===== قائمة الجوال ===== */
+  const burger = document.getElementById('burgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
 
-            // ------------------------------------------------------------
-            // 2. الهيدر الشفاف → معتم عند التمرير
-            // ------------------------------------------------------------
-            const header = document.getElementById('header');
-            let lastScroll = 0;
-
-            function handleHeaderScroll() {
-                const scrollY = window.scrollY || window.pageYOffset;
-                if (scrollY > 60) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-                lastScroll = scrollY;
-            }
-
-            window.addEventListener('scroll', handleHeaderScroll, { passive: true });
-            // تشغيل فوري للتأكد من الحالة عند التحميل
-            handleHeaderScroll();
-
-            // ------------------------------------------------------------
-            // 3. تأثير الظهور عند التمرير (fade-up)
-            // ------------------------------------------------------------
-            const fadeEls = document.querySelectorAll('.fade-up');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.12,
-                rootMargin: '0px 0px -20px 0px'
-            });
-
-            fadeEls.forEach(el => observer.observe(el));
-
-            // لإظهار العناصر الموجودة بالفعل في الشاشة عند التحميل
-            setTimeout(() => {
-                fadeEls.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    const winHeight = window.innerHeight;
-                    if (rect.top < winHeight * 0.85) {
-                        el.classList.add('visible');
-                    }
-                });
-            }, 150);
-
-            console.log('🚀 Babble Box Academy — Landing Page updated with navigation.');
-            console.log('💛 All requested links have been configured.');
-
-        })();
-    </script>
+  /* ===== بناء بطاقات الوحدات بناءً على maxUnitUnlocked في localStorage ===== */
+  const unitTitles = [
+    "Hello! How are you?", "My Family & Friends", "My Daily Life", "Let's Eat!",
+    "My Home Sweet Home", "Around Town", "What Are You Wearing?", "How's the Weather?",
+    "I Can Do It!", "What Time Is It?", "Tell Me a Story", "Final Adventure"
+  ];
+  const maxUnlocked = parseInt(localStorage.getItem('maxUnitUnlocked') || '1', 10);
+  const grid = document.getElementById('roadmapGrid');
+  unitTitles.forEach((title, i) => {
+    const unitNum = i + 1;
+    const isLocked = unitNum > maxUnlocked;
+    const card = document.createElement(isLocked ? 'div' : 'a');
+    if(!isLocked) card.href = `unit${unitNum}.html`;
+    card.className = 'unit-card glass';
+    card.style.opacity = isLocked ? '0.55' : '1';
+    card.innerHTML = `
+      ${isLocked ? '<span class="locked-tag">🔒</span>' : ''}
+      <span class="num">U${unitNum}</span>
+      <span class="title en">${title}</span>
+    `;
+    if(!isLocked) card.style.borderColor = 'var(--glass-border)';
+    grid.appendChild(card);
+  });
+</script>
 
 </body>
-    </html>
+</html>
