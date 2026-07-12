@@ -116,7 +116,7 @@
             list-style: none;
         }
 
-        /* ===== الهيكل الجديد: شريط جانبي + محتوى ===== */
+        /* ===== الهيكل: شريط جانبي + محتوى ===== */
         .app-wrapper {
             display: flex;
             min-height: calc(100vh - var(--header-height) - var(--unit-tabs-height) - var(--progress-height));
@@ -443,14 +443,6 @@
             border-top: 1px dashed rgba(255, 215, 0, 0.2);
             padding-top: 6px;
         }
-        .chat-bubble .text-egyptian {
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-align: right;
-            direction: rtl;
-            font-style: italic;
-            opacity: 0.8;
-        }
         .chat-bubble .actions {
             display: flex;
             gap: 8px;
@@ -475,62 +467,69 @@
             color: var(--gold);
         }
 
-        /* ===== Tabs ===== */
-        .tabs {
+        /* ===== Discover the Rule (مبسط جداً) ===== */
+        .rule-list {
             display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 14px;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
         }
-        .tabs button {
-            padding: 6px 16px;
-            border-radius: 30px;
+        .rule-item {
+            background: var(--bg-card);
             border: 1px solid var(--border-glass);
-            background: transparent;
-            color: var(--text-secondary);
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
+            border-radius: 16px;
+            padding: 12px 16px;
             transition: all var(--transition);
+            cursor: pointer;
+        }
+        .rule-item:hover {
+            border-color: var(--gold);
+            background: var(--gold-dim);
+        }
+        .rule-item .rule-english {
+            font-size: 18px;
+            font-weight: 700;
             text-align: left;
             direction: ltr;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .tabs button.active {
-            background: var(--gold-dim);
-            border-color: var(--gold);
+        .rule-item .rule-english .click-hint {
+            font-size: 14px;
             color: var(--gold);
+            font-weight: 400;
+            direction: rtl;
         }
-        .tab-content {
+        .rule-item .rule-details {
             display: none;
-            padding: 14px 18px;
-            background: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid var(--border-glass);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-glass);
+            direction: rtl;
+            text-align: right;
         }
-        .tab-content.active {
+        .rule-item .rule-details.open {
             display: block;
         }
-        .tab-content .example {
-            font-size: 18px;
-            font-weight: 600;
-            text-align: left;
-            direction: ltr;
-            margin-bottom: 4px;
-        }
-        .tab-content .explanation {
-            color: var(--text-secondary);
+        .rule-item .rule-details .translation {
             font-size: 16px;
-            text-align: right;
-            direction: rtl;
-            margin-top: 6px;
-            padding-top: 6px;
-            border-top: 1px dashed var(--border-glass);
+            color: var(--text-primary);
+            font-weight: 600;
         }
-        .tab-content .explanation .egyptian {
-            color: var(--gold);
-            font-style: italic;
+        .rule-item .rule-details .explanation {
             font-size: 15px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .rule-item .rule-details .simple-rule {
+            font-size: 15px;
+            color: var(--gold);
+            margin-top: 6px;
+            background: var(--gold-dim);
+            padding: 6px 12px;
+            border-radius: 12px;
+            display: inline-block;
         }
 
         /* ===== Grammar Lab ===== */
@@ -642,13 +641,6 @@
             direction: ltr;
             text-align: center;
         }
-        .flip-card-back .egyptian {
-            font-size: 13px;
-            color: var(--text-muted);
-            direction: rtl;
-            margin-top: 4px;
-            font-style: italic;
-        }
 
         /* ===== Babble Warning ===== */
         .warning-grid {
@@ -677,13 +669,6 @@
             font-size: 16px;
             color: var(--text-secondary);
             direction: rtl;
-        }
-        .warning-card .egyptian {
-            font-size: 14px;
-            color: var(--gold);
-            direction: rtl;
-            margin-top: 4px;
-            font-style: italic;
         }
         .warning-note {
             margin-top: 14px;
@@ -794,7 +779,7 @@
         .challenge-item .status.wrong { color: #ef4444; }
         .challenge-item .status.pending { color: var(--text-muted); }
 
-        /* ترتيب الكلمات (Click-to-Order) - إصلاح */
+        /* ترتيب الكلمات */
         .order-section {
             display: flex;
             flex-direction: column;
@@ -1285,7 +1270,7 @@
 <body>
 
     <!-- ============================================================
-    الهيدر (شريط علوي مختصر)
+    الهيدر
     ============================================================ -->
     <header class="header" id="header">
         <div class="logo-link">
@@ -1299,7 +1284,7 @@
         </div>
     </header>
 
-    <!-- ===== شريط تبويبات الوحدات (Unit Tabs) ===== -->
+    <!-- ===== شريط تبويبات الوحدات ===== -->
     <div class="unit-tabs" id="unitTabs">
         <!-- سيتم توليدها بواسطة JS -->
     </div>
@@ -1313,10 +1298,10 @@
         </div>
     </div>
 
-    <!-- ===== التخطيط الرئيسي: شريط جانبي + محتوى ===== -->
+    <!-- ===== التخطيط الرئيسي ===== -->
     <div class="app-wrapper">
 
-        <!-- ===== الشريط الجانبي (Sidebar) ===== -->
+        <!-- ===== الشريط الجانبي ===== -->
         <aside class="sidebar" id="sidebar">
             <div class="logo-area">
                 <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box" />
@@ -1355,40 +1340,16 @@
             </section>
 
             <!-- ============================================================
-            القسم 2: 🔍 Discover the Rule
+            القسم 2: 🔍 Discover the Rule (مبسط جداً)
             ============================================================ -->
             <section class="unit-section fade-up" id="section2">
                 <h2 class="en-title">🔍 Discover the Rule</h2>
                 <div class="glass" style="padding:18px;">
-                    <p style="font-size:18px; margin-bottom:12px; text-align:right; direction:rtl; font-weight:600;">لاحظ الفرق بين الجمل دي:</p>
-                    <div class="tabs" id="ruleTabs">
-                        <button class="active" data-tab="tab1">I am John.</button>
-                        <button data-tab="tab2">You are new.</button>
-                        <button data-tab="tab3">He is my friend.</button>
-                    </div>
-                    <div id="tab1" class="tab-content active">
-                        <div class="example">I am John.</div>
-                        <div class="explanation">
-                            <strong>يعني:</strong> أنا جون.<br />
-                            <span class="egyptian">🎯 (بالمصري: أنا جون. يعني بتكلم عن نفسي)</span><br />
-                            <span style="font-size:14px; color:var(--text-muted);">🔹 قاعدة: نستخدم <strong>I am</strong> لما نتكلم عن نفسنا (المتكلم).</span>
-                        </div>
-                    </div>
-                    <div id="tab2" class="tab-content">
-                        <div class="example">You are new.</div>
-                        <div class="explanation">
-                            <strong>يعني:</strong> أنت جديد / جديدة.<br />
-                            <span class="egyptian">🎯 (بالمصري: إنت جديد. يعني بتكلم مع الشخص اللي قدامي)</span><br />
-                            <span style="font-size:14px; color:var(--text-muted);">🔹 قاعدة: نستخدم <strong>You are</strong> لما نتكلم مع الشخص اللي قدامنا (المخاطب).</span>
-                        </div>
-                    </div>
-                    <div id="tab3" class="tab-content">
-                        <div class="example">He is my friend.</div>
-                        <div class="explanation">
-                            <strong>يعني:</strong> هو صديقي.<br />
-                            <span class="egyptian">🎯 (بالمصري: ده صاحبي. يعني بتكلم عن شخص تالت)</span><br />
-                            <span style="font-size:14px; color:var(--text-muted);">🔹 قاعدة: نستخدم <strong>He is</strong> لما نتكلم عن شخص آخر (غائب).</span>
-                        </div>
+                    <p style="font-size:18px; margin-bottom:16px; text-align:right; direction:rtl; font-weight:700;">
+                        👆 اضغط على كل جملة عشان تشوف معناها وقاعدتها
+                    </p>
+                    <div class="rule-list" id="ruleList">
+                        <!-- سيتم توليدها بواسطة JS -->
                     </div>
                 </div>
             </section>
@@ -1402,22 +1363,22 @@
                     <div class="grammar-card green">
                         <div class="title">➕ الإثبات</div>
                         <div class="examples" dir="ltr">I am<br />He/She/It is<br />You/We/They are</div>
-                        <div class="note">🎯 إنت بتقول كده لما بتأكد حاجة</div>
+                        <div class="note">🎯 بتأكد حاجة</div>
                     </div>
                     <div class="grammar-card red">
                         <div class="title">➖ النفي</div>
                         <div class="examples" dir="ltr">I'm not<br />isn't<br />aren't</div>
-                        <div class="note">🎯 إنت بتقول كده لما تنفي حاجة</div>
+                        <div class="note">🎯 بتنفي حاجة</div>
                     </div>
                     <div class="grammar-card blue">
                         <div class="title">❓ السؤال</div>
                         <div class="examples" dir="ltr">Am I?<br />Is...?<br />Are...?</div>
-                        <div class="note">🎯 إنت بتقول كده لما تسأل سؤال</div>
+                        <div class="note">🎯 بتسأل سؤال</div>
                     </div>
                     <div class="grammar-card yellow">
                         <div class="title">✅ الإجابة القصيرة</div>
                         <div class="examples" dir="ltr">Yes, I am.<br />No, I'm not.</div>
-                        <div class="note">🎯 إختصر وبس! إجابة سريعة</div>
+                        <div class="note">🎯 إجابة مختصرة</div>
                     </div>
                 </div>
             </section>
@@ -1441,12 +1402,10 @@
                     <div class="warning-card green">
                         <div class="sentence" dir="ltr">I'm fine, thanks.</div>
                         <div class="meaning">أنا بخير، شكراً.</div>
-                        <div class="egyptian">😊 (بالمصري: أنا تمام، شكراً)</div>
                     </div>
                     <div class="warning-card red">
                         <div class="sentence" dir="ltr">I got a parking fine.</div>
                         <div class="meaning">أخذت غرامة وقوف سيارات.</div>
-                        <div class="egyptian">😅 (بالمصري: أخدت مخالفة وقوف)</div>
                     </div>
                 </div>
                 <div class="warning-note">
@@ -1591,7 +1550,6 @@
                 }
                 unitTabsContainer.innerHTML = tabsHtml;
 
-                // إضافة حدث للتبويبات المفتوحة للتنقل (اختياري)
                 document.querySelectorAll('.unit-tabs button:not(.locked)').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const unit = parseInt(this.dataset.unit);
@@ -1606,7 +1564,7 @@
             renderUnitTabs();
 
             // ============================================================
-            // 3. شريط التقدم اليومي (0/5)
+            // 3. شريط التقدم اليومي
             // ============================================================
             let completedCount = parseInt(localStorage.getItem('dailyProgress')) || 0;
             if (completedCount > 5) completedCount = 5;
@@ -1635,14 +1593,14 @@
             // 4. المحادثة (The Real Talk)
             // ============================================================
             const chatData = [
-                { speaker: 'John', text: "Hey! How's it going?", translation: "إيه أخبارك؟ إزاي الأمور؟", egyptian: "إزاي يا عم؟ عاملي إيه؟", gender: 'male' },
-                { speaker: 'Sarah', text: "Oh, hey! Pretty good, and you?", translation: "أوه، إيه! كويسة، وإنت؟", egyptian: "أوه، إيه! كويسة، وإنت؟", gender: 'female' },
-                { speaker: 'John', text: "Can't complain. By the way, I'm John.", translation: "مش بقدر أشتكي. بالمناسبة، أنا جون.", egyptian: "مش عندي حاجة أشتكي منها. بالمناسبة، أنا جون.", gender: 'male' },
-                { speaker: 'Sarah', text: "Nice to meet you, John. I'm Sarah.", translation: "سعيد بلقائك يا جون. أنا سارة.", egyptian: "فرصة سعيدة يا جون. أنا سارة.", gender: 'female' },
-                { speaker: 'John', text: "Likewise. So, you new here?", translation: "وأنا كمان. إذن، أنت جديدة هنا؟", egyptian: "وأنا كمان. إنت جديدة هنا؟", gender: 'male' },
-                { speaker: 'Sarah', text: "Yeah, just moved in last week.", translation: "أيوة، نقلت الأسبوع اللي فات.", egyptian: "أيوة، نقلت الأسبوع اللي فات.", gender: 'female' },
-                { speaker: 'John', text: "Well, welcome to the neighborhood! Are you from around here?", translation: "أهلاً بك في الحي! إنت من هنا؟", egyptian: "أهلاً بيكي في الحتة! إنتي من هنا؟", gender: 'male' },
-                { speaker: 'Sarah', text: "No, I'm from Boston originally. But I'm here for work now.", translation: "لا، أنا من بوسطن في الأصل. لكن أنا هنا للشغل دلوقتي.", egyptian: "لا، أنا من بوسطن. بس أنا هنا عشان الشغل دلوقتي.", gender: 'female' }
+                { speaker: 'John', text: "Hey! How's it going?", translation: "إيه أخبارك؟ إزاي الأمور؟", gender: 'male' },
+                { speaker: 'Sarah', text: "Oh, hey! Pretty good, and you?", translation: "أوه، إيه! كويسة، وإنت؟", gender: 'female' },
+                { speaker: 'John', text: "Can't complain. By the way, I'm John.", translation: "مش بقدر أشتكي. بالمناسبة، أنا جون.", gender: 'male' },
+                { speaker: 'Sarah', text: "Nice to meet you, John. I'm Sarah.", translation: "سعيد بلقائك يا جون. أنا سارة.", gender: 'female' },
+                { speaker: 'John', text: "Likewise. So, you new here?", translation: "وأنا كمان. إذن، أنت جديدة هنا؟", gender: 'male' },
+                { speaker: 'Sarah', text: "Yeah, just moved in last week.", translation: "أيوة، نقلت الأسبوع اللي فات.", gender: 'female' },
+                { speaker: 'John', text: "Well, welcome to the neighborhood! Are you from around here?", translation: "أهلاً بك في الحي! إنت من هنا؟", gender: 'male' },
+                { speaker: 'Sarah', text: "No, I'm from Boston originally. But I'm here for work now.", translation: "لا، أنا من بوسطن في الأصل. لكن أنا هنا للشغل دلوقتي.", gender: 'female' }
             ];
 
             const chatContainer = document.getElementById('chatContainer');
@@ -1653,7 +1611,6 @@
                     <div class="speaker">${msg.speaker}</div>
                     <div class="text-en">${msg.text}</div>
                     <div class="text-ar">${msg.translation}</div>
-                    <div class="text-egyptian">🗣️ ${msg.egyptian}</div>
                     <div class="actions">
                         <button class="play-voice" data-index="${idx}">🔊 تشغيل الصوت</button>
                     </div>
@@ -1661,7 +1618,6 @@
                 chatContainer.appendChild(bubble);
             });
 
-            // دالة تشغيل الصوت
             function speakText(text, gender) {
                 if (!window.speechSynthesis) return;
                 const utterance = new SpeechSynthesisUtterance(text);
@@ -1691,16 +1647,57 @@
             });
 
             // ============================================================
-            // 5. Tabs في Discover the Rule
+            // 5. Discover the Rule (مبسط جداً)
             // ============================================================
-            const tabBtns = document.querySelectorAll('#ruleTabs button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    document.getElementById(this.dataset.tab).classList.add('active');
+            const ruleData = [
+                {
+                    english: 'I am John.',
+                    translation: 'أنا جون.',
+                    explanation: 'ده اسمي، وده أول حاجة بتعلمها عشان أعرف أقول عن نفسي.',
+                    simpleRule: '🔹 استخدم I am لما تتكلم عن نفسك'
+                },
+                {
+                    english: 'You are new.',
+                    translation: 'أنت جديد / جديدة.',
+                    explanation: 'بتكلم مع الشخص اللي قدامي، وبقوله إنه جديد.',
+                    simpleRule: '🔹 استخدم You are لما تتكلم مع الشخص اللي قدامك'
+                },
+                {
+                    english: 'He is my friend.',
+                    translation: 'هو صديقي.',
+                    explanation: 'بتكلم عن شخص تالت مش موجود، وبقول إنه صديقي.',
+                    simpleRule: '🔹 استخدم He is لما تتكلم عن ولد (ذكر) مش موجود'
+                }
+            ];
+
+            const ruleList = document.getElementById('ruleList');
+            ruleData.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'rule-item';
+                div.innerHTML = `
+                    <div class="rule-english">
+                        ${item.english}
+                        <span class="click-hint">👆 اضغط هنا</span>
+                    </div>
+                    <div class="rule-details" id="ruleDetail-${idx}">
+                        <div class="translation">📖 ${item.translation}</div>
+                        <div class="explanation">💡 ${item.explanation}</div>
+                        <div class="simple-rule">${item.simpleRule}</div>
+                    </div>
+                `;
+                ruleList.appendChild(div);
+
+                // حدث النقر لإظهار/إخفاء التفاصيل
+                div.addEventListener('click', function() {
+                    const details = this.querySelector('.rule-details');
+                    details.classList.toggle('open');
+                    // تغيير النص الإرشادي
+                    const hint = this.querySelector('.click-hint');
+                    if (details.classList.contains('open')) {
+                        hint.textContent = '👆 اضغط لإخفاء';
+                    } else {
+                        hint.textContent = '👆 اضغط هنا';
+                    }
                 });
             });
 
@@ -1708,14 +1705,14 @@
             // 6. Flip Cards (Word Vault)
             // ============================================================
             const vocab = [
-                { word: 'Hello', meaning: 'مرحباً', example: 'Hello, how are you?', egyptian: 'أهلاً! إزيك؟' },
-                { word: 'Goodbye', meaning: 'مع السلامة', example: 'Goodbye, see you later!', egyptian: 'مع السلامة، نشوفك بعدين!' },
-                { word: 'Please', meaning: 'من فضلك', example: 'Please, help me.', egyptian: 'لو سمحت، ساعدني.' },
-                { word: 'Thank you', meaning: 'شكراً لك', example: 'Thank you very much.', egyptian: 'شكراً جزيلاً.' },
-                { word: 'Sorry', meaning: 'آسف', example: 'I am sorry.', egyptian: 'أنا آسف.' },
-                { word: 'Likewise', meaning: 'وأنا كذلك', example: 'Nice to meet you. Likewise.', egyptian: 'وأنا كمان.' },
-                { word: 'Friend', meaning: 'صديق', example: 'He is my friend.', egyptian: 'ده صاحبي.' },
-                { word: 'Welcome', meaning: 'أهلاً وسهلاً', example: 'Welcome to the class!', egyptian: 'أهلاً بيك في الفصل!' }
+                { word: 'Hello', meaning: 'مرحباً', example: 'Hello, how are you?' },
+                { word: 'Goodbye', meaning: 'مع السلامة', example: 'Goodbye, see you later!' },
+                { word: 'Please', meaning: 'من فضلك', example: 'Please, help me.' },
+                { word: 'Thank you', meaning: 'شكراً لك', example: 'Thank you very much.' },
+                { word: 'Sorry', meaning: 'آسف', example: 'I am sorry.' },
+                { word: 'Likewise', meaning: 'وأنا كذلك', example: 'Nice to meet you. Likewise.' },
+                { word: 'Friend', meaning: 'صديق', example: 'He is my friend.' },
+                { word: 'Welcome', meaning: 'أهلاً وسهلاً', example: 'Welcome to the class!' }
             ];
 
             const flipGrid = document.getElementById('flipGrid');
@@ -1731,12 +1728,13 @@
                         <div class="flip-card-back">
                             <div class="meaning">${item.meaning}</div>
                             <div class="example" dir="ltr">${item.example}</div>
-                            <div class="egyptian">🗣️ ${item.egyptian}</div>
                         </div>
                     </div>
                 `;
                 flipGrid.appendChild(card);
-                card.addEventListener('click', function() {
+                card.addEventListener('click', function(e) {
+                    // منع التقليب عند الضغط على أيقونة الصوت
+                    if (e.target.classList.contains('audio-icon')) return;
                     this.classList.toggle('flipped');
                 });
                 const audioIcon = card.querySelector('.audio-icon');
@@ -1786,7 +1784,7 @@
                 text: 'رتب الكلمات لتكوين جملة:',
                 words: ['You', 'are', 'welcome'],
                 correct: ['You', 'are', 'welcome'],
-                instruction: '👆 اضغط على الكلمات بالترتيب الصحيح لتكوين الجملة'
+                instruction: '👆 اضغط على الكلمات بالترتيب الصحيح'
             }, {
                 id: 6,
                 type: 'listening',
@@ -1802,7 +1800,6 @@
             const nextUnitBtn = document.getElementById('nextUnitBtn');
             const celebrateModal = document.getElementById('celebrateModal');
 
-            // تحميل الحالة من localStorage
             let answers = JSON.parse(localStorage.getItem('unit1_challenge_answers')) || new Array(challengeQuestions.length).fill(null);
             let challengeCompleted = false;
 
@@ -1850,13 +1847,12 @@
                         });
                         html += `</div>`;
                     } else if (q.type === 'order') {
-                        // إصلاح: فصل التعليمات عن منطقة الإجابة
                         const userOrder = answers[idx] === true ? q.correct : null;
                         const availableWords = userOrder ? [] : [...q.words];
                         const selectedWords = userOrder ? [...userOrder] : [];
 
                         html += `<div class="order-section">`;
-                        html += `<div class="order-instruction">${q.instruction || '👆 انقر على الكلمات بالترتيب الصحيح'}</div>`;
+                        html += `<div class="order-instruction">${q.instruction || '👆 اضغط على الكلمات بالترتيب الصحيح'}</div>`;
                         if (availableWords.length > 0) {
                             html += `<div class="order-words">`;
                             availableWords.forEach(w => {
@@ -1899,7 +1895,7 @@
                 });
                 challengeContainer.innerHTML = html;
 
-                // ربط الأحداث للأزرار
+                // ربط الأحداث
                 document.querySelectorAll('.opt-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
@@ -1929,7 +1925,7 @@
                     });
                 });
 
-                // أزرار الترتيب (Click-to-Order)
+                // أزرار الترتيب
                 document.querySelectorAll('.order-words .word').forEach(word => {
                     word.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
@@ -2036,7 +2032,6 @@
                 saveState();
             }
 
-            // زر إعادة التحدي بالكامل
             document.getElementById('resetChallengeBtn').addEventListener('click', function() {
                 if (confirm('هل أنت متأكد من إعادة التحدي بالكامل؟ سيتم مسح جميع الإجابات.')) {
                     answers = new Array(challengeQuestions.length).fill(null);
@@ -2076,12 +2071,11 @@
                 document.querySelectorAll('.confetti-container').forEach(el => el.remove());
             });
 
-            // تهيئة التحدي
             renderChallenge();
             updateScoreDisplay();
 
             // ============================================================
-            // 8. Speak Up! (نسبة 60%)
+            // 8. Speak Up!
             // ============================================================
             const recordBtn = document.getElementById('recordBtn');
             const speechResult = document.getElementById('speechResult');
@@ -2144,7 +2138,7 @@
             }
 
             // ============================================================
-            // 9. Homework (حفظ + تدقيق إملائي ونحوي)
+            // 9. Homework
             // ============================================================
             const homeworkText = document.getElementById('homeworkText');
             const saveStatus = document.getElementById('saveStatus');
@@ -2206,7 +2200,6 @@
                 }
             });
 
-            // حفظ تلقائي
             setInterval(() => {
                 const text = homeworkText.value;
                 localStorage.setItem('unit1_homework', text);
@@ -2214,7 +2207,7 @@
             }, 10000);
 
             // ============================================================
-            // 10. تأثير الظهور عند التمرير (fade-up)
+            // 10. تأثير الظهور عند التمرير
             // ============================================================
             const fadeEls = document.querySelectorAll('.fade-up');
             const observer = new IntersectionObserver((entries) => {
@@ -2226,15 +2219,12 @@
             }, { threshold: 0.1 });
             fadeEls.forEach(el => observer.observe(el));
 
-            // ============================================================
-            // 11. تحميل الأصوات مسبقاً
-            // ============================================================
             if (window.speechSynthesis) {
                 speechSynthesis.getVoices();
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 1 fully loaded with all improvements.');
+            console.log('📚 Babble Box - Unit 1 simplified for beginners.');
         })();
     </script>
 
