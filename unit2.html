@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>الوحدة 2 | Babble Box Academy</title>
 
-    <!-- ===== Google Fonts ===== -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <!-- ===== Google Analytics ===== -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() { dataLayer.push(arguments); }
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-L42M2EDW3H');
     </script>
 
     <style>
         /* ============================================================
-               ===== 1. المتغيرات العامة (نفس الصفحة الرئيسية) ===== */
+           المتغيرات العامة (نفس الوحدة الأولى)
+           ============================================================ */
         :root {
             --bg-primary: #050505;
             --bg-secondary: #0a0a0a;
@@ -33,9 +33,7 @@
             --text-muted: #6b6b6b;
             --gold: #FFD700;
             --gold-dim: rgba(255, 215, 0, 0.15);
-            --gold-glow: rgba(255, 215, 0, 0.08);
             --border-glass: rgba(255, 255, 255, 0.07);
-            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.5);
             --header-bg: rgba(5, 5, 5, 0.85);
             --glass-bg: rgba(255, 255, 255, 0.04);
             --glass-border: rgba(255, 255, 255, 0.06);
@@ -47,14 +45,11 @@
             --btn-secondary-bg: transparent;
             --btn-secondary-text: #ffffff;
             --btn-secondary-border: rgba(255, 255, 255, 0.25);
-            --btn-secondary-hover: rgba(255, 255, 255, 0.08);
-            --nav-link-color: #ffffff;
-            --nav-link-hover: #FFD700;
             --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            --sidebar-width: 220px;
-            --header-height: 64px;
-            --progress-height: 40px;
-            --unit-nav-height: 56px;
+            --header-height: 60px;
+            --unit-tabs-height: 44px;
+            --progress-height: 36px;
+            --sidebar-width: 200px;
         }
 
         [data-theme="light"] {
@@ -67,9 +62,7 @@
             --text-muted: #8a8a96;
             --gold: #d4a800;
             --gold-dim: rgba(212, 168, 0, 0.12);
-            --gold-glow: rgba(212, 168, 0, 0.06);
             --border-glass: rgba(0, 0, 0, 0.07);
-            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.08);
             --header-bg: rgba(246, 246, 248, 0.88);
             --glass-bg: rgba(255, 255, 255, 0.60);
             --glass-border: rgba(0, 0, 0, 0.06);
@@ -81,12 +74,9 @@
             --btn-secondary-bg: transparent;
             --btn-secondary-text: #0f0f12;
             --btn-secondary-border: rgba(0, 0, 0, 0.20);
-            --btn-secondary-hover: rgba(0, 0, 0, 0.05);
-            --nav-link-color: #0f0f12;
-            --nav-link-hover: #d4a800;
         }
 
-        /* ===== 2. إعادة تعيين وإعدادات عامة ===== */
+        /* ===== إعادة تعيين وإعدادات عامة ===== */
         *,
         *::before,
         *::after {
@@ -102,11 +92,11 @@
             font-family: 'Cairo', 'Poppins', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.7;
             transition: background-color var(--transition), color var(--transition);
             overflow-x: hidden;
             min-height: 100vh;
-            padding-top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height));
+            padding-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height));
         }
         ::-webkit-scrollbar {
             width: 8px;
@@ -125,72 +115,78 @@
         ul {
             list-style: none;
         }
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+
+        /* ===== الهيكل: شريط جانبي + محتوى ===== */
+        .app-wrapper {
+            display: flex;
+            min-height: calc(100vh - var(--header-height) - var(--unit-tabs-height) - var(--progress-height));
         }
 
-        /* ===== 3. الهيدر ===== */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            height: var(--header-height);
-            padding: 0 20px;
-            background: var(--header-bg);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-glass);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        /* ===== الشريط الجانبي (Sidebar) ===== */
+        .sidebar {
+            position: sticky;
+            top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height));
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height) - var(--unit-tabs-height) - var(--progress-height));
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-glass);
+            padding: 16px 10px;
+            flex-shrink: 0;
             transition: background var(--transition);
+            display: block;
         }
-        .header .logo-link img {
-            height: 36px;
+        .sidebar .logo-area {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+        .sidebar .logo-area img {
+            height: 40px;
             width: auto;
         }
-        .header .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 24px;
+        .sidebar .logo-area .level-badge {
+            display: block;
+            margin-top: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
         }
-        .header .nav-menu a {
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .sidebar nav a {
+            padding: 10px 14px;
+            border-radius: 12px;
             font-size: 15px;
             font-weight: 600;
-            color: var(--nav-link-color);
-            transition: color var(--transition);
-            position: relative;
-        }
-        .header .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: width var(--transition);
-        }
-        .header .nav-menu a:hover {
-            color: var(--nav-link-hover);
-        }
-        .header .nav-menu a:hover::after {
-            width: 100%;
-        }
-        .header-actions {
+            color: var(--text-secondary);
+            transition: all var(--transition);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
-        .header-actions .social-icons {
+        .sidebar nav a:hover {
+            background: var(--gold-dim);
+            color: var(--gold);
+        }
+        .sidebar nav a.active {
+            background: var(--gold-dim);
+            color: var(--gold);
+            border-right: 3px solid var(--gold);
+        }
+        .sidebar .social-icons {
             display: flex;
-            gap: 8px;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-glass);
         }
-        .header-actions .social-icons a {
+        .sidebar .social-icons a {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -199,34 +195,74 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: background var(--transition), transform var(--transition);
+            transition: all var(--transition);
         }
-        .header-actions .social-icons a:hover {
+        .sidebar .social-icons a:hover {
             background: var(--gold-dim);
             border-color: var(--gold);
-            transform: translateY(-2px);
         }
-        .header-actions .social-icons a svg {
+        .sidebar .social-icons a svg {
             width: 16px;
             height: 16px;
-            fill: var(--text-primary);
+            fill: var(--text-secondary);
         }
-        .header-actions .social-icons a:hover svg {
+        .sidebar .social-icons a:hover svg {
             fill: var(--gold);
+        }
+
+        /* ===== الهيدر ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glass);
+            transition: background var(--transition);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+        }
+        .header .logo-link img {
+            height: 32px;
+            width: auto;
+        }
+        .header .level-display {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header .level-display span {
+            background: var(--gold-dim);
+            padding: 2px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--gold);
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .theme-toggle {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: rgba(255, 255, 255, 0.04);
             color: var(--text-primary);
             font-size: 18px;
             cursor: pointer;
-            transition: background var(--transition), transform var(--transition);
+            transition: all var(--transition);
         }
         .theme-toggle:hover {
             background: var(--gold-dim);
@@ -234,20 +270,67 @@
             transform: rotate(20deg);
         }
 
-        /* ===== 4. شريط التقدم اليومي ===== */
-        .progress-bar {
+        /* ===== شريط تبويبات الوحدات (Unit Tabs) ===== */
+        .unit-tabs {
             position: fixed;
             top: var(--header-height);
             left: 0;
             right: 0;
             z-index: 999;
+            height: var(--unit-tabs-height);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            overflow-x: auto;
+            gap: 6px;
+            backdrop-filter: blur(4px);
+            -webkit-overflow-scrolling: touch;
+        }
+        .unit-tabs button {
+            flex-shrink: 0;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid var(--border-glass);
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: default;
+            transition: all var(--transition);
+            min-width: 36px;
+            text-align: center;
+        }
+        .unit-tabs button.active {
+            background: var(--gold-dim);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .unit-tabs button.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .unit-tabs button .lock-icon {
+            margin-right: 2px;
+            font-size: 11px;
+        }
+
+        /* ===== شريط التقدم اليومي ===== */
+        .progress-bar {
+            position: fixed;
+            top: calc(var(--header-height) + var(--unit-tabs-height));
+            left: 0;
+            right: 0;
+            z-index: 998;
             height: var(--progress-height);
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-glass);
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            font-size: 15px;
+            padding: 0 16px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--text-secondary);
             gap: 12px;
@@ -255,11 +338,11 @@
         }
         .progress-bar .progress-track {
             flex: 1;
-            height: 6px;
+            height: 5px;
             background: var(--border-glass);
             border-radius: 6px;
             overflow: hidden;
-            max-width: 300px;
+            max-width: 200px;
         }
         .progress-bar .progress-track .progress-fill {
             height: 100%;
@@ -268,145 +351,882 @@
             border-radius: 6px;
             transition: width 0.4s ease;
         }
-        .progress-bar .progress-text {
-            font-size: 14px;
-            color: var(--text-muted);
-            white-space: nowrap;
+
+        /* ===== المحتوى الرئيسي ===== */
+        .main-content {
+            flex: 1;
+            max-width: calc(100% - var(--sidebar-width));
+            padding: 20px 24px 60px;
+            margin: 0 auto;
         }
 
-        /* ===== 5. شريط الوحدات العلوي (Unit Navigation Bar) ===== */
-        .unit-nav {
-            position: fixed;
-            top: calc(var(--header-height) + var(--progress-height));
-            left: 0;
-            right: 0;
-            z-index: 998;
-            height: var(--unit-nav-height);
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-glass);
+        /* ===== الأقسام ===== */
+        .unit-section {
+            margin-bottom: 48px;
+            scroll-margin-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height) + 12px);
+        }
+        .unit-section h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-            padding: 0 16px;
-            gap: 6px;
-            overflow-x: auto;
-            backdrop-filter: blur(4px);
+            gap: 10px;
         }
-        .unit-nav .unit-btn {
-            flex: 0 0 auto;
+        .unit-section h2.en-title {
+            text-align: left;
+            direction: ltr;
+        }
+        .unit-section h2 .gold {
+            color: var(--gold);
+        }
+
+        /* ===== الزجاج والبطاقات ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            transition: all var(--transition);
+        }
+        .glass:hover {
+            border-color: rgba(255, 215, 0, 0.15);
+        }
+
+        /* ===== فقاعات المحادثة ===== */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+        .chat-bubble.left {
+            align-self: flex-start;
+            background: #1a3a5c;
+            border-bottom-left-radius: 6px;
+        }
+        .chat-bubble.right {
+            align-self: flex-end;
+            background: #6b2e4a;
+            border-bottom-right-radius: 6px;
+        }
+        .chat-bubble .speaker {
+            font-size: 13px;
+            font-weight: 700;
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+        .chat-bubble .text-en {
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: left;
+            direction: ltr;
+        }
+        .chat-bubble .text-ar {
+            font-size: 15px;
+            color: var(--gold);
+            text-align: right;
+            direction: rtl;
+            margin-top: 4px;
+            border-top: 1px dashed rgba(255, 215, 0, 0.2);
+            padding-top: 6px;
+        }
+        .chat-bubble .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .chat-bubble .actions button {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: var(--text-secondary);
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .chat-bubble .actions button:hover {
+            background: var(--gold-dim);
+            color: var(--gold);
+        }
+
+        /* ===== Discover the Rule ===== */
+        .rule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .rule-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 12px 16px;
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+        .rule-item:hover {
+            border-color: var(--gold);
+            background: var(--gold-dim);
+        }
+        .rule-item .rule-english {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: left;
+            direction: ltr;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .rule-item .rule-english .click-hint {
+            font-size: 14px;
+            color: var(--gold);
+            font-weight: 400;
+            direction: rtl;
+        }
+        .rule-item .rule-details {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-glass);
+            direction: rtl;
+            text-align: right;
+        }
+        .rule-item .rule-details.open {
+            display: block;
+        }
+        .rule-item .rule-details .translation {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .rule-item .rule-details .explanation {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .rule-item .rule-details .simple-rule {
+            font-size: 15px;
+            color: var(--gold);
+            margin-top: 6px;
+            background: var(--gold-dim);
+            padding: 6px 12px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        /* ===== Grammar Lab ===== */
+        .grammar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+        .grammar-card {
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            background: var(--bg-card);
+            transition: all var(--transition);
+        }
+        .grammar-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+        }
+        .grammar-card .title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-align: right;
+            direction: rtl;
+        }
+        .grammar-card .examples {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: left;
+            direction: ltr;
+        }
+        .grammar-card .note {
+            font-size: 14px;
+            color: var(--gold);
+            text-align: right;
+            direction: rtl;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed var(--border-glass);
+        }
+        .grammar-card.green { border-right: 4px solid #22c55e; }
+        .grammar-card.red { border-right: 4px solid #ef4444; }
+        .grammar-card.blue { border-right: 4px solid #3b82f6; }
+        .grammar-card.yellow { border-right: 4px solid var(--gold); }
+
+        /* ===== Flip Cards ===== */
+        .flip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 14px;
+        }
+        .flip-card {
+            perspective: 600px;
+            height: 150px;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 12px;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid var(--border-glass);
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+        }
+        .flip-card-front {
+            font-size: 20px;
+            font-weight: 700;
+            direction: ltr;
+            text-align: center;
+        }
+        .flip-card-front .audio-icon {
+            font-size: 18px;
+            margin-top: 4px;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+        .flip-card-back .meaning {
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 4px;
+            direction: rtl;
+        }
+        .flip-card-back .example {
+            font-size: 14px;
+            direction: ltr;
+            text-align: center;
+        }
+
+        /* ===== Babble Warning ===== */
+        .warning-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .warning-card {
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            text-align: center;
+            transition: all var(--transition);
+        }
+        .warning-card.green { border-right: 4px solid #22c55e; }
+        .warning-card.red { border-right: 4px solid #ef4444; }
+        .warning-card .sentence {
+            font-size: 18px;
+            font-weight: 600;
+            direction: ltr;
+            margin-bottom: 4px;
+        }
+        .warning-card .meaning {
+            font-size: 16px;
+            color: var(--text-secondary);
+            direction: rtl;
+        }
+        .warning-note {
+            margin-top: 14px;
+            padding: 10px 16px;
+            background: var(--gold-dim);
+            border-radius: 12px;
+            color: var(--gold);
+            font-weight: 600;
+            text-align: center;
+            direction: rtl;
+        }
+
+        /* ===== Challenge Arena ===== */
+        .challenge-progress {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .challenge-progress .bar {
+            flex: 1;
+            height: 5px;
+            background: var(--border-glass);
+            border-radius: 6px;
+            overflow: hidden;
+            max-width: 200px;
+        }
+        .challenge-progress .bar .fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 6px;
+            transition: width 0.4s ease;
+        }
+        .challenge-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .challenge-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 14px 18px;
+            transition: all var(--transition);
+        }
+        .challenge-item:hover {
+            border-color: rgba(255, 215, 0, 0.15);
+        }
+        .challenge-item .q-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .challenge-item .q-text {
+            font-size: 17px;
+            font-weight: 600;
+            text-align: left;
+            direction: ltr;
+            flex: 1;
+            min-width: 120px;
+        }
+        .challenge-item .options {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .challenge-item .options button {
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border-glass);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .challenge-item .options button:hover:not(:disabled) {
+            border-color: var(--gold);
+            background: var(--gold-dim);
+        }
+        .challenge-item .options button.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+        .challenge-item .options button.wrong {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        .challenge-item .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .challenge-item .status {
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
+        }
+        .challenge-item .status.correct { color: #22c55e; }
+        .challenge-item .status.wrong { color: #ef4444; }
+        .challenge-item .status.pending { color: var(--text-muted); }
+
+        /* ترتيب الكلمات */
+        .order-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+        .order-section .order-instruction {
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: right;
+            direction: rtl;
+            margin-bottom: 4px;
+        }
+        .order-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+        .order-words .word {
             padding: 6px 14px;
             border-radius: 30px;
             border: 1px solid var(--border-glass);
             background: var(--bg-card);
-            color: var(--text-secondary);
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: default;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-        }
-        .unit-nav .unit-btn.active {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            color: var(--gold);
+            font-size: 17px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all var(--transition);
+            direction: ltr;
+            user-select: none;
         }
-        .unit-nav .unit-btn.active:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
+        .order-words .word:hover {
+            border-color: var(--gold);
+            background: var(--gold-dim);
         }
-        .unit-nav .unit-btn.locked {
-            opacity: 0.4;
-            cursor: not-allowed;
+        .order-answer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            min-height: 40px;
+            padding: 6px;
+            border: 2px dashed var(--border-glass);
+            border-radius: 12px;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-card);
         }
-        .unit-nav .unit-btn .lock-icon {
-            font-size: 12px;
+        .order-answer .word {
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid var(--gold);
+            background: var(--gold-dim);
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            direction: ltr;
+            user-select: none;
+        }
+        .order-answer .word:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
+        }
+        .order-check-btn {
+            margin-top: 4px;
+            align-self: center;
         }
 
-        /* ===== 6. تخطيط الصفحة (sidebar + محتوى) ===== */
-        .page-layout {
+        /* استماع */
+        .audio-challenge {
             display: flex;
-            min-height: calc(100vh - var(--header-height) - var(--progress-height) - var(--unit-nav-height));
+            align-items: center;
+            gap: 12px;
+            margin: 6px 0;
         }
-        .sidebar {
-            position: sticky;
-            top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height));
-            width: var(--sidebar-width);
-            height: calc(100vh - var(--header-height) - var(--progress-height) - var(--unit-nav-height));
-            overflow-y: auto;
-            background: var(--bg-secondary);
-            border-left: 1px solid var(--border-glass);
-            padding: 20px 12px;
-            flex-shrink: 0;
+        .audio-challenge button {
+            padding: 6px 16px;
+            border-radius: 50px;
+            border: none;
+            background: var(--gold-dim);
+            color: var(--gold);
+            font-size: 22px;
+            cursor: pointer;
             transition: background var(--transition);
-            display: block;
         }
-        .sidebar ul {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+        .audio-challenge button:hover {
+            background: var(--gold);
+            color: var(--bg-primary);
         }
-        .sidebar ul li {
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 15px;
+
+        .reset-challenge-btn {
+            margin-top: 12px;
+            padding: 10px 28px;
+            border-radius: 60px;
+            border: 1px solid var(--border-glass);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 16px;
             font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .reset-challenge-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: var(--gold-dim);
+        }
+
+        /* ===== Speak Up ===== */
+        .speak-box {
+            padding: 28px;
+            text-align: center;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+        }
+        .speak-box .prompt {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            direction: ltr;
+            text-align: center;
+        }
+        .speak-box .record-btn {
+            font-size: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform var(--transition);
+            color: var(--gold);
+        }
+        .speak-box .record-btn:hover {
+            transform: scale(1.1);
+        }
+        .speak-box .result {
+            margin-top: 14px;
+            font-size: 18px;
+            color: var(--text-secondary);
+            min-height: 24px;
+            font-weight: 600;
+        }
+        .speak-box .result.success { color: #22c55e; }
+        .speak-box .result.fail { color: #ef4444; }
+
+        /* ===== Power Recap ===== */
+        .recap-title {
+            font-size: 22px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 14px;
+            color: var(--gold);
+            direction: rtl;
+        }
+        .recap-map {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            padding: 18px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+        }
+        .recap-node {
+            background: var(--bg-card);
+            padding: 10px 22px;
+            border-radius: 40px;
+            border: 1px solid var(--border-glass);
+            font-weight: 700;
+            transition: all var(--transition);
+            cursor: default;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all var(--transition);
-            cursor: default;
+            font-size: 16px;
+        }
+        .recap-node .example {
+            font-weight: 400;
             color: var(--text-secondary);
-            border: 1px solid transparent;
-        }
-        .sidebar ul li.active {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .sidebar ul li.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .sidebar ul li.unlocked {
-            opacity: 1;
-            cursor: pointer;
-        }
-        .sidebar ul li.unlocked:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--gold);
-        }
-        .sidebar ul li .lock-icon {
-            margin-right: auto;
             font-size: 14px;
+            direction: ltr;
         }
-        .sidebar ul li .unit-badge {
-            background: var(--bg-card);
-            padding: 0 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-        .sidebar ul li.active .unit-badge {
+        .recap-node:hover {
+            border-color: var(--gold);
             background: var(--gold-dim);
-            color: var(--gold);
-        }
-        .main-content {
-            flex: 1;
-            padding: 30px 24px 60px;
-            max-width: calc(100% - var(--sidebar-width));
         }
 
-        /* ===== 7. الأزرار والعناصر العامة ===== */
+        /* ===== Video & Homework ===== */
+        .video-box {
+            padding: 22px;
+            text-align: center;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+        }
+        .video-box .icon {
+            font-size: 44px;
+            margin-bottom: 6px;
+        }
+        .video-box a {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .video-box a:hover {
+            text-decoration: underline;
+        }
+
+        .homework-box textarea {
+            width: 100%;
+            min-height: 110px;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid var(--border-glass);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: 'Poppins', 'Cairo', sans-serif;
+            font-size: 16px;
+            resize: vertical;
+            direction: ltr;
+            text-align: left;
+            transition: border var(--transition);
+        }
+        .homework-box textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        .homework-box .save-status {
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .homework-box .correction-list {
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: var(--gold-dim);
+            border-radius: 12px;
+            border-right: 4px solid var(--gold);
+            font-size: 15px;
+            color: var(--text-secondary);
+            display: none;
+            direction: rtl;
+            text-align: right;
+        }
+        .homework-box .correction-list.show {
+            display: block;
+        }
+        .homework-box .correction-list strong {
+            color: var(--gold);
+        }
+        .homework-box .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        /* ===== زر الوحدة التالية ===== */
+        .next-unit-wrapper {
+            text-align: center;
+            margin-top: 32px;
+        }
+        .next-unit-btn {
+            display: none;
+            padding: 14px 44px;
+            font-size: 22px;
+            font-weight: 800;
+            border-radius: 60px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.4);
+            transition: all var(--transition);
+            text-align: center;
+            font-family: 'Cairo', 'Poppins', sans-serif;
+        }
+        .next-unit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.6);
+        }
+        .next-unit-btn.show {
+            display: inline-block;
+        }
+
+        /* ===== Modal الاحتفال ===== */
+        .celebrate-modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            animation: fadeIn 0.5s ease;
+            padding: 20px;
+            text-align: center;
+        }
+        .celebrate-modal.show {
+            display: flex;
+        }
+        .celebrate-modal h2 {
+            font-size: 44px;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+        .celebrate-modal p {
+            font-size: 22px;
+            color: var(--text-primary);
+        }
+        .celebrate-modal .stars {
+            font-size: 40px;
+            animation: spin 2s linear infinite;
+        }
+        .celebrate-modal .close-btn {
+            margin-top: 20px;
+            padding: 10px 32px;
+            border-radius: 60px;
+            border: none;
+            background: var(--gold);
+            color: var(--bg-primary);
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cairo', 'Poppins', sans-serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== Confetti ===== */
+        .confetti-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2001;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -20px;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            border-top: 1px solid var(--border-glass);
+            padding: 20px 0 16px;
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        .footer p {
+            font-size: 14px;
+        }
+
+        /* ===== استجابة ===== */
+        @media (max-width: 992px) {
+            :root {
+                --sidebar-width: 160px;
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 52px;
+                --unit-tabs-height: 38px;
+                --progress-height: 32px;
+                --sidebar-width: 0px;
+            }
+            body {
+                padding-top: calc(var(--header-height) + var(--unit-tabs-height) + var(--progress-height));
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                max-width: 100%;
+                padding: 12px 12px 40px;
+            }
+            .header .logo-link img { height: 28px; }
+            .header .level-display { font-size: 15px; }
+            .theme-toggle { width: 30px; height: 30px; font-size: 16px; }
+            .unit-tabs { padding: 0 8px; gap: 4px; }
+            .unit-tabs button { font-size: 11px; padding: 2px 8px; min-width: 30px; }
+            .progress-bar { font-size: 12px; padding: 0 10px; }
+            .progress-bar .progress-track { max-width: 100px; }
+            .unit-section h2 { font-size: 22px; }
+            .chat-bubble { max-width: 95%; padding: 10px 14px; }
+            .grammar-grid { grid-template-columns: 1fr 1fr; }
+            .flip-grid { grid-template-columns: repeat(2, 1fr); }
+            .warning-grid { grid-template-columns: 1fr; }
+            .challenge-item .q-row { flex-direction: column; align-items: stretch; }
+            .challenge-item .options { justify-content: center; }
+            .recap-map { flex-direction: column; align-items: center; }
+        }
+        @media (max-width: 480px) {
+            .grammar-grid { grid-template-columns: 1fr; }
+            .flip-grid { grid-template-columns: 1fr 1fr; }
+            .challenge-item .options button { padding: 2px 10px; font-size: 13px; }
+            .celebrate-modal h2 { font-size: 32px; }
+            .celebrate-modal p { font-size: 18px; }
+        }
+
+        /* ===== تأثيرات إضافية ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .shake {
+            animation: shake 0.4s ease;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* ===== الأزرار العامة ===== */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 12px 28px;
+            gap: 6px;
+            padding: 10px 24px;
             border-radius: 60px;
             font-family: 'Cairo', 'Poppins', sans-serif;
             font-size: 16px;
@@ -435,954 +1255,14 @@
             background: var(--btn-secondary-hover);
             border-color: var(--gold);
         }
-        .btn-gold-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 1.5px solid var(--gold);
-        }
-        .btn-gold-outline:hover {
-            background: var(--gold);
-            color: var(--bg-primary);
-        }
         .btn-sm {
-            padding: 6px 16px;
-            font-size: 14px;
+            padding: 4px 14px;
+            font-size: 13px;
         }
         .btn:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             transform: none !important;
-        }
-
-        /* ===== 8. الزجاج والبطاقات ===== */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            transition: all var(--transition);
-        }
-        .glass:hover {
-            border-color: rgba(255, 215, 0, 0.15);
-        }
-
-        /* ===== 9. أقسام المحتوى ===== */
-        .unit-section {
-            margin-bottom: 48px;
-            scroll-margin-top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height) + 20px);
-        }
-        .unit-section h2 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .unit-section h2 .gold {
-            color: var(--gold);
-        }
-
-        /* ===== 10. فقاعات المحادثة ===== */
-        .chat-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .chat-bubble {
-            max-width: 80%;
-            padding: 14px 20px;
-            border-radius: 20px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-        }
-        .chat-bubble.left {
-            align-self: flex-start;
-            background: #1a3a5c;
-            border-bottom-left-radius: 6px;
-        }
-        .chat-bubble.right {
-            align-self: flex-end;
-            background: #6b2e4a;
-            border-bottom-right-radius: 6px;
-        }
-        .chat-bubble .speaker {
-            font-size: 13px;
-            font-weight: 700;
-            opacity: 0.7;
-            margin-bottom: 2px;
-        }
-        .chat-bubble .text {
-            font-size: 16px;
-            line-height: 1.5;
-            direction: ltr;
-            text-align: left;
-        }
-        .chat-bubble .actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 6px;
-        }
-        .chat-bubble .actions button {
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            color: var(--text-secondary);
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: background var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .chat-bubble .actions button:hover {
-            background: var(--gold-dim);
-            color: var(--gold);
-        }
-        .chat-bubble .translation {
-            margin-top: 6px;
-            font-size: 15px;
-            color: var(--gold);
-            direction: rtl;
-            display: none;
-            padding: 6px 12px;
-            background: rgba(255, 215, 0, 0.08);
-            border-radius: 12px;
-            border-right: 3px solid var(--gold);
-        }
-        .chat-bubble .translation.show {
-            display: block;
-        }
-
-        /* ===== 11. Tabs ===== */
-        .tabs {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-        .tabs button {
-            padding: 8px 18px;
-            border-radius: 30px;
-            border: 1px solid var(--border-glass);
-            background: transparent;
-            color: var(--text-secondary);
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .tabs button.active {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        .tab-content {
-            display: none;
-            padding: 16px 20px;
-            background: var(--bg-card);
-            border-radius: 16px;
-            border: 1px solid var(--border-glass);
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .tab-content .example {
-            font-size: 18px;
-            font-weight: 600;
-            direction: ltr;
-            text-align: left;
-            margin-bottom: 6px;
-        }
-        .tab-content .explanation {
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        /* ===== 12. Grammar Lab ===== */
-        .grammar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-        .grammar-card {
-            padding: 16px 18px;
-            border-radius: 16px;
-            border: 1px solid var(--border-glass);
-            background: var(--bg-card);
-            transition: all var(--transition);
-        }
-        .grammar-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--gold);
-        }
-        .grammar-card .title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .grammar-card .examples {
-            font-size: 15px;
-            color: var(--text-secondary);
-            direction: ltr;
-            text-align: left;
-        }
-        .grammar-card.green {
-            border-right: 4px solid #22c55e;
-        }
-        .grammar-card.red {
-            border-right: 4px solid #ef4444;
-        }
-        .grammar-card.blue {
-            border-right: 4px solid #3b82f6;
-        }
-        .grammar-card.yellow {
-            border-right: 4px solid var(--gold);
-        }
-
-        /* ===== 13. Flip Cards ===== */
-        .flip-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 16px;
-        }
-        .flip-card {
-            perspective: 600px;
-            height: 160px;
-            cursor: pointer;
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s ease;
-            transform-style: preserve-3d;
-        }
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            padding: 16px;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            border: 1px solid var(--border-glass);
-            background: var(--glass-bg);
-            backdrop-filter: blur(8px);
-        }
-        .flip-card-front {
-            font-size: 22px;
-            font-weight: 700;
-            direction: ltr;
-        }
-        .flip-card-front .audio-icon {
-            font-size: 20px;
-            margin-top: 6px;
-            opacity: 0.6;
-            cursor: pointer;
-        }
-        .flip-card-back {
-            transform: rotateY(180deg);
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-        .flip-card-back .meaning {
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 4px;
-        }
-        .flip-card-back .example {
-            font-size: 14px;
-            direction: ltr;
-            text-align: center;
-        }
-
-        /* ===== 14. Babble Warning ===== */
-        .warning-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .warning-card {
-            padding: 20px;
-            border-radius: 16px;
-            border: 1px solid var(--border-glass);
-            text-align: center;
-            transition: all var(--transition);
-        }
-        .warning-card.green {
-            border-right: 4px solid #22c55e;
-        }
-        .warning-card.red {
-            border-right: 4px solid #ef4444;
-        }
-        .warning-card .sentence {
-            font-size: 18px;
-            font-weight: 600;
-            direction: ltr;
-            margin-bottom: 6px;
-        }
-        .warning-card .meaning {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-        .warning-note {
-            margin-top: 16px;
-            padding: 12px 18px;
-            background: var(--gold-dim);
-            border-radius: 12px;
-            color: var(--gold);
-            font-weight: 600;
-            text-align: center;
-        }
-
-        /* ===== 15. Challenge Arena ===== */
-        .challenge-progress {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .challenge-progress .bar {
-            flex: 1;
-            height: 6px;
-            background: var(--border-glass);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .challenge-progress .bar .fill {
-            height: 100%;
-            background: var(--gold);
-            border-radius: 6px;
-            transition: width 0.4s ease;
-        }
-        .challenge-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .challenge-item {
-            background: var(--glass-bg);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
-            padding: 16px 20px;
-            transition: all var(--transition);
-        }
-        .challenge-item:hover {
-            border-color: rgba(255, 215, 0, 0.15);
-        }
-        .challenge-item .q-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .challenge-item .q-text {
-            font-size: 18px;
-            font-weight: 600;
-            direction: ltr;
-            text-align: left;
-            flex: 1;
-            min-width: 150px;
-        }
-        .challenge-item .options {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .challenge-item .options button {
-            padding: 6px 18px;
-            border-radius: 30px;
-            border: 1px solid var(--border-glass);
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .challenge-item .options button:hover:not(:disabled) {
-            border-color: var(--gold);
-            background: var(--gold-dim);
-        }
-        .challenge-item .options button.correct {
-            border-color: #22c55e;
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-        }
-        .challenge-item .options button.wrong {
-            border-color: #ef4444;
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-        .challenge-item .options button:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-        .challenge-item .reset-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 18px;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 30px;
-            transition: all var(--transition);
-        }
-        .challenge-item .reset-btn:hover {
-            color: var(--gold);
-            background: var(--gold-dim);
-        }
-        .challenge-item .status {
-            font-size: 14px;
-            font-weight: 600;
-            min-width: 60px;
-            text-align: center;
-        }
-        .challenge-item .status.correct {
-            color: #22c55e;
-        }
-        .challenge-item .status.wrong {
-            color: #ef4444;
-        }
-        .challenge-item .status.pending {
-            color: var(--text-muted);
-        }
-        /* Click-to-Select Drag & Drop */
-        .drag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin: 8px 0;
-        }
-        .drag-container .word-item {
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 1px solid var(--border-glass);
-            background: var(--bg-card);
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-            direction: ltr;
-            user-select: none;
-        }
-        .drag-container .word-item:hover {
-            border-color: var(--gold);
-            background: var(--gold-dim);
-        }
-        .drag-container .word-item.selected {
-            border-color: var(--gold);
-            background: var(--gold-dim);
-        }
-        .drop-zone {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            padding: 12px;
-            min-height: 56px;
-            border: 2px dashed var(--border-glass);
-            border-radius: 12px;
-            margin: 8px 0;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-card);
-            transition: border-color var(--transition);
-        }
-        .drop-zone .word-item {
-            padding: 6px 14px;
-            border-radius: 30px;
-            border: 1px solid var(--gold);
-            background: var(--gold-dim);
-            color: var(--gold);
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            direction: ltr;
-            user-select: none;
-        }
-        .drop-zone .word-item:hover {
-            background: var(--gold);
-            color: var(--bg-primary);
-        }
-        .drop-zone .placeholder {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
-
-        /* ===== 16. Speak Up ===== */
-        .speak-box {
-            padding: 30px;
-            text-align: center;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border-glass);
-        }
-        .speak-box .prompt {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            direction: ltr;
-        }
-        .speak-box .record-btn {
-            font-size: 48px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: transform var(--transition);
-            color: var(--gold);
-        }
-        .speak-box .record-btn:hover {
-            transform: scale(1.1);
-        }
-        .speak-box .result {
-            margin-top: 16px;
-            font-size: 18px;
-            color: var(--text-secondary);
-            min-height: 24px;
-            font-weight: 600;
-        }
-        .speak-box .result.success {
-            color: #22c55e;
-        }
-        .speak-box .result.fail {
-            color: #ef4444;
-        }
-
-        /* ===== 17. Power Recap ===== */
-        .recap-title {
-            font-size: 24px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 16px;
-            color: var(--gold);
-        }
-        .recap-map {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
-            padding: 20px;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border-glass);
-        }
-        .recap-node {
-            background: var(--bg-card);
-            padding: 12px 24px;
-            border-radius: 40px;
-            border: 1px solid var(--border-glass);
-            font-weight: 700;
-            transition: all var(--transition);
-            cursor: default;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 17px;
-        }
-        .recap-node .example {
-            font-weight: 400;
-            color: var(--text-secondary);
-            font-size: 15px;
-            direction: ltr;
-        }
-        .recap-node:hover {
-            border-color: var(--gold);
-            background: var(--gold-dim);
-        }
-
-        /* ===== 18. Video & Homework ===== */
-        .video-box {
-            padding: 24px;
-            text-align: center;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-        }
-        .video-box .icon {
-            font-size: 48px;
-            margin-bottom: 8px;
-        }
-        .video-box a {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .video-box a:hover {
-            text-decoration: underline;
-        }
-        .homework-box textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 14px;
-            border-radius: 16px;
-            border: 1px solid var(--border-glass);
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            font-size: 16px;
-            resize: vertical;
-            direction: ltr;
-            text-align: left;
-            transition: border var(--transition);
-        }
-        .homework-box textarea:focus {
-            border-color: var(--gold);
-            outline: none;
-        }
-        .homework-box .save-status {
-            margin-top: 10px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-        .homework-box .correction-list {
-            margin-top: 12px;
-            padding: 12px 16px;
-            background: var(--gold-dim);
-            border-radius: 12px;
-            border-right: 4px solid var(--gold);
-            font-size: 15px;
-            color: var(--text-secondary);
-            display: none;
-        }
-        .homework-box .correction-list.show {
-            display: block;
-        }
-        .homework-box .correction-list strong {
-            color: var(--gold);
-        }
-        .homework-box .btn-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-
-        /* ===== 19. زر الوحدة التالية ===== */
-        .next-unit-wrapper {
-            text-align: center;
-            margin-top: 30px;
-        }
-        .next-unit-btn {
-            display: none;
-            padding: 16px 48px;
-            font-size: 22px;
-            font-weight: 800;
-            border-radius: 60px;
-            background: var(--gold);
-            color: var(--bg-primary);
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.4);
-            transition: all var(--transition);
-            text-align: center;
-        }
-        .next-unit-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.6);
-        }
-        .next-unit-btn.show {
-            display: inline-block;
-        }
-
-        /* ===== 20. الاحتفالية (Celebrate Modal) ===== */
-        .celebrate {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            animation: fadeIn 0.5s ease;
-            padding: 20px;
-            text-align: center;
-        }
-        .celebrate.show {
-            display: flex;
-        }
-        .celebrate h2 {
-            font-size: 48px;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-        .celebrate p {
-            font-size: 24px;
-            color: var(--text-primary);
-        }
-        .celebrate .stars {
-            font-size: 40px;
-            animation: spin 2s linear infinite;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        .celebrate .btn {
-            margin-top: 20px;
-        }
-        .confetti-container {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2001;
-            overflow: hidden;
-        }
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            top: -20px;
-            animation: confettiFall linear forwards;
-        }
-        @keyframes confettiFall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* ===== 21. إعادة التحدي كاملاً ===== */
-        .reset-challenge-btn {
-            display: block;
-            margin: 20px auto 0;
-            padding: 12px 32px;
-            font-size: 18px;
-            font-weight: 700;
-            border-radius: 60px;
-            background: var(--btn-secondary-bg);
-            color: var(--text-secondary);
-            border: 1.5px solid var(--btn-secondary-border);
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .reset-challenge-btn:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            background: var(--gold-dim);
-        }
-
-        /* ===== 22. Footer ===== */
-        .footer {
-            border-top: 1px solid var(--footer-border);
-            padding: 30px 0 24px;
-            margin-top: 40px;
-            text-align: center;
-            color: var(--text-muted);
-        }
-        .footer .social-row {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .footer .social-row a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-glass);
-            transition: all var(--transition);
-        }
-        .footer .social-row a:hover {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-        }
-        .footer .social-row a svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--text-secondary);
-        }
-        .footer .social-row a:hover svg {
-            fill: var(--gold);
-        }
-
-        /* ===== 23. استجابة ===== */
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 180px;
-                padding: 12px 8px;
-            }
-            .sidebar ul li {
-                font-size: 13px;
-                padding: 8px 10px;
-            }
-            .main-content {
-                padding: 20px 16px;
-                max-width: calc(100% - 180px);
-            }
-        }
-        @media (max-width: 768px) {
-            :root {
-                --sidebar-width: 0px;
-                --header-height: 56px;
-                --progress-height: 36px;
-                --unit-nav-height: 48px;
-            }
-            body {
-                padding-top: calc(var(--header-height) + var(--progress-height) + var(--unit-nav-height));
-            }
-            .sidebar {
-                display: none;
-            }
-            .main-content {
-                max-width: 100%;
-                padding: 16px 12px;
-            }
-            .header .nav-menu {
-                display: none;
-            }
-            .header .logo-link img {
-                height: 30px;
-            }
-            .header-actions .social-icons a {
-                width: 28px;
-                height: 28px;
-            }
-            .header-actions .social-icons a svg {
-                width: 14px;
-                height: 14px;
-            }
-            .theme-toggle {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
-            }
-            .progress-bar {
-                font-size: 13px;
-                padding: 0 12px;
-                gap: 8px;
-            }
-            .progress-bar .progress-track {
-                max-width: 120px;
-            }
-            .unit-nav {
-                padding: 0 8px;
-                gap: 4px;
-            }
-            .unit-nav .unit-btn {
-                padding: 4px 10px;
-                font-size: 13px;
-            }
-            .unit-section h2 {
-                font-size: 22px;
-            }
-            .chat-bubble {
-                max-width: 95%;
-                padding: 10px 14px;
-            }
-            .grammar-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .flip-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .warning-grid {
-                grid-template-columns: 1fr;
-            }
-            .recap-map {
-                flex-direction: column;
-                align-items: center;
-            }
-            .challenge-item .q-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .challenge-item .options {
-                justify-content: center;
-            }
-            .drag-container .word-item,
-            .drop-zone .word-item {
-                font-size: 16px;
-                padding: 6px 12px;
-            }
-        }
-        @media (max-width: 480px) {
-            .grammar-grid {
-                grid-template-columns: 1fr;
-            }
-            .flip-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .progress-bar .progress-track {
-                max-width: 80px;
-            }
-            .challenge-item .options button {
-                padding: 4px 12px;
-                font-size: 14px;
-            }
-            .unit-nav .unit-btn {
-                font-size: 12px;
-                padding: 3px 8px;
-            }
-        }
-
-        /* ===== 24. تأثيرات إضافية ===== */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .shake {
-            animation: shake 0.4s ease;
-        }
-        @keyframes shake {
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(-8px);
-            }
-            75% {
-                transform: translateX(8px);
-            }
         }
     </style>
 </head>
@@ -1390,19 +1270,49 @@
 <body>
 
     <!-- ============================================================
-    =====  الهيدر ===== -->
+    الهيدر
+    ============================================================ -->
     <header class="header" id="header">
-        <a href="#" class="logo-link">
+        <div class="logo-link">
             <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" />
-        </a>
-        <nav class="nav-menu">
-            <a href="#section1">المحادثة</a>
-            <a href="#section2">القاعدة</a>
-            <a href="#section3">القواعد</a>
-            <a href="#section4">المفردات</a>
-            <a href="#section6">التحدي</a>
-        </nav>
+        </div>
+        <div class="level-display">
+            <span>المستوى A1</span>
+        </div>
         <div class="header-actions">
+            <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">🌓</button>
+        </div>
+    </header>
+
+    <!-- ===== شريط تبويبات الوحدات ===== -->
+    <div class="unit-tabs" id="unitTabs">
+        <!-- سيتم توليدها بواسطة JS -->
+    </div>
+
+    <!-- ===== شريط التقدم اليومي ===== -->
+    <div class="progress-bar" id="progressBar">
+        <span>⭐</span>
+        <span id="progressLabel">0/5 تمارين مكتملة اليوم</span>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+    </div>
+
+    <!-- ===== التخطيط الرئيسي ===== -->
+    <div class="app-wrapper">
+
+        <!-- ===== الشريط الجانبي ===== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-area">
+                <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box" />
+                <span class="level-badge">المستوى A1</span>
+            </div>
+            <nav>
+                <a href="index.html">🏠 الرئيسية</a>
+                <a href="index.html#roadmap">🗺️ المستويات</a>
+                <a href="test.html">📝 اختبر مستواك</a>
+                <a href="index.html#contact">📩 اتصل بنا</a>
+            </nav>
             <div class="social-icons">
                 <a href="https://www.facebook.com/omar.youssif.english" target="_blank">
                     <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
@@ -1414,104 +1324,70 @@
                     <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.76-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.3-.69.32-1.06.11-1.64.04-3.28.06-4.93.02-1.37.02-2.74.02-4.11z"/></svg>
                 </a>
             </div>
-            <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">🌓</button>
-        </div>
-    </header>
-
-    <!-- ===== شريط التقدم اليومي ===== -->
-    <div class="progress-bar" id="progressBar">
-        <span>⭐</span>
-        <span id="progressLabel">0/5 تمارين مكتملة اليوم</span>
-        <div class="progress-track">
-            <div class="progress-fill" id="progressFill" style="width:0%"></div>
-        </div>
-    </div>
-
-    <!-- ===== شريط الوحدات العلوي (Unit Navigation Bar) ===== -->
-    <nav class="unit-nav" id="unitNav">
-        <!-- سيتم توليد الأزرار بواسطة JS -->
-    </nav>
-
-    <!-- ===== التخطيط الرئيسي ===== -->
-    <div class="page-layout">
-
-        <!-- ===== الشريط الجانبي ===== -->
-        <aside class="sidebar" id="sidebar">
-            <ul id="unitList">
-                <!-- سيتم توليدها بواسطة JS -->
-            </ul>
         </aside>
 
         <!-- ===== المحتوى الرئيسي ===== -->
         <main class="main-content" id="mainContent">
 
             <!-- ============================================================
-            القسم 1: 🗣️ The Real Talk
+            القسم 1: 🗣️ The Real Talk (العائلة)
             ============================================================ -->
             <section class="unit-section fade-up" id="section1">
-                <h2>🗣️ The Real Talk</h2>
+                <h2 class="en-title">🗣️ The Real Talk</h2>
                 <div class="chat-container" id="chatContainer">
                     <!-- سيتم توليد فقاعات المحادثة بواسطة JS -->
                 </div>
             </section>
 
             <!-- ============================================================
-            القسم 2: 🔍 Discover the Rule
+            القسم 2: 🔍 Discover the Rule (my, your, his, her)
             ============================================================ -->
             <section class="unit-section fade-up" id="section2">
-                <h2>🔍 Discover the Rule</h2>
-                <div class="glass" style="padding:20px;">
-                    <p style="font-size:18px; margin-bottom:12px;">لاحظ الفرق بين الجمل دي:</p>
-                    <div class="tabs" id="ruleTabs">
-                        <button class="active" data-tab="tab1">This is my book.</button>
-                        <button data-tab="tab2">This is your pen.</button>
-                        <button data-tab="tab3">This is his car.</button>
-                    </div>
-                    <div id="tab1" class="tab-content active">
-                        <div class="example" dir="ltr">This is my book.</div>
-                        <div class="explanation">الكتاب بتاعي (للمتكلم)</div>
-                    </div>
-                    <div id="tab2" class="tab-content">
-                        <div class="example" dir="ltr">This is your pen.</div>
-                        <div class="explanation">القلم بتاعك (للمخاطب)</div>
-                    </div>
-                    <div id="tab3" class="tab-content">
-                        <div class="example" dir="ltr">This is his car.</div>
-                        <div class="explanation">العربية بتاعته (لشخص تالت)</div>
+                <h2 class="en-title">🔍 Discover the Rule</h2>
+                <div class="glass" style="padding:18px;">
+                    <p style="font-size:18px; margin-bottom:16px; text-align:right; direction:rtl; font-weight:700;">
+                        👆 اضغط على كل جملة عشان تشوف معناها وقاعدتها
+                    </p>
+                    <div class="rule-list" id="ruleList">
+                        <!-- سيتم توليدها بواسطة JS -->
                     </div>
                 </div>
             </section>
 
             <!-- ============================================================
-            القسم 3: 🧠 Grammar Lab
+            القسم 3: 🧠 Grammar Lab (Possessive Adjectives)
             ============================================================ -->
             <section class="unit-section fade-up" id="section3">
-                <h2>🧠 Grammar Lab</h2>
+                <h2 class="en-title">🧠 Grammar Lab</h2>
                 <div class="grammar-grid">
                     <div class="grammar-card green">
-                        <div class="title">➕ Possessive Adjectives</div>
-                        <div class="examples" dir="ltr">I → my<br />You → your<br />He → his<br />She → her<br />It → its<br />We → our<br />They → their</div>
-                    </div>
-                    <div class="grammar-card red">
-                        <div class="title">➖ Don't confuse</div>
-                        <div class="examples" dir="ltr">He's = He is (وليس "his")</div>
+                        <div class="title">👤 I → my</div>
+                        <div class="examples" dir="ltr">This is my book.</div>
+                        <div class="note">🎯 ده كتابي (بتاع أنا)</div>
                     </div>
                     <div class="grammar-card blue">
-                        <div class="title">❓ Examples</div>
-                        <div class="examples" dir="ltr">This is my book.<br />(وليس "This is mine book.")</div>
+                        <div class="title">👤 You → your</div>
+                        <div class="examples" dir="ltr">Is this your pen?</div>
+                        <div class="note">🎯 ده قلمك؟ (بتاع إنت)</div>
+                    </div>
+                    <div class="grammar-card red">
+                        <div class="title">👤 He → his</div>
+                        <div class="examples" dir="ltr">That is his car.</div>
+                        <div class="note">🎯 دي عربيته (بتاع هو)</div>
                     </div>
                     <div class="grammar-card yellow">
-                        <div class="title">✅ Remember</div>
-                        <div class="examples" dir="ltr">my, your, his... يأتي بعدهم اسم.</div>
+                        <div class="title">👤 She → her</div>
+                        <div class="examples" dir="ltr">This is her bag.</div>
+                        <div class="note">🎯 ده شنطتها (بتاع هي)</div>
                     </div>
                 </div>
             </section>
 
             <!-- ============================================================
-            القسم 4: 💎 Word Vault
+            القسم 4: 💎 Word Vault (عائلة)
             ============================================================ -->
             <section class="unit-section fade-up" id="section4">
-                <h2>💎 Word Vault</h2>
+                <h2 class="en-title">💎 Word Vault</h2>
                 <div class="flip-grid" id="flipGrid">
                     <!-- سيتم توليد البطاقات بواسطة JS -->
                 </div>
@@ -1521,45 +1397,45 @@
             القسم 5: 🚨 Babble Warning
             ============================================================ -->
             <section class="unit-section fade-up" id="section5">
-                <h2>🚨 Babble Warning</h2>
+                <h2 class="en-title">🚨 Babble Warning</h2>
                 <div class="warning-grid">
                     <div class="warning-card green">
-                        <div class="sentence" dir="ltr">He's my brother.</div>
-                        <div class="meaning">هو أخي.</div>
+                        <div class="sentence" dir="ltr">Parents</div>
+                        <div class="meaning">الوالدين (الأب والأم)</div>
                     </div>
                     <div class="warning-card red">
-                        <div class="sentence" dir="ltr">His brother is nice.</div>
-                        <div class="meaning">أخوه لطيف.</div>
+                        <div class="sentence" dir="ltr">Relatives</div>
+                        <div class="meaning">الأقارب (أي حد من العيلة)</div>
                     </div>
                 </div>
                 <div class="warning-note">
-                    😄 He's اختصار He is. His بتاعة الملكية. "متخلطش بينهم عشان متقولش: 'His my brother'."
+                    😄 "Parents" = أب وأم بس. مش أي حد من العيلة! "Relatives" = كل الأقارب.
                 </div>
             </section>
 
             <!-- ============================================================
-            القسم 6: ⚔️ Challenge Arena (7 أسئلة)
+            القسم 6: ⚔️ Challenge Arena
             ============================================================ -->
             <section class="unit-section fade-up" id="section6">
-                <h2>⚔️ Challenge Arena</h2>
+                <h2 class="en-title">⚔️ Challenge Arena</h2>
                 <div class="challenge-progress">
-                    <span>التقدم: <span id="challengeScore">0</span> / 7</span>
+                    <span>النتيجة: <span id="challengeScore">0</span> / 7</span>
                     <div class="bar"><div class="fill" id="challengeFill" style="width:0%"></div></div>
                 </div>
                 <div id="challengeContainer" class="challenge-grid">
                     <!-- سيتم توليد الأسئلة بواسطة JS -->
                 </div>
-                <button class="reset-challenge-btn" id="resetChallengeBtn">🔄 إعادة التحدي كاملاً</button>
+                <button class="reset-challenge-btn" id="resetChallengeBtn">🔄 إعادة التحدي بالكامل</button>
             </section>
 
             <!-- ============================================================
             القسم 7: 🎤 Speak Up!
             ============================================================ -->
             <section class="unit-section fade-up" id="section7">
-                <h2>🎤 Speak Up!</h2>
+                <h2 class="en-title">🎤 Speak Up!</h2>
                 <div class="speak-box">
                     <div class="prompt" dir="ltr">🗣️ حاول أن تقول:<br />
-                        <span style="font-weight:400; font-size:20px; direction:ltr;">My name is... My father's name is... My mother's name is...</span>
+                        <span style="font-weight:400; font-size:20px; direction:ltr;">My mother is a teacher. My father is a doctor.</span>
                     </div>
                     <button class="record-btn" id="recordBtn" aria-label="ابدأ التسجيل">🎤</button>
                     <div class="result" id="speechResult">اضغط الزر وابدأ التحدث</div>
@@ -1570,15 +1446,13 @@
             القسم 8: ⚡ Power Recap
             ============================================================ -->
             <section class="unit-section fade-up" id="section8">
-                <h2>⚡ Power Recap</h2>
+                <h2 class="en-title">⚡ Power Recap</h2>
                 <div class="recap-title">📝 ملخص قوانين الوحدة</div>
                 <div class="recap-map">
-                    <div class="recap-node">I → <span class="example" dir="ltr">my</span></div>
-                    <div class="recap-node">You → <span class="example" dir="ltr">your</span></div>
-                    <div class="recap-node">He → <span class="example" dir="ltr">his</span></div>
-                    <div class="recap-node">She → <span class="example" dir="ltr">her</span></div>
-                    <div class="recap-node">We → <span class="example" dir="ltr">our</span></div>
-                    <div class="recap-node">They → <span class="example" dir="ltr">their</span></div>
+                    <div class="recap-node">I = my <span class="example" dir="ltr">my book</span></div>
+                    <div class="recap-node">You = your <span class="example" dir="ltr">your pen</span></div>
+                    <div class="recap-node">He = his <span class="example" dir="ltr">his car</span></div>
+                    <div class="recap-node">She = her <span class="example" dir="ltr">her bag</span></div>
                 </div>
             </section>
 
@@ -1586,7 +1460,7 @@
             القسم 9: 🎥 Video Zone
             ============================================================ -->
             <section class="unit-section fade-up" id="section9">
-                <h2>🎥 Video Zone</h2>
+                <h2 class="en-title">🎥 Video Zone</h2>
                 <div class="video-box">
                     <div class="icon">🎬</div>
                     <a href="https://youtube.com/@omar.youssif.english" target="_blank">شاهد شرح الوحدة على يوتيوب</a>
@@ -1597,10 +1471,10 @@
             القسم 10: ✍️ Homework
             ============================================================ -->
             <section class="unit-section fade-up" id="section10">
-                <h2>✍️ Homework</h2>
-                <div class="homework-box glass" style="padding:20px;">
-                    <p style="margin-bottom:12px; font-weight:600;">اكتب 5 جمل عن أسرتك (أو عائلة خيالية) باستخدام my, your, his, her, our, their.</p>
-                    <textarea id="homeworkText" spellcheck="true" dir="ltr" placeholder="Example: My father is a doctor. His name is Ahmed. Our family is happy."></textarea>
+                <h2 class="en-title">✍️ Homework</h2>
+                <div class="homework-box glass" style="padding:18px;">
+                    <p style="margin-bottom:10px; font-weight:600; text-align:right; direction:rtl;">اكتب 5 جمل عن عائلتك باستخدام my, your, his, her.</p>
+                    <textarea id="homeworkText" spellcheck="true" dir="ltr" placeholder="Example: This is my family. My mother is a teacher. My father is a doctor. Her name is Sarah. His name is John."></textarea>
                     <div class="btn-group">
                         <button class="btn btn-primary btn-sm" id="saveHomework">💾 حفظ</button>
                         <button class="btn btn-secondary btn-sm" id="checkHomework">✅ تدقيق</button>
@@ -1608,41 +1482,32 @@
                     <div class="save-status" id="saveStatus">تم الحفظ تلقائياً</div>
                     <div class="correction-list" id="correctionList"></div>
                 </div>
-                <!-- زر الوحدة التالية -->
-                <div class="next-unit-wrapper">
-                    <a href="unit3.html" class="next-unit-btn" id="nextUnitBtn">الوحدة التالية ←</a>
-                </div>
             </section>
 
-            <!-- ===== التذييل ===== -->
+            <!-- ===== زر الوحدة التالية ===== -->
+            <div class="next-unit-wrapper">
+                <a href="unit3.html" class="next-unit-btn" id="nextUnitBtn">→ الوحدة التالية</a>
+            </div>
+
+            <!-- ===== تذييل الصفحة ===== -->
             <footer class="footer">
                 <p>© 2026 Babble Box Academy. الوحدة 2 - المستوى A1</p>
-                <div class="social-row">
-                    <a href="https://www.facebook.com/omar.youssif.english" target="_blank">
-                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                    <a href="https://youtube.com/@omar.youssif.english" target="_blank">
-                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    </a>
-                    <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank">
-                        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.76-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.3-.69.32-1.06.11-1.64.04-3.28.06-4.93.02-1.37.02-2.74.02-4.11z"/></svg>
-                    </a>
-                </div>
             </footer>
 
         </main>
     </div>
 
-    <!-- ===== نافذة الاحتفال ===== -->
-    <div class="celebrate" id="celebrateModal">
+    <!-- ===== Modal الاحتفال ===== -->
+    <div class="celebrate-modal" id="celebrateModal">
         <div class="stars">🎉✨🌟</div>
         <h2>🎉 +50 XP! أنت عبقري!</h2>
         <p>أكملت التحدي بنجاح 🏆</p>
-        <button class="btn btn-primary" id="celebrateClose">رائع!</button>
+        <button class="close-btn" id="celebrateClose">رائع!</button>
     </div>
 
     <!-- ============================================================
-    =====  JavaScript ===== -->
+    JavaScript
+    ============================================================ -->
     <script>
         (function() {
             'use strict';
@@ -1662,78 +1527,44 @@
             });
 
             // ============================================================
-            // 2. شريط الوحدات العلوي (12 زراً) - الوحدة 2 نشطة، الوحدة 1 مفتوحة
+            // 2. شريط تبويبات الوحدات (Unit Tabs)
             // ============================================================
-            const unitNav = document.getElementById('unitNav');
-            let maxUnitUnlocked = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
+            const maxUnitUnlocked = parseInt(localStorage.getItem('maxUnitUnlocked')) || 2;
+            const unitTabsContainer = document.getElementById('unitTabs');
 
-            function renderUnitNav() {
-                let html = '';
+            function renderUnitTabs() {
+                let tabsHtml = '';
                 for (let i = 1; i <= 12; i++) {
-                    const isActive = (i === 2); // الوحدة 2 هي النشطة
+                    const isActive = (i === 2);
                     const isLocked = (i > maxUnitUnlocked);
-                    // الوحدة 1 تعتبر مفتوحة دائماً (لأنها سابقة)
-                    const isUnlocked = (i <= maxUnitUnlocked);
+                    const activeClass = isActive ? 'active' : '';
+                    const lockedClass = isLocked ? 'locked' : '';
                     const lockIcon = isLocked ? '<span class="lock-icon">🔒</span>' : '';
-                    let extraClass = '';
-                    let clickHandler = '';
-                    if (isActive) {
-                        extraClass = 'active';
-                    } else if (isUnlocked && !isActive) {
-                        extraClass = 'active'; // مفتوحة وقابلة للنقر
-                        clickHandler = `onclick="window.location.href='unit${i}.html'"`;
-                    } else {
-                        extraClass = 'locked';
-                    }
-                    // استثناء: الوحدة 1 مفتوحة ولكن ليست نشطة
-                    if (i === 1 && maxUnitUnlocked >= 1) {
-                        extraClass = 'active';
-                        clickHandler = `onclick="window.location.href='unit1.html'"`;
-                    }
-                    html += `
-                        <button class="unit-btn ${extraClass}" ${clickHandler} data-unit="${i}">
-                            ${i} ${lockIcon}
+                    tabsHtml += `
+                        <button class="${activeClass} ${lockedClass}" data-unit="${i}" ${isLocked ? 'disabled' : ''}>
+                            U${i} ${lockIcon}
                         </button>
                     `;
                 }
-                unitNav.innerHTML = html;
+                unitTabsContainer.innerHTML = tabsHtml;
+
+                document.querySelectorAll('.unit-tabs button:not(.locked)').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const unit = parseInt(this.dataset.unit);
+                        if (unit === 1) {
+                            window.location.href = 'unit1.html';
+                        } else if (unit === 2) {
+                            window.location.href = 'unit2.html';
+                        } else {
+                            window.location.href = 'unit' + unit + '.html';
+                        }
+                    });
+                });
             }
-            renderUnitNav();
+            renderUnitTabs();
 
             // ============================================================
-            // 3. القائمة الجانبية (12 وحدة) - الوحدة 2 نشطة، الوحدة 1 مفتوحة
-            // ============================================================
-            const unitList = document.getElementById('unitList');
-
-            function renderSidebar() {
-                let htmlStr = '';
-                for (let i = 1; i <= 12; i++) {
-                    const active = i === 2 ? 'active' : '';
-                    const locked = i > maxUnitUnlocked ? 'locked' : '';
-                    const unlocked = (i <= maxUnitUnlocked && i !== 2) ? 'unlocked' : '';
-                    const lockIcon = i > maxUnitUnlocked ? '<span class="lock-icon">🔒</span>' : '';
-                    let clickAttr = '';
-                    if (i <= maxUnitUnlocked && i !== 2) {
-                        clickAttr = `onclick="window.location.href='unit${i}.html'"`;
-                    } else if (i === 2) {
-                        // الوحدة 2 نشطة، لا نضيف click
-                    } else {
-                        clickAttr = '';
-                    }
-                    htmlStr += `
-                        <li class="${active} ${locked} ${unlocked}" data-unit="${i}" ${clickAttr}>
-                            <span>الوحدة ${i}</span>
-                            <span class="unit-badge">${i === 2 ? 'A1' : ''}</span>
-                            ${lockIcon}
-                        </li>
-                    `;
-                }
-                unitList.innerHTML = htmlStr;
-            }
-            renderSidebar();
-
-            // ============================================================
-            // 4. شريط التقدم اليومي (0/5)
+            // 3. شريط التقدم اليومي
             // ============================================================
             let completedCount = parseInt(localStorage.getItem('dailyProgress')) || 0;
             if (completedCount > 5) completedCount = 5;
@@ -1759,24 +1590,17 @@
             }
 
             // ============================================================
-            // 5. المحادثة (The Real Talk) - نص الوحدة 2
+            // 4. المحادثة (The Real Talk) - العائلة
             // ============================================================
             const chatData = [
-                { speaker: 'John', text: "Hey Sarah, who is that?", translation: "أهلاً سارة، مين ده؟", gender: 'male' },
-                { speaker: 'Sarah', text: "Oh, that's my brother, Tom. He is a student.", translation: "أوه، ده أخي توم. هو طالب.",
-                    gender: 'female' },
-                { speaker: 'John', text: "He looks friendly. Is he older than you?", translation: "شكله ودود. هو أكبر منك؟",
-                    gender: 'male' },
-                { speaker: 'Sarah', text: "Yes, he is. He's 20. And this is my sister, Lily. She is very funny.",
-                    translation: "أيوة، هو كده. هو 20 سنة. ودي أختي ليلي. هي مضحكة جداً.", gender: 'female' },
-                { speaker: 'John', text: "You have a nice family. Are your parents here?",
-                    translation: "عندك عائلة لطيفة. والديك هنا؟", gender: 'male' },
-                { speaker: 'Sarah', text: "My mom is here. She's the one in the blue dress. My dad is at work.",
-                    translation: "ماما هنا. هي اللي لابسة الفستان الأزرق. بابا في الشغل.", gender: 'female' },
-                { speaker: 'John', text: "I see. So, your mom's name is...?", translation: "فهمت. إذن، اسم مامتك...؟",
-                    gender: 'male' },
-                { speaker: 'Sarah', text: "Her name is Nancy. His name is Robert. And our dog's name is Max!",
-                    translation: "اسمها نانسي. اسمه روبرت. واسم كلبنا ماكس!", gender: 'female' }
+                { speaker: 'John', text: "So, tell me about your family.", translation: "إذن، قولي لي عن عيلتك.", gender: 'male' },
+                { speaker: 'Sarah', text: "Well, it's a bit crazy, honestly.", translation: "حسناً، هي مجنونة شوية، بصراحة.", gender: 'female' },
+                { speaker: 'John', text: "Ha! Aren't all families?", translation: "ها! مش كل العائلات كده؟", gender: 'male' },
+                { speaker: 'Sarah', text: "True. So, there's my mom, she's a superhero. My dad's always working. I've got a little brother who's annoying, and an older sister who thinks she's my boss.", translation: "صح. في ماما، هي بطلة خارقة. بابا دايمًا شغال. عندي أخ صغير مزعج، وأخت كبيرة بتفكر إنها مديرتي.", gender: 'female' },
+                { speaker: 'John', text: "Sounds familiar! Any pets?", translation: "يبدو مألوفاً! عندكم حيوانات أليفة؟", gender: 'male' },
+                { speaker: 'Sarah', text: "Yeah, a dog named Max. He's the real boss.", translation: "أيوة، كلب اسمه ماكس. هو المدير الحقيقي.", gender: 'female' },
+                { speaker: 'John', text: "I have a cat. She's very lazy.", translation: "عندي قطة. هي كسولة جداً.", gender: 'male' },
+                { speaker: 'Sarah', text: "Sounds about right.", translation: "يبدو معقولاً.", gender: 'female' }
             ];
 
             const chatContainer = document.getElementById('chatContainer');
@@ -1785,12 +1609,11 @@
                 bubble.className = `chat-bubble ${idx % 2 === 0 ? 'left' : 'right'}`;
                 bubble.innerHTML = `
                     <div class="speaker">${msg.speaker}</div>
-                    <div class="text" dir="ltr">${msg.text}</div>
+                    <div class="text-en">${msg.text}</div>
+                    <div class="text-ar">${msg.translation}</div>
                     <div class="actions">
                         <button class="play-voice" data-index="${idx}">🔊 تشغيل الصوت</button>
-                        <button class="toggle-translation" data-index="${idx}">🇪🇬 Show Translation</button>
                     </div>
-                    <div class="translation" id="trans-${idx}">${msg.translation}</div>
                 `;
                 chatContainer.appendChild(bubble);
             });
@@ -1821,42 +1644,79 @@
                     const msg = chatData[idx];
                     speakText(msg.text, msg.gender);
                 }
-                const transBtn = e.target.closest('.toggle-translation');
-                if (transBtn) {
-                    const idx = parseInt(transBtn.dataset.index);
-                    const transEl = document.getElementById(`trans-${idx}`);
-                    transEl.classList.toggle('show');
-                    transBtn.textContent = transEl.classList.contains('show') ? '🇪🇬 Hide Translation' :
-                        '🇪🇬 Show Translation';
-                }
             });
 
             // ============================================================
-            // 6. Tabs في Discover the Rule
+            // 5. Discover the Rule (my, your, his, her)
             // ============================================================
-            const tabBtns = document.querySelectorAll('#ruleTabs button');
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    document.getElementById(this.dataset.tab).classList.add('active');
+            const ruleData = [
+                {
+                    english: 'I have a dog. → This is my dog.',
+                    translation: 'عندي كلب. → ده كلبي.',
+                    explanation: 'لما بتكلم عن حاجة بتاعتك، استخدم my.',
+                    simpleRule: '🔹 I → my (بتاع أنا)'
+                },
+                {
+                    english: 'You have a cat. → This is your cat.',
+                    translation: 'عندك قطة. → دي قطتك.',
+                    explanation: 'لما بتكلم عن حاجة بتاعت الشخص اللي قدامك، استخدم your.',
+                    simpleRule: '🔹 You → your (بتاع إنت)'
+                },
+                {
+                    english: 'He has a car. → This is his car.',
+                    translation: 'عنده عربية. → دي عربيته.',
+                    explanation: 'لما بتكلم عن حاجة بتاعت ولد (ذكر)، استخدم his.',
+                    simpleRule: '🔹 He → his (بتاع هو)'
+                },
+                {
+                    english: 'She has a book. → This is her book.',
+                    translation: 'عندها كتاب. → ده كتابها.',
+                    explanation: 'لما بتكلم عن حاجة بتاعت بنت (أنثى)، استخدم her.',
+                    simpleRule: '🔹 She → her (بتاع هي)'
+                }
+            ];
+
+            const ruleList = document.getElementById('ruleList');
+            ruleData.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'rule-item';
+                div.innerHTML = `
+                    <div class="rule-english">
+                        ${item.english}
+                        <span class="click-hint">👆 اضغط هنا</span>
+                    </div>
+                    <div class="rule-details" id="ruleDetail-${idx}">
+                        <div class="translation">📖 ${item.translation}</div>
+                        <div class="explanation">💡 ${item.explanation}</div>
+                        <div class="simple-rule">${item.simpleRule}</div>
+                    </div>
+                `;
+                ruleList.appendChild(div);
+
+                div.addEventListener('click', function() {
+                    const details = this.querySelector('.rule-details');
+                    details.classList.toggle('open');
+                    const hint = this.querySelector('.click-hint');
+                    if (details.classList.contains('open')) {
+                        hint.textContent = '👆 اضغط لإخفاء';
+                    } else {
+                        hint.textContent = '👆 اضغط هنا';
+                    }
                 });
             });
 
             // ============================================================
-            // 7. Flip Cards (Word Vault) - مفردات الوحدة 2
+            // 6. Flip Cards (Word Vault) - عائلة
             // ============================================================
             const vocab = [
-                { word: 'Family 👨‍👩‍👧‍👦', meaning: 'عائلة', example: 'My family is big.' },
-                { word: 'Brother 👦', meaning: 'أخ', example: 'My brother is kind.' },
-                { word: 'Sister 👧', meaning: 'أخت', example: 'Her sister is young.' },
-                { word: 'Mother 👩', meaning: 'أم', example: 'His mother is nice.' },
-                { word: 'Father 👨', meaning: 'أب', example: 'Our father is tall.' },
-                { word: 'Parents 👨‍👩‍👦', meaning: 'والدان', example: 'Her parents are friendly.' },
-                { word: 'Dog 🐕', meaning: 'كلب', example: 'Their dog is cute.' },
-                { word: 'Friendly 😊', meaning: 'ودود', example: 'He is very friendly.' }
+                { word: 'Mother', meaning: 'أم', example: 'My mother is a teacher.' },
+                { word: 'Father', meaning: 'أب', example: 'My father is a doctor.' },
+                { word: 'Brother', meaning: 'أخ', example: 'I have a brother.' },
+                { word: 'Sister', meaning: 'أخت', example: 'She is my sister.' },
+                { word: 'Baby', meaning: 'طفل / رضيع', example: 'The baby is sleeping.' },
+                { word: 'Pet', meaning: 'حيوان أليف', example: 'I have a pet dog.' },
+                { word: 'Lazy', meaning: 'كسول', example: 'My cat is lazy.' },
+                { word: 'Boss', meaning: 'مدير', example: 'My dad is the boss.' }
             ];
 
             const flipGrid = document.getElementById('flipGrid');
@@ -1876,73 +1736,97 @@
                     </div>
                 `;
                 flipGrid.appendChild(card);
-                card.addEventListener('click', function() {
+                card.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('audio-icon')) return;
                     this.classList.toggle('flipped');
                 });
                 const audioIcon = card.querySelector('.audio-icon');
                 audioIcon.addEventListener('click', function(e) {
                     e.stopPropagation();
                     const idx = parseInt(this.dataset.vocab);
-                    speakText(vocab[idx].word.replace(/[^a-zA-Z ]/g, '').trim(), 'male');
+                    speakText(vocab[idx].word, 'male');
                 });
             });
 
             // ============================================================
-            // 8. Challenge Arena (7 أسئلة: 5 اختيار، 1 ترتيب، 1 استماع)
+            // 7. Challenge Arena (7 أسئلة) - unit2
             // ============================================================
             const challengeQuestions = [{
                 id: 0,
                 type: 'choice',
-                text: 'This is ___ book. (I)',
-                options: ['my', 'your', 'his'],
+                text: 'This is ___ dog. (I)',
+                options: ['my', 'your', 'his', 'her'],
                 correct: 0
             }, {
                 id: 1,
                 type: 'choice',
-                text: '___ name is John. (He)',
-                options: ['My', 'His', 'Her'],
+                text: 'Is this ___ book? (you)',
+                options: ['my', 'your', 'his', 'her'],
                 correct: 1
             }, {
                 id: 2,
                 type: 'choice',
-                text: 'Sarah and ___ sister are here. (she)',
-                options: ['my', 'his', 'her'],
+                text: 'He loves ___ mother. (he)',
+                options: ['my', 'your', 'his', 'her'],
                 correct: 2
             }, {
                 id: 3,
                 type: 'choice',
-                text: 'We love ___ school. (we)',
-                options: ['our', 'their', 'your'],
+                text: 'She is ___ sister. (I)',
+                options: ['my', 'your', 'his', 'her'],
                 correct: 0
             }, {
                 id: 4,
                 type: 'choice',
-                text: 'Is that ___ dog? (you)',
-                options: ['my', 'your', 'his'],
-                correct: 1
+                text: 'This is ___ cat. (she)',
+                options: ['my', 'your', 'his', 'her'],
+                correct: 3
             }, {
                 id: 5,
-                type: 'drag',
-                text: 'رتب الكلمات لتكوين جملة (انقر على الكلمات بالترتيب):',
-                words: ['My', 'name', 'is', 'Omar.'],
-                correct: ['My', 'name', 'is', 'Omar.']
+                type: 'order',
+                text: 'رتب الكلمات لتكوين جملة:',
+                words: ['This', 'is', 'my', 'family.'],
+                correct: ['This', 'is', 'my', 'family.'],
+                instruction: '👆 اضغط على الكلمات بالترتيب الصحيح'
             }, {
                 id: 6,
                 type: 'listening',
                 text: 'استمع للجملة واختر الترجمة الصحيحة:',
-                audio: 'Our family is big.',
-                options: ['عائلتنا كبيرة.', 'عائلته كبيرة.', 'عائلتي كبيرة.'],
+                audio: 'She is my sister.',
+                options: ['هي أختي.', 'هو أخي.', 'هي صديقتي.'],
                 correct: 0
             }];
 
             const challengeContainer = document.getElementById('challengeContainer');
-            const challengeScore = document.getElementById('challengeScore');
+            const challengeScoreSpan = document.getElementById('challengeScore');
             const challengeFill = document.getElementById('challengeFill');
             const nextUnitBtn = document.getElementById('nextUnitBtn');
-            const resetBtn = document.getElementById('resetChallengeBtn');
+            const celebrateModal = document.getElementById('celebrateModal');
 
-            let answers = new Array(challengeQuestions.length).fill(null);
-            let dragOrder = challengeQuestions.map(q => q.type === 'drag' ? [] : null);
+            // استخدام unit2_challenge_answers
+            let answers = JSON.parse(localStorage.getItem('unit2_challenge_answers')) || new Array(challengeQuestions.length).fill(null);
+            let challengeCompleted = false;
+
+            function calcScore() {
+                return answers.filter(a => a === true).length;
+            }
+
+            function saveState() {
+                localStorage.setItem('unit2_challenge_answers', JSON.stringify(answers));
+                localStorage.setItem('unit2_challenge_score', calcScore());
+                if (calcScore() === challengeQuestions.length) {
+                    localStorage.setItem('maxUnitUnlocked', Math.max(maxUnitUnlocked, 3));
+                    renderUnitTabs();
+                    nextUnitBtn.classList.add('show');
+                    if (!challengeCompleted) {
+                        challengeCompleted = true;
+                        celebrateModal.classList.add('show');
+                        launchConfetti();
+                    }
+                } else {
+                    nextUnitBtn.classList.remove('show');
+                }
+            }
 
             function renderChallenge() {
                 let html = '';
@@ -1950,72 +1834,174 @@
                     const status = answers[idx];
                     let statusText = '⏳ لم يجب';
                     let statusClass = 'pending';
-                    if (status === true) { statusText = '✅ صحيح';
-                        statusClass = 'correct'; }
-                    if (status === false) { statusText = '❌ خاطئ';
-                        statusClass = 'wrong'; }
+                    if (status === true) { statusText = '✅ صحيح'; statusClass = 'correct'; }
+                    if (status === false) { statusText = '❌ خاطئ'; statusClass = 'wrong'; }
 
                     html += `<div class="challenge-item" data-qid="${idx}">`;
-                    html += `<div class="q-row"><div class="q-text" dir="ltr">${q.text}</div>`;
+                    html += `<div class="q-row">`;
+                    html += `<div class="q-text" dir="ltr">${q.text}</div>`;
 
                     if (q.type === 'choice') {
                         html += `<div class="options">`;
                         q.options.forEach((opt, oi) => {
-                            const disabled = (status !== null);
-                            html +=
-                                `<button class="opt-btn" data-opt="${oi}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
+                            const disabled = (status !== null) ? 'disabled' : '';
+                            const correctClass = (status === true && oi === q.correct) ? 'correct' : '';
+                            const wrongClass = (status === false && oi === parseInt(localStorage.getItem(`unit2_wrong_${idx}`)) && oi !== q.correct) ? 'wrong' : '';
+                            html += `<button class="opt-btn ${correctClass} ${wrongClass}" data-opt="${oi}" ${disabled}>${opt}</button>`;
                         });
                         html += `</div>`;
-                    } else if (q.type === 'drag') {
-                        const shuffled = [...q.words].sort(() => Math.random() - 0.5);
-                        const selected = dragOrder[idx] || [];
-                        const remaining = shuffled.filter(w => !selected.includes(w));
-                        html += `<div class="drag-container" data-drag="${idx}">`;
-                        remaining.forEach(w => {
-                            html += `<span class="word-item" data-word="${w}">${w}</span>`;
-                        });
-                        html += `</div>`;
-                        html += `<div class="drop-zone" data-drop="${idx}">`;
-                        if (selected.length === 0) {
-                            html += `<span class="placeholder">👆 انقر على الكلمات هنا بالترتيب</span>`;
+                    } else if (q.type === 'order') {
+                        const userOrder = answers[idx] === true ? q.correct : null;
+                        const availableWords = userOrder ? [] : [...q.words];
+                        const selectedWords = userOrder ? [...userOrder] : [];
+
+                        html += `<div class="order-section">`;
+                        html += `<div class="order-instruction">${q.instruction || '👆 اضغط على الكلمات بالترتيب الصحيح'}</div>`;
+                        if (availableWords.length > 0) {
+                            html += `<div class="order-words">`;
+                            availableWords.forEach(w => {
+                                html += `<span class="word" data-word="${w}" data-action="select">${w}</span>`;
+                            });
+                            html += `</div>`;
+                        }
+                        html += `<div class="order-answer">`;
+                        if (selectedWords.length === 0) {
+                            html += `<span style="color:var(--text-muted); font-size:14px;">🔄 ضع الكلمات هنا بالترتيب</span>`;
                         } else {
-                            selected.forEach(w => {
-                                html += `<span class="word-item" data-word="${w}">${w}</span>`;
+                            selectedWords.forEach(w => {
+                                html += `<span class="word" data-word="${w}" data-action="deselect">${w}</span>`;
                             });
                         }
                         html += `</div>`;
                         if (status === null) {
-                            html +=
-                                `<button class="btn btn-secondary btn-sm check-drag" data-check="${idx}">تحقق</button>`;
+                            html += `<button class="btn btn-secondary btn-sm order-check-btn">✅ تحقق</button>`;
+                        } else {
+                            html += `<span style="font-size:14px; color:var(--text-secondary);">${status ? '✅ صحيح' : '❌ خاطئ'}</span>`;
                         }
+                        html += `</div>`;
                     } else if (q.type === 'listening') {
+                        html += `<div class="audio-challenge">`;
+                        html += `<button class="listen-audio-btn" data-audio="${q.audio}">🔊 استمع</button>`;
+                        html += `<span style="font-size:14px; color:var(--text-secondary);">(الجملة باللغة الإنجليزية)</span>`;
+                        html += `</div>`;
                         html += `<div class="options">`;
                         q.options.forEach((opt, oi) => {
-                            const disabled = (status !== null);
-                            html +=
-                                `<button class="opt-btn" data-opt="${oi}" ${disabled ? 'disabled' : ''}>${opt}</button>`;
+                            const disabled = (status !== null) ? 'disabled' : '';
+                            const correctClass = (status === true && oi === q.correct) ? 'correct' : '';
+                            const wrongClass = (status === false && oi === parseInt(localStorage.getItem(`unit2_wrong_${idx}`)) && oi !== q.correct) ? 'wrong' : '';
+                            html += `<button class="opt-btn ${correctClass} ${wrongClass}" data-opt="${oi}" ${disabled}>${opt}</button>`;
                         });
                         html += `</div>`;
-                        if (status === null) {
-                            html +=
-                                `<button class="btn btn-secondary btn-sm listen-btn" data-listen="${idx}">🔊 استمع</button>`;
-                        }
                     }
 
-                    html += `<button class="reset-btn" data-reset="${idx}" title="إعادة المحاولة">🔄</button>`;
                     html += `<span class="status ${statusClass}">${statusText}</span>`;
                     html += `</div></div>`;
                 });
                 challengeContainer.innerHTML = html;
 
+                // ربط الأحداث
                 document.querySelectorAll('.opt-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const item = this.closest('.challenge-item');
                         const qid = parseInt(item.dataset.qid);
+                        const q = challengeQuestions[qid];
+                        if (answers[qid] !== null) return;
                         const opt = parseInt(this.dataset.opt);
+                        const isCorrect = (opt === q.correct);
+                        answers[qid] = isCorrect;
+                        if (isCorrect) {
+                            incrementProgress();
+                            speakText('Excellent!', 'male');
+                        } else {
+                            localStorage.setItem(`unit2_wrong_${qid}`, opt);
+                            speakText('Try again.', 'male');
+                        }
+                        saveState();
+                        renderChallenge();
+                        updateScoreDisplay();
+                    });
+                });
+
+                document.querySelectorAll('.listen-audio-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const audioText = this.dataset.audio;
+                        speakText(audioText, 'female');
+                    });
+                });
+
+                // أزرار الترتيب
+                document.querySelectorAll('.order-words .word').forEach(word => {
+                    word.addEventListener('click', function() {
+                        const item = this.closest('.challenge-item');
+                        const qid = parseInt(item.dataset.qid);
+                        if (answers[qid] !== null) return;
+                        const wordText = this.dataset.word;
+                        const answerRow = item.querySelector('.order-answer');
+                        const newWord = document.createElement('span');
+                        newWord.className = 'word';
+                        newWord.dataset.word = wordText;
+                        newWord.dataset.action = 'deselect';
+                        newWord.textContent = wordText;
+                        newWord.addEventListener('click', function() {
+                            const parentItem = this.closest('.challenge-item');
+                            const qid2 = parseInt(parentItem.dataset.qid);
+                            if (answers[qid2] !== null) return;
+                            const wordText2 = this.dataset.word;
+                            const availableContainer = parentItem.querySelector('.order-words');
+                            const newWord2 = document.createElement('span');
+                            newWord2.className = 'word';
+                            newWord2.dataset.word = wordText2;
+                            newWord2.dataset.action = 'select';
+                            newWord2.textContent = wordText2;
+                            newWord2.addEventListener('click', selectWordHandler);
+                            availableContainer.appendChild(newWord2);
+                            this.remove();
+                        });
+                        answerRow.appendChild(newWord);
+                        this.remove();
+                    });
+                });
+
+                function selectWordHandler(e) {
+                    const word = e.currentTarget;
+                    const item = word.closest('.challenge-item');
+                    const qid = parseInt(item.dataset.qid);
+                    if (answers[qid] !== null) return;
+                    const wordText = word.dataset.word;
+                    const answerRow = item.querySelector('.order-answer');
+                    const newWord = document.createElement('span');
+                    newWord.className = 'word';
+                    newWord.dataset.word = wordText;
+                    newWord.dataset.action = 'deselect';
+                    newWord.textContent = wordText;
+                    newWord.addEventListener('click', function() {
+                        const parentItem = this.closest('.challenge-item');
+                        const qid2 = parseInt(parentItem.dataset.qid);
+                        if (answers[qid2] !== null) return;
+                        const wordText2 = this.dataset.word;
+                        const availableContainer = parentItem.querySelector('.order-words');
+                        const newWord2 = document.createElement('span');
+                        newWord2.className = 'word';
+                        newWord2.dataset.word = wordText2;
+                        newWord2.dataset.action = 'select';
+                        newWord2.textContent = wordText2;
+                        newWord2.addEventListener('click', selectWordHandler);
+                        availableContainer.appendChild(newWord2);
+                        this.remove();
+                    });
+                    answerRow.appendChild(newWord);
+                    word.remove();
+                }
+
+                document.querySelectorAll('.order-check-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const item = this.closest('.challenge-item');
+                        const qid = parseInt(item.dataset.qid);
                         if (answers[qid] !== null) return;
                         const q = challengeQuestions[qid];
-                        const isCorrect = (opt === q.correct);
+                        const answerRow = item.querySelector('.order-answer');
+                        const selectedWords = Array.from(answerRow.querySelectorAll('.word')).map(el => el.textContent);
+                        const isCorrect = JSON.stringify(selectedWords) === JSON.stringify(q.correct);
                         answers[qid] = isCorrect;
                         if (isCorrect) {
                             incrementProgress();
@@ -2023,132 +2009,47 @@
                         } else {
                             speakText('Try again.', 'male');
                         }
+                        saveState();
                         renderChallenge();
-                        updateChallengeScore();
-                        checkCompletion();
+                        updateScoreDisplay();
                     });
                 });
 
-                document.querySelectorAll('.listen-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const qid = parseInt(this.dataset.listen);
-                        const q = challengeQuestions[qid];
-                        speakText(q.audio, 'female');
-                    });
-                });
-
-                document.querySelectorAll('.check-drag').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const qid = parseInt(this.dataset.check);
-                        const q = challengeQuestions[qid];
-                        const selected = dragOrder[qid] || [];
-                        const isCorrect = JSON.stringify(selected) === JSON.stringify(q.correct);
-                        if (isCorrect) {
-                            answers[qid] = true;
-                            incrementProgress();
-                            speakText('Excellent!', 'male');
-                        } else {
-                            answers[qid] = false;
-                            speakText('Try again.', 'male');
-                        }
-                        renderChallenge();
-                        updateChallengeScore();
-                        checkCompletion();
-                    });
-                });
-
-                document.querySelectorAll('.drag-container .word-item').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const dragIdx = parseInt(this.closest('.drag-container').dataset.drag);
-                        if (answers[dragIdx] !== null) return;
-                        const word = this.dataset.word;
-                        if (!dragOrder[dragIdx]) dragOrder[dragIdx] = [];
-                        dragOrder[dragIdx].push(word);
-                        renderChallenge();
-                    });
-                });
-
-                document.querySelectorAll('.drop-zone .word-item').forEach(el => {
-                    el.addEventListener('click', function() {
-                        const dropIdx = parseInt(this.closest('.drop-zone').dataset.drop);
-                        if (answers[dropIdx] !== null) return;
-                        const word = this.dataset.word;
-                        if (dragOrder[dropIdx]) {
-                            dragOrder[dropIdx] = dragOrder[dropIdx].filter(w => w !== word);
-                            renderChallenge();
-                        }
-                    });
-                });
-
-                document.querySelectorAll('.reset-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const qid = parseInt(this.dataset.reset);
-                        if (answers[qid] === false || answers[qid] === null) {
-                            if (answers[qid] === false) {
-                                if (completedCount > 0) completedCount--;
-                                updateProgress();
-                            }
-                            answers[qid] = null;
-                            if (challengeQuestions[qid].type === 'drag') {
-                                dragOrder[qid] = [];
-                            }
-                            renderChallenge();
-                            updateChallengeScore();
-                            if (getScore() < challengeQuestions.length) {
-                                nextUnitBtn.classList.remove('show');
-                            }
-                        } else {
-                            alert('يمكنك إعادة المحاولة فقط للأسئلة التي أجبت عليها بشكل خاطئ أو لم تجب عليها.');
-                        }
-                    });
-                });
+                updateScoreDisplay();
             }
 
-            function getScore() {
-                return answers.filter(a => a === true).length;
-            }
-
-            function updateChallengeScore() {
-                const score = getScore();
-                challengeScore.textContent = score;
+            function updateScoreDisplay() {
+                const score = calcScore();
+                challengeScoreSpan.textContent = score;
                 const pct = (score / challengeQuestions.length) * 100;
                 challengeFill.style.width = pct + '%';
-            }
-
-            function checkCompletion() {
-                const score = getScore();
                 if (score === challengeQuestions.length) {
-                    // فتح الوحدة 3
-                    if (maxUnitUnlocked < 3) {
-                        maxUnitUnlocked = 3;
-                        localStorage.setItem('maxUnitUnlocked', '3');
-                        renderSidebar();
-                        renderUnitNav();
-                    }
                     nextUnitBtn.classList.add('show');
-                    showCelebration();
+                    if (!challengeCompleted) {
+                        challengeCompleted = true;
+                        celebrateModal.classList.add('show');
+                        launchConfetti();
+                    }
+                } else {
+                    nextUnitBtn.classList.remove('show');
                 }
+                saveState();
             }
 
-            resetBtn.addEventListener('click', function() {
-                if (confirm('هل تريد إعادة تعيين جميع الأسئلة؟')) {
-                    answers.fill(null);
-                    dragOrder = challengeQuestions.map(q => q.type === 'drag' ? [] : null);
-                    completedCount = 0;
-                    updateProgress();
+            document.getElementById('resetChallengeBtn').addEventListener('click', function() {
+                if (confirm('هل أنت متأكد من إعادة التحدي بالكامل؟ سيتم مسح جميع الإجابات.')) {
+                    answers = new Array(challengeQuestions.length).fill(null);
+                    challengeCompleted = false;
+                    challengeQuestions.forEach((q, idx) => {
+                        localStorage.removeItem(`unit2_wrong_${idx}`);
+                    });
+                    saveState();
                     renderChallenge();
-                    updateChallengeScore();
-                    nextUnitBtn.classList.remove('show');
-                    document.getElementById('celebrateModal').classList.remove('show');
+                    updateScoreDisplay();
+                    celebrateModal.classList.remove('show');
                     document.querySelectorAll('.confetti-container').forEach(el => el.remove());
                 }
             });
-
-            function showCelebration() {
-                const modal = document.getElementById('celebrateModal');
-                modal.classList.add('show');
-                launchConfetti();
-            }
 
             function launchConfetti() {
                 const container = document.createElement('div');
@@ -2170,28 +2071,23 @@
             }
 
             document.getElementById('celebrateClose').addEventListener('click', function() {
-                document.getElementById('celebrateModal').classList.remove('show');
+                celebrateModal.classList.remove('show');
                 document.querySelectorAll('.confetti-container').forEach(el => el.remove());
             });
 
             renderChallenge();
-            updateChallengeScore();
-
-            // إذا كانت الوحدة مكتملة بالفعل (maxUnitUnlocked >= 3)
-            if (maxUnitUnlocked >= 3) {
-                nextUnitBtn.classList.add('show');
-            }
+            updateScoreDisplay();
 
             // ============================================================
-            // 9. Speak Up! (نسبة 60%)
+            // 8. Speak Up!
             // ============================================================
             const recordBtn = document.getElementById('recordBtn');
             const speechResult = document.getElementById('speechResult');
-            const targetPhrase = "My name is... My father's name is... My mother's name is...";
+            const targetPhrase = "My mother is a teacher. My father is a doctor.";
 
             function similarity(text1, text2) {
-                const words1 = text1.toLowerCase().replace(/[^a-z\s']/g, '').split(/\s+/).filter(w => w.length > 0);
-                const words2 = text2.toLowerCase().replace(/[^a-z\s']/g, '').split(/\s+/).filter(w => w.length > 0);
+                const words1 = text1.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 0);
+                const words2 = text2.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 0);
                 if (words1.length === 0 || words2.length === 0) return 0;
                 const common = words1.filter(w => words2.includes(w)).length;
                 const total = Math.max(words1.length, words2.length);
@@ -2217,8 +2113,6 @@
                     isRecording = false;
                     const transcript = event.results[0][0].transcript.trim();
                     const sim = similarity(transcript, targetPhrase);
-                    console.log('Transcript:', transcript, 'Similarity:', sim);
-
                     if (sim >= 0.60) {
                         speechResult.textContent = '✅ ممتاز! لقد نطقت الجملة بشكل صحيح! 🎉';
                         speechResult.className = 'result success';
@@ -2248,13 +2142,13 @@
             }
 
             // ============================================================
-            // 10. Homework (حفظ + تدقيق)
+            // 9. Homework (unit2_homework)
             // ============================================================
             const homeworkText = document.getElementById('homeworkText');
             const saveStatus = document.getElementById('saveStatus');
             const correctionList = document.getElementById('correctionList');
 
-            const savedHomework = localStorage.getItem('homework_unit2');
+            const savedHomework = localStorage.getItem('unit2_homework');
             if (savedHomework) {
                 homeworkText.value = savedHomework;
                 saveStatus.textContent = '✅ تم تحميل النص المحفوظ';
@@ -2262,7 +2156,7 @@
 
             document.getElementById('saveHomework').addEventListener('click', function() {
                 const text = homeworkText.value;
-                localStorage.setItem('homework_unit2', text);
+                localStorage.setItem('unit2_homework', text);
                 saveStatus.textContent = '✅ تم الحفظ في الساعة ' + new Date().toLocaleTimeString();
             });
 
@@ -2280,7 +2174,6 @@
                     { pattern: /\bwasnt\b/gi, replacement: "wasn't", desc: 'wasnt -> wasn\'t' },
                     { pattern: /\bwerent\b/gi, replacement: "weren't", desc: 'werent -> weren\'t' },
                     { pattern: /\bthats\b/gi, replacement: "that's", desc: 'thats -> that\'s' },
-                    // قواعد خاصة بـ my, your, his, her, our, their
                     { pattern: /\bI is\b/gi, replacement: "I am", desc: 'I is -> I am' },
                     { pattern: /\bhe are\b/gi, replacement: "he is", desc: 'he are -> he is' },
                     { pattern: /\bshe are\b/gi, replacement: "she is", desc: 'she are -> she is' },
@@ -2303,7 +2196,7 @@
                     correctionList.innerHTML = `<strong>✅ تم تصحيح الأخطاء التالية:</strong><br>${corrections.join('<br>')}`;
                     correctionList.classList.add('show');
                     saveStatus.textContent = '📝 تم التدقيق والتصحيح!';
-                    localStorage.setItem('homework_unit2', newText);
+                    localStorage.setItem('unit2_homework', newText);
                 } else {
                     correctionList.innerHTML = '✅ لا توجد أخطاء إملائية أو نحوية شائعة. أحسنت!';
                     correctionList.classList.add('show');
@@ -2313,12 +2206,12 @@
 
             setInterval(() => {
                 const text = homeworkText.value;
-                localStorage.setItem('homework_unit2', text);
+                localStorage.setItem('unit2_homework', text);
                 saveStatus.textContent = '💾 حفظ تلقائي...';
             }, 10000);
 
             // ============================================================
-            // 11. تأثير الظهور عند التمرير (fade-up)
+            // 10. تأثير الظهور عند التمرير
             // ============================================================
             const fadeEls = document.querySelectorAll('.fade-up');
             const observer = new IntersectionObserver((entries) => {
@@ -2330,15 +2223,12 @@
             }, { threshold: 0.1 });
             fadeEls.forEach(el => observer.observe(el));
 
-            // ============================================================
-            // 12. تحميل الأصوات مسبقاً
-            // ============================================================
             if (window.speechSynthesis) {
                 speechSynthesis.getVoices();
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 2 loaded with possessive adjectives.');
+            console.log('📚 Babble Box - Unit 2 (My Family & Friends) loaded successfully.');
         })();
     </script>
 
