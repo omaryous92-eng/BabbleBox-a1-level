@@ -14,897 +14,179 @@
         gtag('config', 'G-L42M2EDW3H');
     </script>
 
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- ===== الملفات المركزية ===== -->
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        /* ============================================================
-           ROOT & RESET
-           ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ===== إضافات خاصة بالتصحيح والشرح ===== */
+        .quiz-explanation {
+            margin-top: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+            display: none;
+            direction: rtl;
+            text-align: right;
         }
-
-        :root {
-            --gold: #FFC107;
-            --black: #1A1A1A;
-            --white: #FAFAFA;
-            --bg: #FAFAFA;
-            --text: #1A1A1A;
-            --card-bg: #FFFFFF;
-            --shadow: 0 8px 30px rgba(0,0,0,0.06);
-            --radius: 18px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --green: #4CAF50;
-            --red: #F44336;
-            --blue: #2196F3;
+        .quiz-explanation.show {
+            display: block;
         }
-
-        [data-theme="dark"] {
-            --bg: #121212;
-            --text: #F0F0F0;
-            --card-bg: #1E1E1E;
-            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        .quiz-explanation.correct {
+            background: rgba(76, 175, 80, 0.15);
+            border-right: 4px solid #4CAF50;
+            color: #4CAF50;
         }
-
-        html {
-            scroll-behavior: smooth;
+        .quiz-explanation.wrong {
+            background: rgba(244, 67, 54, 0.15);
+            border-right: 4px solid #F44336;
+            color: #F44336;
         }
-
-        body {
-            font-family: 'Cairo', 'Segoe UI', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            transition: background var(--transition), color var(--transition);
-        }
-
-        /* ============================================================
-           HEADER
-           ============================================================ */
-        .header {
-            background: var(--card-bg);
-            padding: 12px 16px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-            transition: background var(--transition);
-            border-bottom: 2px solid rgba(0,0,0,0.04);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        [data-theme="dark"] .header {
-            border-bottom-color: rgba(255,255,255,0.05);
-        }
-
-        .header .brand {
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text);
-            direction: ltr;
-            text-align: left;
-        }
-
-        .header .brand span {
+        .quiz-explanation .correct-answer {
+            font-weight: 700;
             color: var(--gold);
         }
-
-        .header .unit-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #888;
-            direction: ltr;
-            text-align: left;
-        }
-
-        .header .top-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--text);
-            transition: 0.3s;
-            padding: 4px;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(20deg);
-        }
-
-        .back-btn {
+        .retry-wrong-btn {
             background: var(--gold);
+            color: #000;
             border: none;
-            padding: 5px 14px;
+            padding: 8px 20px;
             border-radius: 30px;
-            font-size: 12px;
             font-weight: 700;
-            color: var(--black);
+            font-size: 14px;
             cursor: pointer;
             transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            text-decoration: none;
+            font-family: var(--font-ar);
+            margin-top: 12px;
+            display: none;
         }
-
-        .back-btn:hover {
+        .retry-wrong-btn:hover {
             transform: scale(1.03);
         }
-
-        .reset-unit-btn {
-            background: rgba(255,0,0,0.1);
-            border: 2px solid var(--red);
-            color: var(--red);
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .reset-unit-btn:hover {
-            background: var(--red);
-            color: #fff;
-            transform: scale(1.02);
-        }
-
-        /* ============================================================
-           UNIT NAVIGATION TABS
-           ============================================================ */
-        .unit-tabs-wrapper {
-            background: var(--card-bg);
-            padding: 8px 16px;
-            border-bottom: 1px solid rgba(0,0,0,0.04);
-            overflow-x: auto;
-            scrollbar-width: thin;
-            transition: background var(--transition);
-        }
-
-        [data-theme="dark"] .unit-tabs-wrapper {
-            border-bottom-color: rgba(255,255,255,0.05);
-        }
-
-        .unit-tabs-wrapper::-webkit-scrollbar {
-            height: 3px;
-        }
-
-        .unit-tabs-wrapper::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 10px;
-        }
-
-        .unit-tabs {
-            display: flex;
-            gap: 6px;
-            min-width: max-content;
-            padding-bottom: 4px;
-        }
-
-        .unit-tab {
-            min-width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            font-family: 'Poppins', sans-serif;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: 0.2s;
-            background: rgba(0,0,0,0.04);
-            color: var(--text);
-        }
-
-        [data-theme="dark"] .unit-tab {
-            background: rgba(255,255,255,0.04);
-            color: #aaa;
-        }
-
-        .unit-tab.active {
-            background: var(--gold);
-            color: var(--black);
-            border-color: var(--gold);
-        }
-
-        .unit-tab.completed {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green);
-        }
-
-        .unit-tab.unlocked {
-            border-color: var(--gold);
-            background: transparent;
-            color: var(--text);
-        }
-
-        .unit-tab.unlocked:hover {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .unit-tab.locked {
-            background: rgba(0,0,0,0.04);
-            color: #999;
-            cursor: not-allowed;
-            border-color: rgba(0,0,0,0.06);
-        }
-
-        [data-theme="dark"] .unit-tab.locked {
-            background: rgba(255,255,255,0.04);
-            color: #555;
-            border-color: rgba(255,255,255,0.04);
-        }
-
-        .unit-tab.locked .lock-icon {
-            font-size: 10px;
-        }
-
-        /* ============================================================
-           PROGRESS BAR (10 sections)
-           ============================================================ */
-        .daily-progress {
-            padding: 8px 16px;
-            background: var(--card-bg);
-            border-bottom: 1px solid rgba(0,0,0,0.04);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            transition: background var(--transition);
-        }
-
-        [data-theme="dark"] .daily-progress {
-            border-bottom-color: rgba(255,255,255,0.05);
-        }
-
-        .daily-progress .label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            direction: rtl;
-            text-align: right;
-        }
-
-        .daily-progress .bar-wrap {
-            flex: 1;
-            height: 6px;
-            background: rgba(0,0,0,0.06);
-            border-radius: 10px;
-            overflow: hidden;
-            min-width: 80px;
-        }
-
-        [data-theme="dark"] .daily-progress .bar-wrap {
-            background: rgba(255,255,255,0.06);
-        }
-
-        .daily-progress .bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--gold), #FFA000);
-            border-radius: 10px;
-            transition: width 0.6s ease;
-        }
-
-        .daily-progress .count {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--gold);
-            min-width: 40px;
-            text-align: left;
-            direction: ltr;
-        }
-
-        /* ============================================================
-           LESSON CONTENT
-           ============================================================ */
-        .lesson-content {
-            max-width: 820px;
-            margin: 0 auto;
-            padding: 14px 16px 30px;
-        }
-
-        .unit-header {
-            margin-bottom: 18px;
-        }
-
-        .unit-header .badge {
+        .retry-wrong-btn.show {
             display: inline-block;
-            background: var(--gold);
-            color: var(--black);
-            padding: 2px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 2px;
-            direction: rtl;
-            text-align: right;
         }
-
-        .unit-header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            color: var(--text);
-            line-height: 1.2;
-            direction: ltr;
-            text-align: left;
-        }
-
-        .unit-header p {
-            color: #888;
-            font-size: 14px;
-            margin-top: 2px;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .section-box {
+        /* ===== إعادة ضبط بعض العناصر لتتناسب مع الـ style.css ===== */
+        .quiz-card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 16px 16px;
-            margin-bottom: 18px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--card-border);
             box-shadow: var(--shadow);
-            transition: background var(--transition), box-shadow var(--transition);
         }
-
-        .section-box .section-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            direction: ltr;
-            text-align: left;
-        }
-
-        /* ============================================================
-           SECTION 1: CONVERSATION
-           ============================================================ */
-        .convo-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .convo-bubble {
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
-            max-width: 92%;
-            padding: 8px 12px;
-            border-radius: 14px;
-            position: relative;
-            animation: fadeInUp 0.4s ease;
-        }
-
-        .convo-bubble.john {
-            align-self: flex-start;
-            background: #D6E4FF;
-            color: #1A1A2E;
-            border-bottom-left-radius: 4px;
-        }
-
-        .convo-bubble.sarah {
-            align-self: flex-end;
-            background: #FFE4E6;
-            color: #1A1A2E;
-            border-bottom-right-radius: 4px;
-        }
-
-        [data-theme="dark"] .convo-bubble.john {
-            background: #1E3A5F;
-            color: #fff;
-        }
-
-        [data-theme="dark"] .convo-bubble.sarah {
-            background: #5F2E3A;
-            color: #fff;
-        }
-
-        .convo-bubble .avatar {
-            font-size: 20px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .convo-bubble .bubble-content {
-            flex: 1;
-        }
-
-        .convo-bubble .bubble-content .en {
-            font-size: 13px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-            direction: ltr;
-            text-align: left;
-        }
-
-        .convo-bubble .bubble-content .en .audio-btn {
-            background: none;
-            border: none;
-            font-size: 15px;
-            cursor: pointer;
-            color: #555;
-            padding: 2px 4px;
-            border-radius: 50%;
-            transition: 0.2s;
-        }
-
-        .convo-bubble .bubble-content .en .audio-btn:hover {
-            background: rgba(0,0,0,0.06);
-            color: var(--gold);
-        }
-
-        .convo-bubble .bubble-content .ar {
-            font-size: 12px;
-            color: #888;
-            margin-top: 2px;
-            direction: rtl;
-            text-align: right;
-            display: none;
-        }
-
-        .convo-bubble .bubble-content .ar.show {
-            display: block;
-        }
-
-        .translation-btn {
-            background: none;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 1px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            margin-top: 2px;
-        }
-
-        .translation-btn:hover {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        /* ============================================================
-           SECTION 2: DISCOVER
-           ============================================================ */
-        .discovery-question {
-            background: rgba(255,193,7,0.08);
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 10px;
-            border-right: 4px solid var(--gold);
-            direction: rtl;
-            text-align: right;
-        }
-
-        .discovery-tabs {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-
-        .discovery-tab {
-            padding: 8px 14px;
-            border: 2px solid rgba(0,0,0,0.06);
-            border-radius: 10px;
-            background: transparent;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            direction: ltr;
-            text-align: center;
-            flex: 1;
-            min-width: 70px;
-        }
-
-        [data-theme="dark"] .discovery-tab {
-            border-color: rgba(255,255,255,0.06);
-            color: #ddd;
-        }
-
-        .discovery-tab.active {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--black);
-        }
-
-        .discovery-tab:hover:not(.active) {
-            background: rgba(0,0,0,0.04);
-        }
-
-        .discovery-content {
-            display: none;
-            animation: fadeInUp 0.4s ease;
-            background: rgba(0,0,0,0.02);
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 13px;
-            color: var(--text);
-            border-right: 3px solid var(--gold);
-            direction: rtl;
-            text-align: right;
-        }
-
-        [data-theme="dark"] .discovery-content {
-            background: rgba(255,255,255,0.03);
-        }
-
-        .discovery-content.active {
-            display: block;
-        }
-
-        .discovery-content .en-highlight {
-            direction: ltr;
-            display: inline-block;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            color: var(--gold);
-        }
-
-        /* ============================================================
-           SECTION 3: GRAMMAR LAB
-           ============================================================ */
-        .grammar-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .grammar-card {
-            padding: 12px 14px;
-            border-radius: 12px;
-            color: #fff;
-            transition: 0.2s;
-        }
-
-        .grammar-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .grammar-card.green { background: var(--green); }
-        .grammar-card.red { background: var(--red); }
-        .grammar-card.blue { background: var(--blue); }
-        .grammar-card.gold { background: var(--gold); color: var(--black); }
-
-        .grammar-card .title {
-            font-weight: 700;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            direction: ltr;
-            text-align: left;
-            margin-bottom: 3px;
-        }
-
-        .grammar-card .examples {
-            font-size: 12px;
-            opacity: 0.9;
-            direction: ltr;
-            text-align: left;
-            line-height: 1.5;
-        }
-
-        /* ============================================================
-           SECTION 4: WORD VAULT
-           ============================================================ */
-        .vocab-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .flip-card {
-            perspective: 800px;
-            height: 100px;
-            cursor: pointer;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            inset: 0;
-            border-radius: 12px;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 6px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-
-        .flip-card-front {
-            background: var(--card-bg);
-            color: var(--text);
-        }
-
-        .flip-card-front .emoji {
-            font-size: 22px;
-        }
-
-        .flip-card-front .word {
-            font-family: 'Poppins', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            margin-top: 2px;
-            direction: ltr;
-        }
-
-        .flip-card-front .audio-btn-small {
-            background: none;
-            border: none;
-            font-size: 13px;
-            cursor: pointer;
-            margin-top: 2px;
-            color: #888;
-            transition: 0.2s;
-        }
-
-        .flip-card-front .audio-btn-small:hover {
-            color: var(--gold);
-        }
-
-        .flip-card-back {
-            background: var(--gold);
-            color: var(--black);
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-back .meaning {
-            font-size: 16px;
-            font-weight: 700;
-            direction: rtl;
-        }
-
-        [data-theme="dark"] .flip-card-front {
-            background: #2A2A2A;
-            color: #fff;
-            border-color: rgba(255,255,255,0.06);
-        }
-
-        /* ============================================================
-           SECTION 5: BABBLE WARNING
-           ============================================================ */
-        .warning-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .warning-card {
-            padding: 12px 14px;
-            border-radius: 12px;
-            text-align: center;
-            transition: 0.2s;
-        }
-
-        .warning-card:hover {
-            transform: scale(1.02);
-        }
-
-        .warning-card.safe {
-            background: rgba(76, 175, 80, 0.1);
-            border: 2px solid var(--green);
-        }
-
-        .warning-card.danger {
-            background: rgba(244, 67, 54, 0.1);
-            border: 2px solid var(--red);
-        }
-
-        .warning-card .label {
-            font-weight: 700;
-            font-size: 13px;
-            direction: ltr;
-        }
-
-        .warning-card .example {
-            font-size: 15px;
-            font-weight: 600;
-            direction: ltr;
-            margin: 3px 0;
-        }
-
-        .warning-card .meaning {
-            font-size: 12px;
-            direction: rtl;
-            color: #888;
-        }
-
-        .warning-joke {
-            margin-top: 8px;
-            padding: 8px 12px;
-            background: rgba(255,193,7,0.08);
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            direction: rtl;
-            text-align: center;
-            border-right: 3px solid var(--gold);
-        }
-
-        /* ============================================================
-           SECTION 6: CHALLENGE ARENA
-           ============================================================ */
-        .quiz-progress-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .quiz-progress-bar .label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text);
-            direction: rtl;
-            text-align: right;
-        }
-
-        .quiz-progress-bar .bar-wrap {
-            flex: 1;
-            height: 5px;
-            background: rgba(0,0,0,0.06);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        [data-theme="dark"] .quiz-progress-bar .bar-wrap {
-            background: rgba(255,255,255,0.06);
-        }
-
-        .quiz-progress-bar .bar-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--gold);
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-
-        .quiz-progress-bar .count {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--gold);
-            min-width: 35px;
-            text-align: left;
-            direction: ltr;
-        }
-
-        .quiz-card {
-            background: rgba(0,0,0,0.02);
-            border-radius: 10px;
-            padding: 12px 14px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(0,0,0,0.04);
-            transition: 0.3s;
-        }
-
-        [data-theme="dark"] .quiz-card {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.04);
-        }
-
         .quiz-card .q-text {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text);
-            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text-white);
+            margin-bottom: 8px;
             direction: ltr;
             text-align: left;
         }
-
-        .quiz-card .q-text .hint-icon {
-            font-size: 14px;
-            margin-right: 4px;
-            cursor: help;
-        }
-
         .quiz-options {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 8px;
         }
-
         .quiz-options button {
-            padding: 4px 14px;
-            border: 2px solid rgba(0,0,0,0.08);
+            padding: 6px 18px;
+            border: 2px solid rgba(255,255,255,0.15);
             border-radius: 30px;
             background: transparent;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-            transition: 0.25s;
-            color: var(--text);
-            font-family: 'Poppins', 'Cairo', sans-serif;
-            direction: ltr;
+            color: var(--text-white);
+            font-family: var(--font-en);
+            transition: 0.2s;
         }
-
-        [data-theme="dark"] .quiz-options button {
-            border-color: rgba(255,255,255,0.1);
-            color: #ddd;
-        }
-
         .quiz-options button:hover:not(:disabled) {
-            background: rgba(0,0,0,0.04);
+            background: rgba(255,255,255,0.05);
         }
-
         .quiz-options button:disabled {
             cursor: not-allowed;
-            opacity: 0.6;
+            opacity: 0.5;
         }
-
         .quiz-options button.correct {
-            background: var(--green);
-            border-color: var(--green);
+            background: #4CAF50;
+            border-color: #4CAF50;
             color: #fff;
-            animation: pop 0.3s ease;
         }
-
         .quiz-options button.wrong {
-            background: var(--red);
-            border-color: var(--red);
+            background: #F44336;
+            border-color: #F44336;
             color: #fff;
-            animation: shake 0.4s ease;
         }
-
         .quiz-feedback {
-            margin-top: 3px;
-            font-size: 13px;
+            margin-top: 4px;
+            font-size: 14px;
             font-weight: 600;
-            min-height: 20px;
+            min-height: 24px;
             direction: rtl;
             text-align: right;
         }
-
-        .quiz-feedback .correct-text { color: var(--green); }
-        .quiz-feedback .wrong-text { color: var(--red); }
-
-        /* ===== CLICK TO ORDER ===== */
+        .quiz-feedback .correct-text { color: #4CAF50; }
+        .quiz-feedback .wrong-text { color: #F44336; }
+        /* ترتيب الكلمات */
+        .order-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 6px 0;
+        }
+        .order-word {
+            padding: 5px 14px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            font-family: var(--font-en);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--text-white);
+            transition: 0.2s;
+        }
+        .order-word:hover:not(:disabled) {
+            transform: scale(1.05);
+            background: rgba(255,193,7,0.1);
+        }
+        .order-word:disabled {
+            cursor: not-allowed;
+            opacity: 0.4;
+        }
+        .order-word.used {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+        }
+        .order-result-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 6px 10px;
+            min-height: 32px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            border: 2px dashed var(--card-border);
+            margin: 4px 0;
+            align-items: center;
+        }
+        .order-result-box .placed-word {
+            padding: 2px 10px;
+            background: var(--gold);
+            border-radius: 20px;
+            font-family: var(--font-en);
+            font-weight: 600;
+            font-size: 12px;
+            color: #000;
+            cursor: pointer;
+        }
+        .order-result-box .placed-word:hover {
+            transform: scale(1.05);
+        }
         .order-hint {
             font-size: 12px;
             color: var(--gold);
@@ -913,589 +195,68 @@
             text-align: right;
             margin-bottom: 4px;
         }
-
-        .order-pool {
+        /* شريط تقدم الاختبار */
+        .quiz-progress-bar {
             display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin: 4px 0;
-        }
-
-        .order-word {
-            padding: 5px 14px;
-            background: var(--card-bg);
-            border: 2px solid var(--gold);
-            border-radius: 30px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            color: var(--text);
-            transition: 0.2s;
-        }
-
-        .order-word:hover:not(:disabled) {
-            transform: scale(1.05);
-            background: rgba(255,193,7,0.1);
-        }
-
-        .order-word:disabled {
-            cursor: not-allowed;
-            opacity: 0.4;
-        }
-
-        .order-word.used {
-            background: var(--gold);
-            color: var(--black);
-            border-color: var(--gold);
-        }
-
-        .order-word.correct-answer {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green);
-        }
-
-        .order-word.wrong-answer {
-            background: var(--red);
-            color: #fff;
-            border-color: var(--red);
-        }
-
-        .order-result-box {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            padding: 6px 10px;
-            min-height: 32px;
-            background: rgba(0,0,0,0.03);
-            border-radius: 8px;
-            margin: 4px 0;
-            border: 2px dashed rgba(0,0,0,0.08);
             align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
         }
-
-        [data-theme="dark"] .order-result-box {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.06);
-        }
-
-        .order-result-box .placed-word {
-            padding: 2px 10px;
-            background: var(--gold);
-            border-radius: 20px;
-            font-family: 'Poppins', sans-serif;
+        .quiz-progress-bar .label {
+            font-size: 13px;
             font-weight: 600;
-            font-size: 12px;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.2s;
+            color: var(--text-white);
+            direction: rtl;
+            text-align: right;
         }
-
-        .order-result-box .placed-word:hover {
-            transform: scale(1.05);
+        .quiz-progress-bar .bar-wrap {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            overflow: hidden;
         }
-
-        /* ============================================================
-           STREAK NOTIFICATION
-           ============================================================ */
+        .quiz-progress-bar .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gold);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        .quiz-progress-bar .count {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 40px;
+            text-align: left;
+            direction: ltr;
+        }
+        /* ستريك نوتيفيكيشن */
         .streak-notification {
             display: none;
             background: var(--gold);
-            color: var(--black);
-            padding: 10px 16px;
+            color: #000;
+            padding: 12px 16px;
             border-radius: var(--radius);
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 12px;
             animation: pop 0.5s ease;
-            position: relative;
-            overflow: hidden;
-            direction: rtl;
         }
-
         .streak-notification.show {
             display: block;
         }
-
-        .streak-notification .stars {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .streak-notification .star {
-            position: absolute;
-            font-size: 16px;
-            animation: starFall 2s linear forwards;
-        }
-
-        /* ============================================================
-           CELEBRATION OVERLAY
-           ============================================================ */
-        .celebration-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 20px;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .celebration-overlay.show {
-            display: flex;
-        }
-
-        .celebration-overlay .celeb-box {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 30px 24px;
-            max-width: 420px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            animation: pop 0.6s ease;
-            position: relative;
-        }
-
-        [data-theme="dark"] .celebration-overlay .celeb-box {
-            background: #1E1E1E;
-        }
-
-        .celebration-overlay .celeb-box .close-celeb {
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text);
-            transition: 0.2s;
-            padding: 4px 8px;
-            border-radius: 50%;
-        }
-
-        .celebration-overlay .celeb-box .close-celeb:hover {
-            background: rgba(0,0,0,0.06);
-            transform: rotate(90deg);
-        }
-
-        [data-theme="dark"] .celebration-overlay .celeb-box .close-celeb:hover {
-            background: rgba(255,255,255,0.06);
-        }
-
-        .celebration-overlay .celeb-box .big-emoji {
-            font-size: 48px;
-        }
-
-        .celebration-overlay .celeb-box h2 {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--gold);
-            margin: 6px 0;
-            direction: rtl;
-        }
-
-        .celebration-overlay .celeb-box .sub-text {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text);
-            direction: rtl;
-        }
-
-        .celebration-overlay .celeb-box .xp-text {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--gold);
-            margin: 4px 0 12px;
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons button {
-            padding: 8px 24px;
-            border: none;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons .btn-next {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons .btn-next:hover {
-            transform: scale(1.05);
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons .btn-home {
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--text);
-        }
-
-        [data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-home {
-            color: #eee;
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons .btn-home:hover {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--text);
-        }
-
-        [data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
-            color: #eee;
-        }
-
-        .celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit:hover {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .celeb-confetti-container {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 999;
-            overflow: hidden;
-        }
-
-        .celeb-confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            animation: confettiFall linear forwards;
-        }
-
-        .celeb-confetti.circle { border-radius: 50%; }
-        .celeb-confetti.square { border-radius: 0; }
-        .celeb-confetti.star {
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        }
-
-        @keyframes confettiFall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-        }
-
-        /* ============================================================
-           SECTION 7: SPEAK UP!
-           ============================================================ */
-        .speak-container {
-            text-align: center;
-            padding: 12px 0;
-        }
-
-        .speak-container .big-btn {
-            background: var(--gold);
-            border: none;
-            padding: 12px 32px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .speak-container .big-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .speak-container .speak-result {
-            margin-top: 10px;
-            padding: 10px 14px;
-            background: rgba(0,0,0,0.03);
-            border-radius: 10px;
-            font-size: 15px;
-            direction: rtl;
-            text-align: right;
-            min-height: 40px;
-            border-right: 3px solid var(--gold);
-        }
-
-        [data-theme="dark"] .speak-container .speak-result {
-            background: rgba(255,255,255,0.03);
-        }
-
-        /* ============================================================
-           SECTION 8: POWER RECAP
-           ============================================================ */
-        .mindmap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 0;
-        }
-
-        .mindmap .center {
-            background: var(--gold);
-            color: var(--black);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: 17px;
-            margin-bottom: 12px;
-            font-family: 'Poppins', sans-serif;
-            direction: ltr;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .mindmap .center:hover {
-            transform: scale(1.05);
-        }
-
-        .mindmap .branches {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 6px 12px;
-        }
-
-        .mindmap .branch {
-            background: var(--card-bg);
-            padding: 5px 14px;
-            border-radius: 20px;
-            border: 2px solid var(--gold);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: 0.2s;
-            font-family: 'Poppins', sans-serif;
-            direction: ltr;
-            cursor: pointer;
-        }
-
-        .mindmap .branch:hover {
-            transform: scale(1.05);
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .mindmap .branch-example {
-            margin-top: 8px;
-            padding: 8px 14px;
-            background: rgba(0,0,0,0.03);
-            border-radius: 10px;
-            font-size: 13px;
-            direction: rtl;
-            text-align: center;
-            min-height: 25px;
-            border-right: 3px solid var(--gold);
-            width: 100%;
-        }
-
-        [data-theme="dark"] .mindmap .branch-example {
-            background: rgba(255,255,255,0.03);
-        }
-
-        /* ============================================================
-           SECTION 9: VIDEO
-           ============================================================ */
-        .video-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #FF0000;
-            color: #fff;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-        }
-
-        .video-btn:hover {
-            background: #cc0000;
-            transform: scale(1.02);
-        }
-
-        /* ============================================================
-           SECTION 10: HOMEWORK
-           ============================================================ */
-        .homework-area textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 10px 14px;
-            border: 2px solid rgba(0,0,0,0.06);
-            border-radius: 10px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 13px;
-            color: var(--text);
-            background: var(--bg);
-            resize: vertical;
-            transition: 0.2s;
-            direction: rtl;
-            text-align: right;
-        }
-
-        [data-theme="dark"] .homework-area textarea {
-            border-color: rgba(255,255,255,0.06);
-            background: var(--card-bg);
-        }
-
-        .homework-area textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .homework-area .save-btn {
-            background: var(--gold);
-            border: none;
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--black);
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-            margin-top: 6px;
-        }
-
-        .homework-area .save-btn:hover {
-            transform: scale(1.02);
-        }
-
-        .homework-area .save-status {
-            margin-top: 4px;
-            font-size: 12px;
-            color: var(--green);
-            direction: rtl;
-            text-align: right;
-        }
-
-        /* ============================================================
-           NAVIGATION
-           ============================================================ */
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-
-        .nav-buttons button {
-            padding: 8px 24px;
-            border: none;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s;
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-        }
-
-        .nav-buttons .prev {
-            background: rgba(0,0,0,0.05);
-            color: #999;
-            cursor: not-allowed;
-        }
-
-        [data-theme="dark"] .nav-buttons .prev {
-            background: rgba(255,255,255,0.05);
-        }
-
-        .nav-buttons .next {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .nav-buttons .next:hover {
-            background: #e6b800;
-            transform: scale(1.02);
-        }
-
-        /* ============================================================
-           ANIMATIONS
-           ============================================================ */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes pop {
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        @keyframes starFall {
-            0% { transform: translateY(-15px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(150px) rotate(360deg); opacity: 0; }
-        }
-
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 768px) {
-            .vocab-grid { grid-template-columns: repeat(2, 1fr); }
-            .grammar-grid { grid-template-columns: 1fr; }
-            .warning-grid { grid-template-columns: 1fr; }
-            .unit-header h1 { font-size: 20px; }
-            .section-box { padding: 12px 12px; }
-            .nav-buttons { flex-direction: column; }
-            .nav-buttons button { width: 100%; text-align: center; }
-            .discovery-tabs { flex-direction: column; }
-            .discovery-tab { text-align: center; }
-            .quiz-options { flex-direction: column; }
-            .quiz-options button { width: 100%; text-align: center; }
-            .unit-tab { min-width: 30px; height: 30px; font-size: 10px; }
-            .celebration-overlay .celeb-box { padding: 20px 16px; }
-            .celebration-overlay .celeb-box h2 { font-size: 18px; }
-        }
-
-        @media (max-width: 400px) {
-            .vocab-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
-            .flip-card { height: 85px; }
-            .flip-card-front .emoji { font-size: 18px; }
-            .flip-card-front .word { font-size: 11px; }
-            .convo-bubble .bubble-content .en { font-size: 12px; }
-            .convo-bubble .bubble-content .ar { font-size: 11px; }
-        }
-
-        #audio-player { display: none; }
     </style>
 </head>
 <body>
 
     <!-- ============================================================
-    HEADER
+    HEADER (مشترك مع باقي الصفحات)
     ============================================================ -->
     <header class="header">
         <div class="brand">Babble <span>Box</span></div>
@@ -1508,7 +269,7 @@
     </header>
 
     <!-- ============================================================
-    UNIT NAVIGATION TABS
+    UNIT NAVIGATION TABS (شريط الوحدات)
     ============================================================ -->
     <div class="unit-tabs-wrapper" id="unitTabsWrapper">
         <div class="unit-tabs" id="unitTabs"></div>
@@ -1675,13 +436,16 @@
         </section>
 
         <!-- ==========================================================
-        SECTION 6: CHALLENGE ARENA
+        SECTION 6: CHALLENGE ARENA (مع التصحيح والشرح وزر الإعادة)
         ========================================================== -->
         <section class="section-box" id="challenge">
             <div class="section-title">⚔️ Challenge Arena</div>
+            
             <div class="quiz-progress-bar">
                 <span class="label">📊 السؤال</span>
-                <div class="bar-wrap"><div class="bar-fill" id="quizProgressFill"></div></div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" id="quizProgressFill"></div>
+                </div>
                 <span class="count" id="quizProgressCount">0/5</span>
             </div>
 
@@ -1695,6 +459,7 @@
                         <button data-answer="are">are</button>
                     </div>
                     <div class="quiz-feedback"></div>
+                    <div class="quiz-explanation" id="explanation1"></div>
                 </div>
 
                 <!-- Q2: Multiple Choice -->
@@ -1706,6 +471,7 @@
                         <button data-answer="are">are</button>
                     </div>
                     <div class="quiz-feedback"></div>
+                    <div class="quiz-explanation" id="explanation2"></div>
                 </div>
 
                 <!-- Q3: Click to Order -->
@@ -1715,6 +481,7 @@
                     <div class="order-pool" id="orderPool3"></div>
                     <div class="order-result-box" id="orderResult3"></div>
                     <div class="quiz-feedback" id="orderFeedback3"></div>
+                    <div class="quiz-explanation" id="explanation3"></div>
                 </div>
 
                 <!-- Q4: Click to Order -->
@@ -1724,17 +491,19 @@
                     <div class="order-pool" id="orderPool4"></div>
                     <div class="order-result-box" id="orderResult4"></div>
                     <div class="quiz-feedback" id="orderFeedback4"></div>
+                    <div class="quiz-explanation" id="explanation4"></div>
                 </div>
 
                 <!-- Q5: Multiple Choice -->
                 <div class="quiz-card" data-question="5" data-type="choice">
                     <div class="q-text">5. ما هو نفي "I am"؟</div>
                     <div class="quiz-options">
-                        <button data-answer="a">I am not</button>
-                        <button data-answer="b">I isn't</button>
-                        <button data-answer="c">I aren't</button>
+                        <button data-answer="I am not">I am not</button>
+                        <button data-answer="I isn't">I isn't</button>
+                        <button data-answer="I aren't">I aren't</button>
                     </div>
                     <div class="quiz-feedback"></div>
+                    <div class="quiz-explanation" id="explanation5"></div>
                 </div>
             </div>
 
@@ -1742,6 +511,9 @@
                 🎉 +50 XP! أنت عبقري!
                 <div class="stars" id="starsContainer"></div>
             </div>
+
+            <!-- زر إعادة الأسئلة الخاطئة فقط -->
+            <button class="retry-wrong-btn" id="retryWrongBtn">🔄 إعادة الأسئلة الخاطئة فقط</button>
         </section>
 
         <!-- ==========================================================
@@ -1922,7 +694,7 @@
         }
 
         // ============================================================
-        // 4. CHALLENGE ARENA - CLICK TO ORDER
+        // 4. CHALLENGE ARENA - مع التصحيح والشرح
         // ============================================================
         const orderPools = {
             3: { correct: ['I', 'am', 'a', 'student'], words: ['I', 'am', 'a', 'student'] },
@@ -1937,8 +709,10 @@
             return arr;
         }
 
+        // تعبئة الأسئلة من نوع Order
         Object.keys(orderPools).forEach(qNum => {
             const pool = document.getElementById('orderPool' + qNum);
+            if (!pool) return;
             const words = orderPools[qNum].words;
             const shuffled = shuffleArray([...words]);
             pool.innerHTML = '';
@@ -1952,8 +726,31 @@
         });
 
         const orderConfigs = {
-            3: { correct: ['I', 'am', 'a', 'student'], pool: 'orderPool3', result: 'orderResult3', feedback: 'orderFeedback3' },
-            4: { correct: ['You', 'are', 'welcome'], pool: 'orderPool4', result: 'orderResult4', feedback: 'orderFeedback4' }
+            3: { 
+                correct: ['I', 'am', 'a', 'student'], 
+                pool: 'orderPool3', 
+                result: 'orderResult3', 
+                feedback: 'orderFeedback3',
+                explanation: 'explanation3',
+                correctMsg: '✅ صحيح! الترتيب الصحيح هو "I am a student".',
+                wrongMsg: '❌ ترتيب غير صحيح. تذكر: الفاعل (I) ثم الفعل (am) ثم المكمل (a student).'
+            },
+            4: { 
+                correct: ['You', 'are', 'welcome'], 
+                pool: 'orderPool4', 
+                result: 'orderResult4', 
+                feedback: 'orderFeedback4',
+                explanation: 'explanation4',
+                correctMsg: '✅ صحيح! الترتيب الصحيح هو "You are welcome".',
+                wrongMsg: '❌ ترتيب غير صحيح. تذكر: (You) ثم (are) ثم (welcome).'
+            }
+        };
+
+        // تعريف التصحيحات والشرح لكل سؤال
+        const explanations = {
+            '1': { correct: '✅ صحيح! "I" تأتي مع "am" دائماً.', wrong: '❌ خطأ! "I" لا تأتي مع "is" أو "are". الفعل الصحيح هو "am".' },
+            '2': { correct: '✅ صحيح! "They" تأتي مع "are".', wrong: '❌ خطأ! "They" لا تأتي مع "is" أو "am". الفعل الصحيح هو "are".' },
+            '5': { correct: '✅ صحيح! نفي "I am" هو "I am not" أو المختصر "I\'m not".', wrong: '❌ خطأ! الصيغة الصحيحة لنفي "I am" هي "I am not". "I isn\'t" و "I aren\'t" غير صحيحين.' }
         };
 
         let quizCorrectCount = 0;
@@ -1961,6 +758,7 @@
         let maleVoice = null;
         let femaleVoice = null;
         const encouragingPhrases = ['Great job!', 'Excellent!', 'Well done!', 'Perfect!', 'Awesome!', 'Fantastic!', 'Amazing!', 'Brilliant!'];
+        let wrongQuestions = [];
 
         function loadVoices() {
             const voices = window.speechSynthesis.getVoices();
@@ -1992,14 +790,82 @@
                 streak.classList.add('show');
                 launchStars();
                 updateProgress();
+                // إظهار زر إعادة الخاطئ فقط إذا كان هناك أخطاء
+                const retryBtn = document.getElementById('retryWrongBtn');
+                if (wrongQuestions.length > 0) {
+                    retryBtn.classList.add('show');
+                }
             }
         }
 
+        function showExplanation(qId, isCorrect) {
+            const expDiv = document.getElementById('explanation' + qId);
+            if (!expDiv) return;
+            const data = explanations[qId];
+            if (!data) return;
+            expDiv.innerHTML = isCorrect ? data.correct : data.wrong;
+            expDiv.className = 'quiz-explanation show ' + (isCorrect ? 'correct' : 'wrong');
+            // إضافة الإجابة الصحيحة إن وجدت
+            if (!isCorrect && qId === '1') expDiv.innerHTML += '<br><span class="correct-answer">الإجابة الصحيحة: am</span>';
+            if (!isCorrect && qId === '2') expDiv.innerHTML += '<br><span class="correct-answer">الإجابة الصحيحة: are</span>';
+            if (!isCorrect && qId === '5') expDiv.innerHTML += '<br><span class="correct-answer">الإجابة الصحيحة: I am not</span>';
+        }
+
+        // ===== معالجة أسئلة الاختيار من متعدد =====
+        document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(card => {
+            const btns = card.querySelectorAll('.quiz-options button');
+            const feedback = card.querySelector('.quiz-feedback');
+            const qNum = card.dataset.question;
+            let answered = false;
+
+            btns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (answered || this.disabled) return;
+                    answered = true;
+                    const correctAnswers = { '1': 'am', '2': 'are', '5': 'I am not' };
+                    const isCorrect = this.dataset.answer === correctAnswers[qNum];
+
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        feedback.innerHTML = '<span class="correct-text">✅ صحيح!</span>';
+                        showExplanation(qNum, true);
+                        const qIndex = parseInt(qNum) - 1;
+                        if (!window.questionStatus) window.questionStatus = [];
+                        if (!window.questionStatus[qIndex]) {
+                            window.questionStatus[qIndex] = true;
+                            quizCorrectCount++;
+                            updateQuizProgress();
+                            speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
+                        }
+                        // إزالة السؤال من قائمة الأخطاء إن وجد
+                        wrongQuestions = wrongQuestions.filter(id => id !== qNum);
+                    } else {
+                        this.classList.add('wrong');
+                        const correctAns = correctAnswers[qNum];
+                        feedback.innerHTML = '<span class="wrong-text">❌ خطأ. الإجابة الصحيحة: "' + correctAns + '"</span>';
+                        showExplanation(qNum, false);
+                        btns.forEach(b => {
+                            if (b.dataset.answer === correctAns) {
+                                b.classList.add('correct');
+                            }
+                        });
+                        if (!wrongQuestions.includes(qNum)) wrongQuestions.push(qNum);
+                        speakText('Incorrect. Try again.', maleVoice);
+                    }
+                    btns.forEach(b => b.disabled = true);
+                    // حفظ الأخطاء
+                    localStorage.setItem('unit1WrongQuestions', JSON.stringify(wrongQuestions));
+                });
+            });
+        });
+
+        // ===== معالجة أسئلة الترتيب =====
         Object.keys(orderConfigs).forEach(qNum => {
             const config = orderConfigs[qNum];
             const pool = document.getElementById(config.pool);
             const resultBox = document.getElementById(config.result);
             const feedback = document.getElementById(config.feedback);
+            const explanationId = config.explanation;
             let selectedWords = [];
             const words = Array.from(pool.children);
 
@@ -2007,6 +873,8 @@
                 selectedWords = [];
                 resultBox.innerHTML = '';
                 feedback.innerHTML = '';
+                const expDiv = document.getElementById(explanationId);
+                if (expDiv) { expDiv.className = 'quiz-explanation'; expDiv.innerHTML = ''; }
                 words.forEach(btn => {
                     btn.disabled = false;
                     btn.classList.remove('used', 'correct-answer', 'wrong-answer');
@@ -2041,11 +909,16 @@
 
                     if (selectedWords.length === config.correct.length) {
                         const isCorrect = selectedWords.every((w, i) => w === config.correct[i]);
+                        const expDiv = document.getElementById(explanationId);
                         if (isCorrect) {
-                            feedback.innerHTML = '<span class="correct-text">✅ صحيح! الترتيب ممتاز!</span>';
+                            feedback.innerHTML = '<span class="correct-text">' + config.correctMsg + '</span>';
+                            if (expDiv) {
+                                expDiv.innerHTML = config.correctMsg;
+                                expDiv.className = 'quiz-explanation show correct';
+                            }
                             words.forEach(b => { b.disabled = true; });
                             resultBox.querySelectorAll('.placed-word').forEach(el => {
-                                el.style.background = 'var(--green)';
+                                el.style.background = '#4CAF50';
                                 el.style.color = '#fff';
                             });
                             const qIndex = parseInt(qNum) - 1;
@@ -2056,22 +929,30 @@
                                 updateQuizProgress();
                                 speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
                             }
+                            wrongQuestions = wrongQuestions.filter(id => id !== qNum);
                         } else {
-                            feedback.innerHTML = '<span class="wrong-text">❌ ترتيب غير صحيح. حاول مرة أخرى!</span>';
+                            feedback.innerHTML = '<span class="wrong-text">' + config.wrongMsg + '</span>';
+                            if (expDiv) {
+                                expDiv.innerHTML = config.wrongMsg;
+                                expDiv.className = 'quiz-explanation show wrong';
+                            }
                             const placedWords = resultBox.querySelectorAll('.placed-word');
                             placedWords.forEach((el, i) => {
                                 if (i < config.correct.length && el.textContent !== config.correct[i]) {
-                                    el.style.background = 'var(--red)';
+                                    el.style.background = '#F44336';
                                     el.style.color = '#fff';
                                 } else if (i < config.correct.length) {
-                                    el.style.background = 'var(--green)';
+                                    el.style.background = '#4CAF50';
                                     el.style.color = '#fff';
                                 }
                             });
+                            if (!wrongQuestions.includes(qNum)) wrongQuestions.push(qNum);
+                            speakText('Incorrect. Try again.', maleVoice);
                             setTimeout(() => {
                                 resetOrder();
-                            }, 1800);
+                            }, 2000);
                         }
+                        localStorage.setItem('unit1WrongQuestions', JSON.stringify(wrongQuestions));
                     }
                 });
             });
@@ -2079,49 +960,74 @@
             resetOrder();
         });
 
-        document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(card => {
-            const btns = card.querySelectorAll('.quiz-options button');
-            const feedback = card.querySelector('.quiz-feedback');
-            let answered = false;
-
-            btns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (answered || this.disabled) return;
-                    answered = true;
-                    const qNum = parseInt(card.dataset.question);
-                    const isCorrect = this.dataset.answer === (qNum === 1 ? 'am' : (qNum === 2 ? 'are' : 'a'));
-
-                    if (isCorrect) {
-                        this.classList.add('correct');
-                        feedback.innerHTML = '<span class="correct-text">✅ صحيح!</span>';
-                        const qIndex = qNum - 1;
-                        if (!window.questionStatus) window.questionStatus = [];
-                        if (!window.questionStatus[qIndex]) {
-                            window.questionStatus[qIndex] = true;
-                            quizCorrectCount++;
-                            updateQuizProgress();
-                            speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
+        // ============================================================
+        // 5. زر إعادة الأسئلة الخاطئة فقط
+        // ============================================================
+        const retryBtn = document.getElementById('retryWrongBtn');
+        if (retryBtn) {
+            retryBtn.addEventListener('click', function() {
+                // تحميل الأخطاء المحفوظة
+                const savedWrong = localStorage.getItem('unit1WrongQuestions');
+                if (savedWrong) {
+                    try { wrongQuestions = JSON.parse(savedWrong); } catch(e) {}
+                }
+                if (wrongQuestions.length === 0) {
+                    alert('🎉 مفيش أسئلة غلط! أنت مبدع!');
+                    return;
+                }
+                // إظهار فقط الأسئلة الخاطئة وإعادة ضبطها
+                document.querySelectorAll('.quiz-card').forEach(card => {
+                    const qNum = card.dataset.question;
+                    if (wrongQuestions.includes(qNum)) {
+                        card.style.display = 'block';
+                        // إعادة ضبط الأزرار
+                        card.querySelectorAll('.quiz-options button').forEach(b => {
+                            b.disabled = false;
+                            b.classList.remove('correct', 'wrong');
+                        });
+                        // إعادة ضبط الفيدباك والشرح
+                        const feedback = card.querySelector('.quiz-feedback');
+                        if (feedback) feedback.innerHTML = '';
+                        const expDiv = card.querySelector('.quiz-explanation');
+                        if (expDiv) { expDiv.className = 'quiz-explanation'; expDiv.innerHTML = ''; }
+                        // إعادة ضبط الترتيب
+                        const resultBox = card.querySelector('.order-result-box');
+                        if (resultBox) resultBox.innerHTML = '';
+                        const pool = card.querySelector('.order-pool');
+                        if (pool) {
+                            pool.querySelectorAll('.order-word').forEach(w => {
+                                w.disabled = false;
+                                w.classList.remove('used', 'correct-answer', 'wrong-answer');
+                            });
                         }
                     } else {
-                        this.classList.add('wrong');
-                        let correctAns = '';
-                        if (qNum === 1) correctAns = 'am';
-                        else if (qNum === 2) correctAns = 'are';
-                        else if (qNum === 5) correctAns = 'I am not';
-                        feedback.innerHTML = '<span class="wrong-text">❌ خطأ. الإجابة الصحيحة هي "' + correctAns + '"</span>';
-                        btns.forEach(b => {
-                            if (b.dataset.answer === correctAns) {
-                                b.classList.add('correct');
-                            }
-                        });
+                        card.style.display = 'none';
                     }
-                    btns.forEach(b => b.disabled = true);
                 });
+                // إعادة تعيين العداد
+                quizCorrectCount = 0;
+                document.getElementById('streakNotification').classList.remove('show');
+                // إزالة شاشة الاحتفال القديمة
+                const celeb = document.querySelector('.celebration');
+                if (celeb) celeb.classList.remove('show');
+                updateQuizProgress();
+                speakText('Retrying wrong questions only!', maleVoice);
             });
-        });
+
+            // التحقق من وجود أخطاء عند التحميل
+            const savedWrong = localStorage.getItem('unit1WrongQuestions');
+            if (savedWrong) {
+                try {
+                    wrongQuestions = JSON.parse(savedWrong);
+                    if (wrongQuestions.length > 0) {
+                        retryBtn.classList.add('show');
+                    }
+                } catch(e) {}
+            }
+        }
 
         // ============================================================
-        // 5. CELEBRATION OVERLAY
+        // 6. CELEBRATION OVERLAY
         // ============================================================
         function showCelebration() {
             const overlay = document.getElementById('celebrationOverlay');
@@ -2176,7 +1082,7 @@
         }
 
         // ============================================================
-        // 6. NEXT BUTTON
+        // 7. NEXT BUTTON
         // ============================================================
         document.getElementById('nextBtn').addEventListener('click', function() {
             const target = this.dataset.target;
@@ -2188,14 +1094,16 @@
         });
 
         // ============================================================
-        // 7. RESET UNIT
+        // 8. RESET UNIT
         // ============================================================
         function resetUnit() {
             unitCompleted = false;
             localStorage.removeItem('unit1Completed');
             localStorage.removeItem('unit1QuizStatus');
+            localStorage.removeItem('unit1WrongQuestions');
             window.questionStatus = [];
             quizCorrectCount = 0;
+            wrongQuestions = [];
             document.getElementById('celebrationOverlay').classList.remove('show');
 
             document.querySelectorAll('.quiz-card').forEach(card => {
@@ -2206,12 +1114,16 @@
                 });
                 const feedback = card.querySelector('.quiz-feedback');
                 if (feedback) feedback.innerHTML = '';
+                const expDiv = card.querySelector('.quiz-explanation');
+                if (expDiv) { expDiv.className = 'quiz-explanation'; expDiv.innerHTML = ''; }
                 const resultBox = card.querySelector('.order-result-box');
                 if (resultBox) resultBox.innerHTML = '';
             });
             document.getElementById('quizProgressFill').style.width = '0%';
             document.getElementById('quizProgressCount').textContent = '0/5';
             document.getElementById('streakNotification').classList.remove('show');
+            const retryBtn = document.getElementById('retryWrongBtn');
+            if (retryBtn) retryBtn.classList.remove('show');
             updateProgress();
         }
 
@@ -2222,7 +1134,7 @@
         });
 
         // ============================================================
-        // 8. STARS ANIMATION
+        // 9. STARS ANIMATION
         // ============================================================
         function launchStars() {
             const container = document.getElementById('starsContainer');
@@ -2240,7 +1152,7 @@
         }
 
         // ============================================================
-        // 9. SPEAK UP
+        // 10. SPEAK UP
         // ============================================================
         document.getElementById('speakBtn').addEventListener('click', function() {
             const result = document.getElementById('speakResult');
@@ -2257,26 +1169,26 @@
                     const hasKeyword = keywords.some(k => transcript.includes(k));
                     if (hasKeyword) {
                         result.textContent = '✅ أحسنت! إجابة ممتازة: "' + transcript + '"';
-                        result.style.color = 'var(--green)';
+                        result.style.color = '#4CAF50';
                         speakText('Great job!', femaleVoice);
                     } else {
                         result.textContent = '❌ حاول مرة أخرى. قل اسمك ومكانك. مثال: "My name is Ahmed, I\'m from Egypt."';
-                        result.style.color = 'var(--red)';
+                        result.style.color = '#F44336';
                     }
                 };
                 recognition.onerror = function() {
                     result.textContent = '❌ لم نتمكن من السماع. حاول مرة أخرى.';
-                    result.style.color = 'var(--red)';
+                    result.style.color = '#F44336';
                 };
                 recognition.start();
             } else {
                 result.textContent = '⚠️ متصفحك لا يدعم خاصية التعرف على الصوت.';
-                result.style.color = 'var(--red)';
+                result.style.color = '#F44336';
             }
         });
 
         // ============================================================
-        // 10. HOMEWORK (مع التصحيح التفصيلي)
+        // 11. HOMEWORK (مع التصحيح التفصيلي)
         // ============================================================
         const homeworkText = document.getElementById('homeworkText');
         const saveHomework = document.getElementById('saveHomework');
@@ -2286,7 +1198,7 @@
         if (savedHomework) {
             homeworkText.value = savedHomework;
             saveStatus.textContent = '💾 تم حفظ الواجب';
-            saveStatus.style.color = 'var(--green)';
+            saveStatus.style.color = '#4CAF50';
         }
 
         saveHomework.addEventListener('click', function() {
@@ -2317,7 +1229,7 @@
                 homeworkText.value = correctedText;
                 text = correctedText;
                 saveStatus.innerHTML = `✏️ تم تصحيح ${corrections} خطأ إملائياً.`;
-                saveStatus.style.color = 'var(--blue)';
+                saveStatus.style.color = '#2196F3';
                 setTimeout(performAdvancedCheck, 600);
             } else {
                 performAdvancedCheck();
@@ -2328,7 +1240,7 @@
                 const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
                 if (sentences.length < 3) {
                     saveStatus.textContent = '⚠️ اكتب على الأقل 3 جمل كاملة (لديك ' + sentences.length + ').';
-                    saveStatus.style.color = 'var(--red)';
+                    saveStatus.style.color = '#F44336';
                     return;
                 }
 
@@ -2336,7 +1248,7 @@
                 const hasVerb = /\b(am|is|are)\b/i.test(text);
                 if (!hasVerb) {
                     saveStatus.textContent = '⚠️ استخدم am, is, are في جملك (لم نجد أي منها).';
-                    saveStatus.style.color = 'var(--red)';
+                    saveStatus.style.color = '#F44336';
                     return;
                 }
 
@@ -2347,20 +1259,19 @@
 
                 if (!iAmCorrect && !heIsCorrect && !theyAreCorrect) {
                     saveStatus.textContent = '💡 تذكير: استخدم "I am..." أو "He/She is..." أو "They are..." لتكون أكثر تنوعاً.';
-                    saveStatus.style.color = 'var(--blue)';
-                    // لا نمنع الحفظ، لكن نقدم تذكيراً
+                    saveStatus.style.color = '#2196F3';
                 }
 
                 // 5. كل شيء صحيح - حفظ الواجب
                 localStorage.setItem('unit1Homework', text);
                 saveStatus.textContent = '✅ تم حفظ الواجب بنجاح! كل الجمل صحيحة.';
-                saveStatus.style.color = 'var(--green)';
+                saveStatus.style.color = '#4CAF50';
                 speakText('Homework saved successfully!', femaleVoice);
             }
         });
 
         // ============================================================
-        // 11. AUDIO BUTTONS (US English Male/Female)
+        // 12. AUDIO BUTTONS
         // ============================================================
         document.querySelectorAll('.audio-btn, .audio-btn-small').forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -2382,7 +1293,7 @@
         });
 
         // ============================================================
-        // 12. TRANSLATION BUTTONS
+        // 13. TRANSLATION BUTTONS
         // ============================================================
         document.querySelectorAll('.translation-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -2395,7 +1306,7 @@
         });
 
         // ============================================================
-        // 13. FLIP CARDS
+        // 14. FLIP CARDS
         // ============================================================
         document.querySelectorAll('.flip-card').forEach(card => {
             card.addEventListener('click', function() {
@@ -2404,7 +1315,7 @@
         });
 
         // ============================================================
-        // 14. DISCOVERY TABS
+        // 15. DISCOVERY TABS
         // ============================================================
         document.querySelectorAll('.discovery-tab').forEach(tab => {
             tab.addEventListener('click', function() {
@@ -2416,7 +1327,7 @@
         });
 
         // ============================================================
-        // 15. POWER RECAP
+        // 16. POWER RECAP
         // ============================================================
         document.querySelectorAll('.mindmap .branch').forEach(branch => {
             branch.addEventListener('click', function() {
@@ -2428,20 +1339,32 @@
         });
 
         // ============================================================
-        // 16. VIDEO ZONE
+        // 17. VIDEO ZONE
         // ============================================================
         document.getElementById('videoBtn').addEventListener('click', function() {
             window.open('https://youtube.com/@omar.youssif.english', '_blank');
         });
 
         // ============================================================
-        // 17. INIT
+        // 18. INIT
         // ============================================================
         const savedQuiz = JSON.parse(localStorage.getItem('unit1QuizStatus') || '[]');
         if (savedQuiz.length > 0) {
             window.questionStatus = savedQuiz;
             quizCorrectCount = savedQuiz.filter(q => q === true).length;
             updateQuizProgress();
+        }
+
+        // استرجاع الأخطاء المحفوظة
+        const savedWrong = localStorage.getItem('unit1WrongQuestions');
+        if (savedWrong) {
+            try {
+                wrongQuestions = JSON.parse(savedWrong);
+                if (wrongQuestions.length > 0) {
+                    const retryBtn = document.getElementById('retryWrongBtn');
+                    if (retryBtn) retryBtn.classList.add('show');
+                }
+            } catch(e) {}
         }
 
         unitCompleted = localStorage.getItem('unit1Completed') === 'true';
@@ -2459,6 +1382,7 @@
         console.log('✅ Babble Box Unit 1 loaded successfully!');
         console.log('📊 Quiz status:', window.questionStatus || 'Not started');
         console.log('📈 Unit completed:', unitCompleted);
+        console.log('❌ Wrong questions:', wrongQuestions);
     </script>
 
 </body>
