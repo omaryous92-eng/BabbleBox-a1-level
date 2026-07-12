@@ -1,1147 +1,1009 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Babble Box – منصة تعلم الإنجليزية</title>
-
-    <!-- Google tag (gtag.js) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- عنوان الصفحة -->
+    <title>Babble Box Academy | منصة تعلم اللغة الإنجليزية</title>
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-L42M2EDW3H');
     </script>
-
-    <!-- Google Fonts: Poppins + Cairo -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
-
+    <!-- استيراد الخطوط من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
-                   إعادة تعيين ومتغيرات
-                ============================================================ */
+                   متغيرات CSS الأساسية (الوضع الداكن هو الافتراضي)
+                   ============================================================ */
+        :root {
+            --bg-color: #0A0A0A;
+            --text-color: #FFFFFF;
+            --gold: #FFC107;
+            --gold-dark: #e6a800;
+            --card-bg: #1a1a1a;
+            --card-border: #FFC107;
+            --input-bg: #222;
+            --input-text: #fff;
+            --shadow: 0 8px 32px rgba(255, 193, 7, 0.15);
+            --transition: all 0.3s ease;
+            --font-en: 'Poppins', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        /* الوضع الفاتح */
+        [data-theme="light"] {
+            --bg-color: #f5f5f5;
+            --text-color: #0A0A0A;
+            --card-bg: #ffffff;
+            --card-border: #FFC107;
+            --input-bg: #eee;
+            --input-text: #222;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ============================================================
+                   إعادة تعيين عامة
+                   ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #1A1A1A;
-            --bg-secondary: #242424;
-            --yellow: #FFC107;
-            --yellow-glow: rgba(255, 193, 7, 0.4);
-            --text-white: #ffffff;
-            --text-dark: #1A1A1A;
-            --card-bg: rgba(255, 255, 255, 0.06);
-            --card-border: rgba(255, 255, 255, 0.10);
-            --shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-            --radius: 28px;
-            --transition: 0.3s ease;
-            --font-en: 'Poppins', sans-serif;
-            --font-ar: 'Cairo', sans-serif;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: var(--font-ar);
-            background: var(--bg-primary);
-            color: var(--text-white);
-            min-height: 100vh;
-            line-height: 1.7;
-            transition: background 0.4s, color 0.3s;
-            padding-top: 74px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: var(--transition);
         }
 
-        /* ---- الوضع الفاتح ---- */
-        body.light-mode {
-            --bg-primary: #f5f0e8;
-            --bg-secondary: #e8e0d6;
-            --text-white: #1A1A1A;
-            --text-dark: #1A1A1A;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --card-border: rgba(0, 0, 0, 0.10);
-            --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        body.light-mode .header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(14px);
+        ul {
+            list-style: none;
         }
-        body.light-mode .footer {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-        }
-        body.light-mode .level-card,
-        body.light-mode .book-card,
-        body.light-mode .mission-card,
-        body.light-mode .tab-content,
-        body.light-mode .feedback-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(4px);
-            color: #1A1A1A;
-        }
-        body.light-mode .level-card .level-title {
-            color: #1A1A1A;
-        }
-        body.light-mode .btn-outline {
-            border-color: #1A1A1A;
-            color: #1A1A1A;
-        }
-        body.light-mode .btn-outline:hover {
-            background: #1A1A1A;
-            color: #fff;
-        }
-        body.light-mode .feedback-input,
-        body.light-mode .feedback-textarea {
-            background: #fff;
-            color: #1A1A1A;
-            border-color: #ccc;
-        }
-        body.light-mode .hamburger span {
-            background: #1A1A1A;
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         /* ============================================================
-                   هيدر ثابت
-                ============================================================ */
+                   الشريط العلوي (Header)
+                   ============================================================ */
         .header {
             position: fixed;
             top: 0;
-            right: 0;
             left: 0;
-            z-index: 999;
-            background: rgba(26, 26, 26, 0.88);
-            backdrop-filter: blur(14px);
-            padding: 0 1.5rem;
-            height: 74px;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+            background-color: transparent;
+        }
+
+        .header.scrolled {
+            background-color: var(--bg-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .header .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 193, 7, 0.15);
-            transition: background 0.3s;
+            flex-wrap: wrap;
         }
 
-        .logo {
+        /* اللوجو + الاسم */
+        .logo-wrapper {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 10px;
+        }
+
+        .logo-wrapper img {
+            height: 45px;
+            width: auto;
+            filter: brightness(1.1);
+        }
+
+        .logo-wrapper .brand-name {
+            font-family: var(--font-en);
             font-weight: 700;
             font-size: 1.5rem;
-            letter-spacing: -0.3px;
-        }
-        .logo span {
-            color: var(--yellow);
-        }
-        .logo .emoji-big {
-            font-size: 1.9rem;
+            color: var(--gold);
+            letter-spacing: 1px;
         }
 
-        .header-actions {
+        /* أزرار التنقل */
+        .nav-links {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .dark-toggle {
-            background: transparent;
-            border: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-            transition: 0.2s;
-            filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.2));
+        .nav-links a {
+            font-family: var(--font-ar);
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text-color);
+            transition: var(--transition);
+            position: relative;
         }
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0.3rem;
-        }
-        .hamburger span {
-            width: 28px;
-            height: 3px;
-            background: var(--text-white);
-            border-radius: 4px;
-            transition: 0.3s;
+        .nav-links a:hover {
+            color: var(--gold);
         }
 
-        /* ============================================================
-                   القائمة الجانبية (موبايل)
-                ============================================================ */
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 78%;
-            max-width: 300px;
-            height: 100vh;
-            background: var(--bg-primary);
-            z-index: 1000;
-            padding: 4rem 1.8rem 2rem;
-            transition: right 0.35s ease;
-            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-            overflow-y: auto;
+        /* القائمة المنسدلة للمستويات */
+        .dropdown {
+            position: relative;
         }
-        body.light-mode .side-menu {
-            background: #f0ebe3;
-        }
-        .side-menu.open {
-            right: 0;
-        }
-        .side-menu a {
-            color: var(--text-white);
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 0.6rem;
-        }
-        body.light-mode .side-menu a {
-            color: #1A1A1A;
-        }
-        .side-menu .close-menu {
-            align-self: flex-start;
+
+        .dropdown .dropbtn {
             background: none;
             border: none;
-            font-size: 2.2rem;
-            color: var(--text-white);
+            color: var(--text-color);
+            font-family: var(--font-ar);
+            font-weight: 500;
+            font-size: 1rem;
             cursor: pointer;
+            transition: var(--transition);
         }
-        body.light-mode .side-menu .close-menu {
-            color: #1A1A1A;
+
+        .dropdown .dropbtn:hover {
+            color: var(--gold);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            min-width: 160px;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid var(--gold);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-color);
+            font-family: var(--font-ar);
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--gold);
+            color: #0A0A0A;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* أيقونات التواصل الاجتماعي في الهيدر */
+        .social-icons-header {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .social-icons-header a {
+            color: var(--text-color);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .social-icons-header a:hover {
+            color: var(--gold);
+            transform: scale(1.2);
+        }
+
+        /* زر الوضع الليلي */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--gold);
+            color: #0A0A0A;
+            transform: rotate(20deg);
+        }
+
+        /* زر القائمة للجوال */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            color: var(--gold);
         }
 
         /* ============================================================
-                   حاوية عامة
-                ============================================================ */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.8rem 1.2rem;
-        }
-
+                   الأقسام العامة
+                   ============================================================ */
         section {
-            margin: 4rem 0;
+            padding: 80px 0;
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-family: var(--font-ar);
             font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--yellow);
-            text-shadow: 0 0 24px rgba(255, 193, 7, 0.12);
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            opacity: 0.9;
         }
 
         /* ============================================================
-                   القسم 1: Hero
-                ============================================================ */
+                   القسم الأول: البطل (Hero)
+                   ============================================================ */
         .hero {
-            background: radial-gradient(circle at 30% 20%, rgba(255, 193, 7, 0.12), transparent 60%);
-            padding: 2.8rem 1.5rem;
-            border-radius: var(--radius);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            border: 1px solid rgba(255, 193, 7, 0.15);
-            animation: fadeInUp 0.8s ease;
+            background: radial-gradient(circle at 10% 20%, rgba(255, 193, 7, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.06) 0%, transparent 50%),
+                var(--bg-color);
+            padding-top: 80px;
+            position: relative;
         }
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
-            line-height: 1.2;
+
+        .hero-content {
+            max-width: 900px;
         }
-        .hero h1 span {
-            color: var(--yellow);
+
+        .hero-content h1 {
+            font-family: var(--font-en);
+            font-weight: 900;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
         }
-        .hero .subtitle {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--yellow);
-            margin-top: -0.2rem;
+
+        .hero-content h1 span {
+            color: var(--gold);
         }
-        .hero p {
-            font-size: 1.15rem;
-            max-width: 680px;
-            margin: 1.2rem auto 2rem;
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
             opacity: 0.9;
         }
+
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
             justify-content: center;
+            gap: 20px;
+            margin-top: 35px;
         }
 
         .btn {
             display: inline-block;
-            padding: 0.85rem 2.4rem;
-            border-radius: 60px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
+            padding: 14px 36px;
+            border-radius: 50px;
             font-family: var(--font-ar);
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid var(--gold);
+            background-color: transparent;
+            color: var(--gold);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
         }
+
         .btn-primary {
-            background: var(--yellow);
-            color: #1A1A1A;
-            box-shadow: 0 0 30px rgba(255, 193, 7, 0.25);
+            background-color: var(--gold);
+            color: #0A0A0A;
+            border-color: var(--gold);
         }
+
         .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(255, 193, 7, 0.5);
+            background-color: var(--gold-dark);
+            border-color: var(--gold-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 193, 7, 0.3);
         }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--yellow);
-            color: var(--text-white);
+
+        .btn-secondary {
+            border-color: var(--gold);
+            color: var(--gold);
         }
-        .btn-outline:hover {
-            background: var(--yellow);
-            color: #1A1A1A;
+
+        .btn-secondary:hover {
+            background-color: var(--gold);
+            color: #0A0A0A;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 193, 7, 0.2);
         }
 
         /* ============================================================
-                   القسم 2: الرؤية والهدف
-                ============================================================ */
-        .vision-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        .mission-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(4px);
-            padding: 2rem 1.8rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow);
-            transition: 0.3s;
-        }
-        .mission-card h3 {
-            font-size: 1.8rem;
-            color: var(--yellow);
-            margin-bottom: 0.6rem;
-        }
-        .mission-card p {
-            font-size: 1.05rem;
-        }
-
-        /* ============================================================
-                   القسم 3: المستويات
-                ============================================================ */
+                   القسم الثاني: المستويات (Levels)
+                   ============================================================ */
         .levels-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
         }
+
         .level-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(4px);
-            padding: 1.5rem 1rem;
-            border-radius: var(--radius);
+            background-color: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px 20px;
             text-align: center;
-            border: 1px solid var(--card-border);
+            transition: var(--transition);
             box-shadow: var(--shadow);
-            transition: 0.3s;
         }
-        .level-card .emoji-big {
-            font-size: 2.8rem;
+
+        .level-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(255, 193, 7, 0.2);
         }
-        .level-title {
+
+        .level-card .level-name {
+            font-family: var(--font-en);
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+
+        .level-card .level-desc {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        .level-card .level-price {
             font-weight: 700;
             font-size: 1.2rem;
-            margin: 0.4rem 0 0.2rem;
-        }
-        .level-sub {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-        .btn-level {
-            margin-top: 0.8rem;
-            padding: 0.4rem 1.4rem;
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            color: var(--text-white);
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: var(--font-ar);
-        }
-        .btn-level:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .btn-level:not(:disabled):hover {
-            background: var(--yellow);
-            color: #1A1A1A;
+            margin: 15px 0;
         }
 
-        /* ============================================================
-                   القسم 4: المكتبة
-                ============================================================ */
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+        .level-price.free {
+            color: #4CAF50;
         }
-        .book-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(4px);
-            padding: 1.8rem 1.2rem;
-            border-radius: var(--radius);
-            text-align: center;
-            border: 1px solid var(--card-border);
-            box-shadow: var(--shadow);
-            transition: 0.3s;
+
+        .level-price.paid {
+            color: var(--gold);
         }
-        .book-card .book-emoji {
-            font-size: 3.6rem;
-        }
-        .book-card .book-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin: 0.5rem 0 0.2rem;
-        }
-        .book-card .book-desc {
+
+        .level-card .btn {
+            padding: 10px 30px;
             font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 0.8rem;
         }
-        .btn-download {
-            background: var(--yellow);
-            color: #1A1A1A;
-            border: none;
-            padding: 0.5rem 1.8rem;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: var(--font-ar);
-        }
-        .btn-download:hover {
-            transform: scale(1.05);
-        }
-        .btn-download:disabled {
-            opacity: 0.4;
+
+        .level-card .btn:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
+            transform: none !important;
         }
 
         /* ============================================================
-                   القسم 5: خطط التعلم (Tabs)
-                ============================================================ */
-        .tabs-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-bottom: 1.5rem;
+                   القسم الثالث: لماذا Babble Box؟
+                   ============================================================ */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
-        .tab-btn {
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-white);
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
+
+        .why-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            transition: var(--transition);
+        }
+
+        .why-card:hover {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        .why-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .why-card h3 {
             font-family: var(--font-ar);
-        }
-        body.light-mode .tab-btn {
-            color: #1A1A1A;
-        }
-        .tab-btn.active-tab {
-            background: var(--yellow);
-            color: #1A1A1A;
-        }
-        .tab-content {
-            background: var(--card-bg);
-            backdrop-filter: blur(4px);
-            padding: 2rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--card-border);
-            min-height: 140px;
-            box-shadow: var(--shadow);
-        }
-        .tab-content h4 {
-            font-size: 1.5rem;
-            color: var(--yellow);
-            margin-bottom: 0.3rem;
-        }
-        .tab-content .motivation {
-            margin-top: 0.8rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #ddd;
-        }
-        body.light-mode .tab-content .motivation {
-            color: #333;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 10px;
         }
 
         /* ============================================================
-                   القسم 6: نموذج الاقتراحات
-                ============================================================ */
-        .feedback-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(4px);
-            padding: 2rem 1.8rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--card-border);
+                   القسم الرابع: الكتب (PDF Books)
+                   ============================================================ */
+        .books-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .books-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* ============================================================
+                   القسم الخامس: اختبار المستوى
+                   ============================================================ */
+        .test-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .test-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* ============================================================
+                   القسم السادس: تواصل معنا (Contact)
+                   ============================================================ */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
             box-shadow: var(--shadow);
         }
-        .feedback-card h3 {
-            color: var(--yellow);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            margin-top: 15px;
         }
-        .feedback-input,
-        .feedback-textarea {
+
+        .contact-form input,
+        .contact-form textarea {
             width: 100%;
-            padding: 0.8rem 1.2rem;
-            border-radius: 20px;
-            border: 1px solid var(--card-border);
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-white);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background-color: var(--input-bg);
+            color: var(--input-text);
             font-family: var(--font-ar);
             font-size: 1rem;
-            margin-bottom: 1rem;
-            transition: 0.2s;
+            transition: var(--transition);
         }
-        .feedback-input::placeholder,
-        .feedback-textarea::placeholder {
-            color: #999;
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: 2px solid var(--gold);
+            border-color: transparent;
         }
-        .feedback-textarea {
-            min-height: 100px;
+
+        .contact-form textarea {
+            min-height: 120px;
             resize: vertical;
         }
-        .btn-feedback {
-            background: var(--yellow);
-            color: #1A1A1A;
-            border: none;
-            padding: 0.7rem 2.8rem;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: var(--font-ar);
+
+        .contact-form .btn {
+            margin-top: 20px;
+            width: 100%;
         }
-        .btn-feedback:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--yellow-glow);
+
+        .contact-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .contact-link a {
+            color: var(--gold);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .contact-link a:hover {
+            text-decoration: underline;
         }
 
         /* ============================================================
-                   القسم 7: Footer
-                ============================================================ */
+                   تذييل الصفحة (Footer)
+                   ============================================================ */
         .footer {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            padding: 2.5rem 1.5rem 1rem;
-            border-radius: 40px 40px 0 0;
-            margin-top: 4rem;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 2rem;
-        }
-        .footer-col h4 {
-            color: var(--yellow);
-            margin-bottom: 0.8rem;
-        }
-        .footer-col a {
-            color: var(--text-white);
-            text-decoration: none;
-            display: block;
-            margin: 0.3rem 0;
-            transition: 0.2s;
-        }
-        .footer-col a:hover {
-            color: var(--yellow);
-        }
-        .social-icons {
-            display: flex;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s ease;
-            border-radius: 50%;
-            padding: 6px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-        }
-        .social-icons a:hover {
-            transform: scale(1.15);
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--yellow);
-        }
-        .social-icons svg {
-            width: 34px;
-            height: 34px;
-            display: block;
-            filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
-        }
-        /* تظليل أيقونات السوشيال ميديا في الوضع الليلي لجعلها بارزة */
-        .social-icons a .fb-icon { fill: #1877F2; }
-        .social-icons a .yt-icon { fill: #FF0000; }
-        .social-icons a .tt-icon { fill: #ffffff; }
-
-        body.light-mode .social-icons a {
-            background: rgba(0, 0, 0, 0.06);
-            border-color: rgba(0, 0, 0, 0.12);
-        }
-        body.light-mode .social-icons a .tt-icon { fill: #000000; }
-
-        .footer-copy {
+            background-color: var(--card-bg);
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 193, 7, 0.15);
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-            padding-top: 1.5rem;
-            margin-top: 2rem;
+        }
+
+        .footer .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer .social-icons a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .footer .social-icons a:hover {
+            color: var(--gold);
+            transform: scale(1.2);
+        }
+
+        .footer p {
             font-size: 0.9rem;
             opacity: 0.7;
         }
 
         /* ============================================================
-                   تأثيرات حركية
-                ============================================================ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ============================================================
-                   استجابة (Mobile First)
-                ============================================================ */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-            .header {
-                padding: 0 1rem;
-                height: 68px;
-            }
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            .hero .subtitle {
-                font-size: 1.1rem;
-            }
-            .vision-grid {
-                grid-template-columns: 1fr;
-            }
+                   التجاوب (Media Queries)
+                   ============================================================ */
+        @media (max-width: 992px) {
             .levels-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .books-grid {
+        }
+
+        @media (max-width: 768px) {
+            /* إظهار زر القائمة للجوال */
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--bg-color);
+                padding: 20px 0;
+                gap: 15px;
+                border-top: 1px solid rgba(255, 193, 7, 0.2);
+                margin-top: 15px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .dropdown-content {
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                border: none;
+                padding-right: 15px;
+            }
+
+            .dropdown-content a {
+                padding: 8px 0;
+            }
+
+            .social-icons-header {
+                display: none;
+            }
+
+            .header .container {
+                flex-wrap: wrap;
+            }
+
+            .hero-content h1 {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+
+            .levels-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 20px;
             }
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
+
             .section-title {
-                font-size: 1.8rem;
-            }
-            .logo {
-                font-size: 1.2rem;
-            }
-            .social-icons a {
-                padding: 4px;
-            }
-            .social-icons svg {
-                width: 28px;
-                height: 28px;
+                font-size: 2rem;
             }
         }
 
         @media (max-width: 480px) {
             .levels-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
             }
-            .books-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+
             .hero-buttons .btn {
                 width: 100%;
+                justify-content: center;
             }
-            .tab-btn {
-                font-size: 0.8rem;
-                padding: 0.3rem 0.9rem;
-            }
-            .social-icons a {
-                padding: 3px;
-            }
-            .social-icons svg {
-                width: 24px;
-                height: 24px;
+
+            .contact-form {
+                padding: 25px 15px;
             }
         }
     </style>
 </head>
 <body>
-
     <!-- ============================================================
-    الهيدر الثابت
+    الشريط العلوي (Header)
     ============================================================ -->
-    <header class="header" id="mainHeader">
-        <div class="logo">
-            <span class="emoji-big">🗃️</span> Babble <span>Box</span>
-        </div>
+    <header class="header" id="header">
+        <div class="container">
+            <!-- اللوجو + اسم العلامة -->
+            <div class="logo-wrapper">
+                <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Logo">
+                <span class="brand-name">Babble Box</span>
+            </div>
 
-        <div class="header-actions">
-            <button class="dark-toggle" id="darkModeToggle" aria-label="تبديل الوضع">🌓</button>
-            <button class="hamburger" id="hamburgerBtn" aria-label="القائمة">
-                <span></span><span></span><span></span>
+            <!-- زر القائمة للجوال -->
+            <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة">
+                ☰
+            </button>
+
+            <!-- روابط التنقل -->
+            <nav class="nav-links" id="navLinks">
+                <a href="#hero">الرئيسية</a>
+
+                <!-- القائمة المنسدلة للمستويات -->
+                <div class="dropdown">
+                    <button class="dropbtn">المستويات ▼</button>
+                    <div class="dropdown-content">
+                        <a href="#levels">A1 - Beginner</a>
+                        <a href="#levels">A2 - Elementary</a>
+                        <a href="#levels">B1 - Intermediate</a>
+                        <a href="#levels">B2 - Upper-Intermediate</a>
+                        <a href="#levels">C1 - Advanced</a>
+                        <a href="#levels">C2 - Proficiency</a>
+                    </div>
+                </div>
+
+                <a href="#books">الكتب</a>
+                <a href="#test">اختبر مستواك</a>
+                <a href="#contact">اتصل بنا</a>
+
+                <!-- أيقونات التواصل الاجتماعي داخل القائمة للجوال -->
+                <div class="social-icons-header" style="display: flex; gap: 12px; margin-top: 10px;">
+                    <a href="https://www.facebook.com/omar.youssif.english" target="_blank" aria-label="فيسبوك">📘</a>
+                    <a href="https://youtube.com/@omar.youssif.english" target="_blank" aria-label="يوتيوب">▶️</a>
+                    <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" aria-label="تيك توك">🎵</a>
+                </div>
+
+                <!-- زر الوضع الليلي (يظهر داخل القائمة للجوال) -->
+                <button class="theme-toggle" id="themeToggleMobile" aria-label="تبديل الوضع" style="margin-top:10px;">
+                    🌙
+                </button>
+            </nav>
+
+            <!-- أيقونات التواصل الاجتماعي في الهيدر (للشاشات الكبيرة) -->
+            <div class="social-icons-header">
+                <a href="https://www.facebook.com/omar.youssif.english" target="_blank" aria-label="فيسبوك">📘</a>
+                <a href="https://youtube.com/@omar.youssif.english" target="_blank" aria-label="يوتيوب">▶️</a>
+                <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" aria-label="تيك توك">🎵</a>
+            </div>
+
+            <!-- زر الوضع الليلي (للشاشات الكبيرة) -->
+            <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
+                🌙
             </button>
         </div>
     </header>
 
     <!-- ============================================================
-    القائمة الجانبية (موبايل)
+    القسم الأول: البطل (Hero)
     ============================================================ -->
-    <div class="side-menu" id="sideMenu">
-        <button class="close-menu" id="closeMenuBtn">✕</button>
-        <a href="#hero">🏠 الرئيسية</a>
-        <a href="#vision">🎯 رؤيتنا</a>
-        <a href="#levels">📊 المستويات</a>
-        <a href="#books">📚 المكتبة</a>
-        <a href="#paths">🗺️ خطط التعلم</a>
-        <a href="#feedback">💬 اقتراحات</a>
-        <a href="#footer">📞 تواصل</a>
-        <hr style="border-color: #444; margin: 0.5rem 0;" />
-        <a href="#" id="sideDarkToggle">🌓 الوضع الفاتح/الداكن</a>
-    </div>
+    <section class="hero" id="hero">
+        <div class="container hero-content">
+            <h1>
+                رحلتك لإتقان الإنجليزية<br>
+                <span>تبدأ من هنا.</span>
+            </h1>
+            <p>
+                <strong>Babble Box Academy</strong> | مناهج متكاملة من A1 إلى C2.<br>
+                مجاناً للمستويات الأساسية. باحترافية للمستويات المتقدمة.<br>
+                تأسست 2026 لتمكينك من التحدث بثقة.
+            </p>
+            <div class="hero-buttons">
+                <a href="#levels" class="btn btn-primary">ابدأ مجاناً الآن 🚀</a>
+                <a href="#test" class="btn btn-secondary">اختبر مستواك 📝</a>
+            </div>
+        </div>
+    </section>
 
     <!-- ============================================================
-    المحتوى الرئيسي
+    القسم الثاني: المستويات (Levels)
     ============================================================ -->
-    <main>
-
-        <!-- ===== القسم 1: Hero ===== -->
-        <section id="hero" class="container">
-            <div class="hero reveal">
-                <h1>Babble <span>Box</span></h1>
-                <div class="subtitle">منصة تعلم اللغة الإنجليزية</div>
-                <p>منهج متكامل من A1 إلى C1. كتب تفاعلية، فيديوهات، صوتيات، وتمارين.</p>
-                <div class="hero-buttons">
-                    <a href="#levels" class="btn btn-primary">🎓 ابدأ رحلتك</a>
-                    <a href="#books" class="btn btn-outline">📚 تصفح الكتب</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== القسم 2: رؤيتنا وهدفنا ===== -->
-        <section id="vision" class="container">
-            <div class="vision-grid">
-                <div class="mission-card reveal">
-                    <h3>👁️ رؤيتنا</h3>
-                    <p>أن نجعل تعلم الإنجليزية متاحاً وممتعاً لكل متحدث بالعربية.</p>
-                </div>
-                <div class="mission-card reveal">
-                    <h3>🎯 هدفنا</h3>
-                    <p>توفير تجربة تعليمية متكاملة من البداية حتى الاحتراف.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== القسم 3: المستويات ===== -->
-        <section id="levels" class="container">
-            <h2 class="section-title reveal">📊 المستويات</h2>
-            <div class="levels-grid" id="levelsGrid">
-                <!-- يتم توليدها بواسطة JS -->
-            </div>
-        </section>
-
-        <!-- ===== القسم 4: المكتبة ===== -->
-        <section id="books" class="container">
-            <h2 class="section-title reveal">📚 المكتبة</h2>
-            <div class="books-grid" id="booksGrid">
-                <!-- يتم توليدها بواسطة JS -->
-            </div>
-        </section>
-
-        <!-- ===== القسم 5: خطط التعلم (Tabs) ===== -->
-        <section id="paths" class="container">
-            <h2 class="section-title reveal">🗺️ خطط التعلم</h2>
-            <div class="tabs-container" id="tabsContainer">
-                <!-- يتم توليد الأزرار بواسطة JS -->
-            </div>
-            <div class="tab-content" id="tabContent">
-                <h4 id="tabTitle">أساسياتك الأولى – 12 وحدة – من التحية للماضي البسيط</h4>
-                <p id="tabDesc">ستتعلم تقديم نفسك، التحدث عن عائلتك، روتينك اليومي، الطعام، الملابس، الطقس، والأماكن.</p>
-                <div class="motivation" id="tabMotivation">💪 رحلتك لتعلم الإنجليزية تبدأ اليوم. لا تؤجل!</div>
-            </div>
-        </section>
-
-        <!-- ===== القسم 6: نموذج الاقتراحات ===== -->
-        <section id="feedback" class="container">
-            <div class="feedback-card reveal">
-                <h3>💬 اقتراحاتك وشكاويك</h3>
-                <form action="https://formspree.io/f/mgogwoky" method="POST">
-                    <input type="text" name="name" placeholder="اسمك" class="feedback-input" required />
-                    <textarea name="message" placeholder="اكتب اقتراحك أو شكواك..." class="feedback-textarea" required></textarea>
-                    <button type="submit" class="btn-feedback">إرسال</button>
-                </form>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ============================================================
-    القسم 7: Footer
-    ============================================================ -->
-    <footer id="footer" class="footer">
+    <section id="levels">
         <div class="container">
-            <div class="footer-grid">
-                <!-- العمود 1 -->
-                <div class="footer-col">
-                    <h4>🗃️ Babble Box</h4>
-                    <p>منصة تعلم اللغة الإنجليزية</p>
+            <h2 class="section-title">📚 مستوياتنا</h2>
+            <div class="levels-grid">
+                <!-- A1 -->
+                <div class="level-card">
+                    <div class="level-name">A1</div>
+                    <div class="level-desc">Beginner - مبتدئ</div>
+                    <div class="level-price free">مجاني ✅</div>
+                    <a href="#levels" class="btn btn-primary">ابدأ</a>
                 </div>
-
-                <!-- العمود 2: أيقونات التواصل -->
-                <div class="footer-col">
-                    <h4>تابعنا</h4>
-                    <div class="social-icons">
-                        <!-- فيسبوك -->
-                        <a href="https://www.facebook.com/omar.youssif.english" target="_blank" aria-label="فيسبوك">
-                            <svg viewBox="0 0 24 24" class="fb-icon"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                        </a>
-                        <!-- يوتيوب -->
-                        <a href="https://youtube.com/@omar.youssif.english" target="_blank" aria-label="يوتيوب">
-                            <svg viewBox="0 0 24 24" class="yt-icon"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        </a>
-                        <!-- تيك توك -->
-                        <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" aria-label="تيك توك">
-                            <svg viewBox="0 0 24 24" class="tt-icon"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.76-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                        </a>
-                    </div>
+                <!-- A2 -->
+                <div class="level-card">
+                    <div class="level-name">A2</div>
+                    <div class="level-desc">Elementary - مبتدئ متقدم</div>
+                    <div class="level-price free">مجاني ✅</div>
+                    <a href="#levels" class="btn btn-primary">ابدأ</a>
                 </div>
-
-                <!-- العمود 3: روابط سريعة -->
-                <div class="footer-col">
-                    <h4>روابط سريعة</h4>
-                    <a href="#levels">المستوى A1</a>
-                    <a href="#books">المكتبة</a>
-                    <a href="#paths">خطط التعلم</a>
+                <!-- B1 -->
+                <div class="level-card">
+                    <div class="level-name">B1</div>
+                    <div class="level-desc">Intermediate - متوسط</div>
+                    <div class="level-price paid">مدفوع 🔒</div>
+                    <button class="btn btn-secondary" disabled>قريباً ⏳</button>
+                </div>
+                <!-- B2 -->
+                <div class="level-card">
+                    <div class="level-name">B2</div>
+                    <div class="level-desc">Upper-Intermediate - متوسط متقدم</div>
+                    <div class="level-price paid">مدفوع 🔒</div>
+                    <button class="btn btn-secondary" disabled>قريباً ⏳</button>
+                </div>
+                <!-- C1 -->
+                <div class="level-card">
+                    <div class="level-name">C1</div>
+                    <div class="level-desc">Advanced - متقدم</div>
+                    <div class="level-price paid">مدفوع 🔒</div>
+                    <button class="btn btn-secondary" disabled>قريباً ⏳</button>
+                </div>
+                <!-- C2 -->
+                <div class="level-card">
+                    <div class="level-name">C2</div>
+                    <div class="level-desc">Proficiency - إتقان</div>
+                    <div class="level-price paid">مدفوع 🔒</div>
+                    <button class="btn btn-secondary" disabled>قريباً ⏳</button>
                 </div>
             </div>
-            <div class="footer-copy">© 2026 Babble Box. جميع الحقوق محفوظة.</div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    القسم الثالث: لماذا تتعلم معنا؟ (Why Us)
+    ============================================================ -->
+    <section id="why">
+        <div class="container">
+            <h2 class="section-title">💛 لماذا Babble Box؟</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <span class="icon">🌍</span>
+                    <h3>منهج عالمي</h3>
+                    <p>مبني على الإطار الأوروبي المرجعي (CEFR).</p>
+                </div>
+                <div class="why-card">
+                    <span class="icon">💬</span>
+                    <h3>تفاعلي 100%</h3>
+                    <p>استمتع بالتعلم من خلال المحادثات، الصوتيات، التمارين، والتحدث.</p>
+                </div>
+                <div class="why-card">
+                    <span class="icon">🎁</span>
+                    <h3>مجاني للأساسيات</h3>
+                    <p>المستويات A1 و A2 و B1 مجانية بالكامل.</p>
+                </div>
+                <div class="why-card">
+                    <span class="icon">📅</span>
+                    <h3>أسسنا سنة 2026</h3>
+                    <p>بخبرة عميقة في تعليم اللغة الإنجليزية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    القسم الرابع: الكتب (PDF Books)
+    ============================================================ -->
+    <section id="books">
+        <div class="container">
+            <h2 class="section-title">📘 كتبنا المجانية</h2>
+            <div class="books-content">
+                <p>
+                    نحن نؤمن بأن التعليم يجب أن يكون متاحاً للجميع. قريباً، سنصدر سلسلة كتب PDF تفاعلية تغطي كل مستوى.
+                </p>
+                <button class="btn btn-secondary" disabled style="cursor:not-allowed; opacity:0.6;">
+                    تصفح الكتب 📚 <span style="font-size:0.8rem;">(Coming Soon)</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    القسم الخامس: اختبر مستواك (Placement Test)
+    ============================================================ -->
+    <section id="test">
+        <div class="container">
+            <h2 class="section-title">📝 اختبر مستواك الآن</h2>
+            <div class="test-content">
+                <p>
+                    هل تريد معرفة مستواك في اللغة الإنجليزية بدقة؟ اختبارنا المبني على معايير CEFR سيساعدك على تحديد نقطة انطلاقك الصحيحة.
+                </p>
+                <a href="#test" class="btn btn-primary">ابدأ الاختبار المجاني 🎯</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    القسم السادس: تواصل معنا (Contact)
+    ============================================================ -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">📩 تواصل معنا</h2>
+            <form class="contact-form" action="https://formspree.io/f/mgogwoky" method="POST">
+                <label for="name">الاسم</label>
+                <input type="text" id="name" name="name" required placeholder="أدخل اسمك الكامل">
+
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" name="email" required placeholder="بريدك الإلكتروني">
+
+                <label for="message">الرسالة</label>
+                <textarea id="message" name="message" required placeholder="اكتب رسالتك هنا..."></textarea>
+
+                <button type="submit" class="btn btn-primary">إرسال</button>
+            </form>
+            <div class="contact-link">
+                <a href="#contact">للشكاوى والاقتراحات، اضغط هنا</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    تذييل الصفحة (Footer)
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/omar.youssif.english" target="_blank" aria-label="فيسبوك">📘</a>
+                <a href="https://youtube.com/@omar.youssif.english" target="_blank" aria-label="يوتيوب">▶️</a>
+                <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" aria-label="تيك توك">🎵</a>
+            </div>
+            <p>© 2026 Babble Box Academy. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
 
     <!-- ============================================================
-    جافا سكريبت
+    جافاسكريبت (JavaScript)
     ============================================================ -->
     <script>
         (function() {
-            "use strict";
+            'use strict';
 
-            // ----------------------------------------------
-            // 1. البيانات
-            // ----------------------------------------------
+            // ---------- 1. التبديل بين الوضع الداكن والفاتح ----------
+            const themeToggle = document.getElementById('themeToggle');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const htmlElement = document.documentElement;
 
-            // المستويات
-            const levelsData = [
-                { id: 'A1', label: 'A1', title: 'مبتدئ', sub: 'Beginner – ابدأ من الصفر', emoji: '🥚', active: true,
-                    link: 'unit1.html' },
-                { id: 'A2', label: 'A2', title: 'أساسي', sub: 'Elementary – قريباً Soon™️', emoji: '🐣', active: false,
-                    link: '#' },
-                { id: 'B1', label: 'B1', title: 'متوسط', sub: 'Intermediate – قريباً', emoji: '🐥', active: false,
-                    link: '#' },
-                { id: 'B2', label: 'B2', title: 'فوق المتوسط', sub: 'Upper Intermediate – قريباً', emoji: '🦅',
-                    active: false, link: '#' },
-                { id: 'C1', label: 'C1', title: 'متقدم', sub: 'Advanced – قريباً', emoji: '🐉', active: false,
-                    link: '#' },
-                { id: 'C2', label: 'C2', title: 'متقن', sub: 'Proficient – قريباً', emoji: '👑', active: false,
-                    link: '#' }
-            ];
-
-            // الكتب
-            const booksData = [{
-                id: 'book1',
-                title: 'The Ultimate Verb Guide – 50 فعل',
-                desc: 'أشهر 50 فعل مع التصريفات والأمثلة',
-                emoji: '📘',
-                available: true,
-                link: '#'
-            }, {
-                id: 'book2',
-                title: 'كتب جديدة – قريباً',
-                desc: 'المزيد من الكتب قيد الإعداد',
-                emoji: '📚',
-                available: false,
-                link: '#'
-            }];
-
-            // خطط التعلم (جميعها مفتوحة)
-            const plansData = [{
-                id: 'A1',
-                label: 'A1',
-                title: 'أساسياتك الأولى – 12 وحدة – من التحية للماضي البسيط',
-                desc: 'ستتعلم تقديم نفسك، التحدث عن عائلتك، روتينك اليومي، الطعام، الملابس، الطقس، والأماكن.',
-                motivation: '💪 رحلتك لتعلم الإنجليزية تبدأ اليوم. لا تؤجل!'
-            }, {
-                id: 'A2',
-                label: 'A2',
-                title: 'التوسع في الأزمنة – محادثات أطول',
-                desc: 'التوسع في الأزمنة، تكوين جمل أطول، فهم المحادثات البسيطة.',
-                motivation: '🚀 أنت على الطريق الصحيح. لا تتوقف!'
-            }, {
-                id: 'B1',
-                label: 'B1',
-                title: 'الطلاقة المتوسطة – التعبير عن الرأي',
-                desc: 'التعبير عن الرأي، التعامل مع مواقف السفر والعمل، مناقشة المواضيع اليومية.',
-                motivation: '🌟 كل كلمة تتعلمها تقربك من حلمك.'
-            }, {
-                id: 'B2',
-                label: 'B2',
-                title: 'الاحتراف – مناقشة الأفكار المعقدة',
-                desc: 'مناقشة الأفكار المعقدة، كتابة المقالات، فهم الأفلام بدون ترجمة.',
-                motivation: '🔥 الالتزام اليومي هو سر الاحتراف.'
-            }, {
-                id: 'C1',
-                label: 'C1',
-                title: 'الطلاقة المتقدمة – استخدام أكاديمي ومهني',
-                desc: 'استخدام اللغة بشكل أكاديمي ومهني، فهم الفروق الثقافية الدقيقة.',
-                motivation: '🏆 أنت في القمة. استمر في التحدي.'
-            }, {
-                id: 'C2',
-                label: 'C2',
-                title: 'الإتقان – التحدث كمتحدث أصلي',
-                desc: 'التحدث كمتحدث أصلي، الكتابة الإبداعية، الخطابة.',
-                motivation: '👑 لا سقف لطموحك.'
-            }];
-
-            // ----------------------------------------------
-            // 2. عناصر DOM
-            // ----------------------------------------------
-            const levelsGrid = document.getElementById('levelsGrid');
-            const booksGrid = document.getElementById('booksGrid');
-            const tabsContainer = document.getElementById('tabsContainer');
-            const tabTitle = document.getElementById('tabTitle');
-            const tabDesc = document.getElementById('tabDesc');
-            const tabMotivation = document.getElementById('tabMotivation');
-
-            const darkToggle = document.getElementById('darkModeToggle');
-            const sideDarkToggle = document.getElementById('sideDarkToggle');
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const closeMenuBtn = document.getElementById('closeMenuBtn');
-            const sideMenu = document.getElementById('sideMenu');
-            const body = document.body;
-
-            // ----------------------------------------------
-            // 3. دوال التوليد
-            // ----------------------------------------------
-
-            // 3.1 المستويات
-            function renderLevels() {
-                levelsGrid.innerHTML = '';
-                levelsData.forEach(level => {
-                    const card = document.createElement('div');
-                    card.className = 'level-card reveal';
-                    card.dataset.level = level.id;
-                    card.innerHTML = `
-                                <div class="emoji-big">${level.emoji}</div>
-                                <div class="level-title">${level.label} – ${level.title}</div>
-                                <div class="level-sub">${level.sub}</div>
-                                <button class="btn-level" ${!level.active ? 'disabled' : ''} data-level="${level.id}">
-                                    ${level.active ? 'ابدأ' : '🔒 قريباً'}
-                                </button>
-                            `;
-                    levelsGrid.appendChild(card);
-
-                    const btn = card.querySelector('.btn-level');
-                    if (btn && !btn.disabled) {
-                        btn.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            window.location.href = level.link;
-                        });
-                    }
-                });
+            // استرجاع الوضع المخزن
+            let currentTheme = localStorage.getItem('theme') || 'dark';
+            if (currentTheme === 'light') {
+                htmlElement.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '☀️';
+                if (themeToggleMobile) themeToggleMobile.textContent = '☀️';
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '🌙';
+                if (themeToggleMobile) themeToggleMobile.textContent = '🌙';
             }
 
-            // 3.2 الكتب
-            function renderBooks() {
-                booksGrid.innerHTML = '';
-                booksData.forEach(book => {
-                    const card = document.createElement('div');
-                    card.className = 'book-card reveal';
-                    card.innerHTML = `
-                                <div class="book-emoji">${book.emoji}</div>
-                                <div class="book-title">${book.title}</div>
-                                <div class="book-desc">${book.desc}</div>
-                                <button class="btn-download" ${!book.available ? 'disabled' : ''} data-link="${book.link}">
-                                    ${book.available ? '📥 تحميل مجاني' : '⏳ قريباً'}
-                                </button>
-                            `;
-                    booksGrid.appendChild(card);
-
-                    const btn = card.querySelector('.btn-download');
-                    if (btn && !btn.disabled) {
-                        btn.addEventListener('click', function() {
-                            const link = this.dataset.link;
-                            if (link && link !== '#') window.open(link, '_blank');
-                            else alert('رابط التحميل سيتم إضافته قريباً.');
-                        });
-                    }
-                });
-            }
-
-            // 3.3 خطط التعلم (Tabs)
-            function renderTabs() {
-                tabsContainer.innerHTML = '';
-                plansData.forEach((plan, index) => {
-                    const btn = document.createElement('button');
-                    btn.className = `tab-btn reveal ${index === 0 ? 'active-tab' : ''}`;
-                    btn.textContent = plan.label;
-                    btn.dataset.index = index;
-                    btn.addEventListener('click', function() {
-                        const idx = parseInt(this.dataset.index);
-                        const selected = plansData[idx];
-                        tabTitle.textContent = selected.title;
-                        tabDesc.textContent = selected.desc;
-                        tabMotivation.textContent = selected.motivation;
-                        // تحديث النشاط
-                        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
-                        this.classList.add('active-tab');
-                        localStorage.setItem('selectedTab', idx);
-                    });
-                    tabsContainer.appendChild(btn);
-                });
-
-                // استعادة التاب المختار
-                const savedTab = localStorage.getItem('selectedTab');
-                if (savedTab !== null && plansData[parseInt(savedTab)]) {
-                    const btns = tabsContainer.querySelectorAll('.tab-btn');
-                    if (btns[parseInt(savedTab)]) btns[parseInt(savedTab)].click();
+            function toggleTheme() {
+                if (htmlElement.getAttribute('data-theme') === 'dark') {
+                    htmlElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.textContent = '☀️';
+                    if (themeToggleMobile) themeToggleMobile.textContent = '☀️';
                 } else {
-                    // افتراضي أول تاب
-                    const first = tabsContainer.querySelector('.tab-btn');
-                    if (first) first.click();
+                    htmlElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.textContent = '🌙';
+                    if (themeToggleMobile) themeToggleMobile.textContent = '🌙';
                 }
             }
 
-            // ----------------------------------------------
-            // 4. دارك / لايت مود
-            // ----------------------------------------------
-            function toggleDarkMode() {
-                body.classList.toggle('light-mode');
-                const isLight = body.classList.contains('light-mode');
-                localStorage.setItem('darkMode', isLight ? 'light' : 'dark');
-                darkToggle.textContent = isLight ? '☀️' : '🌓';
-                sideDarkToggle.textContent = isLight ? '☀️ الوضع الفاتح' : '🌓 الوضع الداكن';
+            themeToggle.addEventListener('click', toggleTheme);
+            if (themeToggleMobile) {
+                themeToggleMobile.addEventListener('click', toggleTheme);
             }
 
-            function loadDarkMode() {
-                const mode = localStorage.getItem('darkMode');
-                if (mode === 'light') {
-                    body.classList.add('light-mode');
-                    darkToggle.textContent = '☀️';
-                    sideDarkToggle.textContent = '☀️ الوضع الفاتح';
+            // ---------- 2. تثبيت الهيدر عند التمرير ----------
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 60) {
+                    header.classList.add('scrolled');
                 } else {
-                    body.classList.remove('light-mode');
-                    darkToggle.textContent = '🌓';
-                    sideDarkToggle.textContent = '🌓 الوضع الداكن';
+                    header.classList.remove('scrolled');
                 }
-            }
-
-            // ----------------------------------------------
-            // 5. القائمة الجانبية
-            // ----------------------------------------------
-            function openSideMenu() { sideMenu.classList.add('open'); }
-
-            function closeSideMenu() { sideMenu.classList.remove('open'); }
-
-            // ----------------------------------------------
-            // 6. Scroll Reveal
-            // ----------------------------------------------
-            function handleScrollReveal() {
-                const reveals = document.querySelectorAll('.reveal');
-                const windowHeight = window.innerHeight;
-                reveals.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top < windowHeight - 80) {
-                        el.classList.add('visible');
-                    }
-                });
-            }
-
-            // ----------------------------------------------
-            // 7. تخزين maxUnitUnlocked (مثال)
-            // ----------------------------------------------
-            function initStorage() {
-                if (!localStorage.getItem('maxUnitUnlocked')) {
-                    localStorage.setItem('maxUnitUnlocked', '1');
-                }
-            }
-
-            // ----------------------------------------------
-            // 8. التهيئة
-            // ----------------------------------------------
-            document.addEventListener('DOMContentLoaded', function() {
-                renderLevels();
-                renderBooks();
-                renderTabs();
-                loadDarkMode();
-                initStorage();
-
-                // عرض العناصر التي في viewport
-                setTimeout(handleScrollReveal, 200);
-
-                // أحداث الأزرار
-                darkToggle.addEventListener('click', toggleDarkMode);
-                sideDarkToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    toggleDarkMode();
-                    closeSideMenu();
-                });
-                hamburgerBtn.addEventListener('click', openSideMenu);
-                closeMenuBtn.addEventListener('click', closeSideMenu);
-
-                // غلق القائمة عند الضغط على رابط
-                sideMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', closeSideMenu);
-                });
-
-                // سكرول ريفيل
-                window.addEventListener('scroll', handleScrollReveal);
-                window.addEventListener('resize', handleScrollReveal);
             });
 
+            // ---------- 3. قائمة الجوال (Menu Toggle) ----------
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('open');
+                // تغيير شكل الزر
+                if (navLinks.classList.contains('open')) {
+                    menuToggle.textContent = '✕';
+                } else {
+                    menuToggle.textContent = '☰';
+                }
+            });
+
+            // إغلاق القائمة عند الضغط على أي رابط (لتحسين التجربة)
+            const navAnchors = navLinks.querySelectorAll('a');
+            navAnchors.forEach(function(anchor) {
+                anchor.addEventListener('click', function() {
+                    navLinks.classList.remove('open');
+                    menuToggle.textContent = '☰';
+                });
+            });
+
+            // إغلاق القائمة عند النقر خارجها (اختياري)
+            document.addEventListener('click', function(e) {
+                if (!header.contains(e.target) && navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    menuToggle.textContent = '☰';
+                }
+            });
+
+            // ---------- 4. منع القائمة المنسدلة من الإغلاق عند الضغط على الروابط الداخلية ----------
+            // (تم بالفعل عن طريق عدم إعادة تحميل الصفحة، لكننا نضيف سلوكاً جيداً)
+            // لا حاجة لإضافة شيء إضافي.
+
+            // ---------- 5. معالجة نموذج الاتصال (توجيه إلى Formspree) ----------
+            // النموذج يستخدم action و method بشكل طبيعي، لا حاجة لتدخل إضافي.
+
+            console.log('Babble Box Academy - Landing Page ready.');
         })();
     </script>
-
 </body>
     </html>
