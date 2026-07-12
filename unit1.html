@@ -693,174 +693,100 @@
             text-align: center;
         }
 
-        /* ===== 14. Challenge Arena ===== */
-        .challenge-progress {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .challenge-progress .bar {
-            flex: 1;
-            height: 6px;
-            background: var(--border-glass);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .challenge-progress .bar .fill {
-            height: 100%;
-            background: var(--gold);
-            border-radius: 6px;
-            transition: width 0.4s ease;
-        }
-        .question-box {
-            padding: 24px;
-            border-radius: 20px;
-            background: var(--glass-bg);
-            border: 1px solid var(--border-glass);
-            margin-bottom: 20px;
-        }
-        .question-box .q-text {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            direction: ltr;
-            text-align: left;
-        }
-        .question-box .options {
+        /* ===== 14. Challenge Arena (إعادة بناء) ===== */
+        .challenge-grid {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 20px;
         }
-        .question-box .options button {
-            padding: 12px 18px;
-            border-radius: 12px;
+        .challenge-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 16px 20px;
+            transition: all var(--transition);
+        }
+        .challenge-item:hover {
+            border-color: rgba(255, 215, 0, 0.15);
+        }
+        .challenge-item .q-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .challenge-item .q-text {
+            font-size: 18px;
+            font-weight: 600;
+            direction: ltr;
+            text-align: left;
+            flex: 1;
+            min-width: 150px;
+        }
+        .challenge-item .options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .challenge-item .options button {
+            padding: 6px 18px;
+            border-radius: 30px;
             border: 1px solid var(--border-glass);
             background: var(--bg-card);
             color: var(--text-primary);
             font-family: inherit;
             font-size: 16px;
-            text-align: right;
+            font-weight: 600;
             cursor: pointer;
             transition: all var(--transition);
         }
-        .question-box .options button:hover {
+        .challenge-item .options button:hover:not(:disabled) {
             border-color: var(--gold);
             background: var(--gold-dim);
         }
-        .question-box .options button.correct {
+        .challenge-item .options button.correct {
             border-color: #22c55e;
             background: rgba(34, 197, 94, 0.2);
             color: #22c55e;
         }
-        .question-box .options button.wrong {
+        .challenge-item .options button.wrong {
             border-color: #ef4444;
             background: rgba(239, 68, 68, 0.2);
             color: #ef4444;
         }
-        .question-box .drag-drop {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 12px 0;
+        .challenge-item .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
         }
-        .question-box .drag-drop .word {
-            padding: 10px 18px;
-            border-radius: 10px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
+        .challenge-item .reset-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
             font-size: 18px;
-            font-weight: 600;
-            cursor: grab;
-            direction: ltr;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 30px;
             transition: all var(--transition);
         }
-        .question-box .drag-drop .word.dragging {
-            opacity: 0.5;
-        }
-        .question-box .drop-zone {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            padding: 12px;
-            min-height: 56px;
-            border: 2px dashed var(--border-glass);
-            border-radius: 12px;
-            margin: 8px 0;
-            justify-content: center;
-            align-items: center;
-            background: var(--bg-card);
-        }
-        .question-box .drop-zone .word {
-            background: var(--gold-dim);
-            border-color: var(--gold);
-            cursor: default;
-        }
-        .question-box .audio-challenge {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 12px 0;
-        }
-        .question-box .audio-challenge button {
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: none;
-            background: var(--gold-dim);
+        .challenge-item .reset-btn:hover {
             color: var(--gold);
-            font-size: 24px;
-            cursor: pointer;
+            background: var(--gold-dim);
         }
-        .celebrate {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            animation: fadeIn 0.5s ease;
-            padding: 20px;
+        .challenge-item .status {
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 60px;
             text-align: center;
         }
-        .celebrate.show {
-            display: flex;
+        .challenge-item .status.correct {
+            color: #22c55e;
         }
-        .celebrate h2 {
-            font-size: 48px;
-            color: var(--gold);
-            margin-bottom: 8px;
+        .challenge-item .status.wrong {
+            color: #ef4444;
         }
-        .celebrate p {
-            font-size: 24px;
-            color: var(--text-primary);
-        }
-        .celebrate .stars {
-            font-size: 40px;
-            animation: spin 2s linear infinite;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+        .challenge-item .status.pending {
+            color: var(--text-muted);
         }
 
         /* ===== 15. Speak Up ===== */
@@ -902,33 +828,41 @@
             color: #ef4444;
         }
 
-        /* ===== 16. Power Recap ===== */
+        /* ===== 16. Power Recap (مع عنوان فرعي) ===== */
+        .recap-title {
+            font-size: 24px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--gold);
+        }
         .recap-map {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
             justify-content: center;
-            padding: 16px;
+            padding: 20px;
             background: var(--glass-bg);
             border-radius: 20px;
             border: 1px solid var(--border-glass);
         }
         .recap-node {
             background: var(--bg-card);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 40px;
             border: 1px solid var(--border-glass);
-            font-weight: 600;
+            font-weight: 700;
             transition: all var(--transition);
             cursor: default;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            font-size: 17px;
         }
         .recap-node .example {
             font-weight: 400;
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 15px;
             direction: ltr;
         }
         .recap-node:hover {
@@ -1003,7 +937,31 @@
             margin-top: 12px;
         }
 
-        /* ===== 18. Footer ===== */
+        /* ===== 18. زر الوحدة التالية ===== */
+        .next-unit-btn {
+            display: none;
+            margin: 20px auto 0;
+            padding: 16px 48px;
+            font-size: 22px;
+            font-weight: 800;
+            border-radius: 60px;
+            background: var(--gold);
+            color: var(--bg-primary);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 30px rgba(255, 215, 0, 0.4);
+            transition: all var(--transition);
+            text-align: center;
+        }
+        .next-unit-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(255, 215, 0, 0.6);
+        }
+        .next-unit-btn.show {
+            display: block;
+        }
+
+        /* ===== 19. Footer ===== */
         .footer {
             border-top: 1px solid var(--footer-border);
             padding: 30px 0 24px;
@@ -1040,16 +998,8 @@
         .footer .social-row a:hover svg {
             fill: var(--gold);
         }
-        .footer .formspree {
-            margin-top: 12px;
-            font-size: 14px;
-        }
-        .footer .formspree a {
-            color: var(--gold);
-            font-weight: 600;
-        }
 
-        /* ===== 19. استجابة ===== */
+        /* ===== 20. استجابة ===== */
         @media (max-width: 992px) {
             .sidebar {
                 width: 180px;
@@ -1127,6 +1077,13 @@
                 flex-direction: column;
                 align-items: center;
             }
+            .challenge-item .q-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .challenge-item .options {
+                justify-content: center;
+            }
         }
         @media (max-width: 480px) {
             .grammar-grid {
@@ -1135,16 +1092,16 @@
             .flip-grid {
                 grid-template-columns: 1fr 1fr;
             }
-            .hero-buttons .btn {
-                width: 100%;
-                justify-content: center;
-            }
             .progress-bar .progress-track {
                 max-width: 80px;
             }
+            .challenge-item .options button {
+                padding: 4px 12px;
+                font-size: 14px;
+            }
         }
 
-        /* ===== 20. تأثيرات إضافية ===== */
+        /* ===== 21. تأثيرات إضافية ===== */
         .fade-up {
             opacity: 0;
             transform: translateY(20px);
@@ -1268,15 +1225,15 @@
                         <button data-tab="tab3">He is my friend.</button>
                     </div>
                     <div id="tab1" class="tab-content active">
-                        <div class="example">I am John.</div>
+                        <div class="example" dir="ltr">I am John.</div>
                         <div class="explanation">لما أتكلم عن نفسي</div>
                     </div>
                     <div id="tab2" class="tab-content">
-                        <div class="example">You are new.</div>
+                        <div class="example" dir="ltr">You are new.</div>
                         <div class="explanation">لما أكلم اللي قدامي</div>
                     </div>
                     <div id="tab3" class="tab-content">
-                        <div class="example">He is my friend.</div>
+                        <div class="example" dir="ltr">He is my friend.</div>
                         <div class="explanation">لما أتكلم عن شخص تالت</div>
                     </div>
                 </div>
@@ -1290,19 +1247,19 @@
                 <div class="grammar-grid">
                     <div class="grammar-card green">
                         <div class="title">➕ Positive</div>
-                        <div class="examples">I am<br />He/She/It is<br />You/We/They are</div>
+                        <div class="examples" dir="ltr">I am<br />He/She/It is<br />You/We/They are</div>
                     </div>
                     <div class="grammar-card red">
                         <div class="title">➖ Negative</div>
-                        <div class="examples">I'm not<br />isn't<br />aren't</div>
+                        <div class="examples" dir="ltr">I'm not<br />isn't<br />aren't</div>
                     </div>
                     <div class="grammar-card blue">
                         <div class="title">❓ Question</div>
-                        <div class="examples">Am I?<br />Is...?<br />Are...?</div>
+                        <div class="examples" dir="ltr">Am I?<br />Is...?<br />Are...?</div>
                     </div>
                     <div class="grammar-card yellow">
                         <div class="title">✅ Short Answers</div>
-                        <div class="examples">Yes, I am.<br />No, I'm not.</div>
+                        <div class="examples" dir="ltr">Yes, I am.<br />No, I'm not.</div>
                     </div>
                 </div>
             </section>
@@ -1324,11 +1281,11 @@
                 <h2>🚨 Babble Warning</h2>
                 <div class="warning-grid">
                     <div class="warning-card green">
-                        <div class="sentence">I'm fine, thanks.</div>
+                        <div class="sentence" dir="ltr">I'm fine, thanks.</div>
                         <div class="meaning">أنا بخير، شكراً.</div>
                     </div>
                     <div class="warning-card red">
-                        <div class="sentence">I got a parking fine.</div>
+                        <div class="sentence" dir="ltr">I got a parking fine.</div>
                         <div class="meaning">أخذت غرامة وقوف سيارات.</div>
                     </div>
                 </div>
@@ -1338,17 +1295,19 @@
             </section>
 
             <!-- ============================================================
-            القسم 6: ⚔️ Challenge Arena
+            القسم 6: ⚔️ Challenge Arena (إعادة بناء)
             ============================================================ -->
             <section class="unit-section fade-up" id="section6">
                 <h2>⚔️ Challenge Arena</h2>
                 <div class="challenge-progress">
-                    <span>السؤال <span id="qNum">1</span> من 5</span>
+                    <span>التقدم: <span id="challengeScore">0</span> / 5</span>
                     <div class="bar"><div class="fill" id="challengeFill" style="width:0%"></div></div>
                 </div>
-                <div id="questionContainer">
+                <div id="challengeContainer" class="challenge-grid">
                     <!-- سيتم توليد الأسئلة بواسطة JS -->
                 </div>
+                <!-- زر الوحدة التالية (مخفي حتى 5/5) -->
+                <a href="unit2.html" class="next-unit-btn" id="nextUnitBtn">الوحدة التالية ←</a>
             </section>
 
             <!-- ============================================================
@@ -1357,8 +1316,8 @@
             <section class="unit-section fade-up" id="section7">
                 <h2>🎤 Speak Up!</h2>
                 <div class="speak-box">
-                    <div class="prompt">🗣️ اقرأ الجملة التالية بصوت عالٍ:<br />
-                        <span style="font-weight:400; font-size:18px; direction:ltr;">Hello! My name is... I am from...</span>
+                    <div class="prompt" dir="ltr">🗣️ حاول أن تقول:<br />
+                        <span style="font-weight:400; font-size:20px; direction:ltr;">Hello! My name is... I am from...</span>
                     </div>
                     <button class="record-btn" id="recordBtn" aria-label="ابدأ التسجيل">🎤</button>
                     <div class="result" id="speechResult">اضغط الزر وابدأ التحدث</div>
@@ -1366,17 +1325,18 @@
             </section>
 
             <!-- ============================================================
-            القسم 8: ⚡ Power Recap
+            القسم 8: ⚡ Power Recap (مع عنوان فرعي)
             ============================================================ -->
             <section class="unit-section fade-up" id="section8">
                 <h2>⚡ Power Recap</h2>
+                <div class="recap-title">📝 ملخص قوانين الوحدة</div>
                 <div class="recap-map">
                     <div class="recap-node">Verb to be <span class="example">(be)</span></div>
-                    <div class="recap-node">I am <span class="example">I am a student.</span></div>
-                    <div class="recap-node">He is <span class="example">He is my brother.</span></div>
-                    <div class="recap-node">They are <span class="example">They are happy.</span></div>
-                    <div class="recap-node">I'm not <span class="example">I'm not tired.</span></div>
-                    <div class="recap-node">Are you? <span class="example">Are you ready?</span></div>
+                    <div class="recap-node">I am <span class="example" dir="ltr">I am a student.</span></div>
+                    <div class="recap-node">He is <span class="example" dir="ltr">He is my brother.</span></div>
+                    <div class="recap-node">They are <span class="example" dir="ltr">They are happy.</span></div>
+                    <div class="recap-node">I'm not <span class="example" dir="ltr">I'm not tired.</span></div>
+                    <div class="recap-node">Are you? <span class="example" dir="ltr">Are you ready?</span></div>
                 </div>
             </section>
 
@@ -1408,7 +1368,7 @@
                 </div>
             </section>
 
-            <!-- ===== التذييل ===== -->
+            <!-- ===== التذييل (بدون رابط Formspree) ===== -->
             <footer class="footer">
                 <p>© 2026 Babble Box Academy. الوحدة 1 - المستوى A1</p>
                 <div class="social-row">
@@ -1422,15 +1382,12 @@
                         <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.76-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.3-.69.32-1.06.11-1.64.04-3.28.06-4.93.02-1.37.02-2.74.02-4.11z"/></svg>
                     </a>
                 </div>
-                <div class="formspree">
-                    <a href="https://formspree.io/f/mgogwoky" target="_blank">📩 أرسل ملاحظاتك</a>
-                </div>
             </footer>
 
         </main>
     </div>
 
-    <!-- ===== نافذة الاحتفال ===== -->
+    <!-- ===== نافذة الاحتفال (تم حذفها لأنه تم استبدالها بشريط التقدم) ولكن نحتفظ بها للتوافق ===== -->
     <div class="celebrate" id="celebrateModal">
         <div class="stars">🎉✨🌟</div>
         <h2>🎉 +50 XP! أنت عبقري!</h2>
@@ -1483,25 +1440,22 @@
             renderSidebar();
 
             // ============================================================
-            // 3. شريط التقدم اليومي (0/5) - لا يتجاوز 5
+            // 3. شريط التقدم اليومي (0/5) - إصلاح ليمتلئ إلى 100%
             // ============================================================
             let completedCount = parseInt(localStorage.getItem('dailyProgress')) || 0;
-            // تأكد من أن القيمة لا تتجاوز 5
             if (completedCount > 5) completedCount = 5;
             const progressFill = document.getElementById('progressFill');
             const progressLabel = document.getElementById('progressLabel');
 
             function updateProgress() {
-                // نضمن عدم التجاوز
                 if (completedCount > 5) completedCount = 5;
-                const pct = Math.min((completedCount / 5) * 100, 100);
+                const pct = (completedCount / 5) * 100;
                 progressFill.style.width = pct + '%';
                 progressLabel.textContent = `${completedCount}/5 تمارين مكتملة اليوم`;
                 localStorage.setItem('dailyProgress', completedCount);
             }
             updateProgress();
 
-            // دالة آمنة لزيادة التقدم
             function incrementProgress() {
                 if (completedCount < 5) {
                     completedCount++;
@@ -1512,7 +1466,7 @@
             }
 
             // ============================================================
-            // 4. المحادثة (The Real Talk)
+            // 4. المحادثة (The Real Talk) - مع dir="ltr" للنصوص الإنجليزية
             // ============================================================
             const chatData = [
                 { speaker: 'John', text: "Hey! How's it going?", translation: "إيه أخبارك؟ إزاي الأمور؟", gender: 'male' },
@@ -1538,7 +1492,7 @@
                 bubble.className = `chat-bubble ${idx % 2 === 0 ? 'left' : 'right'}`;
                 bubble.innerHTML = `
                     <div class="speaker">${msg.speaker}</div>
-                    <div class="text">${msg.text}</div>
+                    <div class="text" dir="ltr">${msg.text}</div>
                     <div class="actions">
                         <button class="play-voice" data-index="${idx}">🔊 تشغيل الصوت</button>
                         <button class="toggle-translation" data-index="${idx}">🇪🇬 Show Translation</button>
@@ -1548,7 +1502,6 @@
                 chatContainer.appendChild(bubble);
             });
 
-            // تشغيل الصوت باستخدام SpeechSynthesis
             function speakText(text, gender) {
                 if (!window.speechSynthesis) return;
                 const utterance = new SpeechSynthesisUtterance(text);
@@ -1619,13 +1572,13 @@
                 card.className = 'flip-card';
                 card.innerHTML = `
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" dir="ltr">
                             ${item.word}
                             <span class="audio-icon" data-vocab="${i}">🔊</span>
                         </div>
                         <div class="flip-card-back">
                             <div class="meaning">${item.meaning}</div>
-                            <div class="example">${item.example}</div>
+                            <div class="example" dir="ltr">${item.example}</div>
                         </div>
                     </div>
                 `;
@@ -1642,248 +1595,135 @@
             });
 
             // ============================================================
-            // 7. Challenge Arena (أسئلة)
+            // 7. Challenge Arena (إعادة بناء - 5 أسئلة اختيار من متعدد)
             // ============================================================
-            const questions = [{
-                type: 'choice',
-                question: 'I ___ a student.',
-                options: ['am', 'is', 'are'],
-                correct: 0
-            }, {
-                type: 'choice',
-                question: 'They ___ from Egypt.',
-                options: ['am', 'is', 'are'],
-                correct: 2
-            }, {
-                type: 'drag',
-                question: 'رتب الكلمات لتكوين جملة:',
-                words: ['You', 'are', 'welcome'],
-                correct: ['You', 'are', 'welcome']
-            }, {
-                type: 'listening',
-                question: 'استمع للجملة واختر الترجمة الصحيحة:',
-                audio: 'Are you ready?',
-                options: ['هل أنت مستعد؟', 'أنت جاهز؟', 'هل هم مستعدون؟'],
-                correct: 0
-            }, {
-                type: 'choice',
-                question: 'ما هو نفي "I am"؟',
-                options: ['I am not', "I isn't", 'I are not'],
-                correct: 0
-            }];
+            const challengeQuestions = [
+                { id: 0, text: 'I ___ a student.', options: ['am', 'is', 'are'], correct: 0 },
+                { id: 1, text: 'They ___ from Egypt.', options: ['am', 'is', 'are'], correct: 2 },
+                { id: 2, text: 'She ___ my friend.', options: ['am', 'is', 'are'], correct: 1 },
+                { id: 3, text: 'We ___ happy.', options: ['am', 'is', 'are'], correct: 2 },
+                { id: 4, text: 'He ___ a teacher.', options: ['am', 'is', 'are'], correct: 1 }
+            ];
 
-            let currentQuestion = 0;
-            let score = 0;
-            let qAnswered = false;
-            const qContainer = document.getElementById('questionContainer');
-            const qNumSpan = document.getElementById('qNum');
+            const challengeContainer = document.getElementById('challengeContainer');
+            const challengeScore = document.getElementById('challengeScore');
             const challengeFill = document.getElementById('challengeFill');
+            const nextUnitBtn = document.getElementById('nextUnitBtn');
 
-            function renderQuestion(index) {
-                qAnswered = false;
-                const q = questions[index];
-                qNumSpan.textContent = index + 1;
-                challengeFill.style.width = ((index) / questions.length * 100) + '%';
+            // حالة الإجابات: null = لم يجب، true = صحيح، false = خاطئ
+            let answers = new Array(challengeQuestions.length).fill(null);
+            let score = 0;
 
-                let html = `<div class="question-box"><div class="q-text">${q.question}</div>`;
+            function renderChallenge() {
+                let html = '';
+                challengeQuestions.forEach((q, idx) => {
+                    const status = answers[idx];
+                    let statusText = '⏳ لم يجب';
+                    let statusClass = 'pending';
+                    if (status === true) { statusText = '✅ صحيح';
+                        statusClass = 'correct'; }
+                    if (status === false) { statusText = '❌ خاطئ';
+                        statusClass = 'wrong'; }
 
-                if (q.type === 'choice') {
-                    html += `<div class="options">`;
-                    q.options.forEach((opt, i) => {
-                        html += `<button class="choice-btn" data-opt="${i}">${opt}</button>`;
-                    });
-                    html += `</div>`;
-                } else if (q.type === 'drag') {
-                    const shuffled = [...q.words].sort(() => Math.random() - 0.5);
-                    html += `<div class="drag-drop" id="dragContainer">`;
-                    shuffled.forEach(w => {
-                        html += `<span class="word" draggable="true">${w}</span>`;
-                    });
-                    html += `</div>`;
-                    html += `<div class="drop-zone" id="dropZone">👆 ضع الكلمات هنا بالترتيب</div>`;
-                    html +=
-                        `<button class="btn btn-secondary btn-sm" id="checkDrag">تحقق من الترتيب</button>`;
-                } else if (q.type === 'listening') {
                     html += `
-                        <div class="audio-challenge">
-                            <button id="listenAudio">🔊 استمع</button>
-                            <span style="font-size:14px; color:var(--text-secondary);">(الجملة باللغة الإنجليزية)</span>
+                        <div class="challenge-item" data-qid="${idx}">
+                            <div class="q-row">
+                                <div class="q-text" dir="ltr">${q.text}</div>
+                                <div class="options">
+                                    ${q.options.map((opt, oi) => `
+                                        <button class="opt-btn" data-opt="${oi}" ${status !== null ? 'disabled' : ''}>${opt}</button>
+                                    `).join('')}
+                                </div>
+                                <button class="reset-btn" title="إعادة المحاولة" data-reset="${idx}">🔄</button>
+                                <span class="status ${statusClass}">${statusText}</span>
+                            </div>
                         </div>
-                        <div class="options">`;
-                    q.options.forEach((opt, i) => {
-                        html += `<button class="choice-btn" data-opt="${i}">${opt}</button>`;
-                    });
-                    html += `</div>`;
-                }
+                    `;
+                });
+                challengeContainer.innerHTML = html;
 
-                html += `</div>`;
-                qContainer.innerHTML = html;
+                // ربط الأحداث للأزرار
+                document.querySelectorAll('.opt-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const item = this.closest('.challenge-item');
+                        const qid = parseInt(item.dataset.qid);
+                        const opt = parseInt(this.dataset.opt);
+                        if (answers[qid] !== null) return; // تم الإجابة مسبقاً
 
-                if (q.type === 'choice' || q.type === 'listening') {
-                    const btns = qContainer.querySelectorAll('.choice-btn');
-                    btns.forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            if (qAnswered) return;
-                            const selected = parseInt(this.dataset.opt);
-                            const isCorrect = selected === q.correct;
-                            handleAnswer(this, isCorrect, q.correct);
-                        });
-                    });
-                }
+                        const correct = challengeQuestions[qid].correct;
+                        const isCorrect = (opt === correct);
 
-                if (q.type === 'listening') {
-                    const listenBtn = document.getElementById('listenAudio');
-                    listenBtn.addEventListener('click', function() {
-                        speakText(q.audio, 'female');
-                    });
-                }
-
-                if (q.type === 'drag') {
-                    const words = qContainer.querySelectorAll('.word');
-                    const dropZone = document.getElementById('dropZone');
-                    let draggedWord = null;
-
-                    words.forEach(w => {
-                        w.addEventListener('dragstart', function(e) {
-                            draggedWord = this;
-                            this.classList.add('dragging');
-                            e.dataTransfer.effectAllowed = 'move';
-                        });
-                        w.addEventListener('dragend', function() {
-                            this.classList.remove('dragging');
-                        });
-                    });
-
-                    dropZone.addEventListener('dragover', function(e) {
-                        e.preventDefault();
-                        e.dataTransfer.dropEffect = 'move';
-                    });
-
-                    dropZone.addEventListener('drop', function(e) {
-                        e.preventDefault();
-                        if (draggedWord) {
-                            const clone = draggedWord.cloneNode(true);
-                            clone.draggable = false;
-                            clone.style.cursor = 'default';
-                            clone.classList.remove('dragging');
-                            dropZone.appendChild(clone);
-                            draggedWord.remove();
-                            draggedWord = null;
-                        }
-                    });
-
-                    const checkBtn = document.getElementById('checkDrag');
-                    checkBtn.addEventListener('click', function() {
-                        if (qAnswered) return;
-                        const dropped = dropZone.querySelectorAll('.word');
-                        const userOrder = Array.from(dropped).map(el => el.textContent);
-                        const isCorrect = JSON.stringify(userOrder) === JSON.stringify(q.correct);
+                        // تسجيل الإجابة
+                        answers[qid] = isCorrect;
                         if (isCorrect) {
-                            qAnswered = true;
                             score++;
-                            // زيادة التقدم فقط إذا لم يصل للحد الأقصى
                             incrementProgress();
                             speakText('Excellent!', 'male');
-                            const btns = qContainer.querySelectorAll('.word');
-                            btns.forEach(b => b.style.borderColor = '#22c55e');
-                            setTimeout(() => goToNext(), 600);
                         } else {
                             speakText('Try again.', 'male');
-                            dropZone.style.borderColor = '#ef4444';
-                            setTimeout(() => dropZone.style.borderColor = '', 600);
+                        }
+
+                        // تحديث واجهة المستخدم
+                        renderChallenge();
+                        updateChallengeScore();
+
+                        // إذا كان الكل صحيح، أظهر زر الوحدة التالية
+                        if (score === challengeQuestions.length) {
+                            nextUnitBtn.classList.add('show');
+                            // فتح الوحدة 2
+                            const currentMax = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
+                            if (currentMax < 2) {
+                                localStorage.setItem('maxUnitUnlocked', '2');
+                                renderSidebar();
+                            }
                         }
                     });
-                }
-            }
-
-            function handleAnswer(btn, isCorrect, correctIdx) {
-                if (qAnswered) return;
-                qAnswered = true;
-                const parent = btn.closest('.question-box');
-                const allBtns = parent.querySelectorAll('.choice-btn');
-                allBtns.forEach(b => {
-                    b.disabled = true;
-                    if (parseInt(b.dataset.opt) === correctIdx) {
-                        b.classList.add('correct');
-                    }
                 });
-                if (isCorrect) {
-                    btn.classList.add('correct');
-                    score++;
-                    // زيادة التقدم فقط إذا لم يصل للحد الأقصى
-                    incrementProgress();
-                    speakText('Excellent!', 'male');
-                } else {
-                    btn.classList.add('wrong');
-                    btn.classList.add('shake');
-                    setTimeout(() => btn.classList.remove('shake'), 400);
-                    speakText('Try again.', 'male');
-                }
-                setTimeout(() => goToNext(), 800);
-            }
 
-            function goToNext() {
-                currentQuestion++;
-                if (currentQuestion < questions.length) {
-                    renderQuestion(currentQuestion);
-                } else {
-                    if (score === questions.length) {
-                        document.getElementById('celebrateModal').classList.add('show');
-                        launchConfetti();
-                        const currentMax = parseInt(localStorage.getItem('maxUnitUnlocked')) || 1;
-                        if (currentMax < 2) {
-                            localStorage.setItem('maxUnitUnlocked', '2');
-                            renderSidebar();
+                // ربط أزرار إعادة المحاولة
+                document.querySelectorAll('.reset-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const qid = parseInt(this.dataset.reset);
+                        // إذا كانت الإجابة خاطئة فقط، نسمح بإعادة المحاولة
+                        if (answers[qid] === false) {
+                            // نخصم النقطة إذا كانت خاطئة
+                            if (answers[qid] === false) score--;
+                            answers[qid] = null;
+                            // نخصم من التقدم اليومي (إذا كان قد أضيف)
+                            // ولكننا لا نخصم من التقدم اليومي لأنه لا يمكن التراجع بسهولة، ولكننا نعيد حساب score
+                            renderChallenge();
+                            updateChallengeScore();
+                            // إخفاء زر الوحدة التالية إذا لم يعد الكل صحيح
+                            if (score < challengeQuestions.length) {
+                                nextUnitBtn.classList.remove('show');
+                            }
+                        } else {
+                            // تنبيه بسيط
+                            alert('يمكنك إعادة المحاولة فقط للأسئلة التي أجبت عليها بشكل خاطئ.');
                         }
-                    } else {
-                        qContainer.innerHTML = `
-                            <div class="question-box" style="text-align:center; padding:30px;">
-                                <h3>🏁 انتهى التحدي!</h3>
-                                <p style="font-size:20px;">لقد أجبت على ${score} من ${questions.length} بشكل صحيح.</p>
-                                <button class="btn btn-primary" onclick="location.reload()">🔄 أعد المحاولة</button>
-                            </div>
-                        `;
-                    }
-                }
+                    });
+                });
             }
 
-            renderQuestion(0);
-
-            // ============================================================
-            // 8. الاحتفال والمفرقعات
-            // ============================================================
-            document.getElementById('celebrateClose').addEventListener('click', function() {
-                document.getElementById('celebrateModal').classList.remove('show');
-                document.querySelectorAll('.confetti-container').forEach(el => el.remove());
-            });
-
-            function launchConfetti() {
-                const container = document.createElement('div');
-                container.className = 'confetti-container';
-                document.body.appendChild(container);
-                const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
-                for (let i = 0; i < 120; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = (Math.random() * 8 + 4) + 'px';
-                    confetti.style.height = (Math.random() * 8 + 4) + 'px';
-                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    confetti.style.animationDelay = (Math.random() * 1.5) + 's';
-                    container.appendChild(confetti);
-                }
-                setTimeout(() => container.remove(), 4000);
+            function updateChallengeScore() {
+                // إعادة حساب score بناءً على answers
+                score = answers.filter(a => a === true).length;
+                challengeScore.textContent = score;
+                const pct = (score / challengeQuestions.length) * 100;
+                challengeFill.style.width = pct + '%';
             }
 
+            // تهيئة التحدي
+            renderChallenge();
+            updateChallengeScore();
+
             // ============================================================
-            // 9. Speak Up! (مع مقارنة النص بنسبة 80%)
+            // 8. Speak Up! (نسبة 60%، رسالة واضحة، معالجة عدم الدعم)
             // ============================================================
             const recordBtn = document.getElementById('recordBtn');
             const speechResult = document.getElementById('speechResult');
             const targetPhrase = "Hello! My name is... I am from...";
 
-            // دالة لحساب نسبة التشابه بين نصين (بسيطة تعتمد على الكلمات المشتركة)
             function similarity(text1, text2) {
                 const words1 = text1.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 0);
                 const words2 = text2.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(w => w.length > 0);
@@ -1914,15 +1754,14 @@
                     const sim = similarity(transcript, targetPhrase);
                     console.log('Transcript:', transcript, 'Similarity:', sim);
 
-                    if (sim >= 0.80) {
+                    if (sim >= 0.60) {
                         speechResult.textContent = '✅ ممتاز! لقد نطقت الجملة بشكل صحيح! 🎉';
                         speechResult.className = 'result success';
                         speakText('Excellent!', 'male');
-                        // نعطي نقطة تقدم إضافية (مرة واحدة فقط لكل جلسة)
                         incrementProgress();
                     } else {
                         speechResult.textContent =
-                            `❌ حاول مرة أخرى. النطق غير مطابق بنسبة ${Math.round(sim*100)}%. الجملة المطلوبة: "${targetPhrase}"`;
+                            `❌ حاول مرة أخرى. النطق غير مطابق بنسبة ${Math.round(sim*100)}%. حاول أن تقول: "${targetPhrase}"`;
                         speechResult.className = 'result fail';
                         speakText('Try again.', 'male');
                     }
@@ -1939,37 +1778,35 @@
                 };
             } else {
                 recordBtn.disabled = true;
-                speechResult.textContent = '⚠️ متصفحك لا يدعم التعرف على الصوت.';
+                speechResult.textContent = '⚠️ متصفحك لا يدعم التسجيل. من فضلك اقرأ الجملة بصوت عالٍ لنفسك.';
+                speechResult.className = 'result fail';
             }
 
             // ============================================================
-            // 10. Homework (حفظ + تدقيق إملائي)
+            // 9. Homework (حفظ + تدقيق إملائي ونحوي)
             // ============================================================
             const homeworkText = document.getElementById('homeworkText');
             const saveStatus = document.getElementById('saveStatus');
             const correctionList = document.getElementById('correctionList');
 
-            // تحميل النص المحفوظ
             const savedHomework = localStorage.getItem('homework_unit1');
             if (savedHomework) {
                 homeworkText.value = savedHomework;
                 saveStatus.textContent = '✅ تم تحميل النص المحفوظ';
             }
 
-            // حفظ
             document.getElementById('saveHomework').addEventListener('click', function() {
                 const text = homeworkText.value;
                 localStorage.setItem('homework_unit1', text);
                 saveStatus.textContent = '✅ تم الحفظ في الساعة ' + new Date().toLocaleTimeString();
             });
 
-            // تدقيق إملائي
             document.getElementById('checkHomework').addEventListener('click', function() {
                 let text = homeworkText.value;
                 let corrections = [];
                 let newText = text;
 
-                // قواعد التصحيح
+                // قواعد التصحيح الإملائي
                 const rules = [
                     { pattern: /\bim\b/gi, replacement: "I'm", desc: 'im -> I\'m' },
                     { pattern: /\bhes\b/gi, replacement: "he's", desc: 'hes -> he\'s' },
@@ -1979,6 +1816,14 @@
                     { pattern: /\bwasnt\b/gi, replacement: "wasn't", desc: 'wasnt -> wasn\'t' },
                     { pattern: /\bwerent\b/gi, replacement: "weren't", desc: 'werent -> weren\'t' },
                     { pattern: /\bthats\b/gi, replacement: "that's", desc: 'thats -> that\'s' },
+                    // قواعد نحوية خاصة بـ am, is, are
+                    { pattern: /\bI is\b/gi, replacement: "I am", desc: 'I is -> I am' },
+                    { pattern: /\bhe are\b/gi, replacement: "he is", desc: 'he are -> he is' },
+                    { pattern: /\bshe are\b/gi, replacement: "she is", desc: 'she are -> she is' },
+                    { pattern: /\bthey is\b/gi, replacement: "they are", desc: 'they is -> they are' },
+                    { pattern: /\bwe is\b/gi, replacement: "we are", desc: 'we is -> we are' },
+                    { pattern: /\byou is\b/gi, replacement: "you are", desc: 'you is -> you are' },
+                    { pattern: /\bI are\b/gi, replacement: "I am", desc: 'I are -> I am' },
                 ];
 
                 rules.forEach(rule => {
@@ -1994,16 +1839,15 @@
                     correctionList.innerHTML = `<strong>✅ تم تصحيح الأخطاء التالية:</strong><br>${corrections.join('<br>')}`;
                     correctionList.classList.add('show');
                     saveStatus.textContent = '📝 تم التدقيق والتصحيح!';
-                    // حفظ النص المُصحح تلقائياً
                     localStorage.setItem('homework_unit1', newText);
                 } else {
-                    correctionList.innerHTML = '✅ لا توجد أخطاء إملائية شائعة. أحسنت!';
+                    correctionList.innerHTML = '✅ لا توجد أخطاء إملائية أو نحوية شائعة. أحسنت!';
                     correctionList.classList.add('show');
                     saveStatus.textContent = '🔍 لم يتم العثور على أخطاء.';
                 }
             });
 
-            // حفظ تلقائي كل 10 ثوانٍ
+            // حفظ تلقائي
             setInterval(() => {
                 const text = homeworkText.value;
                 localStorage.setItem('homework_unit1', text);
@@ -2011,7 +1855,7 @@
             }, 10000);
 
             // ============================================================
-            // 11. تأثير الظهور عند التمرير (fade-up)
+            // 10. تأثير الظهور عند التمرير (fade-up)
             // ============================================================
             const fadeEls = document.querySelectorAll('.fade-up');
             const observer = new IntersectionObserver((entries) => {
@@ -2024,16 +1868,16 @@
             fadeEls.forEach(el => observer.observe(el));
 
             // ============================================================
-            // 12. تحميل الأصوات مسبقاً
+            // 11. تحميل الأصوات مسبقاً
             // ============================================================
             if (window.speechSynthesis) {
                 speechSynthesis.getVoices();
                 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
             }
 
-            console.log('📚 Babble Box - Unit 1 updated with requested features.');
+            console.log('📚 Babble Box - Unit 1 updated with all requested changes.');
         })();
     </script>
 
 </body>
-  </html>
+    </html>
