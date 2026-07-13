@@ -1,1180 +1,1199 @@
 <!DOCTYPE html>
-<!-- الصفحة تبدأ باللغة العربية واتجاه من اليمين لليسار -->
+<!--
+  =====================================================================
+  Babble Box Academy — الصفحة الرئيسية
+  ملف واحد كامل (HTML + CSS + JS) بدون أي مكتبات خارجية.
+  يدعم لغتين (عربي/إنجليزي) ووضعين (داكن/فاتح).
+  =====================================================================
+-->
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Babble Box - English Learning Platform</title>
-<meta name="description" content="Babble Box Academy - منصة تعليم اللغة الإنجليزية التفاعلية">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>Babble Box Academy | أكاديمية Babble Box</title>
+  <meta name="description" content="Babble Box Academy — نتجاوز حدود اللغة، نصنع الطلاقة. مناهج متكاملة من A1 إلى C2." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Babble Box Academy" />
+  <meta property="og:description" content="نتجاوز حدود اللغة. نصنع الطلاقة." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-<!-- ============ خطوط جوجل: Poppins للإنجليزية و Cairo للعربية ============ -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- خطوط جوجل: Cairo للعربية / Poppins للإنجليزية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-<!-- ============ Google Analytics ============ -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-L42M2EDW3H');
-</script>
+  <style>
+    /* =====================================================================
+       0) متغيرات التصميم (Design Tokens)
+       ===================================================================== */
+    :root{
+      --bg: #050505;
+      --bg-soft: #0d0d0f;
+      --gold: #FFD700;
+      --gold-soft: rgba(255, 215, 0, .18);
+      --text: #ffffff;
+      --text-muted: rgba(255,255,255,.68);
+      --glass-bg: rgba(255,255,255,.055);
+      --glass-border: rgba(255,255,255,.12);
+      --glass-blur: 14px;
+      --green: #2ecc71;
+      --yellow: #f1c40f;
+      --red: #e74c3c;
+      --radius: 18px;
+      --shadow-gold: 0 10px 40px rgba(255,215,0,.16);
+      --transition: .35s cubic-bezier(.2,.8,.2,1);
+    }
 
-<style>
-/* ======================================================================
-   1) المتغيرات العامة (ألوان، ظلال، انتقالات) — الوضع الليلي هو الافتراضي
-   ====================================================================== */
-:root{
-  --bg: #050505;
-  --bg-soft: #0d0d0d;
-  --surface: rgba(255,255,255,0.05);
-  --surface-strong: rgba(255,255,255,0.08);
-  --border: rgba(255,215,0,0.18);
-  --gold: #FFD700;
-  --gold-dim: #b89b00;
-  --white: #FFFFFF;
-  --text-dim: rgba(255,255,255,0.65);
-  --shadow-gold: 0 10px 40px -10px rgba(255,215,0,0.35);
-  --radius: 20px;
-  --ease: cubic-bezier(.22,.9,.32,1);
-}
+    /* الوضع الفاتح (Light Mode) */
+    body.light-mode{
+      --bg: #f6f5f2;
+      --bg-soft: #ffffff;
+      --text: #101010;
+      --text-muted: rgba(0,0,0,.62);
+      --glass-bg: rgba(255,255,255,.6);
+      --glass-border: rgba(0,0,0,.08);
+      --shadow-gold: 0 10px 34px rgba(200,160,0,.18);
+    }
 
-/* ============ الوضع النهاري (Light Mode) ============ */
-html.light{
-  --bg: #FAF9F6;
-  --bg-soft: #F1EFE9;
-  --surface: rgba(5,5,5,0.04);
-  --surface-strong: rgba(5,5,5,0.07);
-  --border: rgba(180,140,0,0.25);
-  --white: #0A0A0A;
-  --text-dim: rgba(10,10,10,0.65);
-  --shadow-gold: 0 10px 40px -10px rgba(180,140,0,0.25);
-}
+    *{ box-sizing: border-box; margin: 0; padding: 0; }
+    html{ scroll-behavior: smooth; }
 
-*{ box-sizing: border-box; margin:0; padding:0; }
+    /* اللغة تتحكم في الخط: Cairo للعربية، Poppins للإنجليزية */
+    html[lang="ar"] body{ font-family: 'Cairo', sans-serif; }
+    html[lang="en"] body{ font-family: 'Poppins', sans-serif; }
 
-html{ scroll-behavior: smooth; }
+    body{
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+      -webkit-font-smoothing: antialiased;
+    }
 
-body{
-  background: var(--bg);
-  color: var(--white);
-  font-family: 'Cairo', 'Poppins', sans-serif;
-  overflow-x: hidden;
-  transition: background .5s var(--ease), color .5s var(--ease);
-  line-height: 1.7;
-}
+    img, svg{ display:block; max-width:100%; }
+    a{ color: inherit; text-decoration:none; }
+    ul{ list-style:none; }
+    button{ font-family:inherit; cursor:pointer; }
 
-/* ============ عند التبديل للإنجليزية: تغيير الخط والاتجاه ============ */
-html.en body{ font-family: 'Poppins', 'Cairo', sans-serif; }
+    /* أي عنصر إنجليزي صريح (مثل اسم العلامة التجارية) يبقى دائماً LTR */
+    .ltr-force{ direction: ltr; unicode-bidi: isolate; display:inline-block; }
 
-/* إخفاء/إظهار النصوص حسب اللغة الحالية */
-.ar{ display:inline; }
-.en{ display:none; }
-html.en .ar{ display:none; }
-html.en .en{ display:inline; }
-.ar-block{ display:block; }
-.en-block{ display:none; }
-html.en .ar-block{ display:none; }
-html.en .en-block{ display:block; }
+    .container{
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-img{ max-width:100%; display:block; }
-a{ color:inherit; text-decoration:none; }
-ul{ list-style:none; }
-button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+    section{ position: relative; padding: 90px 0; }
 
-::selection{ background: var(--gold); color:#050505; }
+    /* عنوان قسم موحّد */
+    .section-title{
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, #fff, var(--gold) 60%, #fff);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 6s linear infinite;
+    }
+    @keyframes shine{ to{ background-position: -220% center; } }
 
-::-webkit-scrollbar{ width:8px; }
-::-webkit-scrollbar-track{ background: var(--bg); }
-::-webkit-scrollbar-thumb{ background: var(--gold-dim); border-radius:10px; }
+    .section-sub{
+      text-align:center;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 50px;
+      font-size: 16px;
+      line-height: 1.9;
+    }
 
-.section{
-  padding: 100px 6vw;
-  position: relative;
-}
-.section-inner{ max-width: 1200px; margin:0 auto; }
+    /* =====================================================================
+       1) شريط التحميل العلوي (Loading Bar)
+       ===================================================================== */
+    #loading-bar{
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      height: 3px;
+      background: transparent;
+      z-index: 9999;
+    }
+    #loading-bar span{
+      display:block;
+      height:100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), #fff8c9, var(--gold));
+      box-shadow: 0 0 12px var(--gold);
+      animation: loadFill 3s ease forwards, hideBar .4s ease 3s forwards;
+    }
+    @keyframes loadFill{ from{ width:0%; } to{ width:100%; } }
+    @keyframes hideBar{ to{ opacity:0; visibility:hidden; } }
 
-.eyebrow{
-  display:inline-block;
-  font-size: .85rem;
-  letter-spacing:.12em;
-  color: var(--gold);
-  border:1px solid var(--border);
-  padding:6px 16px;
-  border-radius:100px;
-  margin-bottom:18px;
-  background: var(--surface);
-}
+    /* =====================================================================
+       2) شاشة البداية (Splash Screen)
+       ===================================================================== */
+    #splash{
+      position: fixed; inset:0;
+      background: radial-gradient(circle at 50% 40%, #111 0%, #000 75%);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap: 18px;
+      z-index: 9998;
+      transition: opacity .7s ease, visibility .7s ease;
+    }
+    #splash.fade-out{ opacity:0; visibility:hidden; pointer-events:none; }
+    #splash .splash-logo{
+      font-family:'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: clamp(34px, 8vw, 56px);
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-shadow: 0 0 30px rgba(255,215,0,.55);
+      animation: pulse 1.1s ease-in-out infinite;
+    }
+    #splash .splash-tag{
+      color: rgba(255,255,255,.55);
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    @keyframes pulse{
+      0%, 100%{ transform: scale(1); opacity: 1; }
+      50%{ transform: scale(1.08); opacity:.8; }
+    }
 
-.heading-lg{
-  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
-  font-weight:800;
-  margin-bottom:20px;
-  letter-spacing:-.01em;
-}
-.sub-text{
-  color: var(--text-dim);
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  max-width: 640px;
-}
-.center{ text-align:center; margin-inline:auto; }
+    /* =====================================================================
+       3) إشعار الترحيب (Toast)
+       ===================================================================== */
+    #toast{
+      position: fixed;
+      bottom: 26px;
+      left: 50%;
+      transform: translate(-50%, 140%);
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35), var(--shadow-gold);
+      z-index: 9997;
+      max-width: 92vw;
+      text-align:center;
+      transition: transform .5s cubic-bezier(.2,.9,.25,1.2);
+      border-color: var(--gold-soft);
+    }
+    #toast.show{ transform: translate(-50%, 0); }
 
-/* ============ تأثير الزجاج (Glassmorphism) ============ */
-.glass{
-  background: var(--surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
+    /* =====================================================================
+       4) الهيدر (Header)
+       ===================================================================== */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(5,5,5,.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: background var(--transition);
+    }
+    body.light-mode header{ background: rgba(246,245,242,.75); }
 
-/* ============ الأزرار ============ */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding: 15px 34px;
-  border-radius: 100px;
-  font-weight:700;
-  font-size: 1rem;
-  transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), opacity .3s;
-  white-space:nowrap;
-}
-.btn-primary{
-  background: linear-gradient(135deg, var(--gold), #ffec80);
-  color:#050505;
-  box-shadow: var(--shadow-gold);
-}
-.btn-primary:hover{ transform: translateY(-4px); box-shadow: 0 18px 45px -8px rgba(255,215,0,0.5); }
-.btn-outline{
-  border: 1.5px solid var(--gold);
-  color: var(--gold);
-  background: transparent;
-}
-.btn-outline:hover{ transform: translateY(-4px); background: rgba(255,215,0,0.08); box-shadow: var(--shadow-gold); }
-.btn-disabled{
-  border:1.5px solid var(--border);
-  color: var(--text-dim);
-  background: var(--surface);
-  cursor: not-allowed;
-  opacity:.75;
-}
-.btn-disabled:hover{ transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.4); }
+    .nav-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      max-width: 1280px;
+      margin:0 auto;
+    }
+    .logo{
+      font-family:'Poppins', sans-serif;
+      font-weight:800;
+      font-size:22px;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .logo .dot{ color: var(--gold); }
 
-/* ======================================================================
-   2) شاشة الترحيب (Splash Screen)
-   ====================================================================== */
-#splash{
-  position:fixed; inset:0; z-index:9999;
-  background: #050505;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap: 22px;
-  transition: opacity .8s ease, visibility .8s ease;
-}
-#splash.fade-out{ opacity:0; visibility:hidden; }
-#splash img{
-  width: 110px; height:110px; object-fit:contain;
-  animation: pulseLogo 1.8s ease-in-out infinite;
-  filter: drop-shadow(0 0 25px rgba(255,215,0,0.45));
-}
-@keyframes pulseLogo{
-  0%,100%{ transform: scale(1); }
-  50%{ transform: scale(1.08); }
-}
-#splash p{
-  color: var(--gold);
-  font-family:'Cairo', sans-serif;
-  font-weight:700;
-  font-size: 1.1rem;
-  text-align:center;
-  padding: 0 20px;
-}
+    nav.main-nav{
+      display:flex;
+      align-items:center;
+      gap: 4px;
+    }
+    nav.main-nav a{
+      padding: 9px 16px;
+      font-size:14.5px;
+      font-weight:600;
+      border-radius: 999px;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    nav.main-nav a:hover{
+      color: var(--bg);
+      background: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold);
+    }
 
-/* ============ دائرة التحميل (Spinner) ============ */
-#loader{
-  position:fixed; inset:0; z-index:9998;
-  background:#050505;
-  display:flex; align-items:center; justify-content:center;
-  opacity:0; visibility:hidden;
-  transition: opacity .5s ease, visibility .5s ease;
-}
-#loader.show{ opacity:1; visibility:visible; }
-.spinner{
-  width: 54px; height:54px;
-  border-radius:50%;
-  border: 4px solid rgba(255,215,0,0.15);
-  border-top-color: var(--gold);
-  animation: spin .8s linear infinite;
-}
-@keyframes spin{ to{ transform: rotate(360deg); } }
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
 
-/* ======================================================================
-   3) الشريط العلوي (Header)
-   ====================================================================== */
-header{
-  position: fixed;
-  top:0; inset-inline:0;
-  z-index: 500;
-  padding: 14px 5vw;
-  display:flex; align-items:center; justify-content:space-between;
-  gap: 20px;
-  background: rgba(5,5,5,0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-  transition: background .5s var(--ease);
-}
-html.light header{ background: rgba(250,249,246,0.7); }
+    .icon-btn{
+      width: 38px; height: 38px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      color: var(--text);
+      transition: all var(--transition);
+    }
+    .icon-btn:hover{ transform: translateY(-3px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
 
-.logo-wrap{ display:flex; align-items:center; gap:12px; }
-.logo-wrap img{ width:48px; height:48px; object-fit:contain; }
-.logo-wrap span{ font-weight:800; font-size:1.2rem; letter-spacing:.02em; }
-.logo-wrap .gold-txt{ color: var(--gold); }
+    .lang-toggle, .theme-toggle{
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      display:flex; align-items:center; gap:6px;
+      transition: all var(--transition);
+    }
+    .lang-toggle:hover, .theme-toggle:hover{
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
 
-nav.main-nav{
-  display:flex; align-items:center; gap: 30px;
-}
-nav.main-nav a{
-  font-size: .95rem;
-  font-weight:600;
-  position:relative;
-  padding: 6px 2px;
-  transition: color .3s;
-}
-nav.main-nav a::after{
-  content:'';
-  position:absolute; bottom:0; inset-inline:0;
-  height:2px; background: var(--gold);
-  transform: scaleX(0); transform-origin: center;
-  transition: transform .35s var(--ease);
-}
-nav.main-nav a:hover{ color: var(--gold); }
-nav.main-nav a:hover::after{ transform: scaleX(1); }
+    .social-icons{
+      display:flex; gap: 8px;
+    }
+    .social-icons a svg{ width:18px; height:18px; fill: var(--text); transition: fill var(--transition); }
+    .social-icons a:hover svg{ fill: var(--gold); }
 
-.header-actions{ display:flex; align-items:center; gap:18px; }
+    /* زر قائمة الموبايل */
+    .burger{
+      display:none;
+      width:38px; height:38px;
+      border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      color: var(--text);
+      align-items:center; justify-content:center;
+      font-size: 20px;
+    }
 
-.social-icons{ display:flex; align-items:center; gap:14px; }
-.social-icons a{
-  width:36px; height:36px;
-  display:flex; align-items:center; justify-content:center;
-  border-radius:50%;
-  background: var(--surface);
-  border:1px solid var(--border);
-  color: var(--gold);
-  transition: transform .3s var(--ease), background .3s;
-}
-.social-icons a:hover{ transform: translateY(-4px); background: rgba(255,215,0,0.15); }
-.social-icons svg{ width:18px; height:18px; fill: currentColor; }
+    .mobile-nav{
+      display:none;
+      flex-direction:column;
+      gap: 4px;
+      padding: 10px 20px 18px;
+      border-top: 1px solid var(--glass-border);
+    }
+    .mobile-nav.open{ display:flex; }
+    .mobile-nav a{
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--glass-bg);
+      font-weight:600;
+      color: var(--text);
+    }
 
-.icon-btn{
-  width:40px; height:40px;
-  display:flex; align-items:center; justify-content:center;
-  border-radius:50%;
-  background: var(--surface);
-  border:1px solid var(--border);
-  font-size: 1.1rem;
-  transition: transform .3s var(--ease), background .3s;
-}
-.icon-btn:hover{ transform: translateY(-4px) rotate(15deg); }
+    /* =====================================================================
+       5) الهيرو (Hero Section)
+       ===================================================================== */
+    #hero{
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding-top: 120px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 15%, rgba(255,215,0,.16), transparent 45%),
+        linear-gradient(var(--bg), var(--bg));
+    }
+    #hero::before{
+      content:'';
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,215,0,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,215,0,.07) 1px, transparent 1px);
+      background-size: 46px 46px;
+      -webkit-mask-image: radial-gradient(circle at 50% 35%, #000 10%, transparent 72%);
+      mask-image: radial-gradient(circle at 50% 35%, #000 10%, transparent 72%);
+      pointer-events:none;
+    }
+    .hero-inner{ position:relative; z-index:2; padding: 0 20px; }
+    .hero-badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      border:1px solid var(--gold-soft);
+      color: var(--gold);
+      font-size: 13px;
+      font-weight:700;
+      margin-bottom: 26px;
+    }
+    .hero-title{
+      font-size: clamp(32px, 6.4vw, 68px);
+      font-weight: 800;
+      line-height:1.25;
+      max-width: 900px;
+      margin: 0 auto 22px;
+    }
+    .hero-title .accent{ color: var(--gold); }
+    .hero-subtitle{
+      color: var(--text-muted);
+      font-size: clamp(15px, 2vw, 19px);
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height:1.9;
+    }
+    .cta-btn{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 17px 40px;
+      background: linear-gradient(120deg, var(--gold), #fff2a8);
+      color: #111;
+      font-weight: 800;
+      font-size: 17px;
+      border: none;
+      border-radius: 999px;
+      box-shadow: var(--shadow-gold);
+      transition: transform var(--transition), box-shadow var(--transition);
+      overflow: visible;
+    }
+    .cta-btn:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 16px 46px rgba(255,215,0,.35);
+    }
 
-.lang-switch{
-  font-weight:700; font-size:.85rem;
-  padding: 8px 16px;
-  border-radius:100px;
-  border:1px solid var(--border);
-  background: var(--surface);
-  transition: transform .3s var(--ease), background .3s;
-}
-.lang-switch:hover{ transform: translateY(-4px); background: rgba(255,215,0,0.1); }
+    /* عدادات متحركة */
+    .counters{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap: 20px;
+      margin-top: 64px;
+    }
+    .counter-card{
+      min-width: 150px;
+      padding: 22px 26px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .counter-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-gold); }
+    .counter-num{
+      font-family:'Poppins', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .counter-label{
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 4px;
+      font-weight:600;
+    }
 
-.burger{ display:none; width:40px; height:40px; border-radius:10px; background: var(--surface); border:1px solid var(--border); align-items:center; justify-content:center; }
-.burger span, .burger span::before, .burger span::after{
-  content:''; display:block; width:20px; height:2px; background: var(--gold); position:relative; transition:.3s;
-}
-.burger span::before{ position:absolute; top:-6px; }
-.burger span::after{ position:absolute; top:6px; }
+    /* =====================================================================
+       6) البطاقات الزجاجية العامة (Glass Cards)
+       ===================================================================== */
+    .glass-card{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      padding: 34px 28px;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .glass-card:hover{
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-gold);
+      border-color: var(--gold-soft);
+    }
 
-/* ======================================================================
-   4) القسم البطل (Hero)
-   ====================================================================== */
-.hero{
-  min-height: 100vh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center;
-  padding: 140px 6vw 100px;
-  position:relative;
-  overflow:hidden;
-}
-/* توهج ذهبي خلفي ديناميكي */
-.hero::before{
-  content:'';
-  position:absolute; top:-20%; inset-inline:0;
-  width:100%; height:140%;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.16), transparent 60%);
-  z-index:0;
-  animation: glowMove 10s ease-in-out infinite alternate;
-}
-@keyframes glowMove{
-  0%{ transform: translateX(-5%); }
-  100%{ transform: translateX(5%); }
-}
-.hero-content{ position:relative; z-index:1; max-width: 900px; }
-.hero-eyebrow{
-  color: var(--gold); font-weight:700; letter-spacing:.15em; font-size:.85rem;
-  margin-bottom: 20px; display:block;
-  animation: fadeUp .8s var(--ease) both;
-}
-.hero h1{
-  font-size: clamp(2.2rem, 6vw, 4.4rem);
-  font-weight: 900;
-  line-height:1.25;
-  background: linear-gradient(120deg, #fff 30%, var(--gold) 80%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  margin-bottom: 26px;
-  animation: fadeUp .9s .1s var(--ease) both;
-}
-.hero p.sub{
-  color: var(--text-dim);
-  font-size: clamp(1rem, 1.8vw, 1.3rem);
-  max-width: 640px; margin: 0 auto 42px;
-  animation: fadeUp 1s .2s var(--ease) both;
-}
-.hero-buttons{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; animation: fadeUp 1.1s .3s var(--ease) both; }
-@keyframes fadeUp{
-  from{ opacity:0; transform: translateY(24px); }
-  to{ opacity:1; transform: translateY(0); }
-}
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+    @media (max-width: 980px){ .grid-3{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 620px){ .grid-3{ grid-template-columns: 1fr; } }
 
-.scroll-hint{
-  position:absolute; bottom: 30px; left:50%; transform:translateX(-50%);
-  color: var(--text-dim); font-size:.8rem; display:flex; flex-direction:column; align-items:center; gap:8px;
-  animation: fadeUp 1.2s .5s var(--ease) both;
-}
-.scroll-hint .dot{
-  width:6px; height:6px; border-radius:50%; background: var(--gold);
-  animation: bounce 1.6s ease-in-out infinite;
-}
-@keyframes bounce{
-  0%,100%{ transform: translateY(0); opacity:1; }
-  50%{ transform: translateY(10px); opacity:.4; }
-}
+    .about-icon{
+      width: 54px; height:54px;
+      border-radius: 16px;
+      background: var(--gold-soft);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+    .about-title{ font-size:19px; font-weight:800; margin-bottom:10px; }
+    .about-text{ color:var(--text-muted); line-height:1.85; font-size:14.5px; }
 
-/* ======================================================================
-   5) عام: بطاقات وشبكات
-   ====================================================================== */
-.grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    /* =====================================================================
+       7) خريطة المستويات (Levels)
+       ===================================================================== */
+    .level-card{ position:relative; text-align:center; }
+    .level-card.locked{ opacity:.9; }
+    .level-badge{
+      display:inline-flex; align-items:center; gap:6px;
+      font-size: 12px;
+      font-weight:800;
+      padding: 5px 14px;
+      border-radius:999px;
+      margin-bottom: 16px;
+    }
+    .badge-green{ background: rgba(46,204,113,.16); color: var(--green); }
+    .badge-yellow{ background: rgba(241,196,15,.16); color: var(--yellow); }
+    .badge-red{ background: rgba(231,76,60,.16); color: var(--red); }
 
-.card{
-  padding: 34px 30px;
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s;
-}
-.card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-gold); border-color: rgba(255,215,0,0.4); }
+    .level-name{ font-size:22px; font-weight:800; margin-bottom:6px; }
+    .level-sub{ color:var(--text-muted); font-size:13.5px; margin-bottom:20px; }
 
-/* ============ قسم من نحن ============ */
-.about-wrap{ display:flex; flex-wrap:wrap; gap: 50px; align-items:center; }
-.about-text{ flex:1 1 420px; }
-.about-visual{ flex:1 1 320px; min-height:260px; border-radius: var(--radius); position:relative; overflow:hidden; }
-.about-visual .glass{ height:100%; display:flex; align-items:center; justify-content:center; padding:40px; }
-.about-visual .quote-mark{ font-size:5rem; color: var(--gold); opacity:.35; font-family: Georgia, serif; line-height:0; }
+    .level-ring-wrap{ display:flex; justify-content:center; margin-bottom: 18px; }
+    .level-ring{ transform: rotate(-90deg); }
+    .level-ring circle{ fill:none; stroke-width:6; }
+    .ring-bg{ stroke: rgba(255,255,255,.1); }
+    .ring-fg{ stroke: var(--gold); stroke-linecap:round; transition: stroke-dashoffset 1.2s ease; }
+    .ring-percent{
+      position:absolute;
+      font-size:14px; font-weight:800; color:var(--gold);
+    }
+    .ring-container{ position:relative; width:92px; height:92px; display:flex; align-items:center; justify-content:center; }
 
-/* ============ لماذا نحن + العدادات ============ */
-.counters-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 50px; }
-.counter-card{ text-align:center; padding: 40px 20px; }
-.counter-num{
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight:900; color: var(--gold);
-  font-family:'Poppins', sans-serif;
-}
-.counter-label{ margin-top:10px; color: var(--text-dim); font-weight:600; }
+    .level-btn{
+      display:inline-block;
+      width:100%;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight:700;
+      font-size:14.5px;
+      border: 1px solid var(--glass-border);
+      transition: all var(--transition);
+    }
+    .level-btn.free{
+      background: var(--gold);
+      color:#111;
+      border-color: var(--gold);
+    }
+    .level-btn.free:hover{ transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+    .level-btn.disabled{
+      background: transparent;
+      color: var(--text-muted);
+      cursor:not-allowed;
+    }
+    .lock-icon{ font-size: 30px; margin-bottom: 12px; }
 
-/* ============ الرؤية والهدف ============ */
-.vm-card{ flex:1; min-width:280px; }
-.vm-icon{ font-size:2rem; margin-bottom:16px; }
-.vm-title{ color: var(--gold); font-weight:800; font-size:1.2rem; margin-bottom:10px; }
+    /* =====================================================================
+       8) أقسام "قريباً" العامة (Books / Exams / Stories)
+       ===================================================================== */
+    .coming-soon-box{
+      max-width: 720px;
+      margin: 0 auto;
+      text-align:center;
+    }
+    .disabled-btn{
+      display:inline-block;
+      margin-top: 26px;
+      padding: 15px 36px;
+      border-radius: 999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-weight:700;
+      cursor: not-allowed;
+    }
 
-/* ============ خارطة المستويات ============ */
-.levels-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 46px; }
-.level-card{
-  position:relative; overflow:hidden; padding: 0;
-  display:flex; flex-direction:column;
-}
-.level-bar{ height:6px; width:100%; }
-.level-bar.free{ background: linear-gradient(90deg, #2ecc71, #7dffb0); }
-.level-bar.paid{ background: linear-gradient(90deg, var(--gold), #fff3b0); }
-.level-body{ padding: 30px 26px; display:flex; flex-direction:column; gap:14px; flex:1; }
-.level-top{ display:flex; align-items:center; justify-content:space-between; }
-.level-code{ font-size:1.5rem; font-weight:900; font-family:'Poppins',sans-serif; }
-.tag{
-  font-size:.72rem; font-weight:700; padding:4px 12px; border-radius:100px;
-}
-.tag.free{ background: rgba(46,204,113,0.15); color:#2ecc71; border:1px solid rgba(46,204,113,0.4); }
-.tag.paid{ background: rgba(255,215,0,0.15); color: var(--gold); border:1px solid rgba(255,215,0,0.4); }
-.level-name{ font-weight:700; }
-.level-desc{ color: var(--text-dim); font-size:.92rem; flex:1; }
+    /* =====================================================================
+       9) قسم الاختبار (Placement Test)
+       ===================================================================== */
+    #placement-test .glass-card{
+      max-width: 720px;
+      margin: 0 auto;
+      text-align:center;
+    }
+    #placement-test .cta-btn{ margin-top: 22px; }
 
-/* ============ الكتب / الامتحانات / القصص - بطاقات مركزية ============ */
-.center-feature{ text-align:center; max-width: 640px; margin: 0 auto; padding: 60px 40px; }
-.center-feature .icon-big{ font-size: 3rem; margin-bottom: 20px; }
+    /* =====================================================================
+       10) قسم اتصل بنا (Contact)
+       ===================================================================== */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 30px;
+      align-items:start;
+    }
+    @media (max-width: 860px){ .contact-grid{ grid-template-columns:1fr; } }
 
-/* ============ اختبار تحديد المستوى + Progress Ring ============ */
-.test-wrap{ display:flex; flex-wrap:wrap; gap: 50px; align-items:center; justify-content:center; }
-.ring-box{ position:relative; width:200px; height:200px; flex-shrink:0; }
-.ring-box svg{ width:100%; height:100%; transform: rotate(-90deg); }
-.ring-bg{ fill:none; stroke: var(--surface-strong); stroke-width:12; }
-.ring-progress{
-  fill:none; stroke: var(--gold); stroke-width:12; stroke-linecap:round;
-  stroke-dasharray: 565.48; stroke-dashoffset: 565.48;
-  transition: stroke-dashoffset 1.6s var(--ease);
-}
-.ring-label{
-  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-}
-.ring-label .pct{ font-size:2rem; font-weight:900; color: var(--gold); font-family:'Poppins',sans-serif; }
-.ring-label .pct-txt{ font-size:.75rem; color: var(--text-dim); margin-top:4px; }
-.test-text{ flex:1 1 380px; }
+    .form-field{ margin-bottom: 16px; }
+    .form-field label{ display:block; font-size:13.5px; font-weight:700; margin-bottom:7px; color: var(--text-muted); }
+    .form-field input, .form-field textarea{
+      width:100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-family:inherit;
+      font-size:14.5px;
+      transition: border-color var(--transition);
+    }
+    body.light-mode .form-field input, body.light-mode .form-field textarea{ background: rgba(0,0,0,.03); }
+    .form-field input:focus, .form-field textarea:focus{ outline:none; border-color: var(--gold); }
+    .form-field textarea{ resize: vertical; min-height: 120px; }
 
-/* ============ التواصل ============ */
-.contact-wrap{ display:flex; flex-wrap:wrap; gap: 50px; }
-.contact-form{ flex:1 1 380px; padding: 40px; display:flex; flex-direction:column; gap:18px; }
-.contact-form input, .contact-form textarea{
-  width:100%; padding: 14px 18px;
-  border-radius:14px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--white);
-  font-family:inherit; font-size:.95rem;
-  transition: border-color .3s, box-shadow .3s;
-}
-.contact-form input:focus, .contact-form textarea:focus{
-  outline:none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,215,0,0.15);
-}
-.contact-form textarea{ min-height:130px; resize:vertical; }
-.contact-side{ flex:1 1 280px; padding: 40px; display:flex; flex-direction:column; justify-content:center; gap:24px; }
-.contact-side .social-icons a{ width:46px; height:46px; }
-.contact-side .social-icons svg{ width:22px; height:22px; }
+    .submit-btn{
+      width:100%;
+      padding: 15px;
+      border:none;
+      border-radius: 12px;
+      background: var(--gold);
+      color:#111;
+      font-weight:800;
+      font-size:15px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .submit-btn:hover{ transform: translateY(-3px); box-shadow: var(--shadow-gold); }
 
-/* ======================================================================
-   6) التذييل
-   ====================================================================== */
-footer{
-  padding: 50px 6vw 40px;
-  text-align:center;
-  border-top: 1px solid var(--border);
-  display:flex; flex-direction:column; align-items:center; gap:20px;
-}
-footer .social-icons{ gap:16px; }
-footer p{ color: var(--text-dim); font-size:.88rem; }
+    .contact-side .about-icon{ margin-bottom: 10px; }
+    .contact-social{ display:flex; gap: 14px; margin-top: 22px; }
+    .contact-social a{
+      width: 50px; height:50px;
+      border-radius: 50%;
+      display:flex; align-items:center; justify-content:center;
+      background: var(--glass-bg);
+      border:1px solid var(--glass-border);
+      transition: all var(--transition);
+    }
+    .contact-social a svg{ width:22px; height:22px; fill: var(--text); }
+    .contact-social a:hover{ transform: translateY(-4px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
+    .contact-social a:hover svg{ fill: var(--gold); }
 
-/* ======================================================================
-   7) الإشعارات (Toast)
-   ====================================================================== */
-#toast{
-  position: fixed;
-  bottom: 30px; left:50%; transform: translateX(-50%) translateY(20px);
-  background: rgba(20,20,20,0.92);
-  color: var(--gold);
-  border: 1px solid var(--border);
-  padding: 14px 28px;
-  border-radius: 100px;
-  font-weight:700; font-size:.92rem;
-  z-index: 3000;
-  opacity:0; visibility:hidden;
-  transition: opacity .4s var(--ease), transform .4s var(--ease), visibility .4s;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 15px 40px -10px rgba(0,0,0,0.6);
-  white-space:nowrap;
-}
-#toast.show{ opacity:1; visibility:visible; transform: translateX(-50%) translateY(0); }
+    .form-status{ margin-top: 12px; font-size: 13.5px; font-weight:700; min-height: 18px; }
+    .form-status.ok{ color: var(--green); }
+    .form-status.err{ color: var(--red); }
 
-/* ======================================================================
-   8) الكانفاس الخاص بالـ Confetti
-   ====================================================================== */
-#confetti-canvas{
-  position:fixed; inset:0; z-index:5000; pointer-events:none;
-}
+    /* =====================================================================
+       11) الفوتر (Footer)
+       ===================================================================== */
+    footer{
+      border-top: 1px solid var(--glass-border);
+      padding: 34px 0;
+      text-align:center;
+    }
+    footer .social-icons{ justify-content:center; margin-bottom: 14px; }
+    footer .social-icons a{
+      width:40px; height:40px;
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background: var(--glass-bg);
+      border:1px solid var(--glass-border);
+    }
+    footer p{ color: var(--text-muted); font-size:13.5px; }
 
-/* ======================================================================
-   9) استجابة للموبايل (Mobile First تعديلات إضافية للشاشات الأكبر أعلاه)
-   ====================================================================== */
-@media (max-width: 980px){
-  nav.main-nav{ display:none; }
-  .header-actions .social-icons{ display:none; }
-  .burger{ display:flex; }
-  .grid-2, .grid-3, .levels-grid, .counters-grid{ grid-template-columns: 1fr; }
-  .about-wrap, .test-wrap, .contact-wrap{ flex-direction:column; }
-}
+    /* =====================================================================
+       12) الكونفيتي (Confetti) — بدون مكتبات
+       ===================================================================== */
+    .confetti-piece{
+      position: fixed;
+      top: -10px;
+      width: 9px; height: 14px;
+      z-index: 9996;
+      pointer-events:none;
+      border-radius: 2px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall{
+      0%{ transform: translateY(0) rotate(0deg); opacity:1; }
+      100%{ transform: translateY(100vh) rotate(720deg); opacity:0; }
+    }
 
-/* قائمة الموبايل المنسدلة */
-#mobile-menu{
-  position:fixed; top:0; inset-inline:0; bottom:0;
-  background: rgba(5,5,5,0.98);
-  z-index: 600;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 30px;
-  opacity:0; visibility:hidden; transform: translateY(-20px);
-  transition: opacity .4s var(--ease), visibility .4s, transform .4s var(--ease);
-}
-html.light #mobile-menu{ background: rgba(250,249,246,0.98); }
-#mobile-menu.open{ opacity:1; visibility:visible; transform: translateY(0); }
-#mobile-menu a{ font-size:1.4rem; font-weight:700; }
-#mobile-menu .close-menu{ position:absolute; top:24px; inset-inline-end:24px; font-size:1.8rem; color: var(--gold); }
-</style>
+    /* =====================================================================
+       13) عناصر عامة / أنيميشن ظهور عند التمرير
+       ===================================================================== */
+    .reveal{ opacity:0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in-view{ opacity:1; transform: translateY(0); }
+
+    /* اتجاه فقرات النصوص العربية والإنجليزية */
+    [dir="rtl"] body, html[dir="rtl"]{ text-align: right; }
+    html[dir="ltr"]{ text-align: left; }
+
+    @media (max-width: 880px){
+      nav.main-nav{ display:none; }
+      .burger{ display:flex; }
+    }
+    @media (max-width: 560px){
+      .header-actions .social-icons{ display:none; }
+      section{ padding: 64px 0; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ============ شاشة الترحيب (Splash Screen) — تظهر 3 ثوانٍ ثم تختفي ============ -->
-<div id="splash">
-  <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Logo">
-  <p>مرحباً بك في Babble Box! | Welcome to Babble Box!</p>
-</div>
+  <!-- ===================== شريط التحميل العلوي ===================== -->
+  <div id="loading-bar"><span></span></div>
 
-<!-- ============ دائرة تحميل قصيرة تظهر بعد اختفاء الـ Splash ============ -->
-<div id="loader"><div class="spinner"></div></div>
-
-<!-- ============ كانفاس الـ Confetti (خفي افتراضياً) ============ -->
-<canvas id="confetti-canvas"></canvas>
-
-<!-- ============ إشعار Toast ============ -->
-<div id="toast"></div>
-
-<!-- ======================================================================
-     الشريط العلوي (Header)
-====================================================================== -->
-<header>
-  <div class="logo-wrap">
-    <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box">
-    <span>Babble <span class="gold-txt">Box</span></span>
+  <!-- ===================== شاشة البداية (Splash) ===================== -->
+  <div id="splash">
+    <div class="splash-logo ltr-force">Babble Box</div>
+    <div class="splash-tag" data-lang-ar="أكاديمية اللغة" data-lang-en="LANGUAGE ACADEMY">أكاديمية اللغة</div>
   </div>
 
-  <nav class="main-nav">
-    <a href="#home"><span class="ar">الرئيسية</span><span class="en">Home</span></a>
-    <a href="#levels"><span class="ar">المستويات</span><span class="en">Levels</span></a>
-    <a href="#books"><span class="ar">الكتب</span><span class="en">Books</span></a>
-    <a href="test.html"><span class="ar">اختبر مستواك</span><span class="en">Test Level</span></a>
-    <a href="#contact"><span class="ar">اتصل بنا</span><span class="en">Contact</span></a>
-  </nav>
+  <!-- ===================== إشعار الترحيب (Toast) ===================== -->
+  <div id="toast" data-lang-ar="🚀 مرحباً بك في أكاديمية Babble Box! ابدأ رحلتك الآن." data-lang-en="🚀 Welcome to Babble Box Academy! Start your journey now."></div>
 
-  <div class="header-actions">
-    <div class="social-icons">
-      <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg viewBox="0 0 24 24"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.15 8.44 9.93v-7.02H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.92 8.44-9.93z"/></svg>
-      </a>
-      <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.94-1.9-.95-2.36-1C17 2.5 12 2.5 12 2.5h-.01s-5 0-8.19.34c-.46.05-1.46.06-2.36 1C.73 4.56.5 6.2.5 6.2S.25 8.13.25 10.07v1.85c0 1.94.25 3.87.25 3.87s.23 1.64.94 2.36c.9.94 2.08.91 2.6 1.01 1.9.18 8.06.35 8.06.35s5.01-.01 8.2-.35c.46-.05 1.46-.06 2.36-1 .71-.72.94-2.36.94-2.36s.25-1.93.25-3.87v-1.85c0-1.94-.25-3.87-.25-3.87zM9.75 14.85V7.66l6.5 3.6-6.5 3.59z"/></svg>
-      </a>
-      <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
-        <svg viewBox="0 0 24 24"><path d="M16.6 5.82c-.9-.98-1.39-2.26-1.39-3.6h-3.06v13.7c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 0 1-2.72-2.72 2.72 2.72 0 0 1 2.72-2.72c.28 0 .55.04.8.12V10.3a5.9 5.9 0 0 0-.8-.06 5.79 5.79 0 0 0-5.79 5.79A5.79 5.79 0 0 0 9.43 21.8a5.79 5.79 0 0 0 5.79-5.79V9.4a8.6 8.6 0 0 0 5.05 1.62V8c-1.2 0-2.34-.4-3.27-1.08a5.7 5.7 0 0 1-.4-1.1z"/></svg>
-      </a>
+  <!-- ===================== الهيدر ===================== -->
+  <header>
+    <div class="nav-wrap">
+      <div class="logo">
+        <span class="ltr-force">Babble<span class="dot">Box</span></span>
+      </div>
+
+      <nav class="main-nav" id="main-nav">
+        <a href="#mission" data-lang-ar="الرؤية" data-lang-en="Mission">الرؤية</a>
+        <a href="#levels" data-lang-ar="المستويات" data-lang-en="Levels">المستويات</a>
+        <a href="#books" data-lang-ar="الكتب" data-lang-en="Books">الكتب</a>
+        <a href="#placement-test" data-lang-ar="اختبر مستواك" data-lang-en="Placement Test">اختبر مستواك</a>
+        <a href="#contact" data-lang-ar="اتصل بنا" data-lang-en="Contact">اتصل بنا</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="social-icons">
+          <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+          </a>
+          <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+
+        <button class="lang-toggle" id="lang-toggle" type="button">AR | EN</button>
+        <button class="theme-toggle" id="theme-toggle" type="button">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button class="burger" id="burger-btn" type="button" aria-label="menu">☰</button>
+      </div>
     </div>
 
-    <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">🌓</button>
-    <button class="lang-switch" id="lang-toggle">EN / ع</button>
-
-    <button class="burger" id="burger-btn" aria-label="Menu"><span></span></button>
-  </div>
-</header>
-
-<!-- ============ قائمة الموبايل ============ -->
-<div id="mobile-menu">
-  <span class="close-menu" id="close-menu">✕</span>
-  <a href="#home"><span class="ar">الرئيسية</span><span class="en">Home</span></a>
-  <a href="#levels"><span class="ar">المستويات</span><span class="en">Levels</span></a>
-  <a href="#books"><span class="ar">الكتب</span><span class="en">Books</span></a>
-  <a href="test.html"><span class="ar">اختبر مستواك</span><span class="en">Test Level</span></a>
-  <a href="#contact"><span class="ar">اتصل بنا</span><span class="en">Contact</span></a>
-</div>
-
-<!-- ======================================================================
-     القسم البطل (Hero Section)
-====================================================================== -->
-<section class="hero" id="home">
-  <div class="hero-content">
-    <span class="hero-eyebrow">BABBLE BOX ACADEMY</span>
-    <h1>
-      <span class="ar-block">نتجاوز حدود اللغة. نصنع الطلاقة.</span>
-      <span class="en-block">We break language barriers. We build fluency.</span>
-    </h1>
-    <p class="sub">
-      <span class="ar-block">في Babble Box، لا نكتفي بتعليمك الإنجليزية. نحن نبنى ثقتك، نمحو خوفك، ونطلق لسانك.</span>
-      <span class="en-block">At Babble Box, we don't just teach you English. We build your confidence, erase your fear, and unlock your voice.</span>
-    </p>
-    <div class="hero-buttons">
-      <button class="btn btn-primary" id="hero-start-btn">
-        <span class="ar">ابدأ التعلم مجاناً 🚀</span><span class="en">Start Learning Free 🚀</span>
-      </button>
-      <a class="btn btn-outline" href="test.html">
-        <span class="ar">اختبر مستواك الآن 📝</span><span class="en">Take the Test 📝</span>
-      </a>
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="#mission" data-lang-ar="الرؤية" data-lang-en="Mission">الرؤية</a>
+      <a href="#levels" data-lang-ar="المستويات" data-lang-en="Levels">المستويات</a>
+      <a href="#books" data-lang-ar="الكتب" data-lang-en="Books">الكتب</a>
+      <a href="#placement-test" data-lang-ar="اختبر مستواك" data-lang-en="Placement Test">اختبر مستواك</a>
+      <a href="#contact" data-lang-ar="اتصل بنا" data-lang-en="Contact">اتصل بنا</a>
     </div>
-  </div>
-  <div class="scroll-hint">
-    <span class="ar">مرر للأسفل</span><span class="en">Scroll down</span>
-    <span class="dot"></span>
-  </div>
-</section>
+  </header>
 
-<!-- ======================================================================
-     قسم "من نحن"
-====================================================================== -->
-<section class="section" id="about">
-  <div class="section-inner about-wrap">
-    <div class="about-text">
-      <span class="eyebrow">💛 <span class="ar">من نحن</span><span class="en">About Us</span></span>
-      <h2 class="heading-lg">
-        <span class="ar-block">قصة Babble Box</span>
-        <span class="en-block">The Babble Box Story</span>
-      </h2>
-      <p class="sub-text">
-        <span class="ar-block">Babble Box Academy هي منصة تعليمية مصرية أسسها عمر يسري عام 2026. نؤمن أن تعلم اللغة الإنجليزية هو حق للجميع، لذلك نوفر محتوى تفاعليًا عالي الجودة للمبتدئين مجانًا، ونبني جسورًا للاحتراف لمن يريد المزيد. مهمتنا: أن تتحدث الإنجليزية بثقة.</span>
-        <span class="en-block">Babble Box Academy is an Egyptian learning platform founded by Omar Youssry in 2026. We believe learning English is a right for everyone, so we offer high-quality interactive content for beginners for free, and build bridges to mastery for those who want more. Our mission: speak English with confidence.</span>
+  <!-- ===================== القسم 1: الهيرو ===================== -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span>⭐</span>
+        <span data-lang-ar="CEFR A1 → C2" data-lang-en="CEFR A1 → C2">CEFR A1 → C2</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span data-lang-ar="نتجاوز حدود اللغة." data-lang-en="Beyond Language.">نتجاوز حدود اللغة.</span>
+        <br />
+        <span class="accent" data-lang-ar="نصنع الطلاقة." data-lang-en="We Build Fluency.">نصنع الطلاقة.</span>
+      </h1>
+
+      <p class="hero-subtitle" data-lang-ar="أكاديمية Babble Box | مناهج متكاملة من A1 إلى C2. مجاناً للمستويات الأساسية. باحترافية للمستويات المتقدمة."
+         data-lang-en="Babble Box Academy | Complete curricula from A1 to C2. Free for the basic levels. Professional for the advanced ones.">
+        أكاديمية Babble Box | مناهج متكاملة من A1 إلى C2. مجاناً للمستويات الأساسية. باحترافية للمستويات المتقدمة.
       </p>
-    </div>
-    <div class="about-visual">
-      <div class="glass card">
-        <span class="quote-mark">"</span>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ======================================================================
-     قسم لماذا نحن + العدادات المتحركة
-====================================================================== -->
-<section class="section" id="why-us">
-  <div class="section-inner center">
-    <span class="eyebrow">📈 <span class="ar">لماذا نحن</span><span class="en">Why Us</span></span>
-    <h2 class="heading-lg">
-      <span class="ar-block">أرقام تتحدث عن نفسها</span>
-      <span class="en-block">Numbers that speak for themselves</span>
-    </h2>
-  </div>
-  <div class="section-inner counters-grid">
-    <div class="glass card counter-card">
-      <div class="counter-num" data-target="12000">0</div>
-      <div class="counter-label"><span class="ar">طالب مسجل</span><span class="en">Registered Students</span></div>
-    </div>
-    <div class="glass card counter-card">
-      <div class="counter-num" data-target="350">0</div>
-      <div class="counter-label"><span class="ar">درس تفاعلي</span><span class="en">Interactive Lessons</span></div>
-    </div>
-    <div class="glass card counter-card">
-      <div class="counter-num" data-target="4200">0</div>
-      <div class="counter-label"><span class="ar">تمرين عملي</span><span class="en">Practice Exercises</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     قسم الرؤية والهدف
-====================================================================== -->
-<section class="section" id="vision">
-  <div class="section-inner">
-    <div style="display:flex; flex-wrap:wrap; gap:28px;">
-      <div class="glass card vm-card">
-        <div class="vm-icon">🔭</div>
-        <div class="vm-title"><span class="ar">رؤيتنا</span><span class="en">Our Vision</span></div>
-        <p class="sub-text">
-          <span class="ar-block">أن نكون المنصة العربية الأولى لتعلم الإنجليزية بطريقة تفاعلية ممتعة.</span>
-          <span class="en-block">To be the leading Arabic platform for learning English in a fun, interactive way.</span>
-        </p>
-      </div>
-      <div class="glass card vm-card">
-        <div class="vm-icon">🎯</div>
-        <div class="vm-title"><span class="ar">هدفنا</span><span class="en">Our Mission</span></div>
-        <p class="sub-text">
-          <span class="ar-block">تمكين 10 ملايين متعلم عربي من التحدث بالإنجليزية بطلاقة بحلول 2030.</span>
-          <span class="en-block">Empowering 10 million Arab learners to speak English fluently by 2030.</span>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     قسم خارطة المستويات
-====================================================================== -->
-<section class="section" id="levels">
-  <div class="section-inner center">
-    <span class="eyebrow">🗺️ <span class="ar">المستويات</span><span class="en">Levels</span></span>
-    <h2 class="heading-lg">
-      <span class="ar-block">خارطة طريقك للإتقان</span>
-      <span class="en-block">Your Roadmap to Mastery</span>
-    </h2>
-  </div>
-
-  <div class="section-inner levels-grid">
-    <!-- A1 -->
-    <div class="glass level-card">
-      <div class="level-bar free"></div>
-      <div class="level-body">
-        <div class="level-top">
-          <span class="level-code">A1</span>
-          <span class="tag free"><span class="ar">مجاني</span><span class="en">Free</span></span>
-        </div>
-        <div class="level-name"><span class="ar">Beginner — انطلق من الصفر</span><span class="en">Beginner — Start from zero</span></div>
-        <p class="level-desc"><span class="ar">الأساسيات الأولى للتواصل بثقة.</span><span class="en">Your first steps to confident communication.</span></p>
-        <a class="btn btn-primary" href="unit1.html" style="margin-top:8px;"><span class="ar">ابدأ مجاناً</span><span class="en">Start Free</span></a>
-      </div>
-    </div>
-
-    <!-- A2 -->
-    <div class="glass level-card">
-      <div class="level-bar free"></div>
-      <div class="level-body">
-        <div class="level-top">
-          <span class="level-code">A2</span>
-          <span class="tag free"><span class="ar">مجاني</span><span class="en">Free</span></span>
-        </div>
-        <div class="level-name"><span class="ar">Elementary — ابن أساسك</span><span class="en">Elementary — Build your base</span></div>
-        <p class="level-desc"><span class="ar">توسيع المفردات والقواعد الأساسية.</span><span class="en">Expanding vocabulary and core grammar.</span></p>
-        <button class="btn btn-disabled soon-btn" style="margin-top:8px;"><span class="ar">قريباً</span><span class="en">Soon</span></button>
-      </div>
-    </div>
-
-    <!-- B1 -->
-    <div class="glass level-card">
-      <div class="level-bar paid"></div>
-      <div class="level-body">
-        <div class="level-top">
-          <span class="level-code">B1</span>
-          <span class="tag paid"><span class="ar">مدفوع</span><span class="en">Paid</span></span>
-        </div>
-        <div class="level-name"><span class="ar">Intermediate — تجاوز الحدود</span><span class="en">Intermediate — Push your limits</span></div>
-        <p class="level-desc"><span class="ar">تحدث بطلاقة أكبر في مواقف الحياة اليومية.</span><span class="en">Speak more fluently in everyday situations.</span></p>
-        <button class="btn btn-disabled soon-btn" style="margin-top:8px;"><span class="ar">قريباً 🔒</span><span class="en">Soon 🔒</span></button>
-      </div>
-    </div>
-
-    <!-- B2 -->
-    <div class="glass level-card">
-      <div class="level-bar paid"></div>
-      <div class="level-body">
-        <div class="level-top">
-          <span class="level-code">B2</span>
-          <span class="tag paid"><span class="ar">مدفوع</span><span class="en">Paid</span></span>
-        </div>
-        <div class="level-name"><span class="ar">Upper-Intermediate — أتقن اللغة</span><span class="en">Upper-Intermediate — Master the language</span></div>
-        <p class="level-desc"><span class="ar">تعبير معقد ونقاشات متقدمة.</span><span class="en">Complex expression and advanced discussion.</span></p>
-        <button class="btn btn-disabled soon-btn" style="margin-top:8px;"><span class="ar">قريباً 🔒</span><span class="en">Soon 🔒</span></button>
-      </div>
-    </div>
-
-    <!-- C1 -->
-    <div class="glass level-card">
-      <div class="level-bar paid"></div>
-      <div class="level-body">
-        <div class="level-top">
-          <span class="level-code">C1</span>
-          <span class="tag paid"><span class="ar">مدفوع</span><span class="en">Paid</span></span>
-        </div>
-        <div class="level-name"><span class="ar">Advanced — احترف الأكاديمية</span><span class="en">Advanced — Master academia</span></div>
-        <p class="level-desc"><span class="ar">إتقان أكاديمي ومهني متقدم.</span><span class="en">Advanced academic and professional command.</span></p>
-        <button class="btn btn-disabled soon-btn" style="margin-top:8px;"><span class="ar">قريباً 🔒</span><span class="en">Soon 🔒</span></button>
-      </div>
-    </div>
-
-    <!-- C2 -->
-    <div class="glass level-card">
-      <div class="level-bar paid"></div>
-      <div class="level-body">
-        <div class="level-top">
-          <span class="level-code">C2</span>
-          <span class="tag paid"><span class="ar">مدفوع</span><span class="en">Paid</span></span>
-        </div>
-        <div class="level-name"><span class="ar">Proficiency — كن خبيراً</span><span class="en">Proficiency — Become an expert</span></div>
-        <p class="level-desc"><span class="ar">إتقان شبه كامل يضاهي أهل اللغة.</span><span class="en">Near-native mastery of the language.</span></p>
-        <button class="btn btn-disabled soon-btn" style="margin-top:8px;"><span class="ar">قريباً 🔒</span><span class="en">Soon 🔒</span></button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     قسم الكتب
-====================================================================== -->
-<section class="section" id="books">
-  <div class="section-inner glass center-feature">
-    <div class="icon-big">📘</div>
-    <span class="eyebrow"><span class="ar">المكتبة الرقمية</span><span class="en">Digital Library</span></span>
-    <h2 class="heading-lg">
-      <span class="ar-block">قريباً على Babble Box</span>
-      <span class="en-block">Coming Soon to Babble Box</span>
-    </h2>
-    <p class="sub-text center">
-      <span class="ar-block">قريباً، ستصدر سلسلة كتب PDF تفاعلية تغطي كل مستوى. انتظرونا!</span>
-      <span class="en-block">Soon, we'll release a series of interactive PDF books covering every level. Stay tuned!</span>
-    </p>
-    <button class="btn btn-disabled soon-btn" style="margin-top:26px;">
-      <span class="ar">تصفح الكتب 📚 (قريباً)</span><span class="en">Browse Books 📚 (Soon)</span>
-    </button>
-  </div>
-</section>
-
-<!-- ======================================================================
-     قسم اختبار تحديد المستوى + Progress Ring
-====================================================================== -->
-<section class="section" id="test">
-  <div class="section-inner test-wrap">
-    <div class="ring-box">
-      <svg viewBox="0 0 200 200">
-        <circle class="ring-bg" cx="100" cy="100" r="90"></circle>
-        <circle class="ring-progress" id="progress-ring" cx="100" cy="100" r="90"></circle>
-      </svg>
-      <div class="ring-label">
-        <span class="pct" id="ring-pct">0%</span>
-        <span class="pct-txt"><span class="ar">تقدمك</span><span class="en">Your progress</span></span>
-      </div>
-    </div>
-    <div class="test-text">
-      <span class="eyebrow">🎯 <span class="ar">اختبر مستواك</span><span class="en">Placement Test</span></span>
-      <h2 class="heading-lg">
-        <span class="ar-block">لست متأكداً من أين تبدأ؟</span>
-        <span class="en-block">Not sure where to start?</span>
-      </h2>
-      <p class="sub-text">
-        <span class="ar-block">اختبارنا المبني على CEFR سيحدد مستواك بدقة في 15 دقيقة. مجاني بالكامل.</span>
-        <span class="en-block">Our CEFR-based test will precisely determine your level in 15 minutes. Completely free.</span>
-      </p>
-      <a class="btn btn-primary" href="test.html" style="margin-top:24px;">
-        <span class="ar">ابدأ الاختبار 📝</span><span class="en">Start the Test 📝</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     قسم بنك الامتحانات
-====================================================================== -->
-<section class="section" id="exams">
-  <div class="section-inner glass center-feature">
-    <div class="icon-big">📝</div>
-    <span class="eyebrow"><span class="ar">بنك الامتحانات</span><span class="en">Exam Bank</span></span>
-    <h2 class="heading-lg">
-      <span class="ar-block">اختبر معرفتك من كل جانب</span>
-      <span class="en-block">Test your knowledge from every angle</span>
-    </h2>
-    <p class="sub-text center">
-      <span class="ar-block">قريباً، ستجد هنا امتحانات جرامر، كلمات، قطع فهم، والمزيد.</span>
-      <span class="en-block">Soon, you'll find grammar exams, vocabulary tests, reading comprehension, and more.</span>
-    </p>
-    <button class="btn btn-disabled soon-btn" style="margin-top:26px;">
-      <span class="ar">تصفح الامتحانات 📋 (قريباً)</span><span class="en">Browse Exams 📋 (Soon)</span>
-    </button>
-  </div>
-</section>
-
-<!-- ======================================================================
-     قسم القصص والاستماع
-====================================================================== -->
-<section class="section" id="stories">
-  <div class="section-inner glass center-feature">
-    <div class="icon-big">🎧</div>
-    <span class="eyebrow"><span class="ar">القصص والاستماع</span><span class="en">Stories & Listening</span></span>
-    <h2 class="heading-lg">
-      <span class="ar-block">تعلم أثناء الاستماع</span>
-      <span class="en-block">Learn while you listen</span>
-    </h2>
-    <p class="sub-text center">
-      <span class="ar-block">قريباً، مكتبة صوتية قصصية لتحسين مهارة الاستماع.</span>
-      <span class="en-block">Coming soon: an audio story library to improve your listening skills.</span>
-    </p>
-    <button class="btn btn-disabled soon-btn" style="margin-top:26px;">
-      <span class="ar">تصفح القصص 📖 (قريباً)</span><span class="en">Browse Stories 📖 (Soon)</span>
-    </button>
-  </div>
-</section>
-
-<!-- ======================================================================
-     قسم اتصل بنا
-====================================================================== -->
-<section class="section" id="contact">
-  <div class="section-inner center" style="margin-bottom:40px;">
-    <span class="eyebrow">📩 <span class="ar">تواصل معنا</span><span class="en">Get in Touch</span></span>
-    <h2 class="heading-lg">
-      <span class="ar-block">دعنا نسمع صوتك</span>
-      <span class="en-block">Let's hear your voice</span>
-    </h2>
-  </div>
-
-  <div class="section-inner contact-wrap">
-    <form class="glass contact-form" action="https://formspree.io/f/mgogwoky" method="POST">
-      <input type="text" name="name" required placeholder="الاسم | Name">
-      <input type="email" name="email" required placeholder="البريد الإلكتروني | Email">
-      <textarea name="message" required placeholder="رسالتك | Your message"></textarea>
-      <button type="submit" class="btn btn-primary">
-        <span class="ar">إرسال</span><span class="en">Send</span>
+      <button class="cta-btn" id="cta-start" type="button">
+        <span data-lang-ar="ابدأ مجاناً 🚀" data-lang-en="Start for Free 🚀">ابدأ مجاناً 🚀</span>
       </button>
-    </form>
 
-    <div class="glass contact-side">
-      <div>
-        <h3 style="margin-bottom:10px; color:var(--gold);"><span class="ar">تابعنا</span><span class="en">Follow Us</span></h3>
-        <p class="sub-text"><span class="ar">كن جزءاً من مجتمعنا المتنامي على منصات التواصل.</span><span class="en">Be part of our growing community.</span></p>
+      <!-- عدادات متحركة -->
+      <div class="counters">
+        <div class="counter-card">
+          <div class="counter-num" data-target="1000">0</div>
+          <div class="counter-label" data-lang-ar="طالب" data-lang-en="Students">طالب</div>
+        </div>
+        <div class="counter-card">
+          <div class="counter-num" data-target="12">0</div>
+          <div class="counter-label" data-lang-ar="مستوى" data-lang-en="Levels">مستوى</div>
+        </div>
+        <div class="counter-card">
+          <div class="counter-num" data-target="100">0</div>
+          <div class="counter-label" data-lang-ar="درس" data-lang-en="Lessons">درس</div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== القسم 2: نبذة عنا ===================== -->
+  <section id="mission">
+    <div class="container">
+      <h2 class="section-title" data-lang-ar="💛 لماذا Babble Box؟" data-lang-en="💛 Why Babble Box?">💛 لماذا Babble Box؟</h2>
+      <p class="section-sub" data-lang-ar="لأن تعلّم لغة جديدة رحلة، لا مجرد كتاب." data-lang-en="Because learning a new language is a journey, not just a textbook.">لأن تعلّم لغة جديدة رحلة، لا مجرد كتاب.</p>
+
+      <div class="grid-3">
+        <div class="glass-card reveal">
+          <div class="about-icon">🌍</div>
+          <div class="about-title" data-lang-ar="منهج عالمي" data-lang-en="Global Curriculum">منهج عالمي</div>
+          <p class="about-text" data-lang-ar="مبنية على الإطار الأوروبي المرجعي (CEFR)." data-lang-en="Built on the Common European Framework of Reference (CEFR).">مبنية على الإطار الأوروبي المرجعي (CEFR).</p>
+        </div>
+        <div class="glass-card reveal">
+          <div class="about-icon">⚡</div>
+          <div class="about-title" data-lang-ar="تفاعلية 100%" data-lang-en="100% Interactive">تفاعلية 100%</div>
+          <p class="about-text" data-lang-ar="لسنا كتباً جامدة. نحن محادثات، صوتيات، وتمارين تفاعلية." data-lang-en="We're not static textbooks. We're conversations, audio, and interactive exercises.">لسنا كتباً جامدة. نحن محادثات، صوتيات، وتمارين تفاعلية.</p>
+        </div>
+        <div class="glass-card reveal">
+          <div class="about-icon">🎁</div>
+          <div class="about-title" data-lang-ar="مجانية للبداية" data-lang-en="Free to Start">مجانية للبداية</div>
+          <p class="about-text" data-lang-ar="A1 و A2 مجانيان. نؤمن أن بدايتك يجب أن تكون بلا عوائق." data-lang-en="A1 and A2 are free. We believe your start should be free of barriers.">A1 و A2 مجانيان. نؤمن أن بدايتك يجب أن تكون بلا عوائق.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== القسم 3: المستويات ===================== -->
+  <section id="levels">
+    <div class="container">
+      <h2 class="section-title" data-lang-ar="🗺️ خريطة المستويات" data-lang-en="🗺️ Levels Roadmap">🗺️ خريطة المستويات</h2>
+      <p class="section-sub" data-lang-ar="اختر مستواك وابدأ رحلة الطلاقة خطوة بخطوة." data-lang-en="Pick your level and start your fluency journey step by step.">اختر مستواك وابدأ رحلة الطلاقة خطوة بخطوة.</p>
+
+      <div class="grid-3" id="levels-grid">
+        <!-- A1 -->
+        <div class="glass-card level-card reveal">
+          <span class="level-badge badge-green">🟢 <span data-lang-ar="مجاني" data-lang-en="Free">مجاني</span></span>
+          <div class="level-name">A1</div>
+          <div class="level-sub" data-lang-ar="Beginner" data-lang-en="Beginner">Beginner</div>
+          <div class="level-ring-wrap">
+            <div class="ring-container">
+              <svg class="level-ring" width="92" height="92" viewBox="0 0 92 92">
+                <circle class="ring-bg" cx="46" cy="46" r="40"></circle>
+                <circle class="ring-fg" data-progress-key="progress_a1" cx="46" cy="46" r="40"></circle>
+              </svg>
+              <span class="ring-percent" data-percent-for="progress_a1">0%</span>
+            </div>
+          </div>
+          <a href="unit1.html" class="level-btn free" data-lang-ar="ابدأ مجاناً" data-lang-en="Start for Free">ابدأ مجاناً</a>
+        </div>
+
+        <!-- A2 -->
+        <div class="glass-card level-card reveal">
+          <span class="level-badge badge-green">🟢 <span data-lang-ar="مجاني" data-lang-en="Free">مجاني</span></span>
+          <div class="level-name">A2</div>
+          <div class="level-sub" data-lang-ar="Elementary" data-lang-en="Elementary">Elementary</div>
+          <div class="level-ring-wrap">
+            <div class="ring-container">
+              <svg class="level-ring" width="92" height="92" viewBox="0 0 92 92">
+                <circle class="ring-bg" cx="46" cy="46" r="40"></circle>
+                <circle class="ring-fg" data-progress-key="progress_a2" cx="46" cy="46" r="40"></circle>
+              </svg>
+              <span class="ring-percent" data-percent-for="progress_a2">0%</span>
+            </div>
+          </div>
+          <button class="level-btn disabled" disabled data-lang-ar="قريباً" data-lang-en="Coming Soon">قريباً</button>
+        </div>
+
+        <!-- B1 -->
+        <div class="glass-card level-card locked reveal">
+          <span class="level-badge badge-yellow">🟡 <span data-lang-ar="مدفوع" data-lang-en="Paid">مدفوع</span></span>
+          <div class="level-name">B1</div>
+          <div class="level-sub" data-lang-ar="Intermediate" data-lang-en="Intermediate">Intermediate</div>
+          <div class="lock-icon">🔒</div>
+          <button class="level-btn disabled" disabled data-lang-ar="🔒 قريباً" data-lang-en="🔒 Coming Soon">🔒 قريباً</button>
+        </div>
+
+        <!-- B2 -->
+        <div class="glass-card level-card locked reveal">
+          <span class="level-badge badge-yellow">🟡 <span data-lang-ar="مدفوع" data-lang-en="Paid">مدفوع</span></span>
+          <div class="level-name">B2</div>
+          <div class="level-sub" data-lang-ar="Upper-Intermediate" data-lang-en="Upper-Intermediate">Upper-Intermediate</div>
+          <div class="lock-icon">🔒</div>
+          <button class="level-btn disabled" disabled data-lang-ar="🔒 قريباً" data-lang-en="🔒 Coming Soon">🔒 قريباً</button>
+        </div>
+
+        <!-- C1 -->
+        <div class="glass-card level-card locked reveal">
+          <span class="level-badge badge-red">🔴 <span data-lang-ar="مدفوع" data-lang-en="Paid">مدفوع</span></span>
+          <div class="level-name">C1</div>
+          <div class="level-sub" data-lang-ar="Advanced" data-lang-en="Advanced">Advanced</div>
+          <div class="lock-icon">🔒</div>
+          <button class="level-btn disabled" disabled data-lang-ar="🔒 قريباً" data-lang-en="🔒 Coming Soon">🔒 قريباً</button>
+        </div>
+
+        <!-- C2 -->
+        <div class="glass-card level-card locked reveal">
+          <span class="level-badge badge-red">🔴 <span data-lang-ar="مدفوع" data-lang-en="Paid">مدفوع</span></span>
+          <div class="level-name">C2</div>
+          <div class="level-sub" data-lang-ar="Proficiency" data-lang-en="Proficiency">Proficiency</div>
+          <div class="lock-icon">🔒</div>
+          <button class="level-btn disabled" disabled data-lang-ar="🔒 قريباً" data-lang-en="🔒 Coming Soon">🔒 قريباً</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== القسم 4: الكتب ===================== -->
+  <section id="books">
+    <div class="container coming-soon-box">
+      <h2 class="section-title" data-lang-ar="📚 مكتبة الكتب (قريباً)" data-lang-en="📚 Book Library (Coming Soon)">📚 مكتبة الكتب (قريباً)</h2>
+      <p class="section-sub" data-lang-ar="نحن نعد سلسلة كتب PDF تفاعلية ثورية. ليست مجرد صفحات، بل تجربة بالصوت والتمارين."
+         data-lang-en="We are preparing a revolutionary series of interactive PDF books. Not just pages — an experience with audio and exercises.">
+        نحن نعد سلسلة كتب PDF تفاعلية ثورية. ليست مجرد صفحات، بل تجربة بالصوت والتمارين.
+      </p>
+      <button class="disabled-btn" disabled data-lang-ar="تصفح الكتب" data-lang-en="Browse Books">تصفح الكتب</button>
+    </div>
+  </section>
+
+  <!-- ===================== القسم 5: اختبار تحديد المستوى ===================== -->
+  <section id="placement-test">
+    <div class="container">
+      <h2 class="section-title" data-lang-ar="🎯 لست متأكداً من مستواك؟" data-lang-en="🎯 Not Sure of Your Level?">🎯 لست متأكداً من مستواك؟</h2>
+      <div class="glass-card reveal">
+        <p class="about-text" style="text-align:center; font-size:15.5px;" data-lang-ar="اختبارنا المبني على معايير CEFR سيحدد مستواك بدقة."
+           data-lang-en="Our CEFR-based test will accurately determine your level.">
+          اختبارنا المبني على معايير CEFR سيحدد مستواك بدقة.
+        </p>
+        <div style="text-align:center;">
+          <a href="test.html" class="cta-btn" data-lang-ar="ابدأ الاختبار 📝" data-lang-en="Start the Test 📝">ابدأ الاختبار 📝</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== القسم 6: الامتحانات ===================== -->
+  <section id="exams">
+    <div class="container coming-soon-box">
+      <h2 class="section-title" data-lang-ar="📋 بنك الامتحانات (قريباً)" data-lang-en="📋 Exam Bank (Coming Soon)">📋 بنك الامتحانات (قريباً)</h2>
+      <p class="section-sub" data-lang-ar="امتحانات جرامر، كلمات، وقطع فهم. كل ما تحتاجه للدراسة."
+         data-lang-en="Grammar, vocabulary, and reading comprehension exams. Everything you need to study.">
+        امتحانات جرامر، كلمات، وقطع فهم. كل ما تحتاجه للدراسة.
+      </p>
+      <button class="disabled-btn" disabled data-lang-ar="تصفح الامتحانات" data-lang-en="Browse Exams">تصفح الامتحانات</button>
+    </div>
+  </section>
+
+  <!-- ===================== القسم 7: القصص والاستماع ===================== -->
+  <section id="stories">
+    <div class="container coming-soon-box">
+      <h2 class="section-title" data-lang-ar="🎧 القصص والاستماع (قريباً)" data-lang-en="🎧 Stories & Listening (Coming Soon)">🎧 القصص والاستماع (قريباً)</h2>
+      <p class="section-sub" data-lang-ar="قصص قصيرة ونصوص استماع لتقوية مهاراتك."
+         data-lang-en="Short stories and listening scripts to strengthen your skills.">
+        قصص قصيرة ونصوص استماع لتقوية مهاراتك.
+      </p>
+      <button class="disabled-btn" disabled data-lang-ar="استمع الآن" data-lang-en="Listen Now">استمع الآن</button>
+    </div>
+  </section>
+
+  <!-- ===================== القسم 8: اتصل بنا ===================== -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title" data-lang-ar="📩 اتصل بنا" data-lang-en="📩 Contact Us">📩 اتصل بنا</h2>
+      <p class="section-sub" data-lang-ar="لديك سؤال؟ فريقنا جاهز للمساعدة." data-lang-en="Have a question? Our team is ready to help.">لديك سؤال؟ فريقنا جاهز للمساعدة.</p>
+
+      <div class="contact-grid">
+        <form class="glass-card reveal" id="contact-form" action="https://formspree.io/f/mgogwoky" method="POST">
+          <div class="form-field">
+            <label data-lang-ar="الاسم" data-lang-en="Name">الاسم</label>
+            <input type="text" name="name" required />
+          </div>
+          <div class="form-field">
+            <label data-lang-ar="البريد الإلكتروني" data-lang-en="Email">البريد الإلكتروني</label>
+            <input type="email" name="email" required />
+          </div>
+          <div class="form-field">
+            <label data-lang-ar="رسالتك" data-lang-en="Your Message">رسالتك</label>
+            <textarea name="message" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn" data-lang-ar="إرسال الرسالة" data-lang-en="Send Message">إرسال الرسالة</button>
+          <div class="form-status" id="form-status"></div>
+        </form>
+
+        <div class="glass-card contact-side reveal">
+          <div class="about-icon">💛</div>
+          <div class="about-title" data-lang-ar="تواصل معنا مباشرة" data-lang-en="Reach Us Directly">تواصل معنا مباشرة</div>
+          <p class="about-text" data-lang-ar="تابعنا على منصاتنا لتصلك آخر الدروس والفيديوهات التعليمية أولاً بأول."
+             data-lang-en="Follow us on our platforms to get the latest lessons and educational videos first.">
+            تابعنا على منصاتنا لتصلك آخر الدروس والفيديوهات التعليمية أولاً بأول.
+          </p>
+          <div class="contact-social">
+            <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+            </a>
+            <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== الفوتر ===================== -->
+  <footer>
+    <div class="container">
       <div class="social-icons">
         <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg viewBox="0 0 24 24"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.15 8.44 9.93v-7.02H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.92 8.44-9.93z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
         </a>
         <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.94-1.9-.95-2.36-1C17 2.5 12 2.5 12 2.5h-.01s-5 0-8.19.34c-.46.05-1.46.06-2.36 1C.73 4.56.5 6.2.5 6.2S.25 8.13.25 10.07v1.85c0 1.94.25 3.87.25 3.87s.23 1.64.94 2.36c.9.94 2.08.91 2.6 1.01 1.9.18 8.06.35 8.06.35s5.01-.01 8.2-.35c.46-.05 1.46-.06 2.36-1 .71-.72.94-2.36.94-2.36s.25-1.93.25-3.87v-1.85c0-1.94-.25-3.87-.25-3.87zM9.75 14.85V7.66l6.5 3.6-6.5 3.59z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
         <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg viewBox="0 0 24 24"><path d="M16.6 5.82c-.9-.98-1.39-2.26-1.39-3.6h-3.06v13.7c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 0 1-2.72-2.72 2.72 2.72 0 0 1 2.72-2.72c.28 0 .55.04.8.12V10.3a5.9 5.9 0 0 0-.8-.06 5.79 5.79 0 0 0-5.79 5.79A5.79 5.79 0 0 0 9.43 21.8a5.79 5.79 0 0 0 5.79-5.79V9.4a8.6 8.6 0 0 0 5.05 1.62V8c-1.2 0-2.34-.4-3.27-1.08a5.7 5.7 0 0 1-.4-1.1z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
       </div>
+      <p data-lang-ar="© 2026 Babble Box Academy. رحلة الطلاقة تبدأ بخطوة." data-lang-en="© 2026 Babble Box Academy. The fluency journey begins with one step.">
+        © 2026 Babble Box Academy. رحلة الطلاقة تبدأ بخطوة.
+      </p>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ======================================================================
-     التذييل (Footer)
-====================================================================== -->
-<footer>
-  <div class="logo-wrap">
-    <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box">
-    <span>Babble <span class="gold-txt">Box</span></span>
-  </div>
-  <div class="social-icons">
-    <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
-      <svg viewBox="0 0 24 24"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.15 8.44 9.93v-7.02H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.78 8.44-4.92 8.44-9.93z"/></svg>
-    </a>
-    <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
-      <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.94-1.9-.95-2.36-1C17 2.5 12 2.5 12 2.5h-.01s-5 0-8.19.34c-.46.05-1.46.06-2.36 1C.73 4.56.5 6.2.5 6.2S.25 8.13.25 10.07v1.85c0 1.94.25 3.87.25 3.87s.23 1.64.94 2.36c.9.94 2.08.91 2.6 1.01 1.9.18 8.06.35 8.06.35s5.01-.01 8.2-.35c.46-.05 1.46-.06 2.36-1 .71-.72.94-2.36.94-2.36s.25-1.93.25-3.87v-1.85c0-1.94-.25-3.87-.25-3.87zM9.75 14.85V7.66l6.5 3.6-6.5 3.59z"/></svg>
-    </a>
-    <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
-      <svg viewBox="0 0 24 24"><path d="M16.6 5.82c-.9-.98-1.39-2.26-1.39-3.6h-3.06v13.7c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 0 1-2.72-2.72 2.72 2.72 0 0 1 2.72-2.72c.28 0 .55.04.8.12V10.3a5.9 5.9 0 0 0-.8-.06 5.79 5.79 0 0 0-5.79 5.79A5.79 5.79 0 0 0 9.43 21.8a5.79 5.79 0 0 0 5.79-5.79V9.4a8.6 8.6 0 0 0 5.05 1.62V8c-1.2 0-2.34-.4-3.27-1.08a5.7 5.7 0 0 1-.4-1.1z"/></svg>
-    </a>
-  </div>
-  <p>
-    <span class="ar">© 2026 Babble Box Academy. جميع الحقوق محفوظة. رحلة الطلاقة تبدأ بخطوة.</span>
-    <span class="en">© 2026 Babble Box Academy. All rights reserved. The fluency journey starts with one step.</span>
-  </p>
-</footer>
+  <script>
+    /* =====================================================================
+       الإعدادات العامة والترجمة
+       ===================================================================== */
+    const htmlEl = document.documentElement;
+    let currentLang = 'ar'; // اللغة الافتراضية
 
-<script>
-/* ======================================================================
-   1) شاشة الترحيب: تختفي بعد 3 ثوانٍ، ثم يظهر Loader قصير
-   ====================================================================== */
-window.addEventListener('load', function(){
-  var splash = document.getElementById('splash');
-  var loader = document.getElementById('loader');
+    // نصوص التوست حسب اللغة (تُقرأ من data-lang-* الخاصة بعنصر #toast)
+    function applyLanguage(lang){
+      currentLang = lang;
+      htmlEl.setAttribute('lang', lang);
+      htmlEl.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
 
-  setTimeout(function(){
-    splash.classList.add('fade-out');
-    // إظهار سبينر تحميل قصير بعد اختفاء الشاشة الترحيبية
-    loader.classList.add('show');
-    setTimeout(function(){
-      loader.classList.remove('show');
-    }, 700);
-  }, 3000);
-});
+      // كل عنصر يحمل data-lang-ar / data-lang-en يتم تحديث نصه
+      document.querySelectorAll('[data-lang-ar][data-lang-en]').forEach((el) => {
+        const text = lang === 'ar' ? el.getAttribute('data-lang-ar') : el.getAttribute('data-lang-en');
+        el.textContent = text;
+      });
 
-/* ======================================================================
-   2) الوضع الليلي / النهاري + حفظ التفضيل في localStorage
-   ====================================================================== */
-var htmlEl = document.documentElement;
-var savedTheme = localStorage.getItem('babblebox-theme');
-if(savedTheme === 'light'){ htmlEl.classList.add('light'); }
+      document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'AR | EN' : 'EN | AR';
+    }
 
-document.getElementById('theme-toggle').addEventListener('click', function(){
-  htmlEl.classList.toggle('light');
-  localStorage.setItem('babblebox-theme', htmlEl.classList.contains('light') ? 'light' : 'dark');
-});
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
+    });
 
-/* ======================================================================
-   3) تبديل اللغة (عربي / إنجليزي) + حفظ التفضيل
-   ====================================================================== */
-var savedLang = localStorage.getItem('babblebox-lang');
-function applyLang(lang){
-  if(lang === 'en'){
-    htmlEl.classList.add('en');
-    htmlEl.setAttribute('lang','en');
-    htmlEl.setAttribute('dir','ltr');
-  } else {
-    htmlEl.classList.remove('en');
-    htmlEl.setAttribute('lang','ar');
-    htmlEl.setAttribute('dir','rtl');
-  }
-}
-if(savedLang){ applyLang(savedLang); }
+    // تفعيل اللغة الافتراضية عند التحميل
+    applyLanguage(currentLang);
 
-document.getElementById('lang-toggle').addEventListener('click', function(){
-  var newLang = htmlEl.classList.contains('en') ? 'ar' : 'en';
-  applyLang(newLang);
-  localStorage.setItem('babblebox-lang', newLang);
-});
+    /* =====================================================================
+       تبديل الوضع الداكن / الفاتح
+       ===================================================================== */
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      themeIcon.textContent = isLight ? '☀️' : '🌙';
+    });
 
-/* ======================================================================
-   4) قائمة الموبايل المنسدلة
-   ====================================================================== */
-var mobileMenu = document.getElementById('mobile-menu');
-document.getElementById('burger-btn').addEventListener('click', function(){
-  mobileMenu.classList.add('open');
-});
-document.getElementById('close-menu').addEventListener('click', function(){
-  mobileMenu.classList.remove('open');
-});
-mobileMenu.querySelectorAll('a').forEach(function(a){
-  a.addEventListener('click', function(){ mobileMenu.classList.remove('open'); });
-});
+    /* =====================================================================
+       قائمة الموبايل
+       ===================================================================== */
+    const burgerBtn = document.getElementById('burger-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    burgerBtn.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+    });
+    mobileNav.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => mobileNav.classList.remove('open'));
+    });
 
-/* ======================================================================
-   5) نظام إشعارات Toast — يظهر عند الضغط على أزرار "قريباً"
-   ====================================================================== */
-var toastEl = document.getElementById('toast');
-var toastTimer = null;
-function showToast(){
-  var isEn = htmlEl.classList.contains('en');
-  toastEl.textContent = isEn ? 'This feature is coming soon! 🚀' : 'هذه الميزة ستتوفر قريباً! 🚀';
-  toastEl.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function(){
-    toastEl.classList.remove('show');
-  }, 3000);
-}
-document.querySelectorAll('.soon-btn').forEach(function(btn){
-  btn.addEventListener('click', showToast);
-});
+    /* =====================================================================
+       شاشة البداية (Splash) — تختفي بعد ثانيتين، ثم يظهر التوست
+       ===================================================================== */
+    window.addEventListener('load', () => {
+      const splash = document.getElementById('splash');
+      const toast = document.getElementById('toast');
 
-/* ======================================================================
-   6) العدادات المتحركة (Animated Counters) — تعمل عند الظهور في الشاشة
-   ====================================================================== */
-var counters = document.querySelectorAll('.counter-num');
-var countersAnimated = false;
-function animateCounters(){
-  if(countersAnimated) return;
-  countersAnimated = true;
-  counters.forEach(function(counter){
-    var target = parseInt(counter.getAttribute('data-target'), 10);
-    var current = 0;
-    var duration = 1800;
-    var startTime = null;
-    function step(timestamp){
-      if(!startTime) startTime = timestamp;
-      var progress = Math.min((timestamp - startTime) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      current = Math.floor(eased * target);
-      counter.textContent = current.toLocaleString('en-US');
-      if(progress < 1){
+      setTimeout(() => {
+        splash.classList.add('fade-out');
+
+        // بعد اختفاء شاشة البداية، يظهر إشعار الترحيب
+        setTimeout(() => {
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 4000);
+        }, 700);
+      }, 2000);
+    });
+
+    /* =====================================================================
+       العدادات المتحركة عند التمرير إليها (Intersection Observer)
+       ===================================================================== */
+    const counters = document.querySelectorAll('.counter-num');
+    let countersStarted = false;
+
+    function animateCounters(){
+      counters.forEach((counter) => {
+        const target = parseInt(counter.getAttribute('data-target'), 10);
+        const duration = 1600;
+        const startTime = performance.now();
+
+        function step(now){
+          const progress = Math.min((now - startTime) / duration, 1);
+          const value = Math.floor(progress * target);
+          counter.textContent = '+' + value;
+          if (progress < 1) requestAnimationFrame(step);
+          else counter.textContent = '+' + target;
+        }
         requestAnimationFrame(step);
-      } else {
-        counter.textContent = target.toLocaleString('en-US') + '+';
+      });
+    }
+
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !countersStarted) {
+          countersStarted = true;
+          animateCounters();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    heroObserver.observe(document.getElementById('hero'));
+
+    /* =====================================================================
+       أنيميشن الظهور عند التمرير (Reveal on Scroll)
+       ===================================================================== */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+    /* =====================================================================
+       حلقات التقدم (Progress Rings) — تُقرأ من localStorage
+       ===================================================================== */
+    function initProgressRings(){
+      document.querySelectorAll('.ring-fg').forEach((circle) => {
+        const key = circle.getAttribute('data-progress-key');
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        circle.style.strokeDasharray = circumference;
+
+        // قيمة افتراضية إن لم يوجد تقدم مسجل بعد
+        let stored = localStorage.getItem(key);
+        if (stored === null) {
+          stored = key === 'progress_a1' ? '20' : '0';
+          localStorage.setItem(key, stored);
+        }
+        const percent = Math.max(0, Math.min(100, parseInt(stored, 10) || 0));
+        const offset = circumference - (percent / 100) * circumference;
+
+        // تأخير بسيط لتفعيل الأنيميشن الانتقالي
+        circle.style.strokeDashoffset = circumference;
+        setTimeout(() => { circle.style.strokeDashoffset = offset; }, 300);
+
+        const label = document.querySelector('[data-percent-for="' + key + '"]');
+        if (label) label.textContent = percent + '%';
+      });
+    }
+    initProgressRings();
+
+    /* =====================================================================
+       تأثير الكونفيتي (Confetti) — بدون أي مكتبات خارجية
+       ===================================================================== */
+    function launchConfetti(){
+      const colors = ['#FFD700', '#ffffff', '#f1c40f', '#fff2a8', '#e0b400'];
+      const count = 60;
+
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = (2 + Math.random() * 1.8) + 's';
+        piece.style.opacity = String(0.7 + Math.random() * 0.3);
+        piece.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+        document.body.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 4000);
       }
     }
-    requestAnimationFrame(step);
-  });
-}
 
-var whyUsSection = document.getElementById('why-us');
-var counterObserver = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      animateCounters();
-      counterObserver.disconnect();
-    }
-  });
-}, { threshold: 0.4 });
-counterObserver.observe(whyUsSection);
-
-/* ======================================================================
-   7) Progress Ring — تظهر عند الوصول لقسم الاختبار (شكل جمالي 0%)
-   ====================================================================== */
-var ring = document.getElementById('progress-ring');
-var ringPctLabel = document.getElementById('ring-pct');
-var ringAnimated = false;
-function animateRing(){
-  if(ringAnimated) return;
-  ringAnimated = true;
-  var circumference = 565.48;
-  var targetPercent = 0; // شكل جمالي فقط كما هو مطلوب
-  var offset = circumference - (targetPercent / 100) * circumference;
-  ring.style.strokeDashoffset = offset;
-  ringPctLabel.textContent = targetPercent + '%';
-}
-var testSection = document.getElementById('test');
-var ringObserver = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){
-      animateRing();
-      ringObserver.disconnect();
-    }
-  });
-}, { threshold: 0.4 });
-ringObserver.observe(testSection);
-
-/* ======================================================================
-   8) مؤثرات Confetti — تُطلق عند الضغط على "ابدأ التعلم مجاناً"
-   ====================================================================== */
-var canvas = document.getElementById('confetti-canvas');
-var ctx = canvas.getContext('2d');
-function resizeCanvas(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-var confettiColors = ['#FFD700', '#FFFFFF', '#ffec80', '#b89b00'];
-function launchConfetti(){
-  var pieces = [];
-  var count = 140;
-  for(var i = 0; i < count; i++){
-    pieces.push({
-      x: Math.random() * canvas.width,
-      y: -20 - Math.random() * canvas.height * 0.4,
-      w: 6 + Math.random() * 6,
-      h: 10 + Math.random() * 8,
-      color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
-      speedY: 2 + Math.random() * 4,
-      speedX: (Math.random() - 0.5) * 3,
-      rotation: Math.random() * 360,
-      rotationSpeed: (Math.random() - 0.5) * 12,
-      opacity: 1
+    document.getElementById('cta-start').addEventListener('click', () => {
+      launchConfetti();
+      const levelsSection = document.getElementById('levels');
+      levelsSection.scrollIntoView({ behavior: 'smooth' });
     });
-  }
 
-  var startTime = Date.now();
-  var duration = 3200;
+    /* =====================================================================
+       نموذج الاتصال (Formspree) — إرسال عبر Fetch مع رسالة حالة
+       ===================================================================== */
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
 
-  function frame(){
-    var elapsed = Date.now() - startTime;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(contactForm);
 
-    pieces.forEach(function(p){
-      p.y += p.speedY;
-      p.x += p.speedX;
-      p.rotation += p.rotationSpeed;
-      if(elapsed > duration * 0.6){
-        p.opacity = Math.max(0, 1 - (elapsed - duration * 0.6) / (duration * 0.4));
+      const messages = {
+        sending: { ar: 'جارٍ الإرسال...', en: 'Sending...' },
+        ok: { ar: '✅ تم إرسال رسالتك بنجاح!', en: '✅ Your message was sent successfully!' },
+        err: { ar: '❌ حدث خطأ، حاول مرة أخرى.', en: '❌ Something went wrong, please try again.' },
+      };
+
+      formStatus.className = 'form-status';
+      formStatus.textContent = messages.sending[currentLang];
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          formStatus.className = 'form-status ok';
+          formStatus.textContent = messages.ok[currentLang];
+          contactForm.reset();
+        } else {
+          formStatus.className = 'form-status err';
+          formStatus.textContent = messages.err[currentLang];
+        }
+      } catch (err) {
+        formStatus.className = 'form-status err';
+        formStatus.textContent = messages.err[currentLang];
       }
-
-      ctx.save();
-      ctx.globalAlpha = p.opacity;
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rotation * Math.PI / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-      ctx.restore();
     });
-
-    if(elapsed < duration){
-      requestAnimationFrame(frame);
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-  }
-  requestAnimationFrame(frame);
-}
-
-document.getElementById('hero-start-btn').addEventListener('click', function(){
-  launchConfetti();
-  gtag('event', 'start_free_click');
-  window.location.hash = '#levels';
-  document.getElementById('levels').scrollIntoView({ behavior: 'smooth' });
-});
-</script>
-
+  </script>
 </body>
 </html>
