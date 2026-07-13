@@ -3,15 +3,892 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Babble Box Academy | تعلّم الإنجليزية من الصفر</title>
-<meta name="description" content="منصة Babble Box Academy لتعليم اللغة الإنجليزية للمبتدئين (A1) بطريقة تفاعلية وممتعة">
+<title>Babble Box | تجاوز حدود اللغة</title>
+<meta name="description" content="Babble Box - منصة تعليم اللغة الإنجليزية الأولى. ابدأ رحلتك من الصفر حتى الاحتراف مع مناهج CEFR العالمية.">
 
-<!-- Google Fonts: Poppins للإنجليزية و Cairo للعربية -->
+<!-- ==================== الخطوط: Poppins للإنجليزية و Cairo للعربية ==================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Google Analytics -->
+<style>
+/* ==================== المتغيرات الأساسية (Design Tokens) ==================== */
+:root{
+  --bg-black:#0A0A0A;
+  --bg-black-soft:#111111;
+  --gold:#FFD700;
+  --gold-dim:#c9a900;
+  --white:#FFFFFF;
+  --glass-bg:rgba(255,255,255,0.04);
+  --glass-border:rgba(255,215,0,0.18);
+  --glass-bg-light:rgba(0,0,0,0.03);
+  --glass-border-light:rgba(0,0,0,0.08);
+  --text-muted:rgba(255,255,255,0.65);
+  --text-muted-light:rgba(10,10,10,0.65);
+  --radius:20px;
+  --transition: all .35s cubic-bezier(.4,0,.2,1);
+  --font-ar:'Cairo', sans-serif;
+  --font-en:'Poppins', sans-serif;
+}
+
+/* الوضع النهاري (Light Mode) */
+body.light-mode{
+  --bg-black:#F7F6F2;
+  --bg-black-soft:#FFFFFF;
+  --white:#0A0A0A;
+  --glass-bg: var(--glass-bg-light);
+  --glass-border: var(--glass-border-light);
+  --text-muted: var(--text-muted-light);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg-black);
+  color:var(--white);
+  font-family:var(--font-ar);
+  overflow-x:hidden;
+  transition:background .4s ease, color .4s ease;
+  line-height:1.7;
+}
+
+/* عند اختيار اللغة الإنجليزية نستخدم خط Poppins */
+body.lang-en{ font-family:var(--font-en); }
+
+/* خلفية زخرفية متوهجة خفيفة خلف الصفحة كلها */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,215,0,0.08), transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255,215,0,0.06), transparent 45%);
+  z-index:-2;
+  pointer-events:none;
+}
+
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:none;}
+ul{list-style:none;}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px;}
+
+/* عناصر مخفية للانعكاس عند التمرير */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease, transform .8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ==================== الهيدر ==================== */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1000;
+  padding:16px 0;
+  background:transparent;
+  transition:var(--transition);
+}
+header.scrolled{
+  background:rgba(10,10,10,0.85);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 4px 30px rgba(0,0,0,0.3);
+  padding:10px 0;
+}
+body.light-mode header.scrolled{
+  background:rgba(247,246,242,0.85);
+  box-shadow:0 4px 30px rgba(0,0,0,0.08);
+}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.logo-wrap img{
+  height:56px;
+  width:auto;
+  transition:var(--transition);
+  filter:drop-shadow(0 0 12px rgba(255,215,0,0.25));
+}
+header.scrolled .logo-wrap img{height:44px;}
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.social-icons{display:flex;gap:10px;}
+.social-icons a{
+  width:42px;height:42px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);
+  transition:var(--transition);
+}
+.social-icons a:hover{
+  background:var(--gold);
+  transform:translateY(-4px) scale(1.08);
+  box-shadow:0 8px 20px rgba(255,215,0,0.35);
+}
+.social-icons svg{width:20px;height:20px;fill:var(--gold);transition:var(--transition);}
+.social-icons a:hover svg{fill:#0A0A0A;}
+
+.icon-btn{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  color:var(--white);
+  font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);
+}
+.icon-btn:hover{background:var(--gold);color:#0A0A0A;transform:rotate(15deg) scale(1.05);}
+
+.lang-btn{
+  padding:0 16px;
+  height:42px;
+  border-radius:30px;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  color:var(--gold);
+  font-weight:700;
+  font-size:14px;
+  white-space:nowrap;
+  transition:var(--transition);
+}
+.lang-btn:hover{background:var(--gold);color:#0A0A0A;}
+
+/* قائمة الجوال */
+.menu-toggle{
+  display:none;
+  width:42px;height:42px;
+  border-radius:12px;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  color:var(--gold);
+  font-size:20px;
+  align-items:center;justify-content:center;
+}
+
+/* ==================== قسم البطل (Hero) ==================== */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  padding:140px 24px 60px;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 20px;
+  border-radius:30px;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);
+  color:var(--gold);
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:32px;
+  animation:fadeInDown 1s ease both;
+}
+
+.hero h1{
+  font-size:clamp(2.2rem, 6vw, 4.2rem);
+  font-weight:900;
+  max-width:900px;
+  margin-bottom:16px;
+  line-height:1.3;
+  animation:fadeInUp 1s ease .1s both;
+}
+.hero h1 .gold-text{
+  background:linear-gradient(90deg,#FFD700,#fff3b0,#FFD700);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:shine 4s linear infinite;
+}
+
+.hero p.subtitle{
+  font-size:clamp(1rem,2.2vw,1.3rem);
+  color:var(--text-muted);
+  max-width:640px;
+  margin-bottom:20px;
+  animation:fadeInUp 1s ease .2s both;
+}
+.hero p.subtitle-en{
+  font-family:var(--font-en);
+  font-size:clamp(0.9rem,1.8vw,1.05rem);
+  color:var(--text-muted);
+  max-width:640px;
+  margin-bottom:44px;
+  animation:fadeInUp 1s ease .3s both;
+  font-style:italic;
+}
+
+.hero-ctas{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  justify-content:center;
+  animation:fadeInUp 1s ease .4s both;
+}
+
+.btn{
+  padding:16px 34px;
+  border-radius:50px;
+  font-weight:700;
+  font-size:16px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  transition:var(--transition);
+}
+.btn-primary{
+  background:var(--gold);
+  color:#0A0A0A;
+  box-shadow:0 8px 24px rgba(255,215,0,0.3);
+}
+.btn-primary:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(255,215,0,0.45);}
+.btn-outline{
+  background:var(--glass-bg);
+  border:1.5px solid var(--gold);
+  color:var(--gold);
+  backdrop-filter:blur(10px);
+}
+.btn-outline:hover{background:var(--gold);color:#0A0A0A;transform:translateY(-4px);}
+.btn-disabled{
+  background:rgba(255,255,255,0.05);
+  color:var(--text-muted);
+  border:1.5px solid rgba(255,255,255,0.1);
+  cursor:not-allowed;
+  opacity:0.6;
+}
+
+.scroll-indicator{
+  position:absolute;
+  bottom:36px;
+  left:50%;
+  transform:translateX(-50%);
+  width:26px;height:44px;
+  border:2px solid var(--gold);
+  border-radius:20px;
+  display:flex;
+  justify-content:center;
+  padding-top:8px;
+}
+.scroll-indicator::before{
+  content:'';
+  width:4px;height:8px;
+  background:var(--gold);
+  border-radius:2px;
+  animation:scrollDown 1.6s infinite;
+}
+
+@keyframes scrollDown{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(14px);}}
+@keyframes shine{to{background-position:200% center;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ==================== تنسيق عام للأقسام ==================== */
+section{
+  padding:110px 0;
+  position:relative;
+}
+.section-eyebrow{
+  display:block;
+  text-align:center;
+  color:var(--gold);
+  font-weight:700;
+  letter-spacing:1px;
+  font-size:14px;
+  margin-bottom:14px;
+}
+.section-title{
+  text-align:center;
+  font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:900;
+  margin-bottom:20px;
+}
+.section-desc{
+  text-align:center;
+  max-width:720px;
+  margin:0 auto 60px;
+  color:var(--text-muted);
+  font-size:1.05rem;
+}
+
+/* بطاقة زجاجية أساسية */
+.glass-card{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-radius:var(--radius);
+  transition:var(--transition);
+}
+
+/* ==================== قسم عنا ==================== */
+.about{
+  max-width:840px;
+  margin:0 auto;
+  text-align:center;
+  padding:50px 40px;
+}
+.about p{font-size:1.15rem;color:var(--text-muted);}
+
+/* ==================== قسم خريطة المستويات ==================== */
+.levels-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+}
+.level-card{
+  padding:36px 28px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.level-card:hover{
+  transform:translateY(-10px);
+  border-color:var(--gold);
+  box-shadow:0 20px 40px rgba(255,215,0,0.12);
+}
+.level-tag{
+  position:absolute;
+  top:18px;
+  inset-inline-end:18px;
+  font-size:12px;
+  font-weight:800;
+  padding:5px 14px;
+  border-radius:30px;
+}
+.tag-free{background:rgba(60,220,140,0.15);color:#3cdc8c;border:1px solid rgba(60,220,140,0.4);}
+.tag-paid{background:rgba(255,215,0,0.15);color:var(--gold);border:1px solid rgba(255,215,0,0.4);}
+.level-icon{font-size:2.6rem;margin-bottom:14px;}
+.level-code{font-size:1.6rem;font-weight:900;color:var(--gold);}
+.level-name{font-size:1rem;color:var(--text-muted);margin-bottom:10px;}
+.level-slogan{font-weight:600;margin-bottom:24px;}
+.level-btn{
+  display:inline-block;
+  width:100%;
+  padding:13px;
+  border-radius:40px;
+  font-weight:700;
+  text-align:center;
+}
+
+/* ==================== قسم المميزات ==================== */
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+}
+.feature-card{
+  padding:34px 26px;
+  text-align:start;
+}
+.feature-card:hover{
+  transform:translateY(-8px);
+  border-color:var(--gold);
+}
+.feature-icon{
+  font-size:2.2rem;
+  margin-bottom:16px;
+  width:60px;height:60px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,215,0,0.08);
+  border-radius:16px;
+}
+.feature-card h3{font-size:1.15rem;margin-bottom:10px;}
+.feature-card p{color:var(--text-muted);font-size:0.95rem;}
+
+/* ==================== قسم الكتب ==================== */
+.books-box{
+  max-width:760px;
+  margin:0 auto;
+  text-align:center;
+  padding:60px 40px;
+}
+.books-box p{color:var(--text-muted);margin-bottom:30px;font-size:1.05rem;}
+
+/* ==================== قسم اختبار المستوى ==================== */
+.placement-box{
+  max-width:760px;
+  margin:0 auto;
+  text-align:center;
+  padding:60px 40px;
+  background:linear-gradient(145deg, rgba(255,215,0,0.08), rgba(255,215,0,0.02));
+}
+.placement-box p{color:var(--text-muted);margin-bottom:30px;font-size:1.05rem;}
+
+/* ==================== قسم التواصل ==================== */
+.contact-wrap{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:start;
+}
+.contact-form{
+  padding:40px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding:15px 18px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--glass-border);
+  color:var(--white);
+  font-family:inherit;
+  font-size:15px;
+  transition:var(--transition);
+}
+.contact-form input:focus,
+.contact-form textarea:focus{
+  outline:none;
+  border-color:var(--gold);
+  background:rgba(255,215,0,0.04);
+}
+.contact-form textarea{min-height:130px;resize:vertical;}
+.contact-form button{align-self:flex-start;}
+
+.contact-info{
+  padding:40px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  justify-content:center;
+}
+.contact-info h3{font-size:1.3rem;margin-bottom:6px;}
+.contact-social{display:flex;gap:14px;}
+.contact-social a{
+  width:56px;height:56px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  transition:var(--transition);
+}
+.contact-social a:hover{background:var(--gold);transform:translateY(-6px) scale(1.08);}
+.contact-social svg{width:26px;height:26px;fill:var(--gold);}
+.contact-social a:hover svg{fill:#0A0A0A;}
+
+/* ==================== التذييل ==================== */
+footer{
+  border-top:1px solid var(--glass-border);
+  padding:60px 0 30px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr 1fr;
+  gap:40px;
+  margin-bottom:40px;
+}
+.footer-logo img{height:44px;margin-bottom:14px;}
+.footer-grid p{color:var(--text-muted);font-size:0.92rem;max-width:280px;}
+.footer-col h4{font-size:1rem;margin-bottom:16px;color:var(--gold);}
+.footer-col ul li{margin-bottom:10px;}
+.footer-col ul li a{color:var(--text-muted);font-size:0.92rem;transition:var(--transition);}
+.footer-col ul li a:hover{color:var(--gold);padding-inline-start:4px;}
+.footer-bottom{
+  text-align:center;
+  padding-top:26px;
+  border-top:1px solid var(--glass-border);
+  color:var(--text-muted);
+  font-size:0.88rem;
+}
+
+/* ==================== لغة إنجليزية: اتجاه وخطوط ==================== */
+body.lang-en .ar-text{display:none;}
+body:not(.lang-en) .en-text{display:none;}
+body.lang-en{direction:ltr;}
+body.lang-en .feature-card{text-align:left;}
+
+/* ==================== الاستجابة (Responsive) ==================== */
+@media (max-width:980px){
+  .levels-grid{grid-template-columns:repeat(2,1fr);}
+  .features-grid{grid-template-columns:repeat(2,1fr);}
+  .contact-wrap{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .levels-grid{grid-template-columns:1fr;}
+  .features-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .social-icons{display:none;}
+  .menu-toggle{display:flex;}
+  .header-actions.mobile-hidden{
+    position:absolute;
+    top:100%;
+    inset-inline-end:0;
+    flex-direction:column;
+    background:rgba(10,10,10,0.95);
+    backdrop-filter:blur(16px);
+    padding:20px;
+    border-radius:16px;
+    margin-top:10px;
+    display:none;
+    gap:12px;
+  }
+  .header-actions.mobile-hidden.open{display:flex;}
+  .header-actions.mobile-hidden .social-icons{display:flex;}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== الهيدر ==================== -->
+<header id="mainHeader">
+  <div class="container header-inner">
+    <a href="#top" class="logo-wrap">
+      <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Logo">
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+
+    <div class="header-actions" id="headerActions">
+      <div class="social-icons">
+        <!-- فيسبوك -->
+        <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+        </a>
+        <!-- يوتيوب -->
+        <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+        </a>
+        <!-- تيك توك -->
+        <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M16.6 5.2c-.9-.8-1.4-2-1.4-3.2h-3.2v13.3c0 1.5-1.2 2.7-2.7 2.7a2.7 2.7 0 0 1 0-5.4c.3 0 .6 0 .8.1V9.4a5.9 5.9 0 0 0-.8 0A5.9 5.9 0 0 0 3.4 15.3 5.9 5.9 0 0 0 9.3 21.2a5.9 5.9 0 0 0 5.9-5.9V8.7a8.1 8.1 0 0 0 4.7 1.5V7A5.1 5.1 0 0 1 16.6 5.2z"/></svg>
+        </a>
+      </div>
+
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">🌓</button>
+      <button class="lang-btn" id="langToggle">EN / عربي</button>
+    </div>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ==================== قسم البطل (Hero) ==================== -->
+<section class="hero">
+  <span class="hero-badge">🏆 <span class="ar-text">منصتك الأولى لإتقان الإنجليزية</span><span class="en-text">Your #1 Platform to Master English</span></span>
+
+  <h1>
+    <span class="ar-text">مرحباً بك في <span class="gold-text">Babble Box</span>. نتجاوز حدود اللغة... لنصنع الطلاقة.</span>
+    <span class="en-text">Welcome to <span class="gold-text">Babble Box</span>. We go beyond language... to build fluency.</span>
+  </h1>
+
+  <p class="subtitle ar-text">رحلة تعليمية متكاملة من الصفر حتى الاحتراف، مبنية على معايير CEFR العالمية.</p>
+  <p class="subtitle-en en-text">A complete learning journey from zero to mastery, built on global CEFR standards.</p>
+
+  <div class="hero-ctas">
+    <a href="#levels" class="btn btn-primary">
+      <span class="ar-text">ابدأ التعلم مجاناً 🚀</span>
+      <span class="en-text">Start Learning Free 🚀</span>
+    </a>
+    <a href="test.html" class="btn btn-outline">
+      <span class="ar-text">اختبر مستواك 📝</span>
+      <span class="en-text">Test Your Level 📝</span>
+    </a>
+  </div>
+
+  <div class="scroll-indicator"></div>
+</section>
+
+<!-- ==================== قسم عنا ==================== -->
+<section id="about">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="ar-text">💛 من نحن؟</span>
+      <span class="en-text">💛 Who We Are</span>
+    </div>
+    <div class="glass-card about reveal">
+      <p class="ar-text">Babble Box ليست مجرد منصة تعليمية. نحن رحلة متكاملة من الصفر حتى الاحتراف. ندمج بين المناهج العلمية العالمية (CEFR) وتقنيات التعلم التفاعلي لنصنع منك متحدثاً واثقاً. مهمتنا هي جعل التعلم ممتعاً، فعالاً، ومتاحاً للجميع.</p>
+      <p class="en-text">Babble Box is more than a learning platform. We are a complete journey from zero to mastery. We blend globally recognized CEFR frameworks with interactive learning techniques to turn you into a confident speaker. Our mission is to make learning enjoyable, effective, and accessible to everyone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== قسم خريطة المستويات ==================== -->
+<section id="levels">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="ar-text">🗺️ مستوياتنا</span>
+      <span class="en-text">🗺️ Our Levels</span>
+    </div>
+    <div class="section-desc reveal ar-text">اختر نقطة انطلاقك، ونحن سنرافقك حتى الاحتراف الكامل.</div>
+    <div class="section-desc reveal en-text">Pick your starting point, and we'll guide you all the way to full mastery.</div>
+
+    <div class="levels-grid">
+      <!-- A1 -->
+      <div class="glass-card level-card reveal">
+        <span class="level-tag tag-free ar-text">مجاني</span>
+        <span class="level-tag tag-free en-text">Free</span>
+        <div class="level-icon">🟢</div>
+        <div class="level-code">A1</div>
+        <div class="level-name">Beginner</div>
+        <div class="level-slogan ar-text">انطلق من الصفر</div>
+        <div class="level-slogan en-text">Start from zero</div>
+        <a href="unit1.html" class="level-btn btn-primary">
+          <span class="ar-text">ابدأ مجاناً</span><span class="en-text">Start Free</span>
+        </a>
+      </div>
+      <!-- A2 -->
+      <div class="glass-card level-card reveal">
+        <span class="level-tag tag-free ar-text">مجاني</span>
+        <span class="level-tag tag-free en-text">Free</span>
+        <div class="level-icon">🟢</div>
+        <div class="level-code">A2</div>
+        <div class="level-name">Elementary</div>
+        <div class="level-slogan ar-text">ابن أساسك</div>
+        <div class="level-slogan en-text">Build your base</div>
+        <span class="level-btn btn-disabled">
+          <span class="ar-text">قريباً</span><span class="en-text">Coming Soon</span>
+        </span>
+      </div>
+      <!-- B1 -->
+      <div class="glass-card level-card reveal">
+        <span class="level-tag tag-paid ar-text">مدفوع</span>
+        <span class="level-tag tag-paid en-text">Paid</span>
+        <div class="level-icon">🟡</div>
+        <div class="level-code">B1</div>
+        <div class="level-name">Intermediate</div>
+        <div class="level-slogan ar-text">تجاوز الحدود</div>
+        <div class="level-slogan en-text">Go beyond limits</div>
+        <span class="level-btn btn-disabled">
+          <span class="ar-text">قريباً 🔒</span><span class="en-text">Coming Soon 🔒</span>
+        </span>
+      </div>
+      <!-- B2 -->
+      <div class="glass-card level-card reveal">
+        <span class="level-tag tag-paid ar-text">مدفوع</span>
+        <span class="level-tag tag-paid en-text">Paid</span>
+        <div class="level-icon">🟡</div>
+        <div class="level-code">B2</div>
+        <div class="level-name">Upper-Intermediate</div>
+        <div class="level-slogan ar-text">أتقن اللغة</div>
+        <div class="level-slogan en-text">Master the language</div>
+        <span class="level-btn btn-disabled">
+          <span class="ar-text">قريباً 🔒</span><span class="en-text">Coming Soon 🔒</span>
+        </span>
+      </div>
+      <!-- C1 -->
+      <div class="glass-card level-card reveal">
+        <span class="level-tag tag-paid ar-text">مدفوع</span>
+        <span class="level-tag tag-paid en-text">Paid</span>
+        <div class="level-icon">🔴</div>
+        <div class="level-code">C1</div>
+        <div class="level-name">Advanced</div>
+        <div class="level-slogan ar-text">احترف الأكاديمية</div>
+        <div class="level-slogan en-text">Master academia</div>
+        <span class="level-btn btn-disabled">
+          <span class="ar-text">قريباً 🔒</span><span class="en-text">Coming Soon 🔒</span>
+        </span>
+      </div>
+      <!-- C2 -->
+      <div class="glass-card level-card reveal">
+        <span class="level-tag tag-paid ar-text">مدفوع</span>
+        <span class="level-tag tag-paid en-text">Paid</span>
+        <div class="level-icon">🔴</div>
+        <div class="level-code">C2</div>
+        <div class="level-name">Proficiency</div>
+        <div class="level-slogan ar-text">كن خبيراً</div>
+        <div class="level-slogan en-text">Become an expert</div>
+        <span class="level-btn btn-disabled">
+          <span class="ar-text">قريباً 🔒</span><span class="en-text">Coming Soon 🔒</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== قسم ماذا نقدم ==================== -->
+<section id="features">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="ar-text">📚 ماذا نقدم لك؟</span>
+      <span class="en-text">📚 What We Offer</span>
+    </div>
+
+    <div class="features-grid">
+      <div class="glass-card feature-card reveal">
+        <div class="feature-icon">📖</div>
+        <h3 class="ar-text">كتب تفاعلية</h3><h3 class="en-text">Interactive Books</h3>
+        <p class="ar-text">سلسلة كتب PDF و HTML تغطي كل المستويات.</p>
+        <p class="en-text">A series of PDF & HTML books covering every level.</p>
+      </div>
+      <div class="glass-card feature-card reveal">
+        <div class="feature-icon">📝</div>
+        <h3 class="ar-text">اختبارات تحديد مستوى</h3><h3 class="en-text">Placement Tests</h3>
+        <p class="ar-text">اختبار دقيق مبني على CEFR لمعرفة مستواك الحقيقي.</p>
+        <p class="en-text">An accurate CEFR-based test to reveal your real level.</p>
+      </div>
+      <div class="glass-card feature-card reveal">
+        <div class="feature-icon">🎧</div>
+        <h3 class="ar-text">نصوص استماع وقصص</h3><h3 class="en-text">Listening & Stories</h3>
+        <p class="ar-text">قصص قصيرة وبودكاست لتطوير مهارة الاستماع.</p>
+        <p class="en-text">Short stories and podcasts to sharpen your listening skills.</p>
+      </div>
+      <div class="glass-card feature-card reveal">
+        <div class="feature-icon">✍️</div>
+        <h3 class="ar-text">تدقيق لغوي</h3><h3 class="en-text">Grammar Checker</h3>
+        <p class="ar-text">أدوات ذكية لتصحيح أخطاءك الإملائية والنحوية فوراً.</p>
+        <p class="en-text">Smart tools to instantly correct your spelling and grammar.</p>
+      </div>
+      <div class="glass-card feature-card reveal">
+        <div class="feature-icon">🗣️</div>
+        <h3 class="ar-text">تحديات التحدث</h3><h3 class="en-text">Speaking Challenges</h3>
+        <p class="ar-text">أقسام تفاعلية لتحويل صوتك لنص وتصحيحه.</p>
+        <p class="en-text">Interactive modules that convert your voice to text and correct it.</p>
+      </div>
+      <div class="glass-card feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3 class="ar-text">امتحانات شاملة</h3><h3 class="en-text">Comprehensive Exams</h3>
+        <p class="ar-text">بنوك أسئلة ضخمة في الجرامر، الكلمات، والقطع.</p>
+        <p class="en-text">Massive question banks in grammar, vocabulary, and reading.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== قسم تحميل الكتب ==================== -->
+<section id="books">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="ar-text">📘 مكتبتنا الرقمية</span>
+      <span class="en-text">📘 Our Digital Library</span>
+    </div>
+    <div class="glass-card books-box reveal">
+      <p class="ar-text">قريباً جداً. سلسلة من الكتب التفاعلية المجانية للمستويات الأساسية.</p>
+      <p class="en-text">Coming very soon. A series of free interactive books for the foundational levels.</p>
+      <span class="btn btn-disabled">
+        <span class="ar-text">حمل الآن 📥 (قريباً)</span>
+        <span class="en-text">Download Now 📥 (Coming Soon)</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== قسم اختبار المستوى ==================== -->
+<section id="placement">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="ar-text">🎯 لست متأكداً من مستواك؟</span>
+      <span class="en-text">🎯 Not Sure of Your Level?</span>
+    </div>
+    <div class="glass-card placement-box reveal">
+      <p class="ar-text">اختبارنا المبني على CEFR سيحدد مستواك بدقة في 15 دقيقة.</p>
+      <p class="en-text">Our CEFR-based test will accurately pinpoint your level in 15 minutes.</p>
+      <a href="test.html" class="btn btn-primary">
+        <span class="ar-text">ابدأ الاختبار المجاني 📝</span>
+        <span class="en-text">Start the Free Test 📝</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== قسم التواصل ==================== -->
+<section id="contact">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="ar-text">📩 ابق على تواصل</span>
+      <span class="en-text">📩 Get in Touch</span>
+    </div>
+
+    <div class="contact-wrap">
+      <form class="glass-card contact-form reveal" action="https://formspree.io/f/mgogwoky" method="POST">
+        <input type="text" name="name" placeholder="الاسم / Name" required>
+        <input type="email" name="email" placeholder="البريد الإلكتروني / Email" required>
+        <textarea name="message" placeholder="رسالتك / Your message" required></textarea>
+        <button type="submit" class="btn btn-primary">
+          <span class="ar-text">إرسال ✉️</span>
+          <span class="en-text">Send ✉️</span>
+        </button>
+      </form>
+
+      <div class="glass-card contact-info reveal">
+        <h3 class="ar-text">تابعنا على منصاتنا</h3>
+        <h3 class="en-text">Follow Us</h3>
+        <p class="ar-text" style="color:var(--text-muted)">كن جزءاً من مجتمعنا المتنامي من المتعلمين حول العالم.</p>
+        <p class="en-text" style="color:var(--text-muted)">Join our growing community of learners around the world.</p>
+        <div class="contact-social">
+          <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+          </a>
+          <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M16.6 5.2c-.9-.8-1.4-2-1.4-3.2h-3.2v13.3c0 1.5-1.2 2.7-2.7 2.7a2.7 2.7 0 0 1 0-5.4c.3 0 .6 0 .8.1V9.4a5.9 5.9 0 0 0-.8 0A5.9 5.9 0 0 0 3.4 15.3 5.9 5.9 0 0 0 9.3 21.2a5.9 5.9 0 0 0 5.9-5.9V8.7a8.1 8.1 0 0 0 4.7 1.5V7A5.1 5.1 0 0 1 16.6 5.2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== التذييل ==================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Logo">
+        </div>
+        <p class="ar-text">منصتك الشاملة لتعلم اللغة الإنجليزية باحتراف، من الصفر حتى الطلاقة الكاملة.</p>
+        <p class="en-text">Your complete platform to master English, from zero to full fluency.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="ar-text">روابط سريعة</h4><h4 class="en-text">Quick Links</h4>
+        <ul>
+          <li><a href="#about"><span class="ar-text">من نحن</span><span class="en-text">About Us</span></a></li>
+          <li><a href="#levels"><span class="ar-text">المستويات</span><span class="en-text">Levels</span></a></li>
+          <li><a href="#features"><span class="ar-text">المميزات</span><span class="en-text">Features</span></a></li>
+          <li><a href="#books"><span class="ar-text">الكتب</span><span class="en-text">Books</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="ar-text">الدعم</h4><h4 class="en-text">Support</h4>
+        <ul>
+          <li><a href="#placement"><span class="ar-text">اختبار المستوى</span><span class="en-text">Placement Test</span></a></li>
+          <li><a href="#contact"><span class="ar-text">تواصل معنا</span><span class="en-text">Contact Us</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="ar-text">تابعنا</h4><h4 class="en-text">Follow Us</h4>
+        <ul>
+          <li><a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="ar-text">© 2026 Babble Box Academy. جميع الحقوق محفوظة.</span>
+      <span class="en-text">© 2026 Babble Box Academy. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== Google Analytics ==================== -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -20,461 +897,82 @@
   gtag('config', 'G-L42M2EDW3H');
 </script>
 
-<style>
-  /* ===== المتغيرات الأساسية للهوية البصرية ===== */
-  :root{
-    --bg: #050505;
-    --bg-soft: #0d0d0d;
-    --gold: #FFD700;
-    --gold-dim: #b8980a;
-    --white: #FFFFFF;
-    --glass: rgba(255,255,255,0.05);
-    --glass-border: rgba(255,215,0,0.18);
-    --text-dim: rgba(255,255,255,0.65);
-    --radius: 18px;
-    --font-ar: 'Cairo', sans-serif;
-    --font-en: 'Poppins', sans-serif;
-  }
-
-  /* ===== وضع النهار (Light Mode) ===== */
-  body.light{
-    --bg: #f5f5f3;
-    --bg-soft: #ffffff;
-    --white: #0a0a0a;
-    --glass: rgba(0,0,0,0.04);
-    --glass-border: rgba(184,152,10,0.35);
-    --text-dim: rgba(0,0,0,0.6);
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-
-  html{scroll-behavior:smooth;}
-
-  body{
-    background:var(--bg);
-    color:var(--white);
-    font-family:var(--font-ar);
-    direction:rtl;
-    text-align:right;
-    overflow-x:hidden;
-    transition:background .4s ease, color .4s ease;
-    min-height:100vh;
-    line-height:1.7;
-  }
-
-  [lang="en"], .en{
-    font-family:var(--font-en);
-    direction:ltr;
-    text-align:left;
-    unicode-bidi:isolate;
-  }
-
-  a{color:inherit;text-decoration:none;}
-  ul{list-style:none;}
-  img{max-width:100%;display:block;}
-  button{font-family:inherit;cursor:pointer;border:none;}
-
-  /* ===== خلفية زخرفية متوهجة ===== */
-  .glow-orb{
-    position:fixed;
-    width:420px;height:420px;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(255,215,0,0.16) 0%, transparent 70%);
-    filter:blur(20px);
-    pointer-events:none;
-    z-index:0;
-  }
-  .glow-1{top:-100px;right:-100px;}
-  .glow-2{bottom:10%;left:-150px;background:radial-gradient(circle, rgba(255,215,0,0.10) 0%, transparent 70%);}
-
-  /* ===== زجاجية عامة ===== */
-  .glass{
-    background:var(--glass);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    border:1px solid var(--glass-border);
-    border-radius:var(--radius);
-  }
-
-  /* ===== الهيدر ===== */
-  header{
-    position:sticky;top:0;z-index:100;
-    background:rgba(5,5,5,0.75);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--glass-border);
-  }
-  body.light header{background:rgba(245,245,243,0.85);}
-
-  .header-inner{
-    max-width:1200px;margin:0 auto;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:12px 20px;
-    gap:12px;
-  }
-
-  .logo-wrap{display:flex;align-items:center;gap:10px;}
-  .logo-wrap img{height:42px;width:auto;border-radius:8px;}
-  .logo-text{font-family:var(--font-en);font-weight:800;font-size:1.05rem;letter-spacing:.5px;}
-  .logo-text span{color:var(--gold);}
-
-  nav.main-nav{display:none;}
-  nav.main-nav ul{display:flex;gap:26px;font-weight:600;font-size:.95rem;}
-  nav.main-nav a{position:relative;padding:6px 2px;transition:color .25s;}
-  nav.main-nav a:hover{color:var(--gold);}
-
-  .header-actions{display:flex;align-items:center;gap:10px;}
-
-  .social-icons{display:none;gap:10px;align-items:center;}
-  .social-icons a{
-    width:34px;height:34px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    background:var(--glass);border:1px solid var(--glass-border);
-    font-size:.95rem;transition:transform .25s, background .25s;
-  }
-  .social-icons a:hover{transform:translateY(-3px);background:rgba(255,215,0,0.15);}
-
-  #themeToggle{
-    width:42px;height:42px;border-radius:50%;
-    background:var(--glass);border:1px solid var(--glass-border);
-    font-size:1.2rem;display:flex;align-items:center;justify-content:center;
-    transition:transform .3s;
-  }
-  #themeToggle:hover{transform:rotate(20deg);}
-
-  .burger{
-    display:flex;flex-direction:column;gap:5px;
-    width:30px;height:30px;justify-content:center;
-    background:none;
-  }
-  .burger span{display:block;width:100%;height:2px;background:var(--gold);border-radius:2px;}
-
-  .mobile-nav{
-    display:none;flex-direction:column;
-    padding:16px 20px 20px;
-    border-top:1px solid var(--glass-border);
-  }
-  .mobile-nav.open{display:flex;}
-  .mobile-nav a{padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.06);}
-  .mobile-nav .social-icons{display:flex;margin-top:14px;}
-
-  @media(min-width:900px){
-    nav.main-nav{display:block;}
-    .social-icons{display:flex;}
-    .burger{display:none;}
-    .mobile-nav{display:none !important;}
-  }
-
-  /* ===== الهيرو ===== */
-  .hero{
-    position:relative;z-index:1;
-    max-width:1200px;margin:0 auto;
-    padding:70px 20px 50px;
-    display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;
-  }
-  .hero-badge{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:8px 18px;border-radius:999px;
-    font-size:.85rem;font-weight:700;color:var(--gold);
-  }
-  .hero h1{
-    font-family:var(--font-en);
-    font-size:clamp(2rem, 6vw, 3.4rem);
-    font-weight:800;line-height:1.15;
-    direction:ltr;
-  }
-  .hero h1 .accent{color:var(--gold);}
-  .hero p.sub{
-    max-width:560px;color:var(--text-dim);font-size:1.05rem;
-  }
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
-  .btn{
-    padding:15px 30px;border-radius:14px;font-weight:700;font-size:1rem;
-    transition:transform .25s ease, box-shadow .25s ease;
-    display:inline-flex;align-items:center;gap:8px;
-  }
-  .btn-gold{
-    background:linear-gradient(135deg, var(--gold), #e8b800);
-    color:#050505;
-  }
-  .btn-gold:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,215,0,0.25);}
-  .btn-outline{
-    border:1.5px solid var(--glass-border);color:var(--white);
-  }
-  .btn-outline:hover{background:var(--glass);transform:translateY(-3px);}
-
-  /* شارة المستوى الدائرية بتصميم "قرص لغة" — العنصر المميز للتصميم */
-  .level-dial{
-    position:relative;
-    width:200px;height:200px;
-    margin:10px auto 0;
-    border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .level-dial::before{
-    content:"";position:absolute;inset:0;border-radius:50%;
-    background:conic-gradient(var(--gold) 0deg 65deg, rgba(255,215,0,0.12) 65deg 360deg);
-    -webkit-mask:radial-gradient(circle, transparent 62%, black 63%);
-    mask:radial-gradient(circle, transparent 62%, black 63%);
-    animation:spin 12s linear infinite;
-  }
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .level-dial-inner{
-    position:relative;z-index:2;text-align:center;
-  }
-  .level-dial-inner .lvl{font-family:var(--font-en);font-size:2rem;font-weight:800;color:var(--gold);}
-  .level-dial-inner .lvl-label{font-size:.75rem;color:var(--text-dim);direction:rtl;}
-
-  /* ===== قسم لماذا Babble Box ===== */
-  section{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:60px 20px;}
-  .section-title{text-align:center;margin-bottom:40px;}
-  .section-title .eyebrow{color:var(--gold);font-weight:700;font-size:.85rem;letter-spacing:1px;}
-  .section-title h2{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-top:8px;}
-
-  .features-grid{
-    display:grid;grid-template-columns:repeat(auto-fit, minmax(220px,1fr));gap:20px;
-  }
-  .feature-card{
-    padding:26px 22px;text-align:center;
-    transition:transform .3s ease, border-color .3s ease;
-  }
-  .feature-card:hover{transform:translateY(-6px);border-color:var(--gold);}
-  .feature-card .icon{font-size:2rem;margin-bottom:12px;}
-  .feature-card h3{font-size:1.05rem;margin-bottom:8px;}
-  .feature-card p{color:var(--text-dim);font-size:.9rem;}
-
-  /* ===== خارطة الطريق - الوحدات ===== */
-  #roadmap{scroll-margin-top:80px;}
-  .roadmap-grid{
-    display:grid;grid-template-columns:repeat(auto-fill, minmax(150px,1fr));gap:16px;
-  }
-  .unit-card{
-    padding:20px 16px;text-align:center;position:relative;overflow:hidden;
-    transition:transform .25s ease, border-color .25s ease;
-  }
-  .unit-card:hover{transform:translateY(-5px);border-color:var(--gold);}
-  .unit-card .num{
-    font-family:var(--font-en);color:var(--gold);font-weight:800;font-size:.8rem;
-    display:block;margin-bottom:6px;
-  }
-  .unit-card .title{font-size:.95rem;font-weight:700;}
-  .unit-card .locked-tag{
-    position:absolute;top:8px;left:8px;font-size:.85rem;opacity:.6;
-  }
-
-  /* ===== قسم الاختبار ===== */
-  .test-banner{
-    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;
-    padding:36px 30px;
-  }
-  .test-banner .txt h3{font-size:1.3rem;margin-bottom:8px;}
-  .test-banner .txt p{color:var(--text-dim);}
-
-  /* ===== تواصل معنا ===== */
-  #contact .glass{padding:36px 26px;text-align:center;}
-  #contact h2{margin-bottom:10px;}
-  #contact p{color:var(--text-dim);margin-bottom:20px;}
-  .contact-socials{display:flex;justify-content:center;gap:16px;}
-  .contact-socials a{
-    width:46px;height:46px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;font-size:1.2rem;
-    background:var(--glass);border:1px solid var(--glass-border);
-    transition:transform .25s, background .25s;
-  }
-  .contact-socials a:hover{transform:translateY(-4px) scale(1.05);background:rgba(255,215,0,0.15);}
-
-  /* ===== فوتر ===== */
-  footer{
-    position:relative;z-index:1;
-    border-top:1px solid var(--glass-border);
-    padding:30px 20px;text-align:center;color:var(--text-dim);font-size:.85rem;
-  }
-  footer .footer-socials{display:flex;justify-content:center;gap:14px;margin-top:14px;}
-  footer .footer-socials a{
-    width:36px;height:36px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    background:var(--glass);border:1px solid var(--glass-border);
-  }
-</style>
-</head>
-<body>
-
-<div class="glow-orb glow-1"></div>
-<div class="glow-orb glow-2"></div>
-
-<!-- ===== الهيدر الموحد ===== -->
-<header>
-  <div class="header-inner">
-    <div class="logo-wrap">
-      <a href="index.html"><img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy Logo"></a>
-      <div class="logo-text">Babble<span>Box</span></div>
-    </div>
-
-    <nav class="main-nav">
-      <ul>
-        <li><a href="index.html">الرئيسية</a></li>
-        <li><a href="index.html#roadmap">المستويات</a></li>
-        <li><a href="test.html">اختبر مستواك</a></li>
-        <li><a href="index.html#contact">اتصل بنا</a></li>
-      </ul>
-    </nav>
-
-    <div class="header-actions">
-      <div class="social-icons">
-        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
-        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
-        <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
-      </div>
-      <button id="themeToggle" aria-label="تبديل الوضع">🌓</button>
-      <button class="burger" id="burgerBtn" aria-label="القائمة">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-
-  <div class="mobile-nav" id="mobileNav">
-    <a href="index.html">الرئيسية</a>
-    <a href="index.html#roadmap">المستويات</a>
-    <a href="test.html">اختبر مستواك</a>
-    <a href="index.html#contact">اتصل بنا</a>
-    <div class="social-icons">
-      <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
-      <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
-      <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
-    </div>
-  </div>
-</header>
-
-<!-- ===== قسم الهيرو ===== -->
-<section class="hero">
-  <div class="hero-badge glass">🎓 مستوى A1 · للمبتدئين تماماً</div>
-  <h1>Speak Your <span class="accent">First</span> Words<br>with Confidence</h1>
-  <p class="sub">منصة Babble Box Academy تأخذك من الصفر خطوة بخطوة عبر 12 وحدة تفاعلية، لتتحدث الإنجليزية بثقة في مواقف الحياة اليومية.</p>
-
-  <div class="level-dial glass" style="border:none;background:transparent;">
-    <div class="level-dial-inner">
-      <div class="lvl">A1</div>
-      <div class="lvl-label">مستواك المتوقع</div>
-    </div>
-  </div>
-
-  <div class="hero-ctas">
-    <a href="unit1.html" class="btn btn-gold">🚀 ابدأ الوحدة 1</a>
-    <a href="test.html" class="btn btn-outline">🧭 اختبر مستواك أولاً</a>
-  </div>
-</section>
-
-<!-- ===== لماذا Babble Box ===== -->
-<section id="why">
-  <div class="section-title">
-    <div class="eyebrow">WHY BABBLE BOX</div>
-    <h2>تعلّم بطريقة تلتصق في ذاكرتك</h2>
-  </div>
-  <div class="features-grid">
-    <div class="feature-card glass">
-      <div class="icon">🗣️</div>
-      <h3>محادثات واقعية</h3>
-      <p>مواقف حياتية حقيقية بدل الجمل الجافة المملة.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="icon">🚨</div>
-      <h3>Babble Warning</h3>
-      <p>تحذيرات من الأخطاء والمعاني المزدوجة المضحكة.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="icon">⚔️</div>
-      <h3>تحديات تفاعلية</h3>
-      <p>7 أسئلة في كل وحدة لقياس تقدمك فوراً.</p>
-    </div>
-    <div class="feature-card glass">
-      <div class="icon">🎤</div>
-      <h3>تدريب على النطق</h3>
-      <p>تحدّث والنظام يقيس مدى تطابق نطقك مع الجملة.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== خارطة الطريق ===== -->
-<section id="roadmap">
-  <div class="section-title">
-    <div class="eyebrow">ROADMAP</div>
-    <h2>خارطة الطريق - 12 وحدة</h2>
-  </div>
-  <div class="roadmap-grid" id="roadmapGrid"></div>
-</section>
-
-<!-- ===== بانر الاختبار ===== -->
-<section id="test-banner">
-  <div class="test-banner glass">
-    <div class="txt">
-      <h3>🧭 لست متأكداً من مستواك؟</h3>
-      <p>خض اختبار تحديد المستوى المجاني الآن واعرف نقطة انطلاقك الصحيحة.</p>
-    </div>
-    <a href="test.html" class="btn btn-gold">ابدأ الاختبار</a>
-  </div>
-</section>
-
-<!-- ===== تواصل معنا ===== -->
-<section id="contact">
-  <div class="glass">
-    <h2>اتصل بنا</h2>
-    <p>تابعنا على منصات التواصل الاجتماعي وكن جزءاً من مجتمع Babble Box.</p>
-    <div class="contact-socials">
-      <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
-      <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
-      <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===== الفوتر الموحد ===== -->
-<footer>
-  <div>© 2026 Babble Box Academy. جميع الحقوق محفوظة.</div>
-  <div class="footer-socials">
-    <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">📘</a>
-    <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
-    <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">🎵</a>
-  </div>
-</footer>
-
+<!-- ==================== السكربت الرئيسي ==================== -->
 <script>
-  /* ===== تبديل الوضع الليلي/النهاري وحفظه في localStorage ===== */
-  const themeBtn = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('bb_theme');
-  if(savedTheme === 'light'){ document.body.classList.add('light'); }
-  themeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    localStorage.setItem('bb_theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  // ----- تغيير مظهر الهيدر عند التمرير -----
+  const header = document.getElementById('mainHeader');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
   });
 
-  /* ===== قائمة الجوال ===== */
-  const burger = document.getElementById('burgerBtn');
-  const mobileNav = document.getElementById('mobileNav');
-  burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
-
-  /* ===== بناء بطاقات الوحدات بناءً على maxUnitUnlocked في localStorage ===== */
-  const unitTitles = [
-    "Hello! How are you?", "My Family & Friends", "My Daily Life", "Let's Eat!",
-    "My Home Sweet Home", "Around Town", "What Are You Wearing?", "How's the Weather?",
-    "I Can Do It!", "What Time Is It?", "Tell Me a Story", "Final Adventure"
-  ];
-  const maxUnlocked = parseInt(localStorage.getItem('maxUnitUnlocked') || '1', 10);
-  const grid = document.getElementById('roadmapGrid');
-  unitTitles.forEach((title, i) => {
-    const unitNum = i + 1;
-    const isLocked = unitNum > maxUnlocked;
-    const card = document.createElement(isLocked ? 'div' : 'a');
-    if(!isLocked) card.href = `unit${unitNum}.html`;
-    card.className = 'unit-card glass';
-    card.style.opacity = isLocked ? '0.55' : '1';
-    card.innerHTML = `
-      ${isLocked ? '<span class="locked-tag">🔒</span>' : ''}
-      <span class="num">U${unitNum}</span>
-      <span class="title en">${title}</span>
-    `;
-    if(!isLocked) card.style.borderColor = 'var(--glass-border)';
-    grid.appendChild(card);
+  // ----- الوضع الليلي / النهاري مع التخزين في localStorage -----
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('babblebox-theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    themeToggle.textContent = '☀️';
+  }
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    themeToggle.textContent = isLight ? '☀️' : '🌓';
+    localStorage.setItem('babblebox-theme', isLight ? 'light' : 'dark');
   });
+
+  // ----- تبديل اللغة (عربي / إنجليزي) مع التخزين وتغيير الاتجاه -----
+  const langToggle = document.getElementById('langToggle');
+  const htmlEl = document.documentElement;
+
+  function applyLanguage(lang) {
+    if (lang === 'en') {
+      document.body.classList.add('lang-en');
+      htmlEl.setAttribute('lang', 'en');
+      htmlEl.setAttribute('dir', 'ltr');
+      langToggle.textContent = 'عربي / EN';
+    } else {
+      document.body.classList.remove('lang-en');
+      htmlEl.setAttribute('lang', 'ar');
+      htmlEl.setAttribute('dir', 'rtl');
+      langToggle.textContent = 'EN / عربي';
+    }
+  }
+
+  const savedLang = localStorage.getItem('babblebox-lang') || 'ar';
+  applyLanguage(savedLang);
+
+  langToggle.addEventListener('click', () => {
+    const current = document.body.classList.contains('lang-en') ? 'en' : 'ar';
+    const next = current === 'en' ? 'ar' : 'en';
+    applyLanguage(next);
+    localStorage.setItem('babblebox-lang', next);
+  });
+
+  // ----- قائمة الجوال -----
+  const menuToggle = document.getElementById('menuToggle');
+  const headerActions = document.getElementById('headerActions');
+  menuToggle.addEventListener('click', () => {
+    headerActions.classList.toggle('mobile-hidden');
+    headerActions.classList.toggle('open');
+  });
+
+  // ----- ظهور العناصر عند التمرير (Scroll Reveal) -----
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // احترام إعداد "تقليل الحركة" في نظام المستخدم
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.style.setProperty('--transition', 'none');
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
 </script>
 
 </body>
