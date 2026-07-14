@@ -598,7 +598,7 @@
   <div class="container">
     <h2 class="section-title">🗣️ <span class="em">The Real Talk</span></h2>
     <p class="section-sub ar-text">استمع لمحادثة بين Ben و Emma التي تجمع كل القواعد التي تعلمتها 🎓، واضغط على 🔊 لسماع النطق الصحيح.</p>
-    <div class="glass-card reveal">
+    <div class="glass-card reveal in-view">
       <div class="chat-wrap" id="chat-wrap"></div>
     </div>
   </div>
@@ -637,15 +637,15 @@
     <h2 class="section-title">🚨 <span class="em">Babble Warning</span></h2>
     <p class="section-sub ar-text">الكلمة الخائنة النهائية: Right — ٣ معاني في كلمة واحدة!</p>
     <div class="warning-grid">
-      <div class="glass-card warn-card good reveal">
+      <div class="glass-card warn-card good reveal in-view">
         <div class="warn-en">You are right.</div>
         <div class="warn-ar">أنت على صواب.</div>
       </div>
-      <div class="glass-card warn-card bad reveal">
+      <div class="glass-card warn-card bad reveal in-view">
         <div class="warn-en">Turn right.</div>
         <div class="warn-ar">انعطف يميناً.</div>
       </div>
-      <div class="glass-card warn-card neutral reveal">
+      <div class="glass-card warn-card neutral reveal in-view">
         <div class="warn-en">It's my right.</div>
         <div class="warn-ar">إنه حقي.</div>
       </div>
@@ -684,7 +684,7 @@
   <div class="container">
     <h2 class="section-title">⚡ <span class="em">Power Recap</span></h2>
     <p class="section-sub ar-text">🎓 لقد أكملت المستوى A1!</p>
-    <div class="glass-card reveal" style="text-align:center; padding:32px;">
+    <div class="glass-card reveal in-view" style="text-align:center; padding:32px;">
       <p style="font-size:20px; font-weight:700; color: var(--gold); margin-bottom:8px;">🎉 أحسنت!</p>
       <p style="color: var(--text-muted); font-size:16px;">لقد تعلمت كل أساسيات اللغة الإنجليزية. أنت الآن جاهز للمستوى A2.</p>
     </div>
@@ -695,7 +695,7 @@
 <section id="video-zone">
   <div class="container">
     <h2 class="section-title">🎥 <span class="em">Video Zone</span></h2>
-    <div class="glass-card reveal video-box">
+    <div class="glass-card reveal in-view video-box">
       <div class="icon">🎬</div>
       <a class="btn" href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" data-lang-ar="شاهد شرح الوحدة على يوتيوب" data-lang-en="Watch the unit explanation on YouTube">شاهد شرح الوحدة على يوتيوب</a>
     </div>
@@ -776,6 +776,15 @@
    ===================================================================== */
 const TOTAL_UNITS = 12;
 const CURRENT_UNIT = 12;
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
 
 /* =====================================================================
    1) اللغة والوضع الداكن/الفاتح
@@ -1107,7 +1116,7 @@ function renderTest(){
 
   testQuestions.forEach((q, idx) => {
     const card = document.createElement('div');
-    card.className = 'glass-card q-card';
+    card.className = 'glass-card q-card reveal';
 
     if (q.type === 'mcq') {
       card.innerHTML = '<div class="q-title">' + (idx + 1) + '. ' + q.text + '</div><div class="q-options"></div><div class="q-status"></div>';
@@ -1240,6 +1249,10 @@ function renderTest(){
     }
 
     wrap.appendChild(card);
+    // نراقب البطاقة ولكن نضيف in-view فوراً لأن العنصر في DOM ومرئي
+    card.classList.add('in-view');
+    // ومع ذلك نراقبه لضمان ظهوره إذا تمت إعادة التحدي
+    revealObserver.observe(card);
   });
 
   const score = testAnswers.filter(a => a === true).length;
@@ -1301,9 +1314,6 @@ function showCelebration(){
 
   // مفرقعات كثيفة (150 قطعة)
   launchConfetti(150);
-
-  // إغلاق تلقائي بعد 10 ثوانٍ (اختياري)
-  // لكننا نترك المستخدم يغلق يدوياً
 }
 
 function launchConfetti(count){
@@ -1441,15 +1451,41 @@ document.getElementById('cert-modal').addEventListener('click', (e) => {
   }
 })();
 
-// إزالة class="reveal" من الأقسام الرئيسية وضمان ظهورها
-document.querySelectorAll('section:not(.real-talk) .glass-card:not(.reveal)').forEach(el => {
-  el.classList.add('in-view');
+/* =====================================================================
+   12) إصلاح نهائي: إظهار جميع العناصر التي تحمل class "reveal" فوراً
+   ===================================================================== */
+document.addEventListener('DOMContentLoaded', function() {
+  // نضيف class in-view لكل عنصر reveal غير مرئي
+  document.querySelectorAll('.reveal:not(.in-view)').forEach(function(el) {
+    el.classList.add('in-view');
+  });
+  console.log('✅ تم إظهار جميع الأقسام بنجاح!');
 });
-// التأكد من ظهور جميع البطاقات
-document.querySelectorAll('.review-card, .recap-card, .flip-card, .warn-card, .q-card').forEach(el => {
-  el.style.opacity = '1';
-  el.style.transform = 'translateY(0)';
+
+/* =====================================================================
+   13) مراقبة العناصر الجديدة التي تضاف ديناميكياً
+   (سيتم إضافتها عبر renderTest في حالة إعادة التحدي)
+   ===================================================================== */
+// نراقب العناصر الجديدة التي تحمل class "reveal" والتي لم ترصد بعد
+const dynamicObserver = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    mutation.addedNodes.forEach(function(node) {
+      if (node.nodeType === 1) {
+        // إذا كان العنصر نفسه يحمل class reveal
+        if (node.classList && node.classList.contains('reveal')) {
+          node.classList.add('in-view');
+        }
+        // أو إذا كان يحتوي على عناصر داخلية تحمل class reveal
+        node.querySelectorAll && node.querySelectorAll('.reveal:not(.in-view)').forEach(function(el) {
+          el.classList.add('in-view');
+        });
+      }
+    });
+  });
 });
+dynamicObserver.observe(document.body, { childList: true, subtree: true });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 </body>
   </html>
