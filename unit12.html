@@ -777,15 +777,6 @@
 const TOTAL_UNITS = 12;
 const CURRENT_UNIT = 12;
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in-view');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
 /* =====================================================================
    1) اللغة والوضع الداكن/الفاتح
    ===================================================================== */
@@ -1116,7 +1107,7 @@ function renderTest(){
 
   testQuestions.forEach((q, idx) => {
     const card = document.createElement('div');
-    card.className = 'glass-card q-card reveal';
+    card.className = 'glass-card q-card';
 
     if (q.type === 'mcq') {
       card.innerHTML = '<div class="q-title">' + (idx + 1) + '. ' + q.text + '</div><div class="q-options"></div><div class="q-status"></div>';
@@ -1249,7 +1240,6 @@ function renderTest(){
     }
 
     wrap.appendChild(card);
-    revealObserver.observe(card);
   });
 
   const score = testAnswers.filter(a => a === true).length;
@@ -1451,7 +1441,15 @@ document.getElementById('cert-modal').addEventListener('click', (e) => {
   }
 })();
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+// إزالة class="reveal" من الأقسام الرئيسية وضمان ظهورها
+document.querySelectorAll('section:not(.real-talk) .glass-card:not(.reveal)').forEach(el => {
+  el.classList.add('in-view');
+});
+// التأكد من ظهور جميع البطاقات
+document.querySelectorAll('.review-card, .recap-card, .flip-card, .warn-card, .q-card').forEach(el => {
+  el.style.opacity = '1';
+  el.style.transform = 'translateY(0)';
+});
 </script>
 </body>
   </html>
