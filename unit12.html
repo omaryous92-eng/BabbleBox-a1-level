@@ -1,2282 +1,1458 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+  =====================================================================
+  Babble Box Academy — الوحدة 12: Final Review & Test (المراجعة النهائية والاختبار الختامي)
+  المستوى A1 — ملف واحد كامل (HTML + CSS + JS) بدون أي مكتبات خارجية.
+  هذه هي الوحدة الأخيرة من المستوى A1. تحتوي على مراجعة شاملة واختبار نهائي
+  من 25 سؤالاً، وشهادة إتمام قابلة للتحميل.
+  =====================================================================
+-->
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Babble Box - Unit 12: Final Adventure</title>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-L42M2EDW3H');
-</script>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>الوحدة 12 | Babble Box Academy</title>
+<meta name="description" content="الوحدة الثانية عشرة والأخيرة من مستوى A1 — Final Review & Test" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 <style>
-/* ============================================================
-ROOT & RESET
-============================================================ */
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-}
-
-:root {
---gold: #FFC107;
---gold-dark: #FFA000;
---black: #1A1A1A;
---white: #FAFAFA;
---bg: #FAFAFA;
---text: #1A1A1A;
---card-bg: #FFFFFF;
---shadow: 0 8px 30px rgba(0,0,0,0.06);
---radius: 18px;
---transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
---green: #4CAF50;
---red: #F44336;
---blue: #2196F3;
-}
-
-[data-theme="dark"] {
---bg: #121212;
---text: #F0F0F0;
---card-bg: #1E1E1E;
---shadow: 0 8px 30px rgba(0,0,0,0.4);
-}
-
-html {
-scroll-behavior: smooth;
-}
-
-body {
-font-family: 'Cairo', 'Segoe UI', sans-serif;
-background: var(--bg);
-color: var(--text);
-min-height: 100vh;
-transition: background var(--transition), color var(--transition);
-}
-
-/* ============================================================
-HEADER
-============================================================ */
-.header {
-background: var(--card-bg);
-padding: 12px 16px;
-box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-display: flex;
-align-items: center;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 8px;
-transition: background var(--transition);
-border-bottom: 2px solid rgba(0,0,0,0.04);
-position: sticky;
-top: 0;
-z-index: 100;
-}
-
-[data-theme="dark"] .header {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.header .brand {
-font-family: 'Poppins', sans-serif;
-font-size: 16px;
-font-weight: 800;
-color: var(--text);
-direction: ltr;
-text-align: left;
-}
-
-.header .brand span {
-color: var(--gold);
-}
-
-.header .unit-title {
-font-size: 13px;
-font-weight: 600;
-color: #888;
-direction: ltr;
-text-align: left;
-}
-
-.header .top-actions {
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.theme-toggle {
-background: none;
-border: none;
-font-size: 20px;
-cursor: pointer;
-color: var(--text);
-transition: 0.3s;
-padding: 4px;
-}
-
-.theme-toggle:hover {
-transform: rotate(20deg);
-}
-
-.back-btn {
-background: var(--gold);
-border: none;
-padding: 5px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-text-decoration: none;
-}
-
-.back-btn:hover {
-transform: scale(1.03);
-}
-
-.reset-unit-btn {
-background: rgba(255,0,0,0.1);
-border: 2px solid var(--red);
-color: var(--red);
-padding: 5px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-}
-
-.reset-unit-btn:hover {
-background: var(--red);
-color: #fff;
-transform: scale(1.02);
-}
-
-/* ============================================================
-UNIT NAVIGATION TABS
-============================================================ */
-.unit-tabs-wrapper {
-background: var(--card-bg);
-padding: 8px 16px;
-border-bottom: 1px solid rgba(0,0,0,0.04);
-overflow-x: auto;
-scrollbar-width: thin;
-transition: background var(--transition);
-}
-
-[data-theme="dark"] .unit-tabs-wrapper {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.unit-tabs-wrapper::-webkit-scrollbar {
-height: 3px;
-}
-
-.unit-tabs-wrapper::-webkit-scrollbar-thumb {
-background: var(--gold);
-border-radius: 10px;
-}
-
-.unit-tabs {
-display: flex;
-gap: 6px;
-min-width: max-content;
-padding-bottom: 4px;
-}
-
-.unit-tab {
-min-width: 36px;
-height: 36px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 11px;
-font-weight: 700;
-font-family: 'Poppins', sans-serif;
-border: 2px solid transparent;
-cursor: pointer;
-transition: 0.2s;
-background: rgba(0,0,0,0.04);
-color: var(--text);
-}
-
-[data-theme="dark"] .unit-tab {
-background: rgba(255,255,255,0.04);
-color: #aaa;
-}
-
-.unit-tab.active {
-background: var(--gold);
-color: var(--black);
-border-color: var(--gold);
-}
-
-.unit-tab.completed {
-background: var(--green);
-color: #fff;
-border-color: var(--green);
-}
-
-.unit-tab.unlocked {
-border-color: var(--gold);
-background: transparent;
-color: var(--text);
-}
-
-.unit-tab.unlocked:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-.unit-tab.locked {
-background: rgba(0,0,0,0.04);
-color: #999;
-cursor: not-allowed;
-border-color: rgba(0,0,0,0.06);
-}
-
-[data-theme="dark"] .unit-tab.locked {
-background: rgba(255,255,255,0.04);
-color: #555;
-border-color: rgba(255,255,255,0.04);
-}
-
-.unit-tab.locked .lock-icon {
-font-size: 10px;
-}
-
-/* ============================================================
-PROGRESS BAR (10 sections)
-============================================================ */
-.daily-progress {
-padding: 8px 16px;
-background: var(--card-bg);
-border-bottom: 1px solid rgba(0,0,0,0.04);
-display: flex;
-align-items: center;
-gap: 12px;
-flex-wrap: wrap;
-transition: background var(--transition);
-}
-
-[data-theme="dark"] .daily-progress {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.daily-progress .label {
-font-size: 13px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-text-align: right;
-}
-
-.daily-progress .bar-wrap {
-flex: 1;
-height: 6px;
-background: rgba(0,0,0,0.06);
-border-radius: 10px;
-overflow: hidden;
-min-width: 80px;
-}
-
-[data-theme="dark"] .daily-progress .bar-wrap {
-background: rgba(255,255,255,0.06);
-}
-
-.daily-progress .bar-fill {
-height: 100%;
-width: 0%;
-background: linear-gradient(90deg, var(--gold), #FFA000);
-border-radius: 10px;
-transition: width 0.6s ease;
-}
-
-.daily-progress .count {
-font-size: 13px;
-font-weight: 700;
-color: var(--gold);
-min-width: 40px;
-text-align: left;
-direction: ltr;
-}
-
-/* ============================================================
-LESSON CONTENT
-============================================================ */
-.lesson-content {
-max-width: 820px;
-margin: 0 auto;
-padding: 14px 16px 30px;
-}
-
-.unit-header {
-margin-bottom: 18px;
-}
-
-.unit-header .badge {
-display: inline-block;
-background: var(--gold);
-color: var(--black);
-padding: 2px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-margin-bottom: 2px;
-direction: rtl;
-text-align: right;
-}
-
-.unit-header h1 {
-font-family: 'Poppins', sans-serif;
-font-size: 24px;
-color: var(--text);
-line-height: 1.2;
-direction: ltr;
-text-align: left;
-}
-
-.unit-header p {
-color: #888;
-font-size: 14px;
-margin-top: 2px;
-direction: rtl;
-text-align: right;
-}
-
-.section-box {
-background: var(--card-bg);
-border-radius: var(--radius);
-padding: 16px 16px;
-margin-bottom: 18px;
-box-shadow: var(--shadow);
-transition: background var(--transition), box-shadow var(--transition);
-}
-
-.section-box .section-title {
-font-family: 'Poppins', sans-serif;
-font-size: 17px;
-font-weight: 700;
-color: var(--text);
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 8px;
-direction: ltr;
-text-align: left;
-}
-
-/* ============================================================
-CONVERSATION
-============================================================ */
-.convo-container {
-display: flex;
-flex-direction: column;
-gap: 8px;
-}
-
-.convo-bubble {
-display: flex;
-align-items: flex-start;
-gap: 6px;
-max-width: 92%;
-padding: 8px 12px;
-border-radius: 14px;
-position: relative;
-animation: fadeInUp 0.4s ease;
-}
-
-.convo-bubble.john {
-align-self: flex-start;
-background: #D6E4FF;
-color: #1A1A2E;
-border-bottom-left-radius: 4px;
-}
-
-.convo-bubble.sarah {
-align-self: flex-end;
-background: #FFE4E6;
-color: #1A1A2E;
-border-bottom-right-radius: 4px;
-}
-
-[data-theme="dark"] .convo-bubble.john {
-background: #1E3A5F;
-color: #fff;
-}
-
-[data-theme="dark"] .convo-bubble.sarah {
-background: #5F2E3A;
-color: #fff;
-}
-
-.convo-bubble .avatar {
-font-size: 20px;
-flex-shrink: 0;
-margin-top: 2px;
-}
-
-.convo-bubble .bubble-content {
-flex: 1;
-}
-
-.convo-bubble .bubble-content .en {
-font-size: 13px;
-font-weight: 500;
-display: flex;
-align-items: center;
-gap: 4px;
-flex-wrap: wrap;
-direction: ltr;
-text-align: left;
-}
-
-.convo-bubble .bubble-content .en .audio-btn {
-background: none;
-border: none;
-font-size: 15px;
-cursor: pointer;
-color: #555;
-padding: 2px 4px;
-border-radius: 50%;
-transition: 0.2s;
-}
-
-.convo-bubble .bubble-content .en .audio-btn:hover {
-background: rgba(0,0,0,0.06);
-color: var(--gold);
-}
-
-.convo-bubble .bubble-content .ar {
-font-size: 12px;
-color: #888;
-margin-top: 2px;
-direction: rtl;
-text-align: right;
-display: none;
-}
-
-.convo-bubble .bubble-content .ar.show {
-display: block;
-}
-
-.translation-btn {
-background: none;
-border: 1px solid var(--gold);
-color: var(--gold);
-padding: 1px 10px;
-border-radius: 20px;
-font-size: 10px;
-font-weight: 600;
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-margin-top: 2px;
-}
-
-.translation-btn:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-/* ============================================================
-GRAMMAR RECAP - CARDS
-============================================================ */
-.grammar-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 12px;
-}
-
-.grammar-card {
-background: #FFF8E1;
-padding: 14px 12px;
-border-radius: 12px;
-border: 1px solid rgba(255,193,7,0.3);
-cursor: pointer;
-transition: 0.25s;
-text-align: center;
-}
-
-[data-theme="dark"] .grammar-card {
-background: #2A2A1A;
-border-color: rgba(255,193,7,0.2);
-}
-
-.grammar-card:hover {
-transform: translateY(-2px);
-box-shadow: 0 4px 12px rgba(255,193,7,0.15);
-}
-
-.grammar-card .title {
-font-family: 'Poppins', sans-serif;
-font-weight: 700;
-font-size: 14px;
-color: var(--black);
-direction: ltr;
-}
-
-[data-theme="dark"] .grammar-card .title {
-color: #FFD700;
-}
-
-.grammar-card .example {
-font-size: 13px;
-color: #666;
-direction: ltr;
-margin-top: 4px;
-line-height: 1.5;
-}
-
-[data-theme="dark"] .grammar-card .example {
-color: #aaa;
-}
-
-.grammar-card .extra-example {
-font-size: 12px;
-color: #888;
-direction: ltr;
-margin-top: 6px;
-padding-top: 6px;
-border-top: 1px dashed rgba(0,0,0,0.06);
-display: none;
-}
-
-[data-theme="dark"] .grammar-card .extra-example {
-border-top-color: rgba(255,255,255,0.06);
-color: #999;
-}
-
-.grammar-card .extra-example.show {
-display: block;
-}
-
-/* ============================================================
-FINAL TEST
-============================================================ */
-.quiz-progress-bar {
-display: flex;
-align-items: center;
-gap: 8px;
-margin-bottom: 12px;
-}
-
-.quiz-progress-bar .label {
-font-size: 12px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-text-align: right;
-}
-
-.quiz-progress-bar .bar-wrap {
-flex: 1;
-height: 5px;
-background: rgba(0,0,0,0.06);
-border-radius: 10px;
-overflow: hidden;
-}
-
-[data-theme="dark"] .quiz-progress-bar .bar-wrap {
-background: rgba(255,255,255,0.06);
-}
-
-.quiz-progress-bar .bar-fill {
-height: 100%;
-width: 0%;
-background: var(--gold);
-border-radius: 10px;
-transition: width 0.5s ease;
-}
-
-.quiz-progress-bar .count {
-font-size: 12px;
-font-weight: 700;
-color: var(--gold);
-min-width: 35px;
-text-align: left;
-direction: ltr;
-}
-
-.quiz-card {
-background: rgba(0,0,0,0.02);
-border-radius: 10px;
-padding: 12px 14px;
-margin-bottom: 10px;
-border: 1px solid rgba(0,0,0,0.04);
-transition: 0.3s;
-}
-
-[data-theme="dark"] .quiz-card {
-background: rgba(255,255,255,0.03);
-border-color: rgba(255,255,255,0.04);
-}
-
-.quiz-card .q-text {
-font-weight: 600;
-font-size: 14px;
-color: var(--text);
-margin-bottom: 5px;
-direction: ltr;
-text-align: left;
-display: flex;
-align-items: center;
-gap: 6px;
-flex-wrap: wrap;
-}
-
-.quiz-options {
-display: flex;
-flex-wrap: wrap;
-gap: 5px;
-}
-
-.quiz-options button {
-padding: 4px 14px;
-border: 2px solid rgba(0,0,0,0.08);
-border-radius: 30px;
-background: transparent;
-font-size: 13px;
-font-weight: 500;
-cursor: pointer;
-transition: 0.25s;
-color: var(--text);
-font-family: 'Poppins', 'Cairo', sans-serif;
-direction: ltr;
-}
-
-[data-theme="dark"] .quiz-options button {
-border-color: rgba(255,255,255,0.1);
-color: #ddd;
-}
-
-.quiz-options button:hover:not(:disabled) {
-background: rgba(0,0,0,0.04);
-}
-
-.quiz-options button:disabled {
-cursor: not-allowed;
-opacity: 0.6;
-}
-
-.quiz-options button.correct {
-background: var(--green);
-border-color: var(--green);
-color: #fff;
-animation: pop 0.3s ease;
-}
-
-.quiz-options button.wrong {
-background: var(--red);
-border-color: var(--red);
-color: #fff;
-animation: shake 0.4s ease;
-}
-
-.quiz-feedback {
-margin-top: 3px;
-font-size: 13px;
-font-weight: 600;
-min-height: 20px;
-direction: rtl;
-text-align: right;
-}
-
-.quiz-feedback .correct-text { color: var(--green); }
-.quiz-feedback .wrong-text { color: var(--red); }
-
-/* ===== INPUT ===== */
-.quiz-input {
-padding: 5px 12px;
-border: 2px solid rgba(0,0,0,0.08);
-border-radius: 8px;
-font-size: 14px;
-font-family: 'Poppins', sans-serif;
-background: var(--bg);
-color: var(--text);
-width: 180px;
-transition: 0.2s;
-direction: ltr;
-}
-
-[data-theme="dark"] .quiz-input {
-border-color: rgba(255,255,255,0.1);
-background: var(--card-bg);
-}
-
-.quiz-input:focus {
-outline: none;
-border-color: var(--gold);
-}
-
-.quiz-input.correct-input {
-border-color: var(--green);
-background: rgba(76,175,80,0.1);
-}
-
-.quiz-input.wrong-input {
-border-color: var(--red);
-background: rgba(244,67,54,0.1);
-}
-
-.check-btn {
-background: var(--gold);
-border: none;
-padding: 4px 16px;
-border-radius: 30px;
-font-size: 13px;
-font-weight: 700;
-cursor: pointer;
-color: var(--black);
-margin-top: 6px;
-font-family: 'Cairo', sans-serif;
-}
-
-.check-btn:hover {
-transform: scale(1.03);
-}
-
-/* ===== CLICK TO ORDER ===== */
-.drag-container {
-display: flex;
-flex-wrap: wrap;
-gap: 8px;
-padding: 8px 0;
-}
-
-.drag-word {
-padding: 5px 14px;
-background: var(--card-bg);
-border: 2px solid var(--gold);
-border-radius: 30px;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-font-size: 13px;
-cursor: pointer;
-color: var(--text);
-transition: 0.2s;
-user-select: none;
-}
-
-.drag-word:hover {
-transform: scale(1.05);
-}
-
-.drag-word.selected {
-background: var(--gold);
-color: var(--black);
-border-color: var(--gold-dark);
-}
-
-.drag-word.placed {
-background: var(--gold);
-color: var(--black);
-border-color: var(--gold-dark);
-cursor: pointer;
-}
-
-.drag-word.placed:hover {
-transform: scale(1.05);
-}
-
-.drop-zone {
-display: flex;
-flex-wrap: wrap;
-gap: 6px;
-padding: 10px 12px;
-border: 2px dashed rgba(0,0,0,0.1);
-border-radius: 10px;
-min-height: 50px;
-align-items: center;
-margin: 6px 0;
-}
-
-[data-theme="dark"] .drop-zone {
-border-color: rgba(255,255,255,0.1);
-}
-
-.drop-zone .word-placed {
-padding: 3px 12px;
-background: var(--gold);
-border-radius: 30px;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-font-size: 13px;
-color: var(--black);
-cursor: pointer;
-}
-
-.drop-zone .word-placed:hover {
-transform: scale(1.05);
-}
-
-.drag-instruction {
-font-size: 12px;
-color: #888;
-direction: rtl;
-text-align: right;
-margin-bottom: 4px;
-}
-
-/* ===== LISTENING ===== */
-.listen-btn {
-background: var(--gold);
-border: none;
-padding: 5px 16px;
-border-radius: 30px;
-font-size: 13px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-}
-
-.listen-btn:hover {
-transform: scale(1.05);
-}
-
-/* ============================================================
-TEST RESULT
-============================================================ */
-.test-result {
-display: none;
-margin-top: 12px;
-padding: 16px 20px;
-border-radius: 12px;
-text-align: center;
-font-size: 18px;
-font-weight: 700;
-}
-
-.test-result.success {
-display: block;
-background: rgba(76,175,80,0.1);
-color: var(--green);
-border: 2px solid var(--green);
-}
-
-.test-result.fail {
-display: block;
-background: rgba(244,67,54,0.1);
-color: var(--red);
-border: 2px solid var(--red);
-}
-
-.test-result .sub {
-font-size: 14px;
-font-weight: 400;
-margin-top: 4px;
-}
-
-/* ============================================================
-CONGRATULATIONS
-============================================================ */
-.congrats-section {
-display: none;
-text-align: center;
-padding: 40px 20px;
-background: linear-gradient(145deg, #FFD700, #FFA000);
-border-radius: var(--radius);
-color: var(--black);
-position: relative;
-overflow: hidden;
-min-height: 200px;
-}
-
-.congrats-section.show {
-display: block;
-animation: fadeInUp 0.6s ease;
-}
-
-.congrats-section .title {
-font-family: 'Poppins', sans-serif;
-font-size: 36px;
-font-weight: 900;
-position: relative;
-z-index: 1;
-}
-
-.congrats-section .message {
-font-size: 18px;
-margin: 10px 0 20px;
-position: relative;
-z-index: 1;
-}
-
-.congrats-section .cert-btn {
-background: var(--black);
-color: var(--gold);
-border: none;
-padding: 12px 32px;
-border-radius: 30px;
-font-size: 18px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.3s;
-font-family: 'Cairo', sans-serif;
-position: relative;
-z-index: 1;
-}
-
-.congrats-section .cert-btn:hover {
-transform: scale(1.05);
-}
-
-/* ===== CONFETTI ===== */
-.confetti-container {
-position: absolute;
-inset: 0;
-pointer-events: none;
-overflow: hidden;
-}
-
-.confetti {
-position: absolute;
-font-size: 24px;
-animation: confettiFall linear forwards;
-}
-
-@keyframes confettiFall {
-0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-100% { transform: translateY(300px) rotate(720deg); opacity: 0; }
-}
-
-/* ============================================================
-CERTIFICATE
-============================================================ */
-.certificate-section {
-display: none;
-margin-top: 20px;
-animation: fadeInUp 0.6s ease;
-}
-
-.certificate-section.show {
-display: block;
-}
-
-.certificate {
-background: #FFFDF5;
-border: 8px double var(--gold);
-border-radius: 20px;
-padding: 30px 40px;
-max-width: 700px;
-margin: 0 auto;
-box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-text-align: center;
-position: relative;
-}
-
-[data-theme="dark"] .certificate {
-background: #1E1E1E;
-border-color: var(--gold);
-}
-
-.certificate .logo {
-font-family: 'Poppins', sans-serif;
-font-size: 28px;
-font-weight: 900;
-color: var(--gold);
-margin-bottom: 10px;
-}
-
-.certificate .border-line {
-width: 80%;
-height: 2px;
-background: linear-gradient(90deg, transparent, var(--gold), transparent);
-margin: 10px auto;
-}
-
-.certificate .title {
-font-family: 'Poppins', sans-serif;
-font-size: 22px;
-font-weight: 700;
-color: #333;
-}
-
-[data-theme="dark"] .certificate .title {
-color: #eee;
-}
-
-.certificate .subtitle {
-font-size: 16px;
-color: #666;
-margin: 6px 0;
-}
-
-[data-theme="dark"] .certificate .subtitle {
-color: #aaa;
-}
-
-.certificate .student-name {
-font-family: 'Poppins', sans-serif;
-font-size: 32px;
-font-weight: 800;
-color: var(--black);
-margin: 10px 0;
-display: inline-block;
-min-width: 200px;
-}
-
-.certificate .student-name-input {
-font-family: 'Poppins', sans-serif;
-font-size: 28px;
-font-weight: 800;
-color: var(--black);
-border: none;
-border-bottom: 3px solid var(--gold);
-background: transparent;
-text-align: center;
-min-width: 200px;
-padding: 0 10px;
-outline: none;
-}
-
-[data-theme="dark"] .certificate .student-name-input {
-color: #eee;
-}
-
-.certificate .text {
-font-size: 15px;
-color: #555;
-margin: 10px 0;
-line-height: 1.6;
-}
-
-[data-theme="dark"] .certificate .text {
-color: #aaa;
-}
-
-.certificate .date {
-font-size: 14px;
-color: #888;
-margin: 8px 0;
-}
-
-.certificate .signature {
-margin-top: 15px;
-padding-top: 15px;
-border-top: 1px solid #eee;
-}
-
-.certificate .signature .name {
-font-family: 'Poppins', sans-serif;
-font-size: 18px;
-font-weight: 700;
-color: var(--black);
-}
-
-[data-theme="dark"] .certificate .signature .name {
-color: #eee;
-}
-
-.certificate .signature .title {
-font-size: 14px;
-color: #888;
-font-weight: 400;
-}
-
-.certificate .disclaimer {
-font-size: 11px;
-color: #aaa;
-margin-top: 12px;
-direction: rtl;
-}
-
-.certificate-actions {
-text-align: center;
-margin-top: 15px;
-display: flex;
-gap: 12px;
-justify-content: center;
-flex-wrap: wrap;
-}
-
-.certificate-actions button {
-padding: 8px 24px;
-border: none;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-}
-
-.certificate-actions .print-btn {
-background: var(--black);
-color: #fff;
-}
-
-.certificate-actions .print-btn:hover {
-transform: scale(1.03);
-}
-
-.certificate-actions .pdf-btn {
-background: var(--gold);
-color: var(--black);
-}
-
-.certificate-actions .pdf-btn:hover {
-transform: scale(1.03);
-}
-
-/* ============================================================
-STATS
-============================================================ */
-.stats-grid {
-display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr;
-gap: 10px;
-}
-
-.stat-card {
-background: var(--card-bg);
-padding: 14px 10px;
-border-radius: 12px;
-text-align: center;
-border: 1px solid rgba(0,0,0,0.04);
-box-shadow: var(--shadow);
-transition: 0.2s;
-}
-
-[data-theme="dark"] .stat-card {
-border-color: rgba(255,255,255,0.04);
-}
-
-.stat-card .number {
-font-family: 'Poppins', sans-serif;
-font-size: 24px;
-font-weight: 800;
-color: var(--gold);
-}
-
-.stat-card .label {
-font-size: 12px;
-color: #888;
-direction: rtl;
-}
-
-/* ============================================================
-WHAT'S NEXT
-============================================================ */
-.next-btn {
-background: var(--gold);
-border: none;
-padding: 10px 28px;
-border-radius: 30px;
-font-size: 16px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-text-decoration: none;
-display: inline-block;
-}
-
-.next-btn:hover {
-transform: scale(1.03);
-}
-
-/* ============================================================
-NAVIGATION
-============================================================ */
-.nav-buttons {
-display: flex;
-justify-content: space-between;
-margin-top: 20px;
-gap: 10px;
-}
-
-.nav-buttons button {
-padding: 8px 24px;
-border: none;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-direction: rtl;
-}
-
-.nav-buttons .prev {
-background: var(--gold);
-color: var(--black);
-}
-
-.nav-buttons .prev:hover {
-background: #e6b800;
-transform: scale(1.02);
-}
-
-/* ============================================================
-ANIMATIONS
-============================================================ */
-@keyframes fadeInUp {
-from { opacity: 0; transform: translateY(16px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pop {
-0% { transform: scale(0.8); opacity: 0; }
-100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes shake {
-0%, 100% { transform: translateX(0); }
-25% { transform: translateX(-5px); }
-75% { transform: translateX(5px); }
-}
-
-/* ============================================================
-PRINT STYLES
-============================================================ */
-@media print {
-.header, .daily-progress, .nav-buttons, .certificate-actions, .back-btn, .theme-toggle,
-.section-box:not(.certificate-section), .congrats-section, .no-print, .unit-tabs-wrapper,
-.reset-unit-btn {
-display: none !important;
-}
-
-.certificate-section {
-display: block !important;
-margin: 0;
-padding: 20px;
-}
-
-.certificate {
-border: 4px solid var(--gold);
-box-shadow: none;
-padding: 20px;
-}
-
-.certificate .student-name-input {
-border-bottom: 2px solid var(--gold);
-}
-
-body {
-background: white !important;
-padding: 0;
-}
-
-.lesson-content {
-padding: 0;
-max-width: 100%;
-}
-}
-
-/* ============================================================
-RESPONSIVE
-============================================================ */
-@media (max-width: 768px) {
-.grammar-grid {
-grid-template-columns: repeat(2, 1fr);
-}
-
-.stats-grid {
-grid-template-columns: 1fr 1fr;
-}
-
-.certificate {
-padding: 20px;
-}
-
-.certificate .student-name-input {
-font-size: 22px;
-min-width: 150px;
-}
-
-.congrats-section .title {
-font-size: 26px;
-}
-
-.section-box {
-padding: 12px;
-}
-
-.nav-buttons {
-flex-direction: column;
-}
-
-.nav-buttons button {
-width: 100%;
-text-align: center;
-}
-
-.quiz-options {
-flex-direction: column;
-}
-
-.quiz-options button {
-width: 100%;
-text-align: center;
-}
-
-.certificate-actions {
-flex-direction: column;
-}
-
-.certificate-actions button {
-width: 100%;
-}
-
-.unit-tab {
-min-width: 30px;
-height: 30px;
-font-size: 10px;
-}
-}
-
-@media (max-width: 480px) {
-.grammar-grid {
-grid-template-columns: 1fr;
-}
-
-.stats-grid {
-grid-template-columns: 1fr;
-}
-
-.congrats-section .title {
-font-size: 22px;
-}
-}
-
-/* ============================================================
-HIDDEN AUDIO
-============================================================ */
-#audio-player {
-display: none;
-}
+  /* =====================================================================
+     0) متغيرات التصميم — نفس القالب الذهبي
+     ===================================================================== */
+  :root{
+    --bg: #050505;
+    --bg-soft: #0d0d0f;
+    --gold: #FFD700;
+    --gold-soft: rgba(255, 215, 0, .18);
+    --text: #ffffff;
+    --text-muted: rgba(255,255,255,.68);
+    --glass-bg: rgba(255,255,255,.055);
+    --glass-border: rgba(255,255,255,.12);
+    --glass-blur: 14px;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --blue: #3498db;
+    --yellow: #f1c40f;
+    --radius: 18px;
+    --shadow-gold: 0 10px 40px rgba(255,215,0,.16);
+    --transition: .3s cubic-bezier(.2,.8,.2,1);
+    --cert-gold: #d4a800;
+    --cert-bg: #0a0a0a;
+  }
+  body.light-mode{
+    --bg: #f6f5f2;
+    --bg-soft: #ffffff;
+    --text: #101010;
+    --text-muted: rgba(0,0,0,.62);
+    --glass-bg: rgba(255,255,255,.65);
+    --glass-border: rgba(0,0,0,.08);
+    --shadow-gold: 0 10px 34px rgba(200,160,0,.18);
+    --cert-bg: #ffffff;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  html[lang="ar"] body{ font-family:'Cairo', sans-serif; }
+  html[lang="en"] body{ font-family:'Poppins', sans-serif; }
+  body{ background: var(--bg); color: var(--text); overflow-x:hidden; transition: background var(--transition), color var(--transition); }
+  img, svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  ul{ list-style:none; }
+
+  .en-text{ direction: ltr; text-align: left; unicode-bidi: isolate; }
+  .ar-text{ direction: rtl; text-align: right; unicode-bidi: isolate; }
+
+  .container{ width:100%; max-width:1100px; margin:0 auto; padding:0 18px; }
+  section{ position:relative; padding: 60px 0; }
+
+  .section-title{
+    font-family:'Poppins', sans-serif;
+    direction: ltr; text-align:left;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight:800;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .section-title .em{ color: var(--gold); }
+  .section-sub{ color: var(--text-muted); margin-bottom: 28px; font-size:15px; line-height:1.9; }
+
+  .glass-card{
+    background: var(--glass-bg);
+    border:1px solid var(--glass-border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    padding: 24px;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .glass-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-gold); border-color: var(--gold-soft); }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: var(--gold);
+    color:#111;
+    font-weight:800;
+    font-size:14.5px;
+    border:none;
+    transition: all var(--transition);
+  }
+  .btn:hover{ transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn.outline{ background: transparent; border:1px solid var(--glass-border); color: var(--text); }
+  .btn.outline:hover{ border-color: var(--gold); color: var(--gold); }
+  .btn.gold{ background: var(--gold); color:#111; }
+  .btn.gold:hover{ background: #ffe44d; }
+
+  /* =====================================================================
+     1) الهيدر
+     ===================================================================== */
+  header{
+    position: sticky; top:0; z-index: 600;
+    background: rgba(5,5,5,.7);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom:1px solid var(--glass-border);
+  }
+  body.light-mode header{ background: rgba(246,245,242,.8); }
+  .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 18px; max-width:1280px; margin:0 auto; flex-wrap:wrap; }
+  .logo-wrap{ display:flex; align-items:center; gap:8px; }
+  .logo-wrap img{ height:36px; width:auto; }
+  nav.main-nav{ display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+  nav.main-nav a{
+    padding:8px 14px; font-size:13.5px; font-weight:700; border-radius:999px;
+    color: var(--text-muted); transition: all var(--transition); white-space:nowrap;
+  }
+  nav.main-nav a:hover{ color: var(--bg); background: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+  .header-actions{ display:flex; align-items:center; gap:8px; }
+  .social-icons{ display:flex; gap:6px; }
+  .social-icons a{ width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; background: var(--glass-bg); border:1px solid var(--glass-border); }
+  .social-icons a svg{ width:15px; height:15px; fill: var(--text); transition: fill var(--transition); }
+  .social-icons a:hover svg{ fill: var(--gold); }
+  .lang-toggle, .theme-toggle{
+    padding:7px 12px; border-radius:999px; border:1px solid var(--glass-border);
+    background: var(--glass-bg); color: var(--text); font-weight:700; font-size:12.5px;
+    transition: all var(--transition);
+  }
+  .lang-toggle:hover, .theme-toggle:hover{ border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* =====================================================================
+     2) تبويبات الوحدات
+     ===================================================================== */
+  #unit-tabs{
+    display:flex; gap:8px; overflow-x:auto; padding: 12px 18px;
+    border-bottom:1px solid var(--glass-border);
+    background: rgba(255,255,255,.02);
+  }
+  #unit-tabs::-webkit-scrollbar{ height:5px; }
+  #unit-tabs::-webkit-scrollbar-thumb{ background: var(--glass-border); border-radius:5px; }
+  .unit-tab{
+    flex: 0 0 auto;
+    min-width: 54px;
+    padding: 9px 10px;
+    text-align:center;
+    border-radius: 12px;
+    font-weight:800;
+    font-size: 13px;
+    font-family:'Poppins', sans-serif;
+    border:1px solid var(--glass-border);
+    background: rgba(255,255,255,.05);
+    color: var(--text-muted);
+    position:relative;
+  }
+  .unit-tab.active{
+    background: var(--gold); color:#111; border-color: var(--gold);
+    box-shadow: var(--shadow-gold);
+  }
+  .unit-tab.locked{ opacity:.55; cursor:not-allowed; }
+  .unit-tab .lock{ font-size:10px; display:block; margin-top:2px; }
+
+  /* =====================================================================
+     3) شريط التقدم اليومي
+     ===================================================================== */
+  #daily-progress{
+    display:flex; align-items:center; gap:12px;
+    padding: 10px 18px;
+    border-bottom:1px solid var(--glass-border);
+    font-size: 13px;
+    font-weight:700;
+    flex-wrap: wrap;
+  }
+  #daily-progress .star{ color: var(--gold); font-size:16px; }
+  #daily-progress-bar{
+    flex:1; min-width:120px; height:8px; border-radius:999px;
+    background: rgba(255,255,255,.1); overflow:hidden;
+  }
+  #daily-progress-fill{
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--gold), #fff2a8);
+    transition: width .5s ease;
+  }
+
+  /* =====================================================================
+     4) فقاعات المحادثة
+     ===================================================================== */
+  .chat-wrap{ display:flex; flex-direction:column; gap:16px; }
+  .bubble-row{ display:flex; gap:10px; align-items:flex-end; }
+  .bubble-row.ben{ justify-content:flex-start; }
+  .bubble-row.emma{ justify-content:flex-end; flex-direction: row-reverse; }
+  .avatar{
+    width:36px; height:36px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; flex-shrink:0;
+    background: var(--glass-bg); border:1px solid var(--glass-border);
+  }
+  .bubble{
+    max-width: 78%;
+    border-radius: 16px;
+    padding: 12px 16px;
+    position: relative;
+  }
+  .bubble.ben{ background: rgba(52,152,219,.16); border:1px solid rgba(52,152,219,.35); border-bottom-left-radius:4px; }
+  .bubble.emma{ background: rgba(255,105,180,.14); border:1px solid rgba(255,105,180,.35); border-bottom-right-radius:4px; }
+  .bubble-en{ font-family:'Poppins', sans-serif; font-weight:600; font-size:14.5px; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .bubble-ar{ font-size:13px; color: var(--text-muted); }
+  .speak-btn{
+    width:26px; height:26px; border-radius:50%; border:none;
+    background: var(--gold-soft); color: var(--gold); font-size:13px;
+    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .speak-btn:hover{ background: var(--gold); color:#111; }
+
+  /* =====================================================================
+     5) Review Map
+     ===================================================================== */
+  .review-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; }
+  @media (max-width:820px){ .review-grid{ grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width:560px){ .review-grid{ grid-template-columns: repeat(2, 1fr); } }
+  .review-card{
+    padding: 14px 10px; text-align:center; border-radius:12px;
+    border:1px solid var(--glass-border); background: var(--glass-bg);
+    font-weight:700; font-size:13px; cursor:pointer;
+    transition: all var(--transition);
+  }
+  .review-card:hover{ border-color: var(--gold); background: var(--gold-soft); transform: translateY(-3px); }
+  .review-card .num{ color: var(--gold); font-size:11px; display:block; margin-bottom:4px; }
+  .review-card .ex{ display:block; font-weight:400; font-size:11px; color: var(--text-muted); margin-top:4px; direction:ltr; }
+
+  /* =====================================================================
+     6) Grammar Recap
+     ===================================================================== */
+  .recap-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+  @media (max-width:820px){ .recap-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:540px){ .recap-grid{ grid-template-columns:1fr; } }
+  .recap-card{ border-radius: var(--radius); padding:16px; border:1px solid var(--glass-border); background: var(--glass-bg); }
+  .recap-card .r-title{ font-weight:800; font-size:14px; margin-bottom:6px; }
+  .recap-card .r-ex{ font-family:'Poppins',sans-serif; direction:ltr; font-size:13px; color: var(--text-muted); }
+
+  /* =====================================================================
+     7) Word Vault
+     ===================================================================== */
+  .vault-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+  @media (max-width:820px){ .vault-grid{ grid-template-columns: repeat(2, 1fr); } }
+  .flip-card{ perspective: 1000px; height: 130px; }
+  .flip-inner{
+    position:relative; width:100%; height:100%; text-align:center;
+    transition: transform .6s; transform-style: preserve-3d; cursor:pointer;
+  }
+  .flip-card.flipped .flip-inner{ transform: rotateY(180deg); }
+  .flip-front, .flip-back{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius: 14px; border:1px solid var(--glass-border);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding: 10px; gap:6px;
+  }
+  .flip-front{ background: var(--glass-bg); }
+  .flip-back{ background: var(--gold-soft); transform: rotateY(180deg); }
+  .flip-word{ font-family:'Poppins', sans-serif; direction:ltr; font-weight:800; font-size:16px; }
+  .flip-back .flip-meaning{ direction:rtl; font-weight:700; font-size:14px; }
+  .flip-back .flip-example{ direction:ltr; font-size:11px; color: var(--text-muted); }
+
+  /* =====================================================================
+     8) Babble Warning
+     ===================================================================== */
+  .warning-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media (max-width:680px){ .warning-grid{ grid-template-columns:1fr; } }
+  .warn-card{ border-radius: var(--radius); padding:16px; text-align:center; border:1px solid; }
+  .warn-card.good{ background: rgba(46,204,113,.12); border-color: rgba(46,204,113,.35); }
+  .warn-card.bad{ background: rgba(231,76,60,.12); border-color: rgba(231,76,60,.35); }
+  .warn-card.neutral{ background: rgba(52,152,219,.12); border-color: rgba(52,152,219,.35); }
+  .warn-en{ font-family:'Poppins', sans-serif; direction:ltr; font-weight:800; font-size:16px; margin-bottom:6px; }
+  .warn-ar{ direction:rtl; color: var(--text-muted); font-size:13px; }
+  .warn-note{ margin-top:16px; padding:14px; border-radius:12px; background: var(--gold-soft); direction:rtl; text-align:right; font-size:13.5px; font-weight:700; }
+
+  /* =====================================================================
+     9) Final Test (25 Questions)
+     ===================================================================== */
+  #test-score-bar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; direction:rtl; flex-wrap:wrap; gap:10px; }
+  #test-score-bar .score-text{ font-weight:800; color: var(--gold); font-size:17px; }
+  .q-card{ margin-bottom:16px; }
+  .q-title{ font-family:'Poppins', sans-serif; direction:ltr; text-align:left; font-weight:700; font-size:15px; margin-bottom:10px; }
+  .q-options{ display:flex; gap:10px; flex-wrap:wrap; }
+  .q-opt{
+    padding:8px 16px; border-radius:12px; border:1px solid var(--glass-border);
+    background: rgba(255,255,255,.05); color: var(--text); font-family:'Poppins',sans-serif;
+    direction:ltr; font-weight:700; font-size:13.5px;
+  }
+  .q-opt.correct{ background: rgba(46,204,113,.3); border-color: var(--green); }
+  .q-opt.wrong{ background: rgba(231,76,60,.3); border-color: var(--red); }
+  .q-opt:disabled{ cursor:not-allowed; }
+  .order-bank, .order-answer{
+    display:flex; gap:6px; flex-wrap:wrap; min-height:42px;
+    padding:8px; border-radius:12px; border:1px dashed var(--glass-border); direction:ltr;
+  }
+  .order-answer{ margin-top:8px; border-style:solid; }
+  .order-word{
+    padding:6px 14px; border-radius:10px; background: var(--gold-soft); color: var(--gold);
+    font-family:'Poppins', sans-serif; font-weight:700; font-size:13px; border:none;
+  }
+  .listen-opts{ display:flex; flex-direction:column; gap:6px; margin-top:10px; }
+  .listen-opt{
+    padding:10px 14px; border-radius:12px; border:1px solid var(--glass-border);
+    background: rgba(255,255,255,.05); color: var(--text); direction:rtl; text-align:right; font-size:14px;
+  }
+  .q-status{ margin-top:6px; font-weight:700; font-size:13px; }
+  .q-status.correct-txt{ color: var(--green); }
+  .q-status.wrong-txt{ color: var(--red); }
+
+  /* =====================================================================
+     10) Speak Up
+     ===================================================================== */
+  #speak-target{ font-family:'Poppins', sans-serif; direction:ltr; text-align:left; font-size:18px; font-weight:700; margin-bottom:16px; }
+  #speak-result{ margin-top:14px; font-weight:700; }
+  #speak-result.ok{ color: var(--green); }
+  #speak-result.fail{ color: var(--red); }
+
+  /* =====================================================================
+     11) Power Recap
+     ===================================================================== */
+  .mindmap{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+  .mind-node{
+    background: var(--glass-bg); border:1px solid var(--glass-border); border-radius:14px;
+    padding:16px 20px; text-align:center; min-width:150px;
+  }
+  .mind-node .rule{ font-family:'Poppins',sans-serif; direction:ltr; font-weight:800; color: var(--gold); margin-bottom:6px; }
+  .mind-node .ex{ font-family:'Poppins',sans-serif; direction:ltr; font-size:13px; color: var(--text-muted); }
+
+  /* =====================================================================
+     12) Video Zone
+     ===================================================================== */
+  .video-box{ text-align:center; }
+  .video-box .icon{ font-size:48px; margin-bottom:12px; }
+
+  /* =====================================================================
+     13) Homework
+     ===================================================================== */
+  #homework-text{
+    width:100%; min-height:150px; padding:14px; border-radius:12px;
+    border:1px solid var(--glass-border); background: rgba(255,255,255,.04);
+    color: var(--text); font-family:'Poppins', sans-serif; direction:ltr; text-align:left;
+    resize:vertical; font-size:14.5px;
+  }
+  .hw-actions{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+  #hw-status{ margin-top:10px; font-size:13.5px; font-weight:700; color: var(--green); }
+  #hw-corrections{ margin-top:14px; padding:14px; border-radius:12px; background: var(--glass-bg); direction:rtl; text-align:right; font-size:13.5px; display:none; }
+  #hw-corrections ul{ margin-top:8px; display:flex; flex-direction:column; gap:6px; }
+  #hw-corrections li{ direction:ltr; text-align:left; }
+
+  /* =====================================================================
+     14) أزرار التنقل
+     ===================================================================== */
+  #unit-nav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px; flex-wrap:wrap; padding: 40px 18px; max-width:1100px; margin:0 auto;
+  }
+  #unit-nav .btn{ font-size:16px; padding:16px 34px; }
+  #next-unit-wrap{ display:none; }
+
+  /* =====================================================================
+     15) نافذة الاحتفال
+     ===================================================================== */
+  #celebration-modal{
+    position:fixed; inset:0; z-index:9999; display:none;
+    align-items:center; justify-content:center;
+    background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+  }
+  #celebration-modal.show{ display:flex; }
+  .modal-box{
+    background: var(--bg-soft); border:1px solid var(--gold-soft);
+    border-radius: 22px; padding:40px 30px; text-align:center; max-width:400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), var(--shadow-gold);
+    position:relative; overflow:hidden;
+  }
+  .modal-stars{ font-size:40px; margin-bottom:10px; animation: pop 1s ease infinite alternate; }
+  @keyframes pop{ from{ transform:scale(1);} to{ transform:scale(1.15);} }
+  .modal-title{ font-size:24px; font-weight:800; color: var(--gold); margin-bottom:8px; }
+  .modal-sub{ color: var(--text-muted); margin-bottom:20px; font-size:15px; }
+
+  .confetti-piece{
+    position: fixed; top:-10px; width:9px; height:14px; z-index:10000;
+    pointer-events:none; border-radius:2px; animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall{
+    0%{ transform: translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform: translateY(100vh) rotate(720deg); opacity:0; }
+  }
+
+  /* =====================================================================
+     16) شهادة الإتمام (Certificate)
+     ===================================================================== */
+  #cert-modal{
+    position:fixed; inset:0; z-index:9998; display:none;
+    align-items:center; justify-content:center;
+    background: rgba(0,0,0,.8); backdrop-filter: blur(8px);
+    padding:20px;
+  }
+  #cert-modal.show{ display:flex; }
+  .cert-box{
+    background: var(--cert-bg); border:3px solid var(--gold);
+    border-radius: 24px; padding:40px 36px; max-width:700px; width:100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 60px rgba(255,215,0,.1);
+    position:relative;
+  }
+  .cert-box .cert-border{
+    border:2px solid var(--gold); border-radius:16px; padding:32px 28px;
+    position:relative;
+  }
+  .cert-box .cert-logo{ text-align:center; margin-bottom:16px; }
+  .cert-box .cert-logo img{ height:50px; margin:0 auto; }
+  .cert-box .cert-title{
+    font-size:28px; font-weight:900; text-align:center; color: var(--gold);
+    letter-spacing:2px; margin-bottom:6px; direction:ltr;
+  }
+  .cert-box .cert-sub{
+    text-align:center; font-size:14px; color: var(--text-muted);
+    border-bottom:1px solid var(--glass-border); padding-bottom:14px; margin-bottom:14px;
+  }
+  .cert-box .cert-student{
+    text-align:center; font-size:26px; font-weight:800; color: var(--text);
+    padding:8px 0; margin:6px 0; border-bottom:2px dashed var(--gold-soft);
+  }
+  .cert-box .cert-body{
+    text-align:center; font-size:16px; color: var(--text-muted); line-height:1.8;
+    padding:12px 0;
+  }
+  .cert-box .cert-body .highlight{ color: var(--gold); font-weight:700; }
+  .cert-box .cert-footer{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-top:16px; padding-top:14px; border-top:1px solid var(--glass-border);
+    font-size:13px; color: var(--text-muted); flex-wrap:wrap; gap:10px;
+  }
+  .cert-box .cert-footer .sign{
+    text-align:right; direction:rtl;
+  }
+  .cert-box .cert-footer .sign .name{ color: var(--gold); font-weight:700; font-size:15px; }
+  .cert-box .cert-footer .date{ text-align:left; direction:ltr; }
+  .cert-box .cert-disclaimer{
+    font-size:11px; color: var(--text-muted); text-align:center;
+    margin-top:12px; padding-top:10px; border-top:1px dashed var(--glass-border);
+    opacity:.7;
+  }
+  .cert-box .cert-perfect{
+    text-align:center; font-size:32px; margin-bottom:4px;
+  }
+  .cert-actions{ display:flex; gap:12px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+  .cert-name-input{ display:flex; gap:10px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
+  .cert-name-input input{
+    padding:10px 18px; border-radius:12px; border:1px solid var(--glass-border);
+    background: var(--glass-bg); color: var(--text); font-size:16px;
+    width:240px; font-family:inherit; direction:ltr; text-align:left;
+  }
+  .cert-name-input input:focus{ border-color: var(--gold); outline:none; }
+
+  /* =====================================================================
+     17) الفوتر
+     ===================================================================== */
+  footer{ border-top:1px solid var(--glass-border); padding:30px 0; text-align:center; }
+  footer .social-icons{ justify-content:center; margin-bottom:12px; display:flex; }
+  footer .social-icons a{ width:38px; height:38px; }
+  footer .social-icons a svg{ width:17px; height:17px; }
+  footer p{ color: var(--text-muted); font-size:13px; }
+
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  @media (max-width:880px){ nav.main-nav{ order:3; width:100%; justify-content:center; } }
+  @media (max-width:600px){ .cert-box{ padding:20px 16px; } .cert-box .cert-border{ padding:20px 14px; } }
+
+  /* =====================================================================
+     18) طباعة الشهادة
+     ===================================================================== */
+  @media print {
+    body * { visibility: hidden; }
+    #cert-modal, #cert-modal * { visibility: visible; }
+    #cert-modal { position: fixed; inset:0; display:flex !important; background: white; padding:20px; }
+    .cert-box { border:3px solid #d4a800 !important; box-shadow:none !important; }
+    .cert-box .cert-border { border:2px solid #d4a800 !important; }
+    .cert-actions, .cert-name-input, .cert-disclaimer { display: none !important; }
+    .no-print { display: none !important; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-HEADER
-============================================================ -->
-<header class="header">
-<div class="brand">Babble <span>Box</span></div>
-<div class="unit-title">Unit 12: Final Adventure</div>
-<div class="top-actions">
-<a href="index.html" class="back-btn">🏠 الرئيسية</a>
-<button class="reset-unit-btn" id="resetUnitBtn">🔄 إعادة دراسة الوحدة</button>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-</div>
+<!-- ===================== الهيدر ===================== -->
+<header>
+  <div class="nav-wrap">
+    <div class="logo-wrap">
+      <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" />
+    </div>
+    <nav class="main-nav">
+      <a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">الرئيسية</a>
+      <a href="index.html#levels" data-lang-ar="المستويات" data-lang-en="Levels">المستويات</a>
+      <a href="test.html" data-lang-ar="اختبر مستواك" data-lang-en="Placement Test">اختبر مستواك</a>
+      <a href="index.html#contact" data-lang-ar="اتصل بنا" data-lang-en="Contact">اتصل بنا</a>
+    </nav>
+    <div class="header-actions">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+        </a>
+        <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+      <button class="lang-toggle" id="lang-toggle" type="button">AR | EN</button>
+      <button class="theme-toggle" id="theme-toggle" type="button"><span id="theme-icon">🌓</span></button>
+    </div>
+  </div>
 </header>
 
-<!-- ============================================================
-UNIT NAVIGATION TABS
-============================================================ -->
-<div class="unit-tabs-wrapper" id="unitTabsWrapper">
-<div class="unit-tabs" id="unitTabs"></div>
+<!-- ===================== تبويبات الوحدات ===================== -->
+<div id="unit-tabs"></div>
+
+<!-- ===================== شريط التقدم اليومي ===================== -->
+<div id="daily-progress">
+  <span class="star">⭐</span>
+  <span id="daily-progress-text" data-lang-ar="0/5 تمارين مكتملة اليوم" data-lang-en="0/5 exercises completed today">0/5 تمارين مكتملة اليوم</span>
+  <div id="daily-progress-bar"><div id="daily-progress-fill"></div></div>
 </div>
 
-<!-- ============================================================
-PROGRESS BAR (10 sections)
-============================================================ -->
-<div class="daily-progress">
-<span class="label">📊 تقدم الوحدة</span>
-<div class="bar-wrap">
-<div class="bar-fill" id="dailyProgressFill"></div>
-</div>
-<span class="count" id="dailyProgressCount">0/10</span>
-</div>
-
-<!-- ============================================================
-LESSON CONTENT
-============================================================ -->
-<div class="lesson-content">
-
-<!-- ===== UNIT HEADER ===== -->
-<div class="unit-header">
-<div class="badge">🏆 الوحدة الأخيرة</div>
-<h1>Final Adventure</h1>
-<p>اختبر كل ما تعلمته واحتفل بإنجازك!</p>
-</div>
-
-<!-- ==========================================================
-SECTION 1: THE REAL TALK
-========================================================== -->
-<section class="section-box" id="conversation">
-<div class="section-title">🗣️ The Real Talk – Final Conversation</div>
-
-<div class="convo-container">
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Hey Sarah! How are you? You look great in that dress! <button class="audio-btn" data-text="Hey Sarah! How are you? You look great in that dress!" data-voice="male">🔊</button></div>
-<div class="ar">أهلاً سارة! إنتي عاملة إيه؟ شكلك رائع في الفستان ده!</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">Thanks, John! I'm feeling good. I just moved to a new apartment. <button class="audio-btn" data-text="Thanks, John! I'm feeling good. I just moved to a new apartment." data-voice="female">🔊</button></div>
-<div class="ar">شكراً يا جون! أنا حاسة بتحسن. أنا سكنت في شقة جديدة.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Really? Tell me about it. Is there a big kitchen? <button class="audio-btn" data-text="Really? Tell me about it. Is there a big kitchen?" data-voice="male">🔊</button></div>
-<div class="ar">بجد؟ قولي لي عنها. فيه مطبخ كبير؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">There's a small kitchen, but the living room is huge. I love it. <button class="audio-btn" data-text="There's a small kitchen, but the living room is huge. I love it." data-voice="female">🔊</button></div>
-<div class="ar">في مطبخ صغير، بس غرفة المعيشة كبيرة أوي. بحبها.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Sounds nice. I can help you move if you need. <button class="audio-btn" data-text="Sounds nice. I can help you move if you need." data-voice="male">🔊</button></div>
-<div class="ar">يبدو حلو. أنا أقدر أساعدك في النقل لو محتاجة.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">Thanks, but I finished moving last week. It was exhausting! <button class="audio-btn" data-text="Thanks, but I finished moving last week. It was exhausting!" data-voice="female">🔊</button></div>
-<div class="ar">شكراً، بس أنا خلصت نقل الأسبوع الماضي. كان مرهق!</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">I can imagine. But now you can relax and enjoy your new home. <button class="audio-btn" data-text="I can imagine. But now you can relax and enjoy your new home." data-voice="male">🔊</button></div>
-<div class="ar">أنا أتخيل. بس دلوقتي تقدري تسترخي وتستمتعي ببيتك الجديد.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">Exactly. And you're welcome to visit anytime. I make a mean cup of coffee! <button class="audio-btn" data-text="Exactly. And you're welcome to visit anytime. I make a mean cup of coffee!" data-voice="female">🔊</button></div>
-<div class="ar">بالضبط. وإنت مرحب بيك تزور أي وقت. أنا بعمل فنجان قهوة رهيب!</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-</div>
+<!-- ===================== القسم 1: The Real Talk ===================== -->
+<section id="real-talk">
+  <div class="container">
+    <h2 class="section-title">🗣️ <span class="em">The Real Talk</span></h2>
+    <p class="section-sub ar-text">استمع لمحادثة بين Ben و Emma التي تجمع كل القواعد التي تعلمتها 🎓، واضغط على 🔊 لسماع النطق الصحيح.</p>
+    <div class="glass-card reveal">
+      <div class="chat-wrap" id="chat-wrap"></div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 2: GRAMMAR POWER RECAP - CARDS
-========================================================== -->
-<section class="section-box" id="grammar-recap">
-<div class="section-title">⚡ Grammar Power Recap</div>
-
-<div class="grammar-grid" id="grammarGrid">
-<div class="grammar-card" data-extra="I am happy. / He is a doctor. / They are students.">
-<div class="title">1. Verb to be</div>
-<div class="example">I am, He is, They are</div>
-<div class="extra-example">✨ I am happy. / He is a doctor. / They are students.</div>
-</div>
-<div class="grammar-card" data-extra="This is my book. / Is this your pen? / His name is John.">
-<div class="title">2. Possessive Adjectives</div>
-<div class="example">my, your, his, her</div>
-<div class="extra-example">✨ This is my book. / Is this your pen? / His name is John.</div>
-</div>
-<div class="grammar-card" data-extra="I work every day. / She works at a hospital.">
-<div class="title">3. Present Simple</div>
-<div class="example">I work, He works</div>
-<div class="extra-example">✨ I work every day. / She works at a hospital.</div>
-</div>
-<div class="grammar-card" data-extra="I like tea. / I don't like coffee.">
-<div class="title">4. like / don't like</div>
-<div class="example">I like tea. I don't like coffee.</div>
-<div class="extra-example">✨ I like tea. / I don't like coffee.</div>
-</div>
-<div class="grammar-card" data-extra="I'd like a coffee, please. / What would you like?">
-<div class="title">5. would like</div>
-<div class="example">I'd like a coffee.</div>
-<div class="extra-example">✨ I'd like a coffee, please. / What would you like?</div>
-</div>
-<div class="grammar-card" data-extra="There is a sofa. / There are two chairs.">
-<div class="title">6. There is / There are</div>
-<div class="example">There is a sofa. There are two chairs.</div>
-<div class="extra-example">✨ There is a sofa. / There are two chairs.</div>
-</div>
-<div class="grammar-card" data-extra="The book is on the table. / I am at home.">
-<div class="title">7. Prepositions of Place</div>
-<div class="example">in, on, at, next to</div>
-<div class="extra-example">✨ The book is on the table. / I am at home.</div>
-</div>
-<div class="grammar-card" data-extra="I am wearing a jacket. / They are playing football.">
-<div class="title">8. Present Continuous</div>
-<div class="example">I am wearing a jacket.</div>
-<div class="extra-example">✨ I am wearing a jacket. / They are playing football.</div>
-</div>
-<div class="grammar-card" data-extra="It's sunny today. / It's raining outside.">
-<div class="title">9. Weather</div>
-<div class="example">It's sunny. It's raining.</div>
-<div class="extra-example">✨ It's sunny today. / It's raining outside.</div>
-</div>
-<div class="grammar-card" data-extra="I can swim. / He can't cook.">
-<div class="title">10. can / can't</div>
-<div class="example">I can swim. He can't cook.</div>
-<div class="extra-example">✨ I can swim. / He can't cook.</div>
-</div>
-<div class="grammar-card" data-extra="I went home. / I didn't work yesterday.">
-<div class="title">11. Past Simple</div>
-<div class="example">I went home. I didn't work.</div>
-<div class="extra-example">✨ I went home. / I didn't work yesterday.</div>
-</div>
-</div>
+<!-- ===================== القسم 2: Review Map ===================== -->
+<section id="review-map">
+  <div class="container">
+    <h2 class="section-title">🗺️ <span class="em">Review Map</span></h2>
+    <p class="section-sub ar-text">🗺️ خريطة المراجعة النهائية — اضغط على أي وحدة لمراجعة مثال سريع:</p>
+    <div class="review-grid" id="review-grid"></div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 3: FINAL TEST
-========================================================== -->
-<section class="section-box" id="final-test">
-<div class="section-title">📝 Final Test – Level A1</div>
-
-<div class="quiz-progress-bar">
-<span class="label">📊 السؤال</span>
-<div class="bar-wrap">
-<div class="bar-fill" id="quizProgressFill"></div>
-</div>
-<span class="count" id="quizProgressCount">0/25</span>
-</div>
-
-<div id="quizContainer">
-<!-- Questions will be rendered by JavaScript -->
-</div>
-
-<div class="test-result" id="testResult">
-<div id="resultMessage"></div>
-<div class="sub" id="resultSub"></div>
-</div>
-
-<button class="retry-btn" id="retryBtn">🔄 إعادة الاختبار</button>
+<!-- ===================== القسم 3: Grammar Recap ===================== -->
+<section id="grammar-recap">
+  <div class="container">
+    <h2 class="section-title">🧠 <span class="em">Grammar Recap</span></h2>
+    <p class="section-sub ar-text">ملخص سريع لأهم القواعد التي تعلمتها في المستوى A1:</p>
+    <div class="recap-grid" id="recap-grid"></div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 4: CONGRATULATIONS
-========================================================== -->
-<section class="congrats-section" id="congratsSection">
-<div class="confetti-container" id="confettiContainer"></div>
-<div class="title">🎉 عاااش يا بطل! 💪</div>
-<div class="message">
-لقد أكملت جميع وحدات Babble Box Level A1 بنجاح!<br>
-أنت الآن مستعد للانتقال للمستوى التالي.
-</div>
-<button class="cert-btn" id="showCertificateBtn">🎓 احصل على شهادتك الآن!</button>
+<!-- ===================== القسم 4: Word Vault ===================== -->
+<section id="word-vault">
+  <div class="container">
+    <h2 class="section-title">💎 <span class="em">Word Vault</span></h2>
+    <p class="section-sub ar-text">اضغط على أي بطاقة لقلبها ومعرفة المعنى بالعربية ومثال على استخدامها.</p>
+    <div class="vault-grid" id="vault-grid"></div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 5: CERTIFICATE
-========================================================== -->
-<section class="certificate-section" id="certificateSection">
-<div class="certificate" id="certificate">
-<div class="logo">📘 Babble Box</div>
-<div class="border-line"></div>
-<div class="title">🎓 Certificate of Completion</div>
-<div class="subtitle">This certifies that</div>
-<input type="text" id="studentNameInput" class="student-name-input" placeholder="أدخل اسمك الكامل" value="">
-<div class="text">
-has successfully completed the <strong>Babble Box English Level A1</strong> course<br>
-with a score of <strong>25/25</strong>, demonstrating dedication and hard work.
-</div>
-<div class="date" id="certificateDate"></div>
-<div class="border-line"></div>
-<div class="signature">
-<div class="name">Omar Youssif</div>
-<div class="title">Founder of Babble Box</div>
-</div>
-<div class="disclaimer">⚠️ This is a non-accredited certificate of completion.</div>
-</div>
-
-<div class="certificate-actions">
-<button class="print-btn" onclick="window.print()">🖨️ طباعة الشهادة</button>
-<button class="pdf-btn" id="pdfBtn">📥 تحميل PDF</button>
-</div>
+<!-- ===================== القسم 5: Babble Warning ===================== -->
+<section id="babble-warning">
+  <div class="container">
+    <h2 class="section-title">🚨 <span class="em">Babble Warning</span></h2>
+    <p class="section-sub ar-text">الكلمة الخائنة النهائية: Right — ٣ معاني في كلمة واحدة!</p>
+    <div class="warning-grid">
+      <div class="glass-card warn-card good reveal">
+        <div class="warn-en">You are right.</div>
+        <div class="warn-ar">أنت على صواب.</div>
+      </div>
+      <div class="glass-card warn-card bad reveal">
+        <div class="warn-en">Turn right.</div>
+        <div class="warn-ar">انعطف يميناً.</div>
+      </div>
+      <div class="glass-card warn-card neutral reveal">
+        <div class="warn-en">It's my right.</div>
+        <div class="warn-ar">إنه حقي.</div>
+      </div>
+    </div>
+    <div class="warn-note">😅 Right = صح، يمين، وحق! ٣ معاني في كلمة واحدة!</div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 6: STATS
-========================================================== -->
-<section class="section-box" id="stats">
-<div class="section-title">📊 رحلتك في أرقام</div>
-
-<div class="stats-grid">
-<div class="stat-card">
-<div class="number">12/12</div>
-<div class="label">الوحدات المكتملة</div>
-</div>
-<div class="stat-card">
-<div class="number">840 XP</div>
-<div class="label">إجمالي XP المكتسبة</div>
-</div>
-<div class="stat-card">
-<div class="number" id="learningDays">0</div>
-<div class="label">أيام التعلم</div>
-</div>
-<div class="stat-card">
-<div class="number" id="testScore">-/25</div>
-<div class="label">الاختبار النهائي</div>
-</div>
-</div>
+<!-- ===================== القسم 6: Final Test ===================== -->
+<section id="final-test">
+  <div class="container">
+    <h2 class="section-title">📝 <span class="em">Final Test</span></h2>
+    <p class="section-sub ar-text">🏆 الاختبار النهائي — 25 سؤالاً تغطي كل ما تعلمته في المستوى A1:</p>
+    <div id="test-score-bar">
+      <span class="score-text" id="score-text">النتيجة: 0 / 25</span>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn outline" id="reset-test-btn" type="button">🔄 إعادة الاختبار بالكامل</button>
+        <button class="btn gold" id="cert-btn" type="button" style="display:none;">🎓 احصل على شهادتك</button>
+      </div>
+    </div>
+    <div id="test-questions"></div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 7: WHAT'S NEXT
-========================================================== -->
-<section class="section-box" id="whats-next">
-<div class="section-title">🚀 ماذا بعد؟</div>
-
-<p style="direction:rtl;font-size:15px;color:#888;margin-bottom:12px;text-align:right;">
-أنت الآن جاهز للمستوى A2. تابعنا ليصلك كل جديد!
-</p>
-<a href="https://www.facebook.com/omar.youssif.english" target="_blank" class="next-btn">
-📘 تابعنا على فيسبوك
-</a>
+<!-- ===================== القسم 7: Speak Up! ===================== -->
+<section id="speak-up">
+  <div class="container">
+    <h2 class="section-title">🎤 <span class="em">Speak Up!</span></h2>
+    <p class="section-sub ar-text">اقرأ الجملة بصوت عالٍ واضغط على الميكروفون:</p>
+    <div class="glass-card reveal" style="text-align:center;">
+      <div id="speak-target">I am a student. I can speak English. I was happy yesterday.</div>
+      <button class="btn" id="speak-btn" type="button">🎙️ ابدأ التسجيل</button>
+      <div id="speak-result"></div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-NAVIGATION
-========================================================== -->
-<div class="nav-buttons">
-<button class="prev" id="prevBtn">← السابق</button>
+<!-- ===================== القسم 8: Power Recap ===================== -->
+<section id="power-recap">
+  <div class="container">
+    <h2 class="section-title">⚡ <span class="em">Power Recap</span></h2>
+    <p class="section-sub ar-text">🎓 لقد أكملت المستوى A1!</p>
+    <div class="glass-card reveal" style="text-align:center; padding:32px;">
+      <p style="font-size:20px; font-weight:700; color: var(--gold); margin-bottom:8px;">🎉 أحسنت!</p>
+      <p style="color: var(--text-muted); font-size:16px;">لقد تعلمت كل أساسيات اللغة الإنجليزية. أنت الآن جاهز للمستوى A2.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== القسم 9: Video Zone ===================== -->
+<section id="video-zone">
+  <div class="container">
+    <h2 class="section-title">🎥 <span class="em">Video Zone</span></h2>
+    <div class="glass-card reveal video-box">
+      <div class="icon">🎬</div>
+      <a class="btn" href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" data-lang-ar="شاهد شرح الوحدة على يوتيوب" data-lang-en="Watch the unit explanation on YouTube">شاهد شرح الوحدة على يوتيوب</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== القسم 10: Homework ===================== -->
+<section id="homework">
+  <div class="container">
+    <h2 class="section-title">✍️ <span class="em">Homework</span></h2>
+    <p class="section-sub ar-text">اكتب 5 جمل عن نفسك باستخدام كل ما تعلمته في المستوى A1.</p>
+    <div class="glass-card reveal">
+      <textarea id="homework-text" dir="ltr" spellcheck="true" placeholder="Write here..."></textarea>
+      <div class="hw-actions">
+        <button class="btn" id="hw-save-btn" type="button">💾 حفظ</button>
+        <button class="btn outline" id="hw-check-btn" type="button">✅ تدقيق</button>
+      </div>
+      <div id="hw-status"></div>
+      <div id="hw-corrections"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== أزرار التنقل ===================== -->
+<div id="unit-nav">
+  <a href="unit11.html" class="btn outline" id="prev-unit-btn">الوحدة السابقة ←</a>
+  <span id="next-unit-wrap"><a href="index.html" class="btn" id="next-unit-btn">→ العودة للصفحة الرئيسية</a></span>
 </div>
 
-</div><!-- /.lesson-content -->
+<!-- ===================== الفوتر ===================== -->
+<footer>
+  <div class="container">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+      </a>
+      <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+    </div>
+    <p>© 2026 Babble Box Academy. الوحدة 12 - المستوى A1 🎓</p>
+  </div>
+</footer>
 
-<!-- ============================================================
-HIDDEN AUDIO
-============================================================ -->
-<audio id="audio-player" style="display:none;">
-<source src="" type="audio/mpeg">
-</audio>
+<!-- ===================== نافذة الاحتفال ===================== -->
+<div id="celebration-modal">
+  <div class="modal-box">
+    <div class="modal-stars">✨🌟✨</div>
+    <div class="modal-title">🎉 مبروك! لقد أكملت المستوى A1!</div>
+    <div class="modal-sub">+100 XP! أنت جاهز للمستوى A2 🚀</div>
+    <button class="btn" id="modal-close-btn">رائع!</button>
+  </div>
+</div>
 
-<!-- ============================================================
-JAVASCRIPT
-============================================================ -->
+<!-- ===================== شهادة الإتمام ===================== -->
+<div id="cert-modal">
+  <div class="cert-box">
+    <div class="cert-border">
+      <div class="cert-logo">
+        <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" />
+      </div>
+      <div class="cert-title">📜 Certificate of Completion</div>
+      <div class="cert-sub">Babble Box Academy — English Language Program</div>
+      <div class="cert-perfect" id="cert-perfect-star" style="display:none;">⭐ Perfect Score! ⭐</div>
+      <div class="cert-student" id="cert-student-name">___________</div>
+      <div class="cert-body">
+        has successfully completed the <span class="highlight">A1 Level</span> of the English language program<br />
+        at <span class="highlight">Babble Box Academy</span>.
+      </div>
+      <div class="cert-footer">
+        <div class="sign">
+          <div>🥇 Omar Youssif</div>
+          <div style="font-size:11px; opacity:.7;">Founder, Babble Box Academy</div>
+        </div>
+        <div class="date" id="cert-date">Date: ___________</div>
+      </div>
+      <div class="cert-disclaimer">
+        ⚠️ هذه الشهادة صادرة عن منصة Babble Box Academy وهي شهادة تشجيعية غير معتمدة رسمياً.
+      </div>
+      <div class="cert-actions no-print" style="margin-top:16px;">
+        <button class="btn" id="cert-print-btn">🖨️ تحميل PDF / طباعة</button>
+        <button class="btn outline" id="cert-close-btn">✖️ إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-// ============================================================
-// 1. DARK MODE
-// ============================================================
-const themeToggle = document.getElementById('themeToggle');
-let currentTheme = localStorage.getItem('babbleTheme') || 'light';
+/* =====================================================================
+   0) بيانات ثابتة عامة
+   الوحدة 12 — Final Review & Test (25 questions)
+   ===================================================================== */
+const TOTAL_UNITS = 12;
+const CURRENT_UNIT = 12;
 
-function setTheme(theme) {
-document.documentElement.setAttribute('data-theme', theme);
-themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-localStorage.setItem('babbleTheme', theme);
-currentTheme = theme;
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+/* =====================================================================
+   1) اللغة والوضع الداكن/الفاتح
+   ===================================================================== */
+const htmlEl = document.documentElement;
+let currentLang = 'ar';
+function applyLanguage(lang){
+  currentLang = lang;
+  htmlEl.setAttribute('lang', lang);
+  document.querySelectorAll('[data-lang-ar][data-lang-en]').forEach((el) => {
+    el.textContent = lang === 'ar' ? el.getAttribute('data-lang-ar') : el.getAttribute('data-lang-en');
+  });
+  document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'AR | EN' : 'EN | AR';
 }
+document.getElementById('lang-toggle').addEventListener('click', () => {
+  applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
+});
+applyLanguage(currentLang);
 
-setTheme(currentTheme);
-themeToggle.addEventListener('click', function() {
-setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
 });
 
-// ============================================================
-// 2. UNIT NAVIGATION TABS
-// ============================================================
-const unitTabs = document.getElementById('unitTabs');
-const totalUnits = 12;
-let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnlocked')) || 1;
-
-function renderUnitTabs() {
-unitTabs.innerHTML = '';
-for (let i = 1; i <= totalUnits; i++) {
-const tab = document.createElement('div');
-tab.className = 'unit-tab';
-tab.textContent = i;
-if (i === 12) {
-tab.classList.add('active');
-} else if (i < maxUnlocked) {
-tab.classList.add('completed');
-tab.textContent = i + ' ✅';
-tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
-} else if (i === maxUnlocked) {
-tab.classList.add('unlocked');
-tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
-} else {
-tab.classList.add('locked');
-tab.innerHTML = i + ' <span class="lock-icon">🔒</span>';
+/* =====================================================================
+   2) تبويبات الوحدات
+   ===================================================================== */
+function getMaxUnitUnlocked(){
+  return parseInt(localStorage.getItem('maxUnitUnlocked') || '1', 10);
 }
-unitTabs.appendChild(tab);
-}
+function renderUnitTabs(){
+  const wrap = document.getElementById('unit-tabs');
+  wrap.innerHTML = '';
+  const maxUnlocked = getMaxUnitUnlocked();
+  for (let i = 1; i <= TOTAL_UNITS; i++) {
+    const isCurrent = i === CURRENT_UNIT;
+    const isLinkable = !isCurrent && i <= maxUnlocked;
+    const tab = document.createElement(isLinkable ? 'a' : 'div');
+    tab.className = 'unit-tab';
+    if (isCurrent) tab.classList.add('active');
+    if (i > maxUnlocked) tab.classList.add('locked');
+    if (isLinkable) tab.setAttribute('href', 'unit' + i + '.html');
+    tab.innerHTML = 'U' + i + (i > maxUnlocked ? '<span class="lock">🔒</span>' : '');
+    wrap.appendChild(tab);
+  }
 }
 renderUnitTabs();
 
-// ============================================================
-// 3. TRANSLATION TOGGLE
-// ============================================================
-document.querySelectorAll('.translation-btn').forEach(function(btn) {
-btn.addEventListener('click', function() {
-const target = this.dataset.target;
-const arElement = this.closest('.bubble-content').querySelector('.' + target);
-if (arElement) {
-arElement.classList.toggle('show');
-this.textContent = arElement.classList.contains('show') ? '🇪🇬 Hide Translation' : '🇪🇬 Show Translation';
+/* =====================================================================
+   3) شريط التقدم اليومي
+   ===================================================================== */
+function getTodayKey(){
+  const d = new Date();
+  return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 }
-});
-});
-
-// ============================================================
-// 4. GRAMMAR CARDS - CLICK TO SHOW EXTRA
-// ============================================================
-document.querySelectorAll('.grammar-card').forEach(function(card) {
-card.addEventListener('click', function() {
-const extra = this.querySelector('.extra-example');
-if (extra) {
-extra.classList.toggle('show');
+function getDailyProgress(){
+  const savedDate = localStorage.getItem('daily_progress_date');
+  const today = getTodayKey();
+  if (savedDate !== today) {
+    localStorage.setItem('daily_progress_date', today);
+    localStorage.setItem('daily_progress_count', '0');
+    return 0;
+  }
+  return parseInt(localStorage.getItem('daily_progress_count') || '0', 10);
 }
-});
-});
-
-// ============================================================
-// 5. SPEECH SYNTHESIS (US English)
-// ============================================================
-let maleVoice = null;
-let femaleVoice = null;
-const encouragingPhrases = ['Great job!', 'Excellent!', 'Well done!', 'Perfect!', 'Awesome!', 'Fantastic!', 'Amazing!', 'Brilliant!'];
-
-function loadVoices() {
-const voices = window.speechSynthesis.getVoices();
-maleVoice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Google US English') || v.name.includes('David'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-femaleVoice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Google UK') || v.name.includes('Victoria'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
+function renderDailyProgress(){
+  const count = Math.min(5, getDailyProgress());
+  document.getElementById('daily-progress-text').textContent =
+    currentLang === 'ar' ? count + '/5 تمارين مكتملة اليوم' : count + '/5 exercises completed today';
+  document.getElementById('daily-progress-fill').style.width = (count / 5 * 100) + '%';
 }
-
-if (window.speechSynthesis.onvoiceschanged !== undefined) {
-window.speechSynthesis.onvoiceschanged = loadVoices;
+function incrementDailyProgress(){
+  const current = getDailyProgress();
+  const next = Math.min(5, current + 1);
+  localStorage.setItem('daily_progress_count', String(next));
+  localStorage.setItem('daily_progress_date', getTodayKey());
+  renderDailyProgress();
 }
-loadVoices();
+renderDailyProgress();
 
-function speakText(text, voice) {
-if (!window.speechSynthesis) return;
-const utterance = new SpeechSynthesisUtterance(text);
-utterance.lang = 'en-US';
-utterance.rate = 0.9;
-if (voice) utterance.voice = voice;
-window.speechSynthesis.speak(utterance);
-}
-
-// Conversation audio
-document.querySelectorAll('.audio-btn').forEach(function(btn) {
-btn.addEventListener('click', function(e) {
-e.stopPropagation();
-const text = this.dataset.text;
-const voiceType = this.dataset.voice || 'male';
-let voice = voiceType === 'male' ? maleVoice : femaleVoice;
-if (!voice) {
-const voices = window.speechSynthesis.getVoices();
-if (voiceType === 'male') {
-voice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Google US English') || v.name.includes('David'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-} else {
-voice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Google UK') || v.name.includes('Victoria'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-}
-}
-speakText(text, voice);
-});
-});
-
-// ============================================================
-// 6. FINAL TEST (25 Questions)
-// ============================================================
-const testQuestions = [
-// Q1-12: Choice
-{ type: 'choice', question: '1. She ____ a teacher.', options: ['am', 'is', 'are', 'was'], answer: 'is' },
-{ type: 'choice', question: '2. This is ____ book. (أنا)', options: ['my', 'your', 'his', 'her'], answer: 'my' },
-{ type: 'choice', question: '3. He ____ to work every day.', options: ['go', 'goes', 'going', 'went'], answer: 'goes' },
-{ type: 'choice', question: '4. I ____ a coffee, please.', options: ['like', 'likes', 'would like', 'am liking'], answer: 'would like' },
-{ type: 'choice', question: '5. ____ two chairs in the kitchen.', options: ['There is', 'There are', 'It is', 'They are'], answer: 'There are' },
-{ type: 'choice', question: '6. The book is ____ the table.', options: ['in', 'on', 'at', 'next'], answer: 'on' },
-{ type: 'choice', question: '7. They ____ a movie right now.', options: ['watch', 'watches', 'are watching', 'watched'], answer: 'are watching' },
-{ type: 'choice', question: '8. Look outside! It ____.', options: ['rains', 'raining', 'is raining', 'rained'], answer: 'is raining' },
-{ type: 'choice', question: '9. She ____ sing very well.', options: ['can', 'cans', 'can to', 'is can'], answer: 'can' },
-{ type: 'choice', question: '10. I wake up ____ 7 AM.', options: ['at', 'on', 'in', 'every'], answer: 'at' },
-{ type: 'choice', question: '11. Yesterday, I ____ to the store.', options: ['go', 'goes', 'went', 'gone'], answer: 'went' },
-{ type: 'choice', question: '12. She ____ the bus yesterday.', options: ["didn't miss", "didn't missed", "not miss", "doesn't miss"], answer: "didn't miss" },
-
-// Q13-18: Click to Order
-{ type: 'drag', question: '13. رتب الكلمات: "I / every / day / work"', words: ['I', 'work', 'every', 'day'], answer: 'I work every day' },
-{ type: 'drag', question: '14. رتب الكلمات: "is / she / wearing / a / hat"', words: ['She', 'is', 'wearing', 'a', 'hat'], answer: 'She is wearing a hat' },
-{ type: 'drag', question: '15. رتب الكلمات: "there / two / are / bedrooms"', words: ['There', 'are', 'two', 'bedrooms'], answer: 'There are two bedrooms' },
-{ type: 'drag', question: '16. رتب الكلمات: "on / the / is / book / table"', words: ['The', 'book', 'is', 'on', 'the', 'table'], answer: 'The book is on the table' },
-{ type: 'drag', question: '17. رتب الكلمات: "can / I / swim / well / very"', words: ['I', 'can', 'swim', 'very', 'well'], answer: 'I can swim very well' },
-{ type: 'drag', question: '18. رتب الكلمات: "did / go / you / where / yesterday"', words: ['Where', 'did', 'you', 'go', 'yesterday'], answer: 'Where did you go yesterday' },
-
-// Q19-23: Fill in the blank
-{ type: 'fill', question: '19. I ____ (be) a student.', answer: 'am' },
-{ type: 'fill', question: '20. She ____ (have) a new car.', answer: 'has' },
-{ type: 'fill', question: '21. They ____ (be) at home yesterday.', answer: 'were' },
-{ type: 'fill', question: '22. He ____ (not / like) spicy food.', answer: "doesn't like" },
-{ type: 'fill', question: '23. ____ you (can / help) me?', answer: 'Can you help' },
-
-// Q24-25: Listening
-{ type: 'listening', question: '24. 🔊 استمع واكتب الجملة التي سمعتها.', audioText: 'I am going to the store.', answer: 'I am going to the store' },
-{ type: 'listening', question: '25. 🔊 استمع واكتب الجملة التي سمعتها.', audioText: 'She went to the park yesterday.', answer: 'She went to the park yesterday' }
+/* =====================================================================
+   4) المحادثة
+   ===================================================================== */
+const conversation = [
+  { speaker:'ben', en:"Hi Emma! How are you today?", ar:'هي إيما! إزاي إنتي النهاردة؟' },
+  { speaker:'emma', en:"I'm great! I'm wearing my new dress 👗. It's sunny today ☀️.", ar:'أنا كويسة! لابسة فستاني الجديد 👗. الجو مشمس النهاردة ☀️.' },
+  { speaker:'ben', en:"You look nice! Where is your brother? Is he at home?", ar:'شكلك حلو! أخوكي فين؟ هو في البيت؟' },
+  { speaker:'emma', en:"No, he's at work. He starts work at 8 o'clock in the morning.", ar:'لا، هو في الشغل. بيبدأ شغله الساعة ٨ الصبح.' },
+  { speaker:'ben', en:"I remember. Last week, he was at the beach 🌊.", ar:'أنا فاكر. الأسبوع اللي فات، هو كان على الشاطئ 🌊.' },
+  { speaker:'emma', en:"Yes! We were all there. My parents were with us. It was beautiful.", ar:'أيوة! كنا كلنا هناك. أهلي كانوا معانا. كانت جميلة.' },
+  { speaker:'ben', en:"Can he swim well?", ar:'هو يعرف يسبح كويس؟' },
+  { speaker:'emma', en:"Yes, he can! I can't swim very well. But we were all very happy.", ar:'أيوة، هو يعرف! أنا مش بعرف أسبح كويس. بس كنا كلنا سعداء.' },
 ];
 
-let quizCompleted = 0;
-const totalQuestions = 25;
-let testPassed = false;
-let answeredQuestions = new Array(totalQuestions).fill(false);
-let userAnswers = new Array(totalQuestions).fill(null);
-
-const quizProgressFill = document.getElementById('quizProgressFill');
-const quizProgressCount = document.getElementById('quizProgressCount');
-const retryBtn = document.getElementById('retryBtn');
-const testResult = document.getElementById('testResult');
-const resultMessage = document.getElementById('resultMessage');
-const resultSub = document.getElementById('resultSub');
-
-// ============================================================
-// 7. PROGRESS BAR (10 sections)
-// ============================================================
-const progressFill = document.getElementById('dailyProgressFill');
-const progressCount = document.getElementById('dailyProgressCount');
-const totalSections = 10;
-let unitCompleted = localStorage.getItem('unit12Completed') === 'true';
-
-function updateProgress() {
-let done = unitCompleted ? 10 : 0;
-const pct = (done / totalSections) * 100;
-progressFill.style.width = pct + '%';
-progressCount.textContent = done + '/' + totalSections;
+function speakText(text, gender){
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  const voices = window.speechSynthesis.getVoices();
+  const usVoices = voices.filter(v => v.lang === 'en-US' || v.lang === 'en_US');
+  let chosen = null;
+  if (gender === 'male') {
+    chosen = usVoices.find(v => /male|david|guy|man/i.test(v.name)) || usVoices[0];
+  } else {
+    chosen = usVoices.find(v => /female|zira|susan|woman|samantha/i.test(v.name)) || usVoices[usVoices.length - 1];
+  }
+  if (chosen) utter.voice = chosen;
+  window.speechSynthesis.speak(utter);
 }
-
-// ============================================================
-// 8. RENDER QUESTIONS
-// ============================================================
-function renderQuestions() {
-const container = document.getElementById('quizContainer');
-container.innerHTML = '';
-answeredQuestions.fill(false);
-quizCompleted = 0;
-testPassed = false;
-document.getElementById('testResult').style.display = 'none';
-document.getElementById('final-test').style.display = 'block';
-document.getElementById('congratsSection').classList.remove('show');
-document.getElementById('certificateSection').classList.remove('show');
-quizProgressFill.style.width = '0%';
-quizProgressCount.textContent = '0/' + totalQuestions;
-retryBtn.style.display = 'none';
-
-testQuestions.forEach(function(q, index) {
-const card = document.createElement('div');
-card.className = 'quiz-card';
-card.dataset.index = index;
-
-const qText = document.createElement('div');
-qText.className = 'q-text';
-qText.innerHTML = q.question;
-card.appendChild(qText);
-
-if (q.type === 'choice') {
-const optionsDiv = document.createElement('div');
-optionsDiv.className = 'quiz-options';
-q.options.forEach(function(opt) {
-const btn = document.createElement('button');
-btn.textContent = opt;
-btn.dataset.answer = opt;
-btn.addEventListener('click', function() {
-if (answeredQuestions[index]) return;
-const buttons = this.parentElement.querySelectorAll('button');
-buttons.forEach(b => b.disabled = true);
-
-const isCorrect = (opt === q.answer);
-if (isCorrect) {
-this.classList.add('correct');
-answeredQuestions[index] = true;
-quizCompleted++;
-updateQuizProgress();
-speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
-} else {
-this.classList.add('wrong');
-const feedback = document.createElement('div');
-feedback.className = 'quiz-feedback';
-feedback.innerHTML = '<span class="wrong-text">❌ خطأ!</span>';
-card.appendChild(feedback);
-buttons.forEach(b => {
-if (b.textContent === q.answer) {
-b.classList.add('correct');
-}
-});
-speakText('Incorrect. Try again.', maleVoice);
-}
-});
-optionsDiv.appendChild(btn);
-});
-card.appendChild(optionsDiv);
-
-} else if (q.type === 'drag') {
-const instruction = document.createElement('div');
-instruction.className = 'drag-instruction';
-instruction.textContent = '👆 انقر على الكلمات بالترتيب الصحيح.';
-card.appendChild(instruction);
-
-const dragDiv = document.createElement('div');
-dragDiv.className = 'drag-container';
-dragDiv.id = 'dragContainer' + index;
-const shuffled = [...q.words].sort(() => Math.random() - 0.5);
-shuffled.forEach(function(word) {
-const span = document.createElement('span');
-span.className = 'drag-word';
-span.dataset.word = word;
-span.textContent = word;
-span.addEventListener('click', function() {
-if (answeredQuestions[index]) return;
-const dropZone = document.getElementById('dropZone' + index);
-if (this.classList.contains('selected')) {
-this.classList.remove('selected');
-} else {
-dragDiv.querySelectorAll('.drag-word').forEach(w => w.classList.remove('selected'));
-this.classList.add('selected');
-}
-});
-dragDiv.appendChild(span);
-});
-card.appendChild(dragDiv);
-
-const dropDiv = document.createElement('div');
-dropDiv.className = 'drop-zone';
-dropDiv.id = 'dropZone' + index;
-dropDiv.addEventListener('click', function(e) {
-if (answeredQuestions[index]) return;
-const selected = dragDiv.querySelector('.drag-word.selected');
-if (selected) {
-const word = selected.dataset.word;
-const existing = dropDiv.querySelector('.word-placed[data-word="' + word + '"]');
-if (existing) return;
-
-const span = document.createElement('span');
-span.className = 'word-placed';
-span.dataset.word = word;
-span.textContent = word;
-span.addEventListener('click', function() {
-if (answeredQuestions[index]) return;
-const w = this.dataset.word;
-const original = dragDiv.querySelector('.drag-word[data-word="' + w + '"]');
-if (original) {
-original.style.display = 'inline-block';
-} else {
-const s = document.createElement('span');
-s.className = 'drag-word';
-s.dataset.word = w;
-s.textContent = w;
-s.addEventListener('click', function() {
-if (answeredQuestions[index]) return;
-if (this.classList.contains('selected')) {
-this.classList.remove('selected');
-} else {
-dragDiv.querySelectorAll('.drag-word').forEach(wd => wd.classList.remove('selected'));
-this.classList.add('selected');
-}
-});
-dragDiv.appendChild(s);
-}
-this.remove();
-const feedback = document.getElementById('dragFeedback' + index);
-if (feedback) feedback.innerHTML = '';
-});
-dropDiv.appendChild(span);
-selected.remove();
-
-const placed = dropDiv.querySelectorAll('.word-placed');
-if (placed.length === q.words.length) {
-const text = Array.from(placed).map(el => el.textContent).join(' ');
-const feedback = document.getElementById('dragFeedback' + index);
-if (text === q.answer) {
-feedback.innerHTML = '<span class="correct-text">✅ صح!</span>';
-answeredQuestions[index] = true;
-quizCompleted++;
-updateQuizProgress();
-speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
-} else {
-feedback.innerHTML = '<span class="wrong-text">❌ خطأ! الترتيب غلط.</span>';
-speakText('Incorrect. Try again.', maleVoice);
-}
-}
-}
-});
-card.appendChild(dropDiv);
-
-const feedbackDiv = document.createElement('div');
-feedbackDiv.className = 'quiz-feedback';
-feedbackDiv.id = 'dragFeedback' + index;
-card.appendChild(feedbackDiv);
-
-} else if (q.type === 'fill' || q.type === 'listening') {
-if (q.type === 'listening') {
-const listenBtn = document.createElement('button');
-listenBtn.className = 'listen-btn';
-listenBtn.textContent = '🔊 استمع';
-listenBtn.addEventListener('click', function() {
-speakText(q.audioText, femaleVoice);
-});
-card.appendChild(listenBtn);
-}
-
-const input = document.createElement('input');
-input.type = 'text';
-input.className = 'quiz-input';
-input.placeholder = 'اكتب إجابتك...';
-card.appendChild(input);
-
-const checkBtn = document.createElement('button');
-checkBtn.className = 'check-btn';
-checkBtn.textContent = '✅ تحقق';
-card.appendChild(checkBtn);
-
-const feedbackDiv2 = document.createElement('div');
-feedbackDiv2.className = 'quiz-feedback';
-card.appendChild(feedbackDiv2);
-
-checkBtn.addEventListener('click', function() {
-if (answeredQuestions[index]) return;
-const userAnswer = input.value.trim().toLowerCase();
-const correct = q.answer.toLowerCase();
-const isCorrect = userAnswer === correct;
-
-if (isCorrect) {
-input.classList.add('correct-input');
-feedbackDiv2.innerHTML = '<span class="correct-text">✅ صح!</span>';
-answeredQuestions[index] = true;
-quizCompleted++;
-updateQuizProgress();
-speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
-} else {
-input.classList.add('wrong-input');
-feedbackDiv2.innerHTML = '<span class="wrong-text">❌ خطأ! الإجابة الصحيحة: ' + q.answer + '</span>';
-speakText('Incorrect. Try again.', maleVoice);
-}
-});
-}
-
-container.appendChild(card);
-});
-}
-
-function updateQuizProgress() {
-const pct = (quizCompleted / totalQuestions) * 100;
-quizProgressFill.style.width = pct + '%';
-quizProgressCount.textContent = quizCompleted + '/' + totalQuestions;
-
-if (quizCompleted === totalQuestions && !testPassed) {
-checkFinalTest();
-}
-}
-
-function checkFinalTest() {
-let score = 0;
-let allAnswered = true;
-
-for (let i = 0; i < totalQuestions; i++) {
-if (!answeredQuestions[i]) {
-allAnswered = false;
-break;
-}
-const q = testQuestions[i];
-const card = document.querySelectorAll('.quiz-card')[i];
-if (!card) continue;
-
-if (q.type === 'choice') {
-const selected = card.querySelector('.quiz-options button.correct');
-if (selected && selected.textContent === q.answer) {
-score++;
-}
-} else if (q.type === 'drag') {
-const dropZone = card.querySelector('.drop-zone');
-const placed = dropZone.querySelectorAll('.word-placed');
-if (placed.length === q.words.length) {
-const text = Array.from(placed).map(el => el.textContent).join(' ');
-if (text === q.answer) score++;
-}
-} else if (q.type === 'fill' || q.type === 'listening') {
-const input = card.querySelector('.quiz-input');
-if (input && input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
-score++;
-}
-}
-}
-
-const resultDiv = document.getElementById('testResult');
-const msgDiv = document.getElementById('resultMessage');
-const subDiv = document.getElementById('resultSub');
-
-if (score === 25 && allAnswered) {
-resultDiv.className = 'test-result success';
-msgDiv.textContent = '🎉 مبروك! لقد حصلت على 25/25!';
-subDiv.textContent = 'أنت الآن جاهز للمستوى التالي!';
-
-document.getElementById('final-test').style.display = 'none';
-document.getElementById('congratsSection').classList.add('show');
-launchConfetti();
-
-localStorage.setItem('unit12Completed', 'true');
-localStorage.setItem('babbleFinalTestCompleted', 'true');
-
-document.getElementById('testScore').textContent = '25/25';
-
-let days = parseInt(localStorage.getItem('babbleLearningDays')) || 0;
-if (days === 0) {
-days = 1;
-localStorage.setItem('babbleLearningDays', days);
-}
-document.getElementById('learningDays').textContent = days;
-
-testPassed = true;
-unitCompleted = true;
-updateProgress();
-retryBtn.style.display = 'none';
-
-if (maxUnlocked < 13) {
-maxUnlocked = 13;
-localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
-renderUnitTabs();
-}
-} else if (!allAnswered) {
-resultDiv.className = 'test-result fail';
-msgDiv.textContent = '⚠️ لم تكمل جميع الأسئلة!';
-subDiv.textContent = 'تأكد من الإجابة على جميع الأسئلة الـ 25.';
-retryBtn.style.display = 'inline-block';
-} else {
-resultDiv.className = 'test-result fail';
-msgDiv.textContent = '❌ للأسف، لديك بعض الأخطاء. راجع إجاباتك وحاول مرة أخرى.';
-subDiv.textContent = 'نقاطك: ' + score + '/25';
-retryBtn.style.display = 'inline-block';
-}
-
-resultDiv.style.display = 'block';
-}
-
-function launchConfetti() {
-const container = document.getElementById('confettiContainer');
-container.innerHTML = '';
-const emojis = ['🎉', '⭐', '🌟', '✨', '🎊', '💫', '🏆', '🥇'];
-for (let i = 0; i < 50; i++) {
-const el = document.createElement('span');
-el.className = 'confetti';
-el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-el.style.left = Math.random() * 90 + '%';
-el.style.animationDuration = (2 + Math.random() * 3) + 's';
-el.style.animationDelay = (Math.random() * 2) + 's';
-el.style.fontSize = (16 + Math.random() * 24) + 'px';
-container.appendChild(el);
-}
-}
-
-// ============================================================
-// 9. RETRY BUTTON
-// ============================================================
-retryBtn.addEventListener('click', function() {
-renderQuestions();
-document.getElementById('testResult').style.display = 'none';
-speakText('Quiz reset. Try again!', maleVoice);
-});
-
-// ============================================================
-// 10. CERTIFICATE
-// ============================================================
-const studentNameInput = document.getElementById('studentNameInput');
-const certificateDate = document.getElementById('certificateDate');
-
-const now = new Date();
-certificateDate.textContent = 'Date: ' + now.toLocaleDateString('en-US', {
-year: 'numeric',
-month: 'long',
-day: 'numeric'
-});
-
-document.getElementById('showCertificateBtn').addEventListener('click', function() {
-document.getElementById('certificateSection').classList.toggle('show');
-document.getElementById('certificateSection').scrollIntoView({ behavior: 'smooth' });
-speakText('Congratulations! You earned your certificate!', femaleVoice);
-});
-
-document.getElementById('pdfBtn').addEventListener('click', function() {
-window.print();
-});
-
-// ============================================================
-// 11. NAVIGATION
-// ============================================================
-document.getElementById('prevBtn').addEventListener('click', function() {
-window.location.href = 'unit11.html';
-});
-
-// ============================================================
-// 12. RESET UNIT
-// ============================================================
-function resetUnit() {
-unitCompleted = false;
-localStorage.removeItem('unit12Completed');
-localStorage.removeItem('babbleFinalTestCompleted');
-document.getElementById('congratsSection').classList.remove('show');
-document.getElementById('certificateSection').classList.remove('show');
-document.getElementById('final-test').style.display = 'block';
-document.getElementById('testResult').style.display = 'none';
-renderQuestions();
-updateProgress();
-speakText('Unit reset. Try again!', maleVoice);
-}
-
-document.getElementById('resetUnitBtn').addEventListener('click', function() {
-if (confirm('⚠️ هل أنت متأكد من إعادة دراسة الوحدة؟ سيتم مسح تقدمك الحالي.')) {
-resetUnit();
-}
-});
-
-// ============================================================
-// 13. INIT
-// ============================================================
-let days = parseInt(localStorage.getItem('babbleLearningDays')) || 0;
-if (days === 0) {
-days = 1;
-localStorage.setItem('babbleLearningDays', days);
-}
-document.getElementById('learningDays').textContent = days;
-
-if (localStorage.getItem('babbleFinalTestCompleted') === 'true') {
-document.getElementById('testScore').textContent = '25/25';
-document.getElementById('congratsSection').classList.add('show');
-document.getElementById('certificateSection').classList.add('show');
-document.getElementById('final-test').style.display = 'none';
-unitCompleted = true;
-updateProgress();
-launchConfetti();
-} else {
-updateProgress();
-}
-
-renderQuestions();
-
 if ('speechSynthesis' in window) {
-setTimeout(function() {
-window.speechSynthesis.getVoices();
-loadVoices();
-}, 500);
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
-console.log('%c🏆 Unit 12 Loaded!', 'font-size:16px;font-weight:bold;color:#FFD700;');
-console.log('%c🎯 Complete 25/25 to finish!', 'font-size:14px;color:#4CAF50;');
-</script>
+function renderChat(){
+  const wrap = document.getElementById('chat-wrap');
+  conversation.forEach((line) => {
+    const row = document.createElement('div');
+    row.className = 'bubble-row ' + line.speaker;
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = line.speaker === 'ben' ? '👦' : '👩';
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble ' + line.speaker;
+    const enDiv = document.createElement('div');
+    enDiv.className = 'bubble-en';
+    enDiv.setAttribute('dir', 'ltr');
+    const enSpan = document.createElement('span');
+    enSpan.textContent = line.en;
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.type = 'button';
+    speakBtn.textContent = '🔊';
+    speakBtn.addEventListener('click', () => speakText(line.en, line.speaker === 'ben' ? 'male' : 'female'));
+    enDiv.appendChild(enSpan);
+    enDiv.appendChild(speakBtn);
+    const arDiv = document.createElement('div');
+    arDiv.className = 'bubble-ar';
+    arDiv.setAttribute('dir', 'rtl');
+    arDiv.textContent = line.ar;
+    bubble.appendChild(enDiv);
+    bubble.appendChild(arDiv);
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    wrap.appendChild(row);
+  });
+}
+renderChat();
 
+/* =====================================================================
+   5) Review Map
+   ===================================================================== */
+const reviewUnits = [
+  { num:1, title:'am/is/are', ex:'I am a student.' },
+  { num:2, title:'my/your/his/her', ex:'This is my book.' },
+  { num:3, title:'I/You/We/They + verb', ex:'I eat breakfast.' },
+  { num:4, title:'like/don\'t like', ex:'I like coffee.' },
+  { num:5, title:'There is/are', ex:'There is a bed.' },
+  { num:6, title:'Prepositions of Place', ex:'next to the bank' },
+  { num:7, title:'Present Continuous', ex:'I am wearing a jacket.' },
+  { num:8, title:'Weather', ex:'It is sunny.' },
+  { num:9, title:'can/can\'t', ex:'I can swim.' },
+  { num:10, title:'at/on/in', ex:'at 3 o\'clock' },
+  { num:11, title:'was/were', ex:'I was happy.' },
+  { num:12, title:'Final Test', ex:'🏆 You are ready!' },
+];
+
+function renderReviewMap(){
+  const grid = document.getElementById('review-grid');
+  reviewUnits.forEach((u) => {
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.innerHTML = '<span class="num">#' + u.num + '</span>' + u.title + '<span class="ex">' + u.ex + '</span>';
+    card.addEventListener('click', () => {
+      alert('📖 ' + u.title + '\nمثال: ' + u.ex);
+    });
+    grid.appendChild(card);
+  });
+}
+renderReviewMap();
+
+/* =====================================================================
+   6) Grammar Recap
+   ===================================================================== */
+const recapData = [
+  { title:'Verb to be', ex:'I am / He is / They are' },
+  { title:'Present Simple', ex:'I eat. / You don\'t eat. / Do they eat?' },
+  { title:'There is/are', ex:'There is a bed. / There are two chairs.' },
+  { title:'Present Continuous', ex:'I am wearing. / You are wearing.' },
+  { title:'can/can\'t', ex:'I can swim. / I can\'t cook. / Can you drive?' },
+  { title:'was/were', ex:'I was happy. / They were late. / Were you sick?' },
+];
+function renderRecap(){
+  const grid = document.getElementById('recap-grid');
+  recapData.forEach((r) => {
+    const card = document.createElement('div');
+    card.className = 'recap-card';
+    card.innerHTML = '<div class="r-title">' + r.title + '</div><div class="r-ex">' + r.ex + '</div>';
+    grid.appendChild(card);
+  });
+}
+renderRecap();
+
+/* =====================================================================
+   7) Word Vault
+   ===================================================================== */
+const vaultWords = [
+  { en:'Beautiful', emoji:'🌸', ar:'جميل', ex:'The flowers are beautiful.' },
+  { en:'Kind', emoji:'🤝', ar:'لطيف', ex:'She is very kind.' },
+  { en:'Remember', emoji:'🧠', ar:'يتذكر', ex:'I remember you.' },
+  { en:'Always', emoji:'⏰', ar:'دائماً', ex:'I always wake up early.' },
+  { en:'Never', emoji:'🚫', ar:'أبداً', ex:'I never drink coffee.' },
+  { en:'Together', emoji:'👨‍👩‍👧', ar:'معاً', ex:'We are together.' },
+  { en:'Only', emoji:'🕐', ar:'فقط', ex:'I have only one brother.' },
+  { en:'Special', emoji:'⭐', ar:'مميز', ex:'You are special.' },
+];
+function renderVault(){
+  const grid = document.getElementById('vault-grid');
+  vaultWords.forEach((w) => {
+    const card = document.createElement('div');
+    card.className = 'flip-card';
+    card.innerHTML =
+      '<div class="flip-inner">' +
+        '<div class="flip-front">' +
+          '<div class="flip-word">' + w.en + ' ' + w.emoji + '</div>' +
+          '<button class="speak-btn word-speak-btn" type="button">🔊</button>' +
+        '</div>' +
+        '<div class="flip-back">' +
+          '<div class="flip-meaning">' + w.ar + '</div>' +
+          '<div class="flip-example">' + w.ex + '</div>' +
+        '</div>' +
+      '</div>';
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('word-speak-btn')) return;
+      card.classList.toggle('flipped');
+    });
+    card.querySelector('.word-speak-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      speakText(w.en, 'male');
+    });
+    grid.appendChild(card);
+  });
+}
+renderVault();
+
+/* =====================================================================
+   8) Final Test — 25 Questions
+   ===================================================================== */
+const testQuestions = [
+  // MCQ 1-15
+  { type:'mcq', text:'I ___ a student.', options:['am','is','are'], correct:'am' },
+  { type:'mcq', text:'This is ___ book. (I)', options:['my','your','his','her'], correct:'my' },
+  { type:'mcq', text:'She ___ my friend.', options:['am','is','are'], correct:'is' },
+  { type:'mcq', text:'They ___ TV at night.', options:['watch','watches','watching'], correct:'watch' },
+  { type:'mcq', text:'___ you like coffee?', options:['Do','Does','Are'], correct:'Do' },
+  { type:'mcq', text:'There ___ a bed in the room.', options:['is','are','am'], correct:'is' },
+  { type:'mcq', text:'The bank is ___ the hotel. (بجانب)', options:['next to','between','behind'], correct:'next to' },
+  { type:'mcq', text:'I ___ wearing a jacket.', options:['am','is','are'], correct:'am' },
+  { type:'mcq', text:'It ___ sunny today.', options:['is','am','are'], correct:'is' },
+  { type:'mcq', text:'I ___ swim very well.', options:['can',"can't",'am'], correct:'can' },
+  { type:'mcq', text:'The meeting is ___ 3 o\'clock.', options:['at','on','in'], correct:'at' },
+  { type:'mcq', text:'I ___ at home yesterday.', options:['was','were','am'], correct:'was' },
+  { type:'mcq', text:'They ___ happy last night.', options:['was','were','are'], correct:'were' },
+  { type:'mcq', text:'___ there any chairs?', options:['Is','Are','Do'], correct:'Are' },
+  { type:'mcq', text:'We ___ to school every day.', options:['go','goes','going'], correct:'go' },
+  // Order 16-20
+  { type:'order', words:['I','am','a','student','.'], correct:['I','am','a','student','.'] },
+  { type:'order', words:['She','is','my','mother','.'], correct:['She','is','my','mother','.'] },
+  { type:'order', words:['There','is','a','big','garden','.'], correct:['There','is','a','big','garden','.'] },
+  { type:'order', words:['I','can','play','football','.'], correct:['I','can','play','football','.'] },
+  { type:'order', words:['We','were','at','the','park','.'], correct:['We','were','at','the','park','.'] },
+  // Listening 21-25
+  { type:'listening', audio:'Are you a teacher?', translations:['هل أنت مدرس؟','هل أنت طالب؟','هل هي معلمة؟'], correct:'هل أنت مدرس؟' },
+  { type:'listening', audio:'She is wearing a blue dress.', translations:['هي ترتدي فستاناً أزرق.','هي ترتدي فستاناً أحمر.','هي ترتدي فستاناً أبيض.'], correct:'هي ترتدي فستاناً أزرق.' },
+  { type:'listening', audio:'It was cold yesterday.', translations:['كان الجو بارداً أمس.','كان الجو حاراً أمس.','كان الجو جميلاً أمس.'], correct:'كان الجو بارداً أمس.' },
+  { type:'listening', audio:'Can you help me?', translations:['هل تستطيع مساعدتي؟','هل تستطيع الطبخ؟','هل تستطيع الرقص؟'], correct:'هل تستطيع مساعدتي؟' },
+  { type:'listening', audio:'The hospital is next to the park.', translations:['المستشفى بجانب الحديقة.','المستشفى خلف الحديقة.','المستشفى بين الحديقة والبنك.'], correct:'المستشفى بجانب الحديقة.' },
+];
+
+function getTestAnswers(){
+  const stored = localStorage.getItem('unit12_challenge_answers');
+  if (stored) {
+    try { return JSON.parse(stored); } catch(e) { /* تجاهل */ }
+  }
+  return new Array(testQuestions.length).fill(null);
+}
+let testAnswers = getTestAnswers();
+
+function saveTestState(){
+  localStorage.setItem('unit12_challenge_answers', JSON.stringify(testAnswers));
+  const score = testAnswers.filter(a => a === true).length;
+  localStorage.setItem('unit12_challenge_score', String(score));
+  document.getElementById('score-text').textContent = 'النتيجة: ' + score + ' / ' + testQuestions.length;
+  // Show certificate button at 20/25 (80%)
+  const certBtn = document.getElementById('cert-btn');
+  if (score >= 20) {
+    certBtn.style.display = 'inline-flex';
+    if (score === testQuestions.length) {
+      document.getElementById('cert-perfect-star').style.display = 'block';
+    } else {
+      document.getElementById('cert-perfect-star').style.display = 'none';
+    }
+    // Show celebration if not shown yet
+    if (score >= 20 && !celebrationShown) {
+      celebrationShown = true;
+      document.getElementById('celebration-modal').classList.add('show');
+      launchConfetti();
+    }
+    // Show next unit button
+    document.getElementById('next-unit-wrap').style.display = 'block';
+  } else {
+    certBtn.style.display = 'none';
+    document.getElementById('next-unit-wrap').style.display = 'none';
+  }
+}
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderTest(){
+  const wrap = document.getElementById('test-questions');
+  wrap.innerHTML = '';
+
+  testQuestions.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'glass-card q-card reveal';
+
+    if (q.type === 'mcq') {
+      card.innerHTML = '<div class="q-title">' + (idx + 1) + '. ' + q.text + '</div><div class="q-options"></div><div class="q-status"></div>';
+      const optsWrap = card.querySelector('.q-options');
+      q.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.className = 'q-opt';
+        btn.type = 'button';
+        btn.textContent = opt;
+        if (testAnswers[idx] !== null) {
+          btn.disabled = true;
+          if (opt === q.correct) btn.classList.add('correct');
+        }
+        btn.addEventListener('click', () => {
+          const isCorrect = opt === q.correct;
+          testAnswers[idx] = isCorrect;
+          [...optsWrap.children].forEach(b => b.disabled = true);
+          if (isCorrect) { btn.classList.add('correct'); }
+          else { btn.classList.add('wrong'); }
+          const status = card.querySelector('.q-status');
+          status.textContent = isCorrect ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+          status.className = 'q-status ' + (isCorrect ? 'correct-txt' : 'wrong-txt');
+          incrementDailyProgress();
+          saveTestState();
+        });
+        optsWrap.appendChild(btn);
+      });
+      if (testAnswers[idx] !== null) {
+        const status = card.querySelector('.q-status');
+        status.textContent = testAnswers[idx] ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+        status.className = 'q-status ' + (testAnswers[idx] ? 'correct-txt' : 'wrong-txt');
+      }
+    }
+
+    else if (q.type === 'order') {
+      card.innerHTML =
+        '<div class="q-title">' + (idx + 1) + '. Put the words in the correct order:</div>' +
+        '<div class="order-bank"></div>' +
+        '<div class="order-answer"></div>' +
+        '<div style="margin-top:10px;"><button class="btn outline order-check-btn" type="button">تحقق</button></div>' +
+        '<div class="q-status"></div>';
+      const bank = card.querySelector('.order-bank');
+      const answerRow = card.querySelector('.order-answer');
+      const shuffled = shuffleArray(q.words);
+      let answerState = [];
+
+      const bankItems = shuffled.map((w, i) => ({ word: w, id: i, used: false }));
+
+      function draw(){
+        bank.innerHTML = '';
+        bankItems.filter(it => !it.used).forEach((it) => {
+          const b = document.createElement('button');
+          b.className = 'order-word';
+          b.type = 'button';
+          b.textContent = it.word;
+          b.addEventListener('click', () => {
+            if (testAnswers[idx] !== null) return;
+            it.used = true;
+            answerState.push(it);
+            draw();
+          });
+          bank.appendChild(b);
+        });
+        answerRow.innerHTML = '';
+        answerState.forEach((it) => {
+          const b = document.createElement('button');
+          b.className = 'order-word';
+          b.type = 'button';
+          b.textContent = it.word;
+          b.addEventListener('click', () => {
+            if (testAnswers[idx] !== null) return;
+            it.used = false;
+            answerState = answerState.filter(a => a.id !== it.id);
+            draw();
+          });
+          answerRow.appendChild(b);
+        });
+      }
+      draw();
+
+      card.querySelector('.order-check-btn').addEventListener('click', () => {
+        if (testAnswers[idx] !== null) return;
+        const userOrder = answerState.map(it => it.word);
+        const isCorrect = JSON.stringify(userOrder) === JSON.stringify(q.correct);
+        testAnswers[idx] = isCorrect;
+        const status = card.querySelector('.q-status');
+        status.textContent = isCorrect ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct.join(' '));
+        status.className = 'q-status ' + (isCorrect ? 'correct-txt' : 'wrong-txt');
+        incrementDailyProgress();
+        saveTestState();
+      });
+      if (testAnswers[idx] !== null) {
+        const status = card.querySelector('.q-status');
+        status.textContent = testAnswers[idx] ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct.join(' '));
+        status.className = 'q-status ' + (testAnswers[idx] ? 'correct-txt' : 'wrong-txt');
+      }
+    }
+
+    else if (q.type === 'listening') {
+      card.innerHTML =
+        '<div class="q-title">' + (idx + 1) + '. Listen and choose the correct translation:</div>' +
+        '<button class="btn outline listen-play-btn" type="button">🔊 تشغيل</button>' +
+        '<div class="listen-opts"></div>' +
+        '<div class="q-status"></div>';
+      card.querySelector('.listen-play-btn').addEventListener('click', () => speakText(q.audio, 'female'));
+      const optsWrap = card.querySelector('.listen-opts');
+      q.translations.forEach((tr) => {
+        const btn = document.createElement('button');
+        btn.className = 'listen-opt';
+        btn.type = 'button';
+        btn.textContent = tr;
+        if (testAnswers[idx] !== null) btn.disabled = true;
+        btn.addEventListener('click', () => {
+          const isCorrect = tr === q.correct;
+          testAnswers[idx] = isCorrect;
+          [...optsWrap.children].forEach(b => b.disabled = true);
+          const status = card.querySelector('.q-status');
+          status.textContent = isCorrect ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+          status.className = 'q-status ' + (isCorrect ? 'correct-txt' : 'wrong-txt');
+          incrementDailyProgress();
+          saveTestState();
+        });
+        optsWrap.appendChild(btn);
+      });
+      if (testAnswers[idx] !== null) {
+        const status = card.querySelector('.q-status');
+        status.textContent = testAnswers[idx] ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+        status.className = 'q-status ' + (testAnswers[idx] ? 'correct-txt' : 'wrong-txt');
+      }
+    }
+
+    wrap.appendChild(card);
+    revealObserver.observe(card);
+  });
+
+  const score = testAnswers.filter(a => a === true).length;
+  document.getElementById('score-text').textContent = 'النتيجة: ' + score + ' / ' + testQuestions.length;
+  // Update certificate button visibility
+  const certBtn = document.getElementById('cert-btn');
+  if (score >= 20) {
+    certBtn.style.display = 'inline-flex';
+    if (score === testQuestions.length) {
+      document.getElementById('cert-perfect-star').style.display = 'block';
+    } else {
+      document.getElementById('cert-perfect-star').style.display = 'none';
+    }
+    if (score >= 20 && !celebrationShown) {
+      celebrationShown = true;
+      document.getElementById('celebration-modal').classList.add('show');
+      launchConfetti();
+    }
+    document.getElementById('next-unit-wrap').style.display = 'block';
+  } else {
+    certBtn.style.display = 'none';
+    document.getElementById('next-unit-wrap').style.display = 'none';
+  }
+}
+renderTest();
+
+/* إعادة تعيين الاختبار */
+function resetTest(){
+  testAnswers = new Array(testQuestions.length).fill(null);
+  localStorage.setItem('unit12_challenge_answers', JSON.stringify(testAnswers));
+  localStorage.setItem('unit12_challenge_score', '0');
+  renderTest();
+  document.getElementById('score-text').textContent = 'النتيجة: 0 / ' + testQuestions.length;
+  document.getElementById('next-unit-wrap').style.display = 'none';
+  document.getElementById('cert-btn').style.display = 'none';
+  celebrationShown = false;
+}
+document.getElementById('reset-test-btn').addEventListener('click', resetTest);
+
+/* =====================================================================
+   9) Speak Up
+   ===================================================================== */
+const speakTargetText = 'I am a student. I can speak English. I was happy yesterday.';
+function normalizeForCompare(str){
+  return str.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+function similarityPercent(a, b){
+  const wordsA = normalizeForCompare(a).split(' ').filter(Boolean);
+  const wordsB = normalizeForCompare(b).split(' ').filter(Boolean);
+  if (wordsA.length === 0) return 0;
+  let matches = 0;
+  wordsB.forEach((w) => { if (wordsA.includes(w)) matches++; });
+  return Math.round((matches / wordsA.length) * 100);
+}
+
+document.getElementById('speak-btn').addEventListener('click', () => {
+  const resultEl = document.getElementById('speak-result');
+  const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognitionAPI) {
+    resultEl.textContent = 'المتصفح لا يدعم خاصية التعرف على الصوت.';
+    resultEl.className = 'fail';
+    return;
+  }
+  const recognition = new SpeechRecognitionAPI();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  resultEl.textContent = '🎙️ جارٍ الاستماع...';
+  resultEl.className = '';
+
+  recognition.addEventListener('result', (event) => {
+    const spoken = event.results[0][0].transcript;
+    const percent = similarityPercent(speakTargetText, spoken);
+    if (percent >= 60) {
+      resultEl.textContent = '✅ ممتاز! تطابق ' + percent + '%';
+      resultEl.className = 'ok';
+      incrementDailyProgress();
+    } else {
+      resultEl.textContent = '❌ حاول مرة أخرى (تطابق ' + percent + '%)';
+      resultEl.className = 'fail';
+    }
+  });
+  recognition.addEventListener('error', () => {
+    resultEl.textContent = 'حدث خطأ أثناء التسجيل، حاول مرة أخرى.';
+    resultEl.className = 'fail';
+  });
+  recognition.start();
+});
+
+/* =====================================================================
+   10) Homework
+   ===================================================================== */
+const hwTextarea = document.getElementById('homework-text');
+const savedHomework = localStorage.getItem('unit12_homework');
+if (savedHomework) hwTextarea.value = savedHomework;
+
+document.getElementById('hw-save-btn').addEventListener('click', () => {
+  localStorage.setItem('unit12_homework', hwTextarea.value);
+  const status = document.getElementById('hw-status');
+  status.textContent = '✅ تم حفظ الواجب بنجاح.';
+  incrementDailyProgress();
+});
+
+const correctionRules = [
+  { pattern: /\bim\b/gi, replacement: "I'm", label: 'im → I\'m' },
+  { pattern: /\bhes\b/gi, replacement: "he's", label: 'hes → he\'s' },
+  { pattern: /\byoure\b/gi, replacement: "you're", label: 'youre → you\'re' },
+  { pattern: /\bisnt\b/gi, replacement: "isn't", label: 'isnt → isn\'t' },
+  { pattern: /\barent\b/gi, replacement: "aren't", label: 'arent → aren\'t' },
+  { pattern: /\bwasnt\b/gi, replacement: "wasn't", label: 'wasnt → wasn\'t' },
+  { pattern: /\bwerent\b/gi, replacement: "weren't", label: 'werent → weren\'t' },
+  { pattern: /\bI is\b/gi, replacement: "I am", label: 'I is → I am' },
+  { pattern: /\bhe are\b/gi, replacement: "he is", label: 'he are → he is' },
+  { pattern: /\bshe are\b/gi, replacement: "she is", label: 'she are → she is' },
+  { pattern: /\bthey is\b/gi, replacement: "they are", label: 'they is → they are' },
+  { pattern: /\bwe is\b/gi, replacement: "we are", label: 'we is → we are' },
+  { pattern: /\byou is\b/gi, replacement: "you are", label: 'you is → you are' },
+  { pattern: /\bI are\b/gi, replacement: "I am", label: 'I are → I am' },
+  { pattern: /\bcan to\b/gi, replacement: 'can', label: 'can to → can' },
+  { pattern: /\bcant\b/gi, replacement: "can't", label: 'cant → can\'t' },
+];
+
+document.getElementById('hw-check-btn').addEventListener('click', () => {
+  let text = hwTextarea.value;
+  const appliedFixes = [];
+  correctionRules.forEach((rule) => {
+    if (rule.pattern.test(text)) {
+      text = text.replace(rule.pattern, rule.replacement);
+      appliedFixes.push(rule.label);
+    }
+    rule.pattern.lastIndex = 0;
+  });
+  hwTextarea.value = text;
+  const box = document.getElementById('hw-corrections');
+  if (appliedFixes.length > 0) {
+    box.style.display = 'block';
+    box.innerHTML = '<strong>تم تصحيح الأخطاء التالية:</strong><ul>' +
+      appliedFixes.map(f => '<li>' + f + '</li>').join('') + '</ul>';
+  } else {
+    box.style.display = 'block';
+    box.innerHTML = '<strong>لم يتم العثور على أخطاء شائعة 👍</strong>';
+  }
+});
+
+/* =====================================================================
+   11) شهادة الإتمام (Certificate)
+   ===================================================================== */
+let certStudentName = '';
+
+document.getElementById('cert-btn').addEventListener('click', () => {
+  const modal = document.getElementById('cert-modal');
+  modal.classList.add('show');
+  // Check if we already have a name
+  const savedName = localStorage.getItem('cert_student_name');
+  if (savedName) {
+    document.getElementById('cert-student-name').textContent = savedName;
+    certStudentName = savedName;
+  } else {
+    document.getElementById('cert-student-name').textContent = '___________';
+  }
+  // Set date
+  const now = new Date();
+  document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+});
+
+document.getElementById('cert-close-btn').addEventListener('click', () => {
+  document.getElementById('cert-modal').classList.remove('show');
+});
+
+document.getElementById('cert-print-btn').addEventListener('click', () => {
+  // Get student name
+  const nameEl = document.getElementById('cert-student-name');
+  const name = prompt('📝 أدخل اسمك الكامل (سيظهر على الشهادة):', certStudentName || '');
+  if (name && name.trim() !== '') {
+    nameEl.textContent = name.trim();
+    certStudentName = name.trim();
+    localStorage.setItem('cert_student_name', certStudentName);
+  }
+  // Update date
+  const now = new Date();
+  document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  // Print
+  window.print();
+});
+
+// Close cert modal on outside click
+document.getElementById('cert-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    document.getElementById('cert-modal').classList.remove('show');
+  }
+});
+
+/* =====================================================================
+   12) الاحتفال + الكونفيتي
+   ===================================================================== */
+let celebrationShown = false;
+
+function launchConfetti(){
+  const colors = ['#FFD700', '#ffffff', '#f1c40f', '#fff2a8', '#e0b400', '#FF6B6B', '#4ECDC4'];
+  for (let i = 0; i < 100; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.opacity = String(0.7 + Math.random() * 0.3);
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (8 + Math.random() * 12) + 'px';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 4500);
+  }
+}
+
+document.getElementById('modal-close-btn').addEventListener('click', () => {
+  document.getElementById('celebration-modal').classList.remove('show');
+});
+
+/* =====================================================================
+   13) استعادة الحالة
+   ===================================================================== */
+(function restoreState(){
+  const score = parseInt(localStorage.getItem('unit12_challenge_score') || '0', 10);
+  if (score >= 20) {
+    document.getElementById('next-unit-wrap').style.display = 'block';
+    document.getElementById('cert-btn').style.display = 'inline-flex';
+    if (score === testQuestions.length) {
+      document.getElementById('cert-perfect-star').style.display = 'block';
+    }
+    if (score >= 20 && !celebrationShown) {
+      celebrationShown = true;
+      setTimeout(() => {
+        document.getElementById('celebration-modal').classList.add('show');
+        launchConfetti();
+      }, 500);
+    }
+  }
+  // Restore certificate name
+  const savedName = localStorage.getItem('cert_student_name');
+  if (savedName) {
+    certStudentName = savedName;
+    document.getElementById('cert-student-name').textContent = savedName;
+  }
+})();
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
 </body>
-</html>
+  </html>
