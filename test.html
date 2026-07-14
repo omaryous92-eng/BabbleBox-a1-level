@@ -155,15 +155,16 @@
   #writing-area:focus{ border-color:var(--gold); outline:none; }
   .word-count{ font-size:13px; color: var(--text-muted); margin-top:4px; }
 
-  /* ===== التصحيح العلمي ===== */
+  /* ===== التصحيح العلمي (يظهر بعد التقديم) ===== */
   .feedback{
     margin-top:10px; padding:10px 14px; border-radius:10px; font-size:14px;
     border-right:4px solid var(--gold);
   }
-  .feedback.correct{ border-color: var(--green); background: rgba(46,204,113,.1); }
+  .feedback.correct{ border-color: var(--green); background: rgba(46,204,113,.05); }
   .feedback.wrong{ border-color: var(--red); background: rgba(231,76,60,.1); }
   .feedback .fb-label{ font-weight:700; }
   .feedback .fb-reason{ color: var(--text-muted); margin-top:4px; font-size:13px; }
+  .fb-silent{ color: var(--green); font-weight:700; font-size:14px; margin-top:4px; }
 
   /* ===== زر إنهاء الاختبار ===== */
   #submit-wrap{ text-align:center; margin:30px 0 20px; }
@@ -171,14 +172,29 @@
 
   /* ===== النتائج ===== */
   #results-screen{
-    display:none; padding:30px 0 40px;
+    display:none; padding:30px 0 20px;
     border-bottom:2px solid var(--gold-soft); margin-bottom:30px;
   }
   .result-level{ font-size:40px; font-weight:900; color:var(--gold); text-align:center; margin-bottom:4px; }
   .result-sub{ font-size:20px; text-align:center; color:var(--text-muted); margin-bottom:16px; }
   .result-score{ font-size:20px; font-weight:700; text-align:center; color:var(--gold); margin-bottom:12px; }
   .result-desc{ background:var(--glass-bg); border-radius:var(--radius); padding:18px; margin-bottom:18px; line-height:1.8; }
-  .result-actions{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+  .result-actions{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
+
+  /* ===== تحليل الأداء ===== */
+  #analysis-section{
+    margin-top:20px; padding:20px; background:var(--glass-bg); border-radius:var(--radius);
+    border:1px solid var(--glass-border);
+  }
+  #analysis-section h3{ font-size:20px; font-weight:800; color:var(--gold); margin-bottom:12px; }
+  .analysis-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:640px){ .analysis-grid{ grid-template-columns:1fr; } }
+  .analysis-box{ background:var(--bg-soft); border-radius:12px; padding:14px; }
+  .analysis-box .label{ font-weight:700; color:var(--text-muted); font-size:14px; }
+  .analysis-box .items{ margin-top:6px; font-size:15px; }
+  .analysis-box .items li{ margin-bottom:4px; }
+  .tips-box{ margin-top:12px; padding:14px; background:var(--gold-soft); border-radius:12px; }
+  .tips-box .tip{ margin-bottom:4px; }
 
   /* ===== شهادة ===== */
   #cert-modal{
@@ -207,8 +223,39 @@
   .cert-box .cert-footer .date{ text-align:left; direction:ltr; }
   .cert-box .cert-disclaimer{ font-size:10px; color:var(--text-muted); text-align:center; margin-top:10px; padding-top:8px; border-top:1px dashed var(--glass-border); opacity:.6; }
   .cert-actions{ display:flex; gap:10px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+  .cert-name-label{ text-align:center; font-weight:700; color:var(--gold); margin-bottom:4px; }
   .cert-name-input{ width:100%; max-width:320px; padding:10px 16px; border-radius:12px; border:2px solid var(--gold); background:var(--glass-bg); color:var(--text); font-size:16px; text-align:center; font-family:inherit; }
   .cert-name-input:focus{ outline:none; box-shadow:0 0 30px rgba(255,215,0,.15); }
+
+  /* ===== الاحتفال ===== */
+  #celebration-modal{
+    position:fixed; inset:0; z-index:9998; display:none;
+    align-items:center; justify-content:center;
+    background: rgba(0,0,0,.8); backdrop-filter: blur(12px);
+  }
+  #celebration-modal.show{ display:flex; }
+  #celebration-modal .modal-box{
+    background: var(--bg-soft); border:3px solid var(--gold);
+    border-radius:30px; padding:40px 30px; text-align:center; max-width:500px; width:90%;
+    box-shadow: 0 0 60px rgba(255,215,0,.2);
+  }
+  #celebration-modal .stars{
+    font-size:60px; animation: spin 3s linear infinite;
+  }
+  @keyframes spin{ 0%{ transform:rotate(0deg) scale(1); } 50%{ transform:rotate(180deg) scale(1.2); } 100%{ transform:rotate(360deg) scale(1); } }
+  #celebration-modal .title{ font-size:28px; font-weight:900; color:var(--gold); margin-bottom:6px; }
+  #celebration-modal .sub{ font-size:18px; color:var(--text-muted); margin-bottom:20px; }
+  #celebration-modal .btn{ font-size:18px; padding:12px 40px; }
+
+  /* كونفيتي */
+  .confetti-piece{
+    position:fixed; top:-10px; width:9px; height:14px; z-index:10001;
+    pointer-events:none; border-radius:2px; animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall{
+    0%{ transform: translateY(0) rotate(0deg) scale(1); opacity:1; }
+    100%{ transform: translateY(100vh) rotate(720deg) scale(0.5); opacity:0; }
+  }
 
   /* ===== footer ===== */
   footer{ border-top:1px solid var(--glass-border); padding:20px 0; text-align:center; color:var(--text-muted); font-size:13px; }
@@ -228,7 +275,7 @@
     #cert-modal { position: fixed; inset:0; display:flex !important; background: white; padding:20px; }
     .cert-box { border:3px solid #d4a800 !important; box-shadow:none !important; background:white; }
     .cert-box .cert-border { border:2px solid #d4a800 !important; }
-    .cert-actions, .cert-name-input, .cert-disclaimer { display: none !important; }
+    .cert-actions, .cert-name-input, .cert-name-label, .cert-disclaimer { display: none !important; }
     .no-print { display: none !important; }
   }
   .hidden{ display:none !important; }
@@ -270,6 +317,25 @@
         <a href="index.html" class="btn outline">🏠 العودة للصفحة الرئيسية</a>
         <a href="index.html#levels" class="btn" id="level-link">🚀 الذهاب للمستوى A1</a>
         <button class="btn gold" id="cert-btn">📜 شهادة تحديد المستوى</button>
+        <button class="btn outline" id="reset-test-btn">🔄 إعادة الاختبار</button>
+      </div>
+      <!-- تحليل الأداء -->
+      <div id="analysis-section" style="display:none;">
+        <h3>📊 تحليل أدائك</h3>
+        <div class="analysis-grid">
+          <div class="analysis-box" id="strengths-box">
+            <div class="label">💪 نقاط القوة</div>
+            <ul class="items" id="strengths-list"></ul>
+          </div>
+          <div class="analysis-box" id="weaknesses-box">
+            <div class="label">⚠️ نقاط الضعف</div>
+            <ul class="items" id="weaknesses-list"></ul>
+          </div>
+        </div>
+        <div class="tips-box" id="tips-box">
+          <div class="label" style="font-weight:700;color:var(--gold);">💡 نصائح للتحسين</div>
+          <ul class="items" id="tips-list"></ul>
+        </div>
       </div>
     </div>
 
@@ -293,8 +359,9 @@
       <div class="cert-logo"><img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box" /></div>
       <div class="cert-title">📜 Certificate of Level</div>
       <div class="cert-sub">Babble Box Academy — CEFR Placement Test</div>
+      <div class="cert-name-label">✍️ أدخل اسمك الكامل</div>
       <div style="text-align:center; margin:8px 0;">
-        <input class="cert-name-input" id="cert-name-input" placeholder="✍️ أدخل اسمك الكامل" dir="ltr" />
+        <input class="cert-name-input" id="cert-name-input" placeholder="الاسم الكامل" dir="ltr" />
       </div>
       <div class="cert-student" id="cert-student-name">___________</div>
       <div class="cert-body">
@@ -314,9 +381,19 @@
   </div>
 </div>
 
+<!-- ===== نافذة الاحتفال ===== -->
+<div id="celebration-modal">
+  <div class="modal-box">
+    <div class="stars">✨🌟✨</div>
+    <div class="title">🎉 مبروك! أداء رائع!</div>
+    <div class="sub">لقد حققت درجة عالية في اختبار تحديد المستوى. أنت جاهز للمستوى التالي!</div>
+    <button class="btn" id="celebration-close">رائع!</button>
+  </div>
+</div>
+
 <script>
 /* =====================================================================
-   بيانات الأسئلة — 45 سؤالاً + مهمة كتابة
+   بيانات الأسئلة — 45 سؤالاً + مهمة كتابة (تم مراجعتها)
    ===================================================================== */
 
 // ===== Part 1: Grammar & Vocabulary (30) =====
@@ -410,15 +487,15 @@ grammarData.forEach((q, i) => {
     options: [...q.options],
     correct: q.correct,
     explanation: q.explanation || '',
-    selected: null,
-    answered: false,
+    selected: null,        // index of selected option (null = not answered)
+    answered: false,       // true only after final submission
     part: 1,
   });
 });
 
 // 2) Reading (10)
 readingPassages.forEach((passage, pi) => {
-  // نضيف النص كعنصر منفصل
+  // نضيف النص كعنصر منفصل (ليس سؤالاً)
   allQuestions.push({
     id: 'r' + pi + '_text',
     level: passage.level,
@@ -494,13 +571,12 @@ function shuffleArray(arr){
   return a;
 }
 
-// نخلط خيارات كل سؤال عند التحميل
+// نخلط خيارات كل سؤال
 function shuffleAllOptions(){
   allQuestions.forEach(q => {
     if (q.type === 'mcq' || q.type === 'listening') {
       const opts = q.options;
       const correct = opts[q.correct];
-      // نخلط الخيارات مع تتبع الإجابة الصحيحة
       const shuffled = shuffleArray(opts.map((o, i) => ({ value: o, origIdx: i })));
       q.options = shuffled.map(item => item.value);
       q.correct = shuffled.findIndex(item => item.value === correct);
@@ -508,6 +584,34 @@ function shuffleAllOptions(){
   });
 }
 shuffleAllOptions();
+
+/* =====================================================================
+   إعادة تعيين جميع الإجابات وخلط الخيارات من جديد
+   ===================================================================== */
+function resetAll(){
+  // إعادة تعيين الإجابات
+  allQuestions.forEach(q => {
+    if (q.type === 'mcq' || q.type === 'listening') {
+      q.selected = null;
+      q.answered = false;
+    }
+    if (q.type === 'writing') {
+      q.answered = false;
+    }
+  });
+  writingText = '';
+  testSubmitted = false;
+  // إعادة خلط الخيارات
+  shuffleAllOptions();
+  // إخفاء النتائج وإظهار الأسئلة
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('analysis-section').style.display = 'none';
+  document.getElementById('submit-test-btn').style.display = 'inline-flex';
+  // إعادة عرض الأسئلة
+  renderQuestions();
+  // التمرير إلى الأعلى
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 /* =====================================================================
    اللغة والوضع
@@ -532,7 +636,6 @@ function applyLanguage(lang){
     startBtn.textContent = 'Start Test';
     submitBtn.textContent = '🎯 Submit & Show Results';
   }
-  // إعادة عرض الأسئلة باللغة الجديدة
   if (testStarted) renderQuestions();
 }
 function toggleLang(){
@@ -590,11 +693,10 @@ function renderQuestions(){
     const card = document.createElement('div');
     card.className = 'glass-card';
     card.id = 'q-' + idx;
-    card.style.marginBottom = '16px';
 
-    const isAnswered = q.answered === true;
-    const isCorrect = q.answered === true && q.selected === q.correct;
-    const isWrong = q.answered === true && q.selected !== null && q.selected !== q.correct;
+    const isSubmitted = testSubmitted;
+    const selected = q.selected;
+    const isCorrect = (selected !== null && selected === q.correct);
 
     let html = `<div class="q-number">${currentLang === 'ar' ? 'سؤال' : 'Q'} ${qIndex+1}</div>`;
 
@@ -609,41 +711,40 @@ function renderQuestions(){
     // الخيارات
     html += `<div class="q-options">`;
     q.options.forEach((opt, i) => {
-      const sel = (q.selected === i);
+      const sel = (selected === i);
       let cls = 'q-opt';
       if (sel) cls += ' selected';
-      if (testSubmitted) {
+      if (isSubmitted) {
         cls += ' disabled';
         if (i === q.correct) cls += ' correct';
         if (sel && i !== q.correct) cls += ' wrong';
       }
-      // اتجاه النص: نصوص إنجليزية تكون LTR، عربية RTL
-      // نكتشف إذا كان النص إنجليزي (يحتوي على أحرف لاتينية)
+      // اتجاه النص: نكتشف إذا كان النص إنجليزي
       const isEnglish = /[a-zA-Z]/.test(opt);
       const dirAttr = isEnglish ? 'dir="ltr" style="text-align:left;"' : 'dir="rtl" style="text-align:right;"';
-      html += `<button class="${cls}" data-idx="${idx}" data-opt="${i}" ${testSubmitted ? 'disabled' : ''} ${dirAttr}>${opt}</button>`;
+      html += `<button class="${cls}" data-idx="${idx}" data-opt="${i}" ${isSubmitted ? 'disabled' : ''} ${dirAttr}>${opt}</button>`;
     });
     html += `</div>`;
 
     // التغذية الراجعة العلمية (بعد التقديم)
-    if (testSubmitted && q.answered) {
-      const fbClass = isCorrect ? 'correct' : 'wrong';
-      const fbLabel = isCorrect ? '✅ صحيح' : '❌ خاطئ';
-      const userAns = q.selected !== null ? q.options[q.selected] : 'لم يجب';
-      const correctAns = q.options[q.correct];
-      const reason = q.explanation || (currentLang === 'ar' ? 'الإجابة الصحيحة هي الخيار المحدد.' : 'The correct answer is the selected option.');
-      html += `<div class="feedback ${fbClass}">
-        <div class="fb-label">${fbLabel}</div>
-        ${!isCorrect ? `<div>${currentLang === 'ar' ? 'إجابتك' : 'Your answer'}: ${userAns}</div>` : ''}
-        <div>${currentLang === 'ar' ? 'الإجابة الصحيحة' : 'Correct answer'}: ${correctAns}</div>
-        <div class="fb-reason">💡 ${reason}</div>
-      </div>`;
-    } else if (testSubmitted && !q.answered) {
-      html += `<div class="feedback wrong">
-        <div class="fb-label">⏭ ${currentLang === 'ar' ? 'تم التخطي' : 'Skipped'}</div>
-        <div>${currentLang === 'ar' ? 'الإجابة الصحيحة' : 'Correct answer'}: ${q.options[q.correct]}</div>
-        <div class="fb-reason">💡 ${q.explanation || (currentLang === 'ar' ? 'تم تخطي هذا السؤال.' : 'This question was skipped.')}</div>
-      </div>`;
+    if (isSubmitted && q.answered) {
+      if (isCorrect) {
+        // صحيح: عرض ✅ فقط
+        html += `<div class="fb-silent">✅</div>`;
+      } else {
+        // خاطئ أو تم تخطي السؤال
+        const fbClass = 'wrong';
+        const fbLabel = '❌ ' + (selected === null ? (currentLang === 'ar' ? 'تم التخطي' : 'Skipped') : (currentLang === 'ar' ? 'خاطئ' : 'Wrong'));
+        const userAns = selected !== null ? q.options[selected] : (currentLang === 'ar' ? 'لم يجب' : 'Not answered');
+        const correctAns = q.options[q.correct];
+        const reason = q.explanation || (currentLang === 'ar' ? 'الإجابة الصحيحة هي الخيار المحدد.' : 'The correct answer is the selected option.');
+        html += `<div class="feedback ${fbClass}">
+          <div class="fb-label">${fbLabel}</div>
+          ${selected !== null ? `<div>${currentLang === 'ar' ? 'إجابتك' : 'Your answer'}: ${userAns}</div>` : ''}
+          <div>${currentLang === 'ar' ? 'الإجابة الصحيحة' : 'Correct answer'}: ${correctAns}</div>
+          <div class="fb-reason">💡 ${reason}</div>
+        </div>`;
+      }
     }
 
     card.innerHTML = html;
@@ -651,15 +752,15 @@ function renderQuestions(){
     qIndex++;
 
     // ربط أحداث الخيارات (إذا لم يتم التقديم)
-    if (!testSubmitted) {
+    if (!isSubmitted) {
       card.querySelectorAll('.q-opt').forEach(btn => {
         btn.addEventListener('click', function(){
           const idx = parseInt(this.dataset.idx);
           const opt = parseInt(this.dataset.opt);
           const qq = allQuestions[idx];
-          if (qq.answered) return;
+          // تغيير التحديد دون تعطيل
           qq.selected = opt;
-          qq.answered = true;
+          // لا نضع qq.answered = true حتى التقديم النهائي
           renderQuestions();
         });
       });
@@ -756,7 +857,6 @@ document.getElementById('start-test-btn').addEventListener('click', function(){
   document.getElementById('welcome-screen').style.display = 'none';
   document.getElementById('test-screen').style.display = 'block';
   renderQuestions();
-  // التمرير إلى الأعلى
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
@@ -770,6 +870,16 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
   // حفظ نص الكتابة
   const area = document.getElementById('writing-area');
   if (area) writingText = area.value;
+
+  // تعيين answered = true للأسئلة التي تم اختيار إجابة لها
+  allQuestions.forEach(q => {
+    if (q.type === 'mcq' || q.type === 'listening') {
+      q.answered = (q.selected !== null);
+    }
+    if (q.type === 'writing') {
+      q.answered = true; // الكتابة تم تقديمها دائماً
+    }
+  });
 
   // حساب النتيجة
   let score = 0;
@@ -826,6 +936,74 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
   // تحديث الشهادة
   document.getElementById('cert-level-display').textContent = level;
 
+  // === الاحتفالات ===
+  if (totalScore > 35) {
+    // احتفال كبير
+    document.getElementById('celebration-modal').classList.add('show');
+    launchConfetti(150);
+  } else {
+    // رسالة تشجيعية بسيطة
+    const msg = currentLang === 'ar'
+      ? '💪 لا بأس! كلما تدربت أكثر، كلما تحسنت. استمر في التعلم!'
+      : '💪 No problem! The more you practice, the better you get. Keep learning!';
+    const div = document.createElement('div');
+    div.style.cssText = 'text-align:center;padding:16px;background:var(--gold-soft);border-radius:12px;margin-top:12px;font-weight:700;color:var(--gold);';
+    div.textContent = msg;
+    const results = document.getElementById('results-screen');
+    if (!results.querySelector('.encouragement')) {
+      div.className = 'encouragement';
+      results.appendChild(div);
+    }
+  }
+
+  // === تحليل الأداء ===
+  const analysisDiv = document.getElementById('analysis-section');
+  analysisDiv.style.display = 'block';
+
+  // حساب الدرجات لكل جزء
+  const partScores = {
+    1: { name: 'Grammar & Vocabulary', total: 30, score: 0 },
+    2: { name: 'Reading', total: 10, score: 0 },
+    3: { name: 'Listening', total: 5, score: 0 },
+    4: { name: 'Writing', total: 5, score: 0 }
+  };
+  grammarQs.forEach(q => { if (q.answered && q.selected === q.correct) partScores[1].score++; });
+  readingQs.forEach(q => { if (q.answered && q.selected === q.correct) partScores[2].score++; });
+  listeningQs.forEach(q => { if (q.answered && q.selected === q.correct) partScores[3].score++; });
+  partScores[4].score = writingScore;
+
+  // تحديد نقاط القوة والضعف
+  const parts = Object.values(partScores);
+  const maxScore = Math.max(...parts.map(p => p.score));
+  const minScore = Math.min(...parts.map(p => p.score));
+  const strengths = parts.filter(p => p.score === maxScore && maxScore > 0);
+  const weaknesses = parts.filter(p => p.score === minScore && minScore < p.total);
+
+  const strengthsList = document.getElementById('strengths-list');
+  const weaknessesList = document.getElementById('weaknesses-list');
+  strengthsList.innerHTML = strengths.length ? strengths.map(p => `<li>${p.name}: ${p.score}/${p.total} (${Math.round(p.score/p.total*100)}%)</li>`).join('') : '<li>جميع الأقسام متقاربة</li>';
+  weaknessesList.innerHTML = weaknesses.length ? weaknesses.map(p => `<li>${p.name}: ${p.score}/${p.total} (${Math.round(p.score/p.total*100)}%)</li>`).join('') : '<li>لا توجد نقاط ضعف واضحة</li>';
+
+  // نصائح مخصصة
+  const tips = [];
+  if (level === 'A1' || level === 'A2') {
+    tips.push('📚 ابدأ بوحدات Babble Box للمستوى ' + level + ' لبناء الأساس.');
+    tips.push('🎧 استمع إلى المحادثات اليومية البسيطة لتحسين الاستماع.');
+    tips.push('📝 حاول كتابة جمل بسيطة عن يومك باستخدام الكلمات الجديدة.');
+  } else if (level === 'B1' || level === 'B2') {
+    tips.push('📖 اقرأ نصوصاً أطول ومارس فهم المعنى من السياق.');
+    tips.push('🗣️ تدرب على التحدث مع نفسك أو مع صديق باللغة الإنجليزية.');
+    tips.push('🎬 شاهد مقاطع فيديو Babble Box للمستوى ' + level + ' لتعزيز المهارات.');
+  } else {
+    tips.push('🧠 اقرأ مقالات وأخباراً باللغة الإنجليزية لتوسيع المفردات.');
+    tips.push('✍️ اكتب مقالات قصيرة أو مذكرات يومية لتحسين الكتابة.');
+    tips.push('🎤 استمع إلى بودكاست أو محادثات متقدمة لضبط النطق.');
+  }
+  tips.push('💪 استمر في الممارسة اليومية، حتى لو 10 دقائق فقط.');
+
+  const tipsList = document.getElementById('tips-list');
+  tipsList.innerHTML = tips.map(t => `<li class="tip">${t}</li>`).join('');
+
   // إعادة عرض الأسئلة مع التصحيح
   renderQuestions();
 
@@ -839,13 +1017,10 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
 document.getElementById('cert-btn').addEventListener('click', function(){
   const modal = document.getElementById('cert-modal');
   modal.classList.add('show');
-  // تحديث التاريخ
   const now = new Date();
   document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-  // تحديث المستوى
   const level = localStorage.getItem('placement_test_level') || 'A1';
   document.getElementById('cert-level-display').textContent = level;
-  // تحديث الاسم المحفوظ
   const savedName = localStorage.getItem('cert_student_name') || '';
   if (savedName) {
     document.getElementById('cert-student-name').textContent = savedName;
@@ -870,10 +1045,50 @@ document.getElementById('cert-print-btn').addEventListener('click', function(){
   window.print();
 });
 
-// إغلاق الشهادة بالضغط على الخلفية
 document.getElementById('cert-modal').addEventListener('click', function(e){
   if (e.target === this) this.classList.remove('show');
 });
+
+/* =====================================================================
+   زر إعادة الاختبار
+   ===================================================================== */
+document.getElementById('reset-test-btn').addEventListener('click', function(){
+  if (confirm('هل أنت متأكد من إعادة الاختبار؟ سيتم مسح جميع إجاباتك.')) {
+    resetAll();
+  }
+});
+
+/* =====================================================================
+   إغلاق الاحتفال
+   ===================================================================== */
+document.getElementById('celebration-close').addEventListener('click', function(){
+  document.getElementById('celebration-modal').classList.remove('show');
+  document.querySelectorAll('.confetti-piece').forEach(el => el.remove());
+});
+document.getElementById('celebration-modal').addEventListener('click', function(e){
+  if (e.target === this) {
+    this.classList.remove('show');
+    document.querySelectorAll('.confetti-piece').forEach(el => el.remove());
+  }
+});
+
+function launchConfetti(count){
+  count = count || 150;
+  const colors = ['#FFD700', '#ffffff', '#f1c40f', '#fff2a8', '#e0b400', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+    piece.style.opacity = String(0.7 + Math.random() * 0.3);
+    piece.style.width = (5 + Math.random() * 10) + 'px';
+    piece.style.height = (8 + Math.random() * 14) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 5000);
+  }
+}
 
 /* =====================================================================
    تحميل اللغة المحفوظة والوضع
@@ -892,6 +1107,7 @@ document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 const savedCertName = localStorage.getItem('cert_student_name');
 if (savedCertName) {
   document.getElementById('cert-student-name').textContent = savedCertName;
+  document.getElementById('cert-name-input').value = savedCertName;
 }
 
 console.log('✅ اختبار تحديد المستوى جاهز!');
