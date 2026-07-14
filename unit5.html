@@ -1,2424 +1,1303 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
+<!--
+  =====================================================================
+  Babble Box Academy — الوحدة 5: My New Home (There is / There are)
+  المستوى A1 — ملف واحد كامل (HTML + CSS + JS) بدون أي مكتبات خارجية.
+  ملاحظة: هذه الوحدة لطلاب المستوى الضعيف جداً (Absolute Beginners) —
+  نركز فقط على There is / There are لوصف وجود أشياء في مكان
+  (البيت والغرف)، مع أيقونات بصرية (🏠 منزل، 🛏️ غرفة نوم، 🛋️ غرفة
+  معيشة) وشرح وافر جداً بالعربية في كل قسم.
+  =====================================================================
+-->
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Babble Box - Unit 5: My Home Sweet Home</title>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L42M2EDW3H"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-L42M2EDW3H');
-</script>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>الوحدة 5 | Babble Box Academy</title>
+<meta name="description" content="الوحدة الخامسة من مستوى A1 في أكاديمية Babble Box — There is / There are" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-/* ============================================================
-ROOT & RESET
-============================================================ */
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-}
-
-:root {
---gold: #FFC107;
---black: #1A1A1A;
---white: #FAFAFA;
---bg: #FAFAFA;
---text: #1A1A1A;
---card-bg: #FFFFFF;
---shadow: 0 8px 30px rgba(0,0,0,0.06);
---radius: 18px;
---transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
---green: #4CAF50;
---red: #F44336;
---blue: #2196F3;
-}
-
-[data-theme="dark"] {
---bg: #121212;
---text: #F0F0F0;
---card-bg: #1E1E1E;
---shadow: 0 8px 30px rgba(0,0,0,0.4);
-}
-
-html {
-scroll-behavior: smooth;
-}
-
-body {
-font-family: 'Cairo', 'Segoe UI', sans-serif;
-background: var(--bg);
-color: var(--text);
-min-height: 100vh;
-transition: background var(--transition), color var(--transition);
-}
-
-/* ============================================================
-HEADER
-============================================================ */
-.header {
-background: var(--card-bg);
-padding: 12px 16px;
-box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-display: flex;
-align-items: center;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 8px;
-transition: background var(--transition);
-border-bottom: 2px solid rgba(0,0,0,0.04);
-position: sticky;
-top: 0;
-z-index: 100;
-}
-
-[data-theme="dark"] .header {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.header .brand {
-font-family: 'Poppins', sans-serif;
-font-size: 16px;
-font-weight: 800;
-color: var(--text);
-direction: ltr;
-text-align: left;
-}
-
-.header .brand span {
-color: var(--gold);
-}
-
-.header .unit-title {
-font-size: 13px;
-font-weight: 600;
-color: #888;
-direction: ltr;
-text-align: left;
-}
-
-.header .top-actions {
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.theme-toggle {
-background: none;
-border: none;
-font-size: 20px;
-cursor: pointer;
-color: var(--text);
-transition: 0.3s;
-padding: 4px;
-}
-
-.theme-toggle:hover {
-transform: rotate(20deg);
-}
-
-.back-btn {
-background: var(--gold);
-border: none;
-padding: 5px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-text-decoration: none;
-}
-
-.back-btn:hover {
-transform: scale(1.03);
-}
-
-.reset-unit-btn {
-background: rgba(255,0,0,0.1);
-border: 2px solid var(--red);
-color: var(--red);
-padding: 5px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-}
-
-.reset-unit-btn:hover {
-background: var(--red);
-color: #fff;
-transform: scale(1.02);
-}
-
-/* ============================================================
-UNIT NAVIGATION TABS
-============================================================ */
-.unit-tabs-wrapper {
-background: var(--card-bg);
-padding: 8px 16px;
-border-bottom: 1px solid rgba(0,0,0,0.04);
-overflow-x: auto;
-scrollbar-width: thin;
-transition: background var(--transition);
-}
-
-[data-theme="dark"] .unit-tabs-wrapper {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.unit-tabs-wrapper::-webkit-scrollbar {
-height: 3px;
-}
-
-.unit-tabs-wrapper::-webkit-scrollbar-thumb {
-background: var(--gold);
-border-radius: 10px;
-}
-
-.unit-tabs {
-display: flex;
-gap: 6px;
-min-width: max-content;
-padding-bottom: 4px;
-}
-
-.unit-tab {
-min-width: 36px;
-height: 36px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 11px;
-font-weight: 700;
-font-family: 'Poppins', sans-serif;
-border: 2px solid transparent;
-cursor: pointer;
-transition: 0.2s;
-background: rgba(0,0,0,0.04);
-color: var(--text);
-}
-
-[data-theme="dark"] .unit-tab {
-background: rgba(255,255,255,0.04);
-color: #aaa;
-}
-
-.unit-tab.active {
-background: var(--gold);
-color: var(--black);
-border-color: var(--gold);
-}
-
-.unit-tab.completed {
-background: var(--green);
-color: #fff;
-border-color: var(--green);
-}
-
-.unit-tab.unlocked {
-border-color: var(--gold);
-background: transparent;
-color: var(--text);
-}
-
-.unit-tab.unlocked:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-.unit-tab.locked {
-background: rgba(0,0,0,0.04);
-color: #999;
-cursor: not-allowed;
-border-color: rgba(0,0,0,0.06);
-}
-
-[data-theme="dark"] .unit-tab.locked {
-background: rgba(255,255,255,0.04);
-color: #555;
-border-color: rgba(255,255,255,0.04);
-}
-
-.unit-tab.locked .lock-icon {
-font-size: 10px;
-}
-
-/* ============================================================
-PROGRESS BAR (10 sections)
-============================================================ */
-.daily-progress {
-padding: 8px 16px;
-background: var(--card-bg);
-border-bottom: 1px solid rgba(0,0,0,0.04);
-display: flex;
-align-items: center;
-gap: 12px;
-flex-wrap: wrap;
-transition: background var(--transition);
-}
-
-[data-theme="dark"] .daily-progress {
-border-bottom-color: rgba(255,255,255,0.05);
-}
-
-.daily-progress .label {
-font-size: 13px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-text-align: right;
-}
-
-.daily-progress .bar-wrap {
-flex: 1;
-height: 6px;
-background: rgba(0,0,0,0.06);
-border-radius: 10px;
-overflow: hidden;
-min-width: 80px;
-}
-
-[data-theme="dark"] .daily-progress .bar-wrap {
-background: rgba(255,255,255,0.06);
-}
-
-.daily-progress .bar-fill {
-height: 100%;
-width: 0%;
-background: linear-gradient(90deg, var(--gold), #FFA000);
-border-radius: 10px;
-transition: width 0.6s ease;
-}
-
-.daily-progress .count {
-font-size: 13px;
-font-weight: 700;
-color: var(--gold);
-min-width: 40px;
-text-align: left;
-direction: ltr;
-}
-
-/* ============================================================
-LESSON CONTENT
-============================================================ */
-.lesson-content {
-max-width: 820px;
-margin: 0 auto;
-padding: 14px 16px 30px;
-}
-
-.unit-header {
-margin-bottom: 18px;
-}
-
-.unit-header .badge {
-display: inline-block;
-background: var(--gold);
-color: var(--black);
-padding: 2px 14px;
-border-radius: 30px;
-font-size: 12px;
-font-weight: 700;
-margin-bottom: 2px;
-direction: rtl;
-text-align: right;
-}
-
-.unit-header h1 {
-font-family: 'Poppins', sans-serif;
-font-size: 24px;
-color: var(--text);
-line-height: 1.2;
-direction: ltr;
-text-align: left;
-}
-
-.unit-header p {
-color: #888;
-font-size: 14px;
-margin-top: 2px;
-direction: rtl;
-text-align: right;
-}
-
-.section-box {
-background: var(--card-bg);
-border-radius: var(--radius);
-padding: 16px 16px;
-margin-bottom: 18px;
-box-shadow: var(--shadow);
-transition: background var(--transition), box-shadow var(--transition);
-}
-
-.section-box .section-title {
-font-family: 'Poppins', sans-serif;
-font-size: 17px;
-font-weight: 700;
-color: var(--text);
-margin-bottom: 12px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 8px;
-direction: ltr;
-text-align: left;
-}
-
-/* ============================================================
-SECTION 1: CONVERSATION
-============================================================ */
-.convo-container {
-display: flex;
-flex-direction: column;
-gap: 8px;
-}
-
-.convo-bubble {
-display: flex;
-align-items: flex-start;
-gap: 6px;
-max-width: 92%;
-padding: 8px 12px;
-border-radius: 14px;
-position: relative;
-animation: fadeInUp 0.4s ease;
-}
-
-.convo-bubble.john {
-align-self: flex-start;
-background: #D6E4FF;
-color: #1A1A2E;
-border-bottom-left-radius: 4px;
-}
-
-.convo-bubble.sarah {
-align-self: flex-end;
-background: #FFE4E6;
-color: #1A1A2E;
-border-bottom-right-radius: 4px;
-}
-
-[data-theme="dark"] .convo-bubble.john {
-background: #1E3A5F;
-color: #fff;
-}
-
-[data-theme="dark"] .convo-bubble.sarah {
-background: #5F2E3A;
-color: #fff;
-}
-
-.convo-bubble .avatar {
-font-size: 20px;
-flex-shrink: 0;
-margin-top: 2px;
-}
-
-.convo-bubble .bubble-content {
-flex: 1;
-}
-
-.convo-bubble .bubble-content .en {
-font-size: 13px;
-font-weight: 500;
-display: flex;
-align-items: center;
-gap: 4px;
-flex-wrap: wrap;
-direction: ltr;
-text-align: left;
-}
-
-.convo-bubble .bubble-content .en .audio-btn {
-background: none;
-border: none;
-font-size: 15px;
-cursor: pointer;
-color: #555;
-padding: 2px 4px;
-border-radius: 50%;
-transition: 0.2s;
-}
-
-.convo-bubble .bubble-content .en .audio-btn:hover {
-background: rgba(0,0,0,0.06);
-color: var(--gold);
-}
-
-.convo-bubble .bubble-content .ar {
-font-size: 12px;
-color: #888;
-margin-top: 2px;
-direction: rtl;
-text-align: right;
-display: none;
-}
-
-.convo-bubble .bubble-content .ar.show {
-display: block;
-}
-
-.translation-btn {
-background: none;
-border: 1px solid var(--gold);
-color: var(--gold);
-padding: 1px 10px;
-border-radius: 20px;
-font-size: 10px;
-font-weight: 600;
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-margin-top: 2px;
-}
-
-.translation-btn:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-/* ============================================================
-SECTION 2: DISCOVER
-============================================================ */
-.discovery-question {
-background: rgba(255,193,7,0.08);
-padding: 10px 14px;
-border-radius: 12px;
-font-size: 14px;
-font-weight: 600;
-color: var(--text);
-margin-bottom: 10px;
-border-right: 4px solid var(--gold);
-direction: rtl;
-text-align: right;
-}
-
-.discovery-tabs {
-display: flex;
-gap: 6px;
-flex-wrap: wrap;
-margin-bottom: 10px;
-}
-
-.discovery-tab {
-padding: 8px 14px;
-border: 2px solid rgba(0,0,0,0.06);
-border-radius: 10px;
-background: transparent;
-color: var(--text);
-font-weight: 600;
-font-size: 13px;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Poppins', 'Cairo', sans-serif;
-direction: ltr;
-text-align: center;
-flex: 1;
-min-width: 70px;
-}
-
-[data-theme="dark"] .discovery-tab {
-border-color: rgba(255,255,255,0.06);
-color: #ddd;
-}
-
-.discovery-tab.active {
-background: var(--gold);
-border-color: var(--gold);
-color: var(--black);
-}
-
-.discovery-tab:hover:not(.active) {
-background: rgba(0,0,0,0.04);
-}
-
-.discovery-content {
-display: none;
-animation: fadeInUp 0.4s ease;
-background: rgba(0,0,0,0.02);
-padding: 10px 14px;
-border-radius: 10px;
-font-size: 13px;
-color: var(--text);
-border-right: 3px solid var(--gold);
-direction: rtl;
-text-align: right;
-}
-
-[data-theme="dark"] .discovery-content {
-background: rgba(255,255,255,0.03);
-}
-
-.discovery-content.active {
-display: block;
-}
-
-.discovery-content .en-highlight {
-direction: ltr;
-display: inline-block;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-color: var(--gold);
-}
-
-/* ============================================================
-SECTION 3: GRAMMAR LAB
-============================================================ */
-.grammar-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-}
-
-.grammar-card {
-padding: 12px 14px;
-border-radius: 12px;
-color: #fff;
-transition: 0.2s;
-}
-
-.grammar-card:hover {
-transform: translateY(-2px);
-}
-
-.grammar-card.green { background: var(--green); }
-.grammar-card.red { background: var(--red); }
-.grammar-card.blue { background: var(--blue); }
-.grammar-card.gold { background: var(--gold); color: var(--black); }
-
-.grammar-card .title {
-font-weight: 700;
-font-size: 13px;
-font-family: 'Poppins', sans-serif;
-direction: ltr;
-text-align: left;
-margin-bottom: 3px;
-}
-
-.grammar-card .examples {
-font-size: 12px;
-opacity: 0.9;
-direction: ltr;
-text-align: left;
-line-height: 1.6;
-}
-
-/* ============================================================
-SECTION 4: WORD VAULT
-============================================================ */
-.vocab-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 10px;
-}
-
-.flip-card {
-perspective: 800px;
-height: 100px;
-cursor: pointer;
-}
-
-.flip-card-inner {
-position: relative;
-width: 100%;
-height: 100%;
-transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-transform-style: preserve-3d;
-}
-
-.flip-card.flipped .flip-card-inner {
-transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
-position: absolute;
-inset: 0;
-border-radius: 12px;
-backface-visibility: hidden;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 6px;
-text-align: center;
-box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-border: 1px solid rgba(0,0,0,0.04);
-}
-
-.flip-card-front {
-background: var(--card-bg);
-color: var(--text);
-}
-
-.flip-card-front .emoji {
-font-size: 22px;
-}
-
-.flip-card-front .word {
-font-family: 'Poppins', sans-serif;
-font-size: 13px;
-font-weight: 700;
-margin-top: 2px;
-direction: ltr;
-}
-
-.flip-card-front .audio-btn-small {
-background: none;
-border: none;
-font-size: 13px;
-cursor: pointer;
-margin-top: 2px;
-color: #888;
-transition: 0.2s;
-}
-
-.flip-card-front .audio-btn-small:hover {
-color: var(--gold);
-}
-
-.flip-card-back {
-background: var(--gold);
-color: var(--black);
-transform: rotateY(180deg);
-}
-
-.flip-card-back .meaning {
-font-size: 16px;
-font-weight: 700;
-direction: rtl;
-}
-
-[data-theme="dark"] .flip-card-front {
-background: #2A2A2A;
-color: #fff;
-border-color: rgba(255,255,255,0.06);
-}
-
-/* ============================================================
-SECTION 5: BABBLE WARNING
-============================================================ */
-.warning-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-}
-
-.warning-card {
-padding: 12px 14px;
-border-radius: 12px;
-text-align: center;
-transition: 0.2s;
-}
-
-.warning-card:hover {
-transform: scale(1.02);
-}
-
-.warning-card.safe {
-background: rgba(76, 175, 80, 0.1);
-border: 2px solid var(--green);
-}
-
-.warning-card.noun {
-background: rgba(33, 150, 243, 0.1);
-border: 2px solid var(--blue);
-}
-
-.warning-card .label {
-font-weight: 700;
-font-size: 13px;
-direction: ltr;
-}
-
-.warning-card .example {
-font-size: 15px;
-font-weight: 600;
-direction: ltr;
-margin: 3px 0;
-}
-
-.warning-card .meaning {
-font-size: 12px;
-direction: rtl;
-color: #888;
-}
-
-.warning-joke {
-margin-top: 8px;
-padding: 8px 12px;
-background: rgba(255,193,7,0.08);
-border-radius: 10px;
-font-size: 13px;
-font-weight: 600;
-direction: rtl;
-text-align: center;
-border-right: 3px solid var(--gold);
-}
-
-/* ============================================================
-SECTION 6: CHALLENGE ARENA
-============================================================ */
-.quiz-progress-bar {
-display: flex;
-align-items: center;
-gap: 8px;
-margin-bottom: 12px;
-}
-
-.quiz-progress-bar .label {
-font-size: 12px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-text-align: right;
-}
-
-.quiz-progress-bar .bar-wrap {
-flex: 1;
-height: 5px;
-background: rgba(0,0,0,0.06);
-border-radius: 10px;
-overflow: hidden;
-}
-
-[data-theme="dark"] .quiz-progress-bar .bar-wrap {
-background: rgba(255,255,255,0.06);
-}
-
-.quiz-progress-bar .bar-fill {
-height: 100%;
-width: 0%;
-background: var(--gold);
-border-radius: 10px;
-transition: width 0.5s ease;
-}
-
-.quiz-progress-bar .count {
-font-size: 12px;
-font-weight: 700;
-color: var(--gold);
-min-width: 35px;
-text-align: left;
-direction: ltr;
-}
-
-.quiz-card {
-background: rgba(0,0,0,0.02);
-border-radius: 10px;
-padding: 12px 14px;
-margin-bottom: 10px;
-border: 1px solid rgba(0,0,0,0.04);
-transition: 0.3s;
-}
-
-[data-theme="dark"] .quiz-card {
-background: rgba(255,255,255,0.03);
-border-color: rgba(255,255,255,0.04);
-}
-
-.quiz-card .q-text {
-font-weight: 600;
-font-size: 14px;
-color: var(--text);
-margin-bottom: 5px;
-direction: ltr;
-text-align: left;
-}
-
-.quiz-card .q-text .hint-icon {
-font-size: 14px;
-margin-right: 4px;
-cursor: help;
-}
-
-.quiz-options {
-display: flex;
-flex-wrap: wrap;
-gap: 5px;
-}
-
-.quiz-options button {
-padding: 4px 14px;
-border: 2px solid rgba(0,0,0,0.08);
-border-radius: 30px;
-background: transparent;
-font-size: 13px;
-font-weight: 500;
-cursor: pointer;
-transition: 0.25s;
-color: var(--text);
-font-family: 'Poppins', 'Cairo', sans-serif;
-direction: ltr;
-}
-
-[data-theme="dark"] .quiz-options button {
-border-color: rgba(255,255,255,0.1);
-color: #ddd;
-}
-
-.quiz-options button:hover:not(:disabled) {
-background: rgba(0,0,0,0.04);
-}
-
-.quiz-options button:disabled {
-cursor: not-allowed;
-opacity: 0.6;
-}
-
-.quiz-options button.correct {
-background: var(--green);
-border-color: var(--green);
-color: #fff;
-animation: pop 0.3s ease;
-}
-
-.quiz-options button.wrong {
-background: var(--red);
-border-color: var(--red);
-color: #fff;
-animation: shake 0.4s ease;
-}
-
-.quiz-feedback {
-margin-top: 3px;
-font-size: 13px;
-font-weight: 600;
-min-height: 20px;
-direction: rtl;
-text-align: right;
-}
-
-.quiz-feedback .correct-text { color: var(--green); }
-.quiz-feedback .wrong-text { color: var(--red); }
-
-/* ===== CLICK TO ORDER ===== */
-.order-hint {
-font-size: 12px;
-color: var(--gold);
-font-weight: 600;
-direction: rtl;
-text-align: right;
-margin-bottom: 4px;
-}
-
-.order-pool {
-display: flex;
-gap: 6px;
-flex-wrap: wrap;
-margin: 4px 0;
-}
-
-.order-word {
-padding: 5px 14px;
-background: var(--card-bg);
-border: 2px solid var(--gold);
-border-radius: 30px;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-font-size: 13px;
-cursor: pointer;
-color: var(--text);
-transition: 0.2s;
-}
-
-.order-word:hover:not(:disabled) {
-transform: scale(1.05);
-background: rgba(255,193,7,0.1);
-}
-
-.order-word:disabled {
-cursor: not-allowed;
-opacity: 0.4;
-}
-
-.order-word.used {
-background: var(--gold);
-color: var(--black);
-border-color: var(--gold);
-}
-
-.order-word.correct-answer {
-background: var(--green);
-color: #fff;
-border-color: var(--green);
-}
-
-.order-word.wrong-answer {
-background: var(--red);
-color: #fff;
-border-color: var(--red);
-}
-
-.order-result-box {
-display: flex;
-gap: 4px;
-flex-wrap: wrap;
-padding: 6px 10px;
-min-height: 32px;
-background: rgba(0,0,0,0.03);
-border-radius: 8px;
-margin: 4px 0;
-border: 2px dashed rgba(0,0,0,0.08);
-align-items: center;
-}
-
-[data-theme="dark"] .order-result-box {
-background: rgba(255,255,255,0.03);
-border-color: rgba(255,255,255,0.06);
-}
-
-.order-result-box .placed-word {
-padding: 2px 10px;
-background: var(--gold);
-border-radius: 20px;
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-font-size: 12px;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-}
-
-.order-result-box .placed-word:hover {
-transform: scale(1.05);
-}
-
-/* ============================================================
-STREAK NOTIFICATION
-============================================================ */
-.streak-notification {
-display: none;
-background: var(--gold);
-color: var(--black);
-padding: 10px 16px;
-border-radius: var(--radius);
-font-weight: 700;
-font-size: 16px;
-text-align: center;
-margin-top: 10px;
-animation: pop 0.5s ease;
-position: relative;
-overflow: hidden;
-direction: rtl;
-}
-
-.streak-notification.show {
-display: block;
-}
-
-.streak-notification .stars {
-position: absolute;
-inset: 0;
-pointer-events: none;
-overflow: hidden;
-}
-
-.streak-notification .star {
-position: absolute;
-font-size: 16px;
-animation: starFall 2s linear forwards;
-}
-
-/* ============================================================
-CELEBRATION OVERLAY
-============================================================ */
-.celebration-overlay {
-display: none;
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.85);
-z-index: 1000;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-gap: 20px;
-animation: fadeInUp 0.5s ease;
-}
-
-.celebration-overlay.show {
-display: flex;
-}
-
-.celebration-overlay .celeb-box {
-background: var(--card-bg);
-border-radius: var(--radius);
-padding: 30px 24px;
-max-width: 420px;
-width: 90%;
-text-align: center;
-box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-animation: pop 0.6s ease;
-position: relative;
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box {
-background: #1E1E1E;
-}
-
-.celebration-overlay .celeb-box .close-celeb {
-position: absolute;
-top: 10px;
-right: 14px;
-background: none;
-border: none;
-font-size: 24px;
-cursor: pointer;
-color: var(--text);
-transition: 0.2s;
-padding: 4px 8px;
-border-radius: 50%;
-}
-
-.celebration-overlay .celeb-box .close-celeb:hover {
-background: rgba(0,0,0,0.06);
-transform: rotate(90deg);
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box .close-celeb:hover {
-background: rgba(255,255,255,0.06);
-}
-
-.celebration-overlay .celeb-box .big-emoji {
-font-size: 48px;
-}
-
-.celebration-overlay .celeb-box h2 {
-font-size: 22px;
-font-weight: 800;
-color: var(--gold);
-margin: 6px 0;
-direction: rtl;
-}
-
-.celebration-overlay .celeb-box .sub-text {
-font-size: 16px;
-font-weight: 600;
-color: var(--text);
-direction: rtl;
-}
-
-.celebration-overlay .celeb-box .xp-text {
-font-size: 20px;
-font-weight: 800;
-color: var(--gold);
-margin: 4px 0 12px;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons {
-display: flex;
-gap: 10px;
-justify-content: center;
-flex-wrap: wrap;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons button {
-padding: 8px 24px;
-border: none;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-next {
-background: var(--gold);
-color: var(--black);
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-next:hover {
-transform: scale(1.05);
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-home {
-background: transparent;
-border: 2px solid var(--gold);
-color: var(--text);
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-home {
-color: #eee;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-home:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
-background: transparent;
-border: 2px solid var(--gold);
-color: var(--text);
-}
-
-[data-theme="dark"] .celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit {
-color: #eee;
-}
-
-.celebration-overlay .celeb-box .celeb-buttons .btn-retry-unit:hover {
-background: var(--gold);
-color: var(--black);
-}
-
-.celeb-confetti-container {
-position: fixed;
-inset: 0;
-pointer-events: none;
-z-index: 999;
-overflow: hidden;
-}
-
-.celeb-confetti {
-position: absolute;
-width: 10px;
-height: 10px;
-animation: confettiFall linear forwards;
-}
-
-.celeb-confetti.circle { border-radius: 50%; }
-.celeb-confetti.square { border-radius: 0; }
-.celeb-confetti.star {
-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-
-@keyframes confettiFall {
-0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
-
-/* ============================================================
-SECTION 7: SPEAK UP!
-============================================================ */
-.speak-container {
-text-align: center;
-padding: 12px 0;
-}
-
-.speak-container .big-btn {
-background: var(--gold);
-border: none;
-padding: 12px 32px;
-border-radius: 50px;
-font-size: 18px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.3s;
-font-family: 'Cairo', sans-serif;
-}
-
-.speak-container .big-btn:hover {
-transform: scale(1.05);
-}
-
-.speak-container .speak-result {
-margin-top: 10px;
-padding: 10px 14px;
-background: rgba(0,0,0,0.03);
-border-radius: 10px;
-font-size: 15px;
-direction: rtl;
-text-align: right;
-min-height: 40px;
-border-right: 3px solid var(--gold);
-}
-
-[data-theme="dark"] .speak-container .speak-result {
-background: rgba(255,255,255,0.03);
-}
-
-/* ============================================================
-SECTION 8: POWER RECAP
-============================================================ */
-.mindmap {
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 12px 0;
-}
-
-.mindmap .center {
-background: var(--gold);
-color: var(--black);
-padding: 8px 20px;
-border-radius: 30px;
-font-weight: 800;
-font-size: 17px;
-margin-bottom: 12px;
-font-family: 'Poppins', sans-serif;
-direction: ltr;
-cursor: pointer;
-transition: 0.2s;
-}
-
-.mindmap .center:hover {
-transform: scale(1.05);
-}
-
-.mindmap .branches {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 6px 12px;
-}
-
-.mindmap .branch {
-background: var(--card-bg);
-padding: 5px 14px;
-border-radius: 20px;
-border: 2px solid var(--gold);
-font-size: 13px;
-font-weight: 600;
-color: var(--text);
-box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-transition: 0.2s;
-font-family: 'Poppins', sans-serif;
-direction: ltr;
-cursor: pointer;
-}
-
-.mindmap .branch:hover {
-transform: scale(1.05);
-background: var(--gold);
-color: var(--black);
-}
-
-.mindmap .branch-example {
-margin-top: 8px;
-padding: 8px 14px;
-background: rgba(0,0,0,0.03);
-border-radius: 10px;
-font-size: 13px;
-direction: rtl;
-text-align: center;
-min-height: 25px;
-border-right: 3px solid var(--gold);
-width: 100%;
-}
-
-[data-theme="dark"] .mindmap .branch-example {
-background: rgba(255,255,255,0.03);
-}
-
-/* ============================================================
-SECTION 9: VIDEO
-============================================================ */
-.video-btn {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-background: #FF0000;
-color: #fff;
-border: none;
-padding: 8px 24px;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-direction: rtl;
-}
-
-.video-btn:hover {
-background: #cc0000;
-transform: scale(1.02);
-}
-
-/* ============================================================
-SECTION 10: HOMEWORK
-============================================================ */
-.homework-area textarea {
-width: 100%;
-min-height: 100px;
-padding: 10px 14px;
-border: 2px solid rgba(0,0,0,0.06);
-border-radius: 10px;
-font-family: 'Cairo', sans-serif;
-font-size: 13px;
-color: var(--text);
-background: var(--bg);
-resize: vertical;
-transition: 0.2s;
-direction: rtl;
-text-align: right;
-}
-
-[data-theme="dark"] .homework-area textarea {
-border-color: rgba(255,255,255,0.06);
-background: var(--card-bg);
-}
-
-.homework-area textarea:focus {
-outline: none;
-border-color: var(--gold);
-}
-
-.homework-area .save-btn {
-background: var(--gold);
-border: none;
-padding: 6px 20px;
-border-radius: 30px;
-font-size: 13px;
-font-weight: 700;
-color: var(--black);
-cursor: pointer;
-transition: 0.2s;
-font-family: 'Cairo', sans-serif;
-margin-top: 6px;
-}
-
-.homework-area .save-btn:hover {
-transform: scale(1.02);
-}
-
-.homework-area .save-status {
-margin-top: 4px;
-font-size: 12px;
-color: var(--green);
-direction: rtl;
-text-align: right;
-}
-
-/* ============================================================
-NAVIGATION
-============================================================ */
-.nav-buttons {
-display: flex;
-justify-content: space-between;
-margin-top: 20px;
-gap: 10px;
-}
-
-.nav-buttons button {
-padding: 8px 24px;
-border: none;
-border-radius: 30px;
-font-size: 14px;
-font-weight: 700;
-cursor: pointer;
-transition: 0.25s;
-font-family: 'Cairo', sans-serif;
-direction: rtl;
-}
-
-.nav-buttons .prev {
-background: var(--gold);
-color: var(--black);
-}
-
-.nav-buttons .prev:hover {
-background: #e6b800;
-transform: scale(1.02);
-}
-
-.nav-buttons .next {
-background: var(--gold);
-color: var(--black);
-}
-
-.nav-buttons .next:hover {
-background: #e6b800;
-transform: scale(1.02);
-}
-
-/* ============================================================
-ANIMATIONS
-============================================================ */
-@keyframes fadeInUp {
-from { opacity: 0; transform: translateY(12px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pop {
-0% { transform: scale(0.8); opacity: 0; }
-100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes shake {
-0%, 100% { transform: translateX(0); }
-25% { transform: translateX(-5px); }
-75% { transform: translateX(5px); }
-}
-
-@keyframes starFall {
-0% { transform: translateY(-15px) rotate(0deg); opacity: 1; }
-100% { transform: translateY(150px) rotate(360deg); opacity: 0; }
-}
-
-/* ============================================================
-RESPONSIVE
-============================================================ */
-@media (max-width: 768px) {
-.vocab-grid { grid-template-columns: repeat(2, 1fr); }
-.grammar-grid { grid-template-columns: 1fr; }
-.warning-grid { grid-template-columns: 1fr; }
-.unit-header h1 { font-size: 20px; }
-.section-box { padding: 12px 12px; }
-.nav-buttons { flex-direction: column; }
-.nav-buttons button { width: 100%; text-align: center; }
-.discovery-tabs { flex-direction: column; }
-.discovery-tab { text-align: center; }
-.quiz-options { flex-direction: column; }
-.quiz-options button { width: 100%; text-align: center; }
-.unit-tab { min-width: 30px; height: 30px; font-size: 10px; }
-.celebration-overlay .celeb-box { padding: 20px 16px; }
-.celebration-overlay .celeb-box h2 { font-size: 18px; }
-}
-
-@media (max-width: 400px) {
-.vocab-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
-.flip-card { height: 85px; }
-.flip-card-front .emoji { font-size: 18px; }
-.flip-card-front .word { font-size: 11px; }
-.convo-bubble .bubble-content .en { font-size: 12px; }
-.convo-bubble .bubble-content .ar { font-size: 11px; }
-}
-
-#audio-player { display: none; }
+  /* =====================================================================
+     0) متغيرات التصميم (Design Tokens) — نفس هوية الصفحة الرئيسية
+     ===================================================================== */
+  :root{
+    --bg: #050505;
+    --bg-soft: #0d0d0f;
+    --gold: #FFD700;
+    --gold-soft: rgba(255, 215, 0, .18);
+    --text: #ffffff;
+    --text-muted: rgba(255,255,255,.68);
+    --glass-bg: rgba(255,255,255,.055);
+    --glass-border: rgba(255,255,255,.12);
+    --glass-blur: 14px;
+    --green: #2ecc71;
+    --red: #e74c3c;
+    --blue: #3498db;
+    --yellow: #f1c40f;
+    --radius: 18px;
+    --shadow-gold: 0 10px 40px rgba(255,215,0,.16);
+    --transition: .3s cubic-bezier(.2,.8,.2,1);
+  }
+  body.light-mode{
+    --bg: #f6f5f2;
+    --bg-soft: #ffffff;
+    --text: #101010;
+    --text-muted: rgba(0,0,0,.62);
+    --glass-bg: rgba(255,255,255,.65);
+    --glass-border: rgba(0,0,0,.08);
+    --shadow-gold: 0 10px 34px rgba(200,160,0,.18);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  html[lang="ar"] body{ font-family:'Cairo', sans-serif; }
+  html[lang="en"] body{ font-family:'Poppins', sans-serif; }
+  body{ background: var(--bg); color: var(--text); overflow-x:hidden; transition: background var(--transition), color var(--transition); -webkit-font-smoothing:antialiased; }
+  img, svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  ul{ list-style:none; }
+
+  /* قاعدة الاتجاه: كل نص إنجليزي = يسار / كل نص عربي = يمين، بشكل صارم */
+  .en-text{ direction: ltr; text-align: left; unicode-bidi: isolate; }
+  .ar-text{ direction: rtl; text-align: right; unicode-bidi: isolate; }
+
+  .container{ width:100%; max-width:1100px; margin:0 auto; padding:0 18px; }
+  section{ position:relative; padding: 60px 0; }
+
+  .section-title{
+    font-family:'Poppins', sans-serif;
+    direction: ltr; text-align:left;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight:800;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .section-title .em{ color: var(--gold); }
+  .section-sub{ color: var(--text-muted); margin-bottom: 28px; font-size:15px; line-height:1.9; }
+
+  .glass-card{
+    background: var(--glass-bg);
+    border:1px solid var(--glass-border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    padding: 24px;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .glass-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-gold); border-color: var(--gold-soft); }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: var(--gold);
+    color:#111;
+    font-weight:800;
+    font-size:14.5px;
+    border:none;
+    transition: all var(--transition);
+  }
+  .btn:hover{ transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn.outline{ background: transparent; border:1px solid var(--glass-border); color: var(--text); }
+  .btn.outline:hover{ border-color: var(--gold); color: var(--gold); }
+
+  /* =====================================================================
+     1) الهيدر
+     ===================================================================== */
+  header{
+    position: sticky; top:0; z-index: 600;
+    background: rgba(5,5,5,.7);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom:1px solid var(--glass-border);
+  }
+  body.light-mode header{ background: rgba(246,245,242,.8); }
+  .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 18px; max-width:1280px; margin:0 auto; flex-wrap:wrap; }
+  .logo-wrap{ display:flex; align-items:center; gap:8px; }
+  .logo-wrap img{ height:36px; width:auto; }
+  nav.main-nav{ display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+  nav.main-nav a{
+    padding:8px 14px; font-size:13.5px; font-weight:700; border-radius:999px;
+    color: var(--text-muted); transition: all var(--transition); white-space:nowrap;
+  }
+  nav.main-nav a:hover{ color: var(--bg); background: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+  .header-actions{ display:flex; align-items:center; gap:8px; }
+  .social-icons{ display:flex; gap:6px; }
+  .social-icons a{ width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; background: var(--glass-bg); border:1px solid var(--glass-border); }
+  .social-icons a svg{ width:15px; height:15px; fill: var(--text); transition: fill var(--transition); }
+  .social-icons a:hover svg{ fill: var(--gold); }
+  .lang-toggle, .theme-toggle{
+    padding:7px 12px; border-radius:999px; border:1px solid var(--glass-border);
+    background: var(--glass-bg); color: var(--text); font-weight:700; font-size:12.5px;
+    transition: all var(--transition);
+  }
+  .lang-toggle:hover, .theme-toggle:hover{ border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* =====================================================================
+     2) تبويبات الوحدات (Unit Tabs)
+     ===================================================================== */
+  #unit-tabs{
+    display:flex; gap:8px; overflow-x:auto; padding: 12px 18px;
+    border-bottom:1px solid var(--glass-border);
+    background: rgba(255,255,255,.02);
+  }
+  #unit-tabs::-webkit-scrollbar{ height:5px; }
+  #unit-tabs::-webkit-scrollbar-thumb{ background: var(--glass-border); border-radius:5px; }
+  .unit-tab{
+    flex: 0 0 auto;
+    min-width: 54px;
+    padding: 9px 10px;
+    text-align:center;
+    border-radius: 12px;
+    font-weight:800;
+    font-size: 13px;
+    font-family:'Poppins', sans-serif;
+    border:1px solid var(--glass-border);
+    background: rgba(255,255,255,.05);
+    color: var(--text-muted);
+    position:relative;
+  }
+  .unit-tab.active{
+    background: var(--gold); color:#111; border-color: var(--gold);
+    box-shadow: var(--shadow-gold);
+  }
+  .unit-tab.locked{ opacity:.55; cursor:not-allowed; }
+  .unit-tab .lock{ font-size:10px; display:block; margin-top:2px; }
+
+  /* =====================================================================
+     3) شريط التقدم اليومي
+     ===================================================================== */
+  #daily-progress{
+    display:flex; align-items:center; gap:12px;
+    padding: 10px 18px;
+    border-bottom:1px solid var(--glass-border);
+    font-size: 13px;
+    font-weight:700;
+    flex-wrap: wrap;
+  }
+  #daily-progress .star{ color: var(--gold); font-size:16px; }
+  #daily-progress-bar{
+    flex:1; min-width:120px; height:8px; border-radius:999px;
+    background: rgba(255,255,255,.1); overflow:hidden;
+  }
+  #daily-progress-fill{
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--gold), #fff2a8);
+    transition: width .5s ease;
+  }
+
+  /* =====================================================================
+     4) فقاعات المحادثة (Chat Bubbles)
+     john = John (ذكر، يسار) — sarah = Sarah (أنثى، يمين)
+     ===================================================================== */
+  .chat-wrap{ display:flex; flex-direction:column; gap:16px; }
+  .bubble-row{ display:flex; gap:10px; align-items:flex-end; }
+  .bubble-row.john{ justify-content:flex-start; }
+  .bubble-row.sarah{ justify-content:flex-end; flex-direction: row-reverse; }
+  .avatar{
+    width:36px; height:36px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; flex-shrink:0;
+    background: var(--glass-bg); border:1px solid var(--glass-border);
+  }
+  .bubble{
+    max-width: 78%;
+    border-radius: 16px;
+    padding: 12px 16px;
+    position: relative;
+  }
+  .bubble.john{ background: rgba(52,152,219,.16); border:1px solid rgba(52,152,219,.35); border-bottom-left-radius:4px; }
+  .bubble.sarah{ background: rgba(255,105,180,.14); border:1px solid rgba(255,105,180,.35); border-bottom-right-radius:4px; }
+  .bubble-en{ font-family:'Poppins', sans-serif; font-weight:600; font-size:14.5px; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .bubble-ar{ font-size:13px; color: var(--text-muted); }
+  .speak-btn{
+    width:26px; height:26px; border-radius:50%; border:none;
+    background: var(--gold-soft); color: var(--gold); font-size:13px;
+    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .speak-btn:hover{ background: var(--gold); color:#111; }
+
+  /* =====================================================================
+     5) Discover the Rule — Tabs
+     ===================================================================== */
+  .rule-tabs{ display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  .rule-tab-btn{
+    padding: 10px 16px; border-radius: 12px; border:1px solid var(--glass-border);
+    background: var(--glass-bg); color: var(--text); font-family:'Poppins',sans-serif;
+    font-weight:700; font-size:13.5px; direction:ltr;
+  }
+  .rule-tab-btn.active{ background: var(--gold); color:#111; border-color: var(--gold); }
+  .rule-panel{ display:none; }
+  .rule-panel.active{ display:block; }
+
+  /* =====================================================================
+     6) Grammar Lab Cards
+     ===================================================================== */
+  .grammar-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; }
+  @media (max-width:680px){ .grammar-grid{ grid-template-columns:1fr; } }
+  .g-card{ border-radius: var(--radius); padding:20px; border:1px solid var(--glass-border); }
+  .g-card.positive{ background: rgba(46,204,113,.12); border-color: rgba(46,204,113,.35); }
+  .g-card.negative{ background: rgba(231,76,60,.12); border-color: rgba(231,76,60,.35); }
+  .g-card.question{ background: rgba(52,152,219,.12); border-color: rgba(52,152,219,.35); }
+  .g-card.short{ background: rgba(241,196,15,.12); border-color: rgba(241,196,15,.35); }
+  .g-card-title{ font-weight:800; margin-bottom:10px; font-size:15px; }
+  .g-card ul{ display:flex; flex-direction:column; gap:6px; }
+  .g-card li{ font-family:'Poppins', sans-serif; direction:ltr; text-align:left; font-size:14px; }
+  .g-card-note{ margin-top:12px; padding-top:12px; border-top:1px solid var(--glass-border); font-size:13px; color: var(--text-muted); }
+
+  /* =====================================================================
+     7) Word Vault — Flip Cards
+     ===================================================================== */
+  .vault-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
+  @media (max-width:820px){ .vault-grid{ grid-template-columns: repeat(2, 1fr); } }
+  .flip-card{ perspective: 1000px; height: 130px; }
+  .flip-inner{
+    position:relative; width:100%; height:100%; text-align:center;
+    transition: transform .6s; transform-style: preserve-3d; cursor:pointer;
+  }
+  .flip-card.flipped .flip-inner{ transform: rotateY(180deg); }
+  .flip-front, .flip-back{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius: 14px; border:1px solid var(--glass-border);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding: 10px; gap:6px;
+  }
+  .flip-front{ background: var(--glass-bg); }
+  .flip-back{ background: var(--gold-soft); transform: rotateY(180deg); }
+  .flip-word{ font-family:'Poppins', sans-serif; direction:ltr; font-weight:800; font-size:16px; }
+  .flip-back .flip-meaning{ direction:rtl; font-weight:700; font-size:14px; }
+  .flip-back .flip-example{ direction:ltr; font-size:11px; color: var(--text-muted); }
+
+  /* =====================================================================
+     8) Babble Warning
+     ===================================================================== */
+  .warning-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:620px){ .warning-grid{ grid-template-columns:1fr; } }
+  .warn-card{ border-radius: var(--radius); padding:20px; text-align:center; border:1px solid; }
+  .warn-card.good{ background: rgba(46,204,113,.12); border-color: rgba(46,204,113,.35); }
+  .warn-card.bad{ background: rgba(231,76,60,.12); border-color: rgba(231,76,60,.35); }
+  .warn-en{ font-family:'Poppins', sans-serif; direction:ltr; font-weight:800; font-size:17px; margin-bottom:8px; }
+  .warn-ar{ direction:rtl; color: var(--text-muted); font-size:13.5px; }
+  .warn-note{ margin-top:16px; padding:14px; border-radius:12px; background: var(--gold-soft); direction:rtl; text-align:right; font-size:13.5px; font-weight:700; }
+
+  /* =====================================================================
+     9) Challenge Arena
+     ===================================================================== */
+  #challenge-score-bar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; direction:rtl; }
+  #challenge-score-bar .score-text{ font-weight:800; color: var(--gold); font-size:15px; }
+  .q-card{ margin-bottom:18px; }
+  .q-title{ font-family:'Poppins', sans-serif; direction:ltr; text-align:left; font-weight:700; font-size:15.5px; margin-bottom:12px; }
+  .q-options{ display:flex; gap:10px; flex-wrap:wrap; }
+  .q-opt{
+    padding:10px 18px; border-radius:12px; border:1px solid var(--glass-border);
+    background: rgba(255,255,255,.05); color: var(--text); font-family:'Poppins',sans-serif;
+    direction:ltr; font-weight:700; font-size:14px;
+  }
+  .q-opt.correct{ background: rgba(46,204,113,.3); border-color: var(--green); }
+  .q-opt.wrong{ background: rgba(231,76,60,.3); border-color: var(--red); }
+  .q-opt:disabled{ cursor:not-allowed; }
+  .order-bank, .order-answer{
+    display:flex; gap:8px; flex-wrap:wrap; min-height:48px;
+    padding:10px; border-radius:12px; border:1px dashed var(--glass-border); direction:ltr;
+  }
+  .order-answer{ margin-top:10px; border-style:solid; }
+  .order-word{
+    padding:9px 16px; border-radius:10px; background: var(--gold-soft); color: var(--gold);
+    font-family:'Poppins', sans-serif; font-weight:700; font-size:14px; border:none;
+  }
+  .listen-opts{ display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+  .listen-opt{
+    padding:12px 16px; border-radius:12px; border:1px solid var(--glass-border);
+    background: rgba(255,255,255,.05); color: var(--text); direction:rtl; text-align:right; font-size:14.5px;
+  }
+  .q-status{ margin-top:8px; font-weight:700; font-size:13.5px; }
+  .q-status.correct-txt{ color: var(--green); }
+  .q-status.wrong-txt{ color: var(--red); }
+
+  /* =====================================================================
+     10) Speak Up
+     ===================================================================== */
+  #speak-target{ font-family:'Poppins', sans-serif; direction:ltr; text-align:left; font-size:18px; font-weight:700; margin-bottom:16px; }
+  #speak-result{ margin-top:14px; font-weight:700; }
+  #speak-result.ok{ color: var(--green); }
+  #speak-result.fail{ color: var(--red); }
+
+  /* =====================================================================
+     11) Power Recap — Mind Map
+     ===================================================================== */
+  .mindmap{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+  .mind-node{
+    background: var(--glass-bg); border:1px solid var(--glass-border); border-radius:14px;
+    padding:16px 20px; text-align:center; min-width:150px;
+  }
+  .mind-node .rule{ font-family:'Poppins',sans-serif; direction:ltr; font-weight:800; color: var(--gold); margin-bottom:6px; }
+  .mind-node .ex{ font-family:'Poppins',sans-serif; direction:ltr; font-size:13px; color: var(--text-muted); }
+
+  /* =====================================================================
+     12) Video Zone
+     ===================================================================== */
+  .video-box{ text-align:center; }
+  .video-box .icon{ font-size:48px; margin-bottom:12px; }
+
+  /* =====================================================================
+     13) Homework
+     ===================================================================== */
+  #homework-text{
+    width:100%; min-height:150px; padding:14px; border-radius:12px;
+    border:1px solid var(--glass-border); background: rgba(255,255,255,.04);
+    color: var(--text); font-family:'Poppins', sans-serif; direction:ltr; text-align:left;
+    resize:vertical; font-size:14.5px;
+  }
+  .hw-actions{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+  #hw-status{ margin-top:10px; font-size:13.5px; font-weight:700; color: var(--green); }
+  #hw-corrections{ margin-top:14px; padding:14px; border-radius:12px; background: var(--glass-bg); direction:rtl; text-align:right; font-size:13.5px; display:none; }
+  #hw-corrections ul{ margin-top:8px; display:flex; flex-direction:column; gap:6px; }
+  #hw-corrections li{ direction:ltr; text-align:left; }
+
+  /* =====================================================================
+     14) أزرار التنقل بين الوحدات (السابقة / التالية)
+     ===================================================================== */
+  #unit-nav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px; flex-wrap:wrap; padding: 40px 18px; max-width:1100px; margin:0 auto;
+  }
+  #unit-nav .btn{ font-size:16px; padding:16px 34px; }
+  #next-unit-wrap{ display:none; }
+
+  /* =====================================================================
+     15) نافذة الاحتفال (Modal)
+     ===================================================================== */
+  #celebration-modal{
+    position:fixed; inset:0; z-index:9999; display:none;
+    align-items:center; justify-content:center;
+    background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+  }
+  #celebration-modal.show{ display:flex; }
+  .modal-box{
+    background: var(--bg-soft); border:1px solid var(--gold-soft);
+    border-radius: 22px; padding:40px 30px; text-align:center; max-width:380px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), var(--shadow-gold);
+    position:relative; overflow:hidden;
+  }
+  .modal-stars{ font-size:40px; margin-bottom:10px; animation: pop 1s ease infinite alternate; }
+  @keyframes pop{ from{ transform:scale(1);} to{ transform:scale(1.15);} }
+  .modal-title{ font-size:22px; font-weight:800; color: var(--gold); margin-bottom:8px; }
+  .modal-sub{ color: var(--text-muted); margin-bottom:20px; font-size:14.5px; }
+
+  /* كونفيتي */
+  .confetti-piece{
+    position: fixed; top:-10px; width:9px; height:14px; z-index:10000;
+    pointer-events:none; border-radius:2px; animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall{
+    0%{ transform: translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform: translateY(100vh) rotate(720deg); opacity:0; }
+  }
+
+  /* =====================================================================
+     16) الفوتر
+     ===================================================================== */
+  footer{ border-top:1px solid var(--glass-border); padding:30px 0; text-align:center; }
+  footer .social-icons{ justify-content:center; margin-bottom:12px; display:flex; }
+  footer .social-icons a{ width:38px; height:38px; }
+  footer .social-icons a svg{ width:17px; height:17px; }
+  footer p{ color: var(--text-muted); font-size:13px; }
+
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  @media (max-width:880px){ nav.main-nav{ order:3; width:100%; justify-content:center; } }
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-HEADER
-============================================================ -->
-<header class="header">
-<div class="brand">Babble <span>Box</span></div>
-<div class="unit-title">Unit 5: My Home Sweet Home</div>
-<div class="top-actions">
-<a href="index.html" class="back-btn">🏠 الرئيسية</a>
-<button class="reset-unit-btn" id="resetUnitBtn">🔄 إعادة دراسة الوحدة</button>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-</div>
+<!-- ===================== الهيدر ===================== -->
+<header>
+  <div class="nav-wrap">
+    <div class="logo-wrap">
+      <img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" />
+    </div>
+    <nav class="main-nav">
+      <a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">الرئيسية</a>
+      <a href="index.html#levels" data-lang-ar="المستويات" data-lang-en="Levels">المستويات</a>
+      <a href="test.html" data-lang-ar="اختبر مستواك" data-lang-en="Placement Test">اختبر مستواك</a>
+      <a href="index.html#contact" data-lang-ar="اتصل بنا" data-lang-en="Contact">اتصل بنا</a>
+    </nav>
+    <div class="header-actions">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+        </a>
+        <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+      <button class="lang-toggle" id="lang-toggle" type="button">AR | EN</button>
+      <button class="theme-toggle" id="theme-toggle" type="button"><span id="theme-icon">🌓</span></button>
+    </div>
+  </div>
 </header>
 
-<!-- ============================================================
-UNIT NAVIGATION TABS
-============================================================ -->
-<div class="unit-tabs-wrapper" id="unitTabsWrapper">
-<div class="unit-tabs" id="unitTabs"></div>
+<!-- ===================== تبويبات الوحدات ===================== -->
+<div id="unit-tabs"></div>
+
+<!-- ===================== شريط التقدم اليومي ===================== -->
+<div id="daily-progress">
+  <span class="star">⭐</span>
+  <span id="daily-progress-text" data-lang-ar="0/5 تمارين مكتملة اليوم" data-lang-en="0/5 exercises completed today">0/5 تمارين مكتملة اليوم</span>
+  <div id="daily-progress-bar"><div id="daily-progress-fill"></div></div>
 </div>
 
-<!-- ============================================================
-PROGRESS BAR (10 sections)
-============================================================ -->
-<div class="daily-progress">
-<span class="label">📊 تقدم الوحدة</span>
-<div class="bar-wrap">
-<div class="bar-fill" id="dailyProgressFill"></div>
-</div>
-<span class="count" id="dailyProgressCount">0/10</span>
-</div>
-
-<!-- ============================================================
-LESSON CONTENT
-============================================================ -->
-<div class="lesson-content">
-
-<div class="unit-header">
-<div class="badge">📖 الوحدة الخامسة</div>
-<h1>My Home Sweet Home</h1>
-<p>تعلم كيف تصف منزلك وغرفك بالإنجليزية.</p>
-</div>
-
-<!-- ==========================================================
-SECTION 1: THE REAL TALK
-========================================================== -->
-<section class="section-box" id="conversation">
-<div class="section-title">🗣️ The Real Talk</div>
-<div class="convo-container">
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">So, how's the new place? <button class="audio-btn" data-text="So, how's the new place?" data-voice="male">🔊</button></div>
-<div class="ar">طب، إيه رأيك في المكان الجديد؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">It's cute. Small, but cozy. <button class="audio-btn" data-text="It's cute. Small, but cozy." data-voice="female">🔊</button></div>
-<div class="ar">لطيفة. صغيرة، بس مريحة.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">There's a tiny kitchen, which is fine cause I don't cook. <button class="audio-btn" data-text="There's a tiny kitchen, which is fine cause I don't cook." data-voice="female">🔊</button></div>
-<div class="ar">في مطبخ صغير، ومش مشكلة عشان أنا مبطبخش.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Ha! Me neither. What about the bedroom? <button class="audio-btn" data-text="Ha! Me neither. What about the bedroom?" data-voice="male">🔊</button></div>
-<div class="ar">هه! وأنا كمان. إيه رأيك في غرفة النوم؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">The bedroom's nice. Big window. <button class="audio-btn" data-text="The bedroom's nice. Big window." data-voice="female">🔊</button></div>
-<div class="ar">غرفة النوم حلوة. شباك كبير.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">But the best part is the living room. There's a huge couch where I spend 90% of my life. <button class="audio-btn" data-text="But the best part is the living room. There's a huge couch where I spend 90% of my life." data-voice="female">🔊</button></div>
-<div class="ar">بس أحسن حاجة هي غرفة المعيشة. فيها كنبة كبيرة بقعد عليها 90% من حياتي.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble john">
-<span class="avatar">👤</span>
-<div class="bubble-content">
-<div class="en">Living the dream. Is there a garden? <button class="audio-btn" data-text="Living the dream. Is there a garden?" data-voice="male">🔊</button></div>
-<div class="ar">عايشة الحلم. في حديقة؟</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-<div class="convo-bubble sarah">
-<span class="avatar">👩</span>
-<div class="bubble-content">
-<div class="en">No garden, but there's a small balcony. Good enough for me. <button class="audio-btn" data-text="No garden, but there's a small balcony. Good enough for me." data-voice="female">🔊</button></div>
-<div class="ar">مفيش حديقة، بس في بلكونة صغيرة. كفاية بالنسبة لي.</div>
-<button class="translation-btn" data-target="ar">🇪🇬 Show Translation</button>
-</div>
-</div>
-</div>
+<!-- ===================== القسم 1: The Real Talk ===================== -->
+<section id="real-talk">
+  <div class="container">
+    <h2 class="section-title">🗣️ <span class="em">The Real Talk</span></h2>
+    <p class="section-sub ar-text">استمع لمحادثة بين John و Sarah عن بيتها الجديد 🏠، واضغط على 🔊 لسماع النطق الصحيح لكل جملة.</p>
+    <div class="glass-card reveal">
+      <div class="chat-wrap" id="chat-wrap"></div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 2: DISCOVER THE RULE
-========================================================== -->
-<section class="section-box" id="discover">
-<div class="section-title">🔍 Discover the Rule</div>
-<div class="discovery-question">❓ لاحظ الفرق بين الجمل دي:</div>
-<div class="discovery-tabs" id="discoveryTabs">
-<button class="discovery-tab active" data-tab="disc1">There is a kitchen</button>
-<button class="discovery-tab" data-tab="disc2">There are two bedrooms</button>
-<button class="discovery-tab" data-tab="disc3">Is there a garden?</button>
-</div>
-<div class="discovery-content active" id="disc1">
-<strong>🔹 There is</strong> — لما أتكلم عن حاجة واحدة (مفرد)<br>✅ <span class="en-highlight">"There is a kitchen"</span> = فيه مطبخ.
-</div>
-<div class="discovery-content" id="disc2">
-<strong>🔹 There are</strong> — لما أتكلم عن أكتر من حاجة (جمع)<br>✅ <span class="en-highlight">"There are two bedrooms"</span> = فيه غرفتي نوم.
-</div>
-<div class="discovery-content" id="disc3">
-<strong>🔹 Is there?</strong> — لما أسأل عن وجود حاجة<br>✅ <span class="en-highlight">"Is there a garden?"</span> = في حديقة؟
-</div>
+<!-- ===================== القسم 2: Discover the Rule ===================== -->
+<section id="discover-rule">
+  <div class="container">
+    <h2 class="section-title">🔍 <span class="em">Discover the Rule</span></h2>
+    <p class="section-sub ar-text">لاحظنا إن Sarah بتوصف بيتها. إزاي نقول "فيه" و"يوجد" بالإنجليزي؟ تعالوا نكتشف القاعدة سوا خطوة بخطوة.</p>
+    <div class="glass-card reveal">
+      <div class="rule-tabs" id="rule-tabs"></div>
+      <div id="rule-panels"></div>
+      <div class="warn-note">🌟 ملاحظة مهمة جداً: الفرق بسيط: There is = واحد. There are = أكتر من واحد. ولما تعوز تنفي، ضيف not: There isn't أو There aren't. ولما تعوز تسأل، اقلب الكلام: Is there؟ أو Are there؟.</div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 3: GRAMMAR LAB
-========================================================== -->
-<section class="section-box" id="grammar">
-<div class="section-title">🧠 Grammar Lab – There is / There are</div>
-<div class="grammar-grid">
-<div class="grammar-card green"><div class="title">➕ Singular</div><div class="examples">There <strong>is</strong> a bed.<br>There<strong>'s</strong> a couch.</div></div>
-<div class="grammar-card blue"><div class="title">➕ Plural</div><div class="examples">There <strong>are</strong> two chairs.<br>There <strong>are</strong> some books.</div></div>
-<div class="grammar-card red"><div class="title">➖ Negative</div><div class="examples">There <strong>isn't</strong> a TV.<br>There <strong>aren't</strong> any plants.</div></div>
-<div class="grammar-card gold"><div class="title">❓ Question</div><div class="examples"><strong>Is</strong> there a bathroom?<br><strong>Are</strong> there any windows?<br><span style="font-size:10px;opacity:0.7;">Yes, there is. / No, there aren't.</span></div></div>
-</div>
+<!-- ===================== القسم 3: Grammar Lab ===================== -->
+<section id="grammar-lab">
+  <div class="container">
+    <h2 class="section-title">🧠 <span class="em">Grammar Lab</span></h2>
+    <p class="section-sub ar-text">قاعدة There is / There are — شرح مبسط جداً مع أيقونات لتسهيل الحفظ:</p>
+    <div class="grammar-grid">
+      <div class="glass-card g-card positive reveal">
+        <div class="g-card-title ar-text">➕ الإثبات (Positive)</div>
+        <ul>
+          <li>There is a bed.</li>
+          <li>There are two chairs.</li>
+        </ul>
+        <div class="g-card-note ar-text">is مع الشيء الواحد، are مع الأكتر من واحد.</div>
+      </div>
+      <div class="glass-card g-card negative reveal">
+        <div class="g-card-title ar-text">➖ النفي (Negative)</div>
+        <ul>
+          <li>There isn't a garage.</li>
+          <li>There aren't any windows.</li>
+        </ul>
+        <div class="g-card-note ar-text">لما نعوز ننفي، بنضيف not بعد is أو are.</div>
+      </div>
+      <div class="glass-card g-card question reveal">
+        <div class="g-card-title ar-text">❓ السؤال (Question)</div>
+        <ul>
+          <li>Is there a bathroom?</li>
+          <li>Are there any questions?</li>
+        </ul>
+        <div class="g-card-note ar-text">لما نعوز نسأل، بنقلب الكلام: Is there / Are there.</div>
+      </div>
+      <div class="glass-card g-card short reveal">
+        <div class="g-card-title ar-text">✅ الإجابة القصيرة (Short Answer)</div>
+        <ul>
+          <li>Yes, there is.</li>
+          <li>No, there aren't.</li>
+        </ul>
+        <div class="g-card-note ar-text">مش لازم نكرر الجملة كلها، الإجابة القصيرة كفاية!</div>
+      </div>
+    </div>
+    <p class="section-sub ar-text" style="margin-top:24px; margin-bottom:12px;">شرح مرئي بسيط يربط القاعدة بالصورة:</p>
+    <div class="mindmap">
+      <div class="mind-node"><div class="rule">🏠 There is a house.</div></div>
+      <div class="mind-node"><div class="rule">🏠🏠 There are two houses.</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 4: WORD VAULT
-========================================================== -->
-<section class="section-box" id="vocabulary">
-<div class="section-title">💎 Word Vault</div>
-<div class="vocab-grid" id="vocabGrid">
-<div class="flip-card" data-word="Bedroom"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🛏️</span><span class="word">Bedroom</span><button class="audio-btn-small" data-word="Bedroom">🔊</button></div><div class="flip-card-back"><span class="meaning">غرفة نوم</span></div></div></div>
-<div class="flip-card" data-word="Kitchen"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🍳</span><span class="word">Kitchen</span><button class="audio-btn-small" data-word="Kitchen">🔊</button></div><div class="flip-card-back"><span class="meaning">مطبخ</span></div></div></div>
-<div class="flip-card" data-word="Bathroom"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🚿</span><span class="word">Bathroom</span><button class="audio-btn-small" data-word="Bathroom">🔊</button></div><div class="flip-card-back"><span class="meaning">حمام</span></div></div></div>
-<div class="flip-card" data-word="Living room"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🛋️</span><span class="word">Living room</span><button class="audio-btn-small" data-word="Living room">🔊</button></div><div class="flip-card-back"><span class="meaning">غرفة معيشة</span></div></div></div>
-<div class="flip-card" data-word="Garden"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🌳</span><span class="word">Garden</span><button class="audio-btn-small" data-word="Garden">🔊</button></div><div class="flip-card-back"><span class="meaning">حديقة</span></div></div></div>
-<div class="flip-card" data-word="Balcony"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🌇</span><span class="word">Balcony</span><button class="audio-btn-small" data-word="Balcony">🔊</button></div><div class="flip-card-back"><span class="meaning">بلكونة</span></div></div></div>
-<div class="flip-card" data-word="Couch"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🛋️</span><span class="word">Couch</span><button class="audio-btn-small" data-word="Couch">🔊</button></div><div class="flip-card-back"><span class="meaning">كنبة</span></div></div></div>
-<div class="flip-card" data-word="Window"><div class="flip-card-inner"><div class="flip-card-front"><span class="emoji">🪟</span><span class="word">Window</span><button class="audio-btn-small" data-word="Window">🔊</button></div><div class="flip-card-back"><span class="meaning">شباك</span></div></div></div>
-</div>
+<!-- ===================== القسم 4: Word Vault ===================== -->
+<section id="word-vault">
+  <div class="container">
+    <h2 class="section-title">💎 <span class="em">Word Vault</span></h2>
+    <p class="section-sub ar-text">اضغط على أي بطاقة لقلبها ومعرفة المعنى بالعربية ومثال على استخدامها.</p>
+    <div class="vault-grid" id="vault-grid"></div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 5: BABBLE WARNING
-========================================================== -->
-<section class="section-box" id="warning">
-<div class="section-title">🚨 Babble Warning – الكلمة الخائنة</div>
-<div style="text-align:center;font-size:26px;font-weight:800;color:var(--gold);margin-bottom:8px;direction:ltr;">Room</div>
-<div class="warning-grid">
-<div class="warning-card safe"><div class="label">✅ غرفة</div><div class="example">"This is my room."</div><div class="meaning">دي غرفتي.</div></div>
-<div class="warning-card noun"><div class="label">📌 مساحة/متسع</div><div class="example">"There's no room for this."</div><div class="meaning">مفيش مكان/متسع لده.</div></div>
-</div>
-<div class="warning-joke">😂 يعني لو قلت "There's no room"، مش معناها "مفيش غرفة"، معناها "مفيش مكان"!</div>
+<!-- ===================== القسم 5: Babble Warning ===================== -->
+<section id="babble-warning">
+  <div class="container">
+    <h2 class="section-title">🚨 <span class="em">Babble Warning</span></h2>
+    <p class="section-sub ar-text">الكلمة الخائنة في هذه الوحدة: Room (غرفة) vs. Space (مساحة).</p>
+    <div class="warning-grid">
+      <div class="glass-card warn-card good reveal">
+        <div class="warn-en">There is a big room.</div>
+        <div class="warn-ar">توجد غرفة كبيرة.</div>
+      </div>
+      <div class="glass-card warn-card bad reveal">
+        <div class="warn-en">There is a lot of space.</div>
+        <div class="warn-ar">توجد مساحة كبيرة.</div>
+      </div>
+    </div>
+    <div class="warn-note">😅 Room = غرفة (مكان مقفول بحيطان). Space = مساحة (فضاء فاضي عموماً). متقولش "There is a big space" لو قصدك غرفة!</div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 6: CHALLENGE ARENA
-========================================================== -->
-<section class="section-box" id="challenge">
-<div class="section-title">⚔️ Challenge Arena</div>
-<div class="quiz-progress-bar">
-<span class="label">📊 السؤال</span>
-<div class="bar-wrap"><div class="bar-fill" id="quizProgressFill"></div></div>
-<span class="count" id="quizProgressCount">0/5</span>
-</div>
-
-<div id="quizContainer">
-<!-- Q1: Choice -->
-<div class="quiz-card" data-question="1" data-type="choice">
-<div class="q-text">1. There ____ a sofa in the living room.</div>
-<div class="quiz-options">
-<button data-answer="is">is</button>
-<button data-answer="are">are</button>
-<button data-answer="am">am</button>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<!-- Q2: Choice -->
-<div class="quiz-card" data-question="2" data-type="choice">
-<div class="q-text">2. There ____ three chairs in the kitchen.</div>
-<div class="quiz-options">
-<button data-answer="is">is</button>
-<button data-answer="are">are</button>
-<button data-answer="isn't">isn't</button>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<!-- Q3: Click to Order (سيتم خلط الكلمات) -->
-<div class="quiz-card" data-question="3" data-type="order">
-<div class="q-text">3. رتب الكلمات لتكوين جملة: <span class="hint-icon">❓</span></div>
-<div class="order-hint">❓ انقر على الكلمات بالترتيب الصحيح.</div>
-<div class="order-pool" id="orderPool3"></div>
-<div class="order-result-box" id="orderResult3"></div>
-<div class="quiz-feedback" id="orderFeedback3"></div>
-</div>
-
-<!-- Q4: Click to Order (سيتم خلط الكلمات) -->
-<div class="quiz-card" data-question="4" data-type="order">
-<div class="q-text">4. رتب الكلمات لتكوين سؤال: <span class="hint-icon">❓</span></div>
-<div class="order-hint">❓ انقر على الكلمات بالترتيب الصحيح.</div>
-<div class="order-pool" id="orderPool4"></div>
-<div class="order-result-box" id="orderResult4"></div>
-<div class="quiz-feedback" id="orderFeedback4"></div>
-</div>
-
-<!-- Q5: Choice -->
-<div class="quiz-card" data-question="5" data-type="choice">
-<div class="q-text">5. ما هو نفي "There are some plants."؟</div>
-<div class="quiz-options">
-<button data-answer="There aren't any plants">There aren't any plants</button>
-<button data-answer="There isn't any plants">There isn't any plants</button>
-<button data-answer="There are not plants">There are not plants</button>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-</div>
-
-<div class="streak-notification" id="streakNotification">
-🎉 +50 XP! لقد أتقنت وصف المنزل!
-<div class="stars" id="starsContainer"></div>
-</div>
+<!-- ===================== القسم 6: Challenge Arena ===================== -->
+<section id="challenge-arena">
+  <div class="container">
+    <h2 class="section-title">⚔️ <span class="em">Challenge Arena</span></h2>
+    <div id="challenge-score-bar">
+      <span class="score-text" id="score-text">النتيجة: 0 / 7</span>
+      <button class="btn outline" id="reset-challenge-btn" type="button">🔄 إعادة التحدي بالكامل</button>
+    </div>
+    <div id="challenge-questions"></div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 7: SPEAK UP!
-========================================================== -->
-<section class="section-box" id="speak">
-<div class="section-title">🎤 Speak Up!</div>
-<div class="speak-container">
-<button class="big-btn" id="speakBtn">🎤 اضغط وتحدث!</button>
-<div style="margin-top:6px;font-size:13px;color:#888;direction:rtl;text-align:right;">Describe your home! What rooms are there? Is there a garden?</div>
-<div class="speak-result" id="speakResult">⏳ اضغط الزر وابدأ التحدث...</div>
-</div>
+<!-- ===================== القسم 7: Speak Up! ===================== -->
+<section id="speak-up">
+  <div class="container">
+    <h2 class="section-title">🎤 <span class="em">Speak Up!</span></h2>
+    <p class="section-sub ar-text">اقرأ الجملة بصوت عالٍ واضغط على الميكروفون:</p>
+    <div class="glass-card reveal" style="text-align:center;">
+      <div id="speak-target">In my home, there is a living room and there are two bedrooms.</div>
+      <button class="btn" id="speak-btn" type="button">🎙️ ابدأ التسجيل</button>
+      <div id="speak-result"></div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 8: POWER RECAP
-========================================================== -->
-<section class="section-box" id="recap">
-<div class="section-title">⚡ Power Recap</div>
-<div class="mindmap">
-<div class="center" id="mindCenter">There is / There are</div>
-<div class="branches">
-<span class="branch" data-example="There is a bed. (فيه سرير)">There is (+ singular)</span>
-<span class="branch" data-example="There are two chairs. (فيه كرسيين)">There are (+ plural)</span>
-<span class="branch" data-example="There isn't a TV. (مفيش تلفزيون)">There isn't</span>
-<span class="branch" data-example="There aren't any plants. (مفيش نباتات)">There aren't</span>
-<span class="branch" data-example="Is there a bathroom? (في حمام؟)">Is there?</span>
-<span class="branch" data-example="Are there any windows? (في شبابيك؟)">Are there?</span>
-</div>
-<div class="branch-example" id="branchExample">👆 اضغط على أي فرع لترى مثالاً</div>
-</div>
+<!-- ===================== القسم 8: Power Recap ===================== -->
+<section id="power-recap">
+  <div class="container">
+    <h2 class="section-title">⚡ <span class="em">Power Recap</span></h2>
+    <p class="section-sub ar-text">📝 ملخص قوانين الوحدة</p>
+    <div class="glass-card reveal">
+      <div class="mindmap">
+        <div class="mind-node"><div class="rule">There is a...</div></div>
+        <div class="mind-node"><div class="rule">There are...</div></div>
+        <div class="mind-node"><div class="rule">There isn't...</div></div>
+        <div class="mind-node"><div class="rule">There aren't...</div></div>
+        <div class="mind-node"><div class="rule">Is there?</div></div>
+        <div class="mind-node"><div class="rule">Are there?</div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 9: VIDEO ZONE
-========================================================== -->
-<section class="section-box" id="video">
-<div class="section-title">🎥 Video Zone</div>
-<button class="video-btn" id="videoBtn">🎥 شاهد شرح الوحدة على يوتيوب</button>
+<!-- ===================== القسم 9: Video Zone ===================== -->
+<section id="video-zone">
+  <div class="container">
+    <h2 class="section-title">🎥 <span class="em">Video Zone</span></h2>
+    <div class="glass-card reveal video-box">
+      <div class="icon">🎬</div>
+      <a class="btn" href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" data-lang-ar="شاهد شرح الوحدة على يوتيوب" data-lang-en="Watch the unit explanation on YouTube">شاهد شرح الوحدة على يوتيوب</a>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-SECTION 10: HOMEWORK
-========================================================== -->
-<section class="section-box" id="homework">
-<div class="section-title">✍️ Homework</div>
-<div class="homework-area">
-<p style="direction:rtl;margin-bottom:6px;color:#888;font-size:13px;text-align:right;">✏️ اكتب <strong>5 جمل</strong> عن منزلك باستخدام <strong>There is, There are, There isn't, There aren't</strong>.</p>
-<textarea id="homeworkText" placeholder="اكتب جملك هنا..."></textarea>
-<button class="save-btn" id="saveHomework">💾 حفظ الواجب</button>
-<div class="save-status" id="saveStatus"></div>
-</div>
+<!-- ===================== القسم 10: Homework ===================== -->
+<section id="homework">
+  <div class="container">
+    <h2 class="section-title">✍️ <span class="em">Homework</span></h2>
+    <p class="section-sub ar-text">اكتب 5 جمل عن بيتك باستخدام There is و There are.</p>
+    <div class="glass-card reveal">
+      <textarea id="homework-text" dir="ltr" spellcheck="true" placeholder="Write here..."></textarea>
+      <div class="hw-actions">
+        <button class="btn" id="hw-save-btn" type="button">💾 حفظ</button>
+        <button class="btn outline" id="hw-check-btn" type="button">✅ تدقيق</button>
+      </div>
+      <div id="hw-status"></div>
+      <div id="hw-corrections"></div>
+    </div>
+  </div>
 </section>
 
-<!-- ==========================================================
-NAVIGATION
-========================================================== -->
-<div class="nav-buttons">
-<button class="prev" id="prevBtn">← السابق</button>
-<button class="next" id="nextBtn">التالي →</button>
+<!-- ===================== أزرار التنقل بين الوحدات ===================== -->
+<div id="unit-nav">
+  <a href="unit4.html" class="btn outline" id="prev-unit-btn">الوحدة السابقة ←</a>
+  <span id="next-unit-wrap"><a href="unit6.html" class="btn" id="next-unit-btn">→ الوحدة التالية</a></span>
 </div>
 
-</div><!-- /.lesson-content -->
+<!-- ===================== الفوتر ===================== -->
+<footer>
+  <div class="container">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/omar.youssif.english" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+      </a>
+      <a href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@omar.youssif.english" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+    </div>
+    <p>© 2026 Babble Box Academy. الوحدة 5 - المستوى A1</p>
+  </div>
+</footer>
 
-<!-- ============================================================
-CELEBRATION OVERLAY
-============================================================ -->
-<div class="celebration-overlay" id="celebrationOverlay">
-<div class="celeb-box">
-<button class="close-celeb" id="closeCelebBtn">✕</button>
-<div class="big-emoji">🎉</div>
-<h2>أحسنت! الوحدة الخامسة اكتملت!</h2>
-<div class="sub-text">لقد أتممت جميع الأقسام بنجاح!</div>
-<div class="xp-text">+50 XP! أنت بطل! 💪</div>
-<div class="celeb-buttons">
-<button class="btn-next" id="celebNextBtn">→ الوحدة التالية</button>
-<button class="btn-home" id="celebHomeBtn">🏠 العودة للرئيسية</button>
-<button class="btn-retry-unit" id="celebRetryBtn">🔄 إعادة دراسة الوحدة</button>
+<!-- ===================== نافذة الاحتفال ===================== -->
+<div id="celebration-modal">
+  <div class="modal-box">
+    <div class="modal-stars">✨🌟✨</div>
+    <div class="modal-title">🎉 +50 XP! أنت عبقري!</div>
+    <div class="modal-sub">أكملت التحدي بنجاح 🏆</div>
+    <button class="btn" id="modal-close-btn">رائع!</button>
+  </div>
 </div>
-</div>
-</div>
 
-<div class="celeb-confetti-container" id="celebConfettiContainer"></div>
-
-<!-- ============================================================
-HIDDEN AUDIO PLAYER
-============================================================ -->
-<audio id="audio-player" style="display:none;"><source src="" type="audio/mpeg"></audio>
-
-<!-- ============================================================
-JAVASCRIPT
-============================================================ -->
 <script>
-// ============================================================
-// 1. DARK MODE
-// ============================================================
-const themeToggle = document.getElementById('themeToggle');
-let currentTheme = localStorage.getItem('babbleTheme') || 'light';
+/* =====================================================================
+   0) بيانات ثابتة عامة
+   ملاحظة: هذه الوحدة (Unit 5) — نفس القالب تماماً، تغيّر فقط المحتوى.
+   محور الوحدة: There is / There are لوصف وجود أشياء في مكان (البيت).
+   ===================================================================== */
+const TOTAL_UNITS = 12;
+const CURRENT_UNIT = 5; // رقم الوحدة الحالية في هذا الملف
 
-function setTheme(theme) {
-document.documentElement.setAttribute('data-theme', theme);
-themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-localStorage.setItem('babbleTheme', theme);
+/* =====================================================================
+   0.5) مراقب أنيميشن الظهور عند التمرير (معرّف هنا مبكراً لأن
+   renderChallenge() تستخدمه لتفعيل الأنيميشن على البطاقات التي
+   يُعاد إنشاؤها ديناميكياً عند إعادة التحدي — هذا هو إصلاح مشكلة
+   "اختفاء الأسئلة" بعد الضغط على إعادة التحدي)
+   ===================================================================== */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+/* =====================================================================
+   1) اللغة (AR/EN) وتبديل الوضع الداكن/الفاتح
+   ===================================================================== */
+const htmlEl = document.documentElement;
+let currentLang = 'ar';
+function applyLanguage(lang){
+  currentLang = lang;
+  htmlEl.setAttribute('lang', lang);
+  document.querySelectorAll('[data-lang-ar][data-lang-en]').forEach((el) => {
+    el.textContent = lang === 'ar' ? el.getAttribute('data-lang-ar') : el.getAttribute('data-lang-en');
+  });
+  document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'AR | EN' : 'EN | AR';
 }
-setTheme(currentTheme);
-themeToggle.addEventListener('click', () => {
-const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-setTheme(newTheme);
+document.getElementById('lang-toggle').addEventListener('click', () => {
+  applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
+});
+applyLanguage(currentLang);
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
 });
 
-// ============================================================
-// 2. UNIT NAVIGATION TABS
-// ============================================================
-const unitTabs = document.getElementById('unitTabs');
-const totalUnits = 12;
-let maxUnlocked = parseInt(localStorage.getItem('babbleMaxUnlocked')) || 1;
-
-function renderUnitTabs() {
-unitTabs.innerHTML = '';
-for (let i = 1; i <= totalUnits; i++) {
-const tab = document.createElement('div');
-tab.className = 'unit-tab';
-tab.textContent = i;
-if (i === 5) {
-tab.classList.add('active');
-} else if (i < maxUnlocked) {
-tab.classList.add('completed');
-tab.textContent = i + ' ✅';
-tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
-} else if (i === maxUnlocked) {
-tab.classList.add('unlocked');
-tab.addEventListener('click', () => { window.location.href = 'unit' + i + '.html'; });
-} else {
-tab.classList.add('locked');
-tab.innerHTML = i + ' <span class="lock-icon">🔒</span>';
+/* =====================================================================
+   2) تبويبات الوحدات (U1 - U12)
+   ===================================================================== */
+function getMaxUnitUnlocked(){
+  return parseInt(localStorage.getItem('maxUnitUnlocked') || '1', 10);
 }
-unitTabs.appendChild(tab);
-}
+function renderUnitTabs(){
+  const wrap = document.getElementById('unit-tabs');
+  wrap.innerHTML = '';
+  const maxUnlocked = getMaxUnitUnlocked();
+  for (let i = 1; i <= TOTAL_UNITS; i++) {
+    const isCurrent = i === CURRENT_UNIT;
+    const isLinkable = !isCurrent && i <= maxUnlocked;
+    const tab = document.createElement(isLinkable ? 'a' : 'div');
+    tab.className = 'unit-tab';
+    if (isCurrent) tab.classList.add('active');
+    if (i > maxUnlocked) tab.classList.add('locked');
+    if (isLinkable) tab.setAttribute('href', 'unit' + i + '.html');
+    tab.innerHTML = 'U' + i + (i > maxUnlocked ? '<span class="lock">🔒</span>' : '');
+    wrap.appendChild(tab);
+  }
 }
 renderUnitTabs();
 
-// ============================================================
-// 3. PROGRESS BAR (10 sections)
-// ============================================================
-const progressFill = document.getElementById('dailyProgressFill');
-const progressCount = document.getElementById('dailyProgressCount');
-const totalSections = 10;
-let unitCompleted = localStorage.getItem('unit5Completed') === 'true';
-
-function updateProgress() {
-let done = unitCompleted ? 10 : 0;
-const quizDone = JSON.parse(localStorage.getItem('unit5QuizStatus') || '[]');
-if (quizDone.length === 5 && quizDone.every(q => q === true) && !unitCompleted) {
-done = 6;
+/* =====================================================================
+   3) شريط التقدم اليومي (بحد أقصى 5 تمارين في اليوم)
+   ===================================================================== */
+function getTodayKey(){
+  const d = new Date();
+  return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 }
-const pct = (done / totalSections) * 100;
-progressFill.style.width = pct + '%';
-progressCount.textContent = done + '/' + totalSections;
-
-const nextBtn = document.getElementById('nextBtn');
-if (unitCompleted) {
-nextBtn.style.opacity = '1';
-nextBtn.style.cursor = 'pointer';
-nextBtn.textContent = 'التالي →';
-nextBtn.dataset.target = 'unit6.html';
-} else if (quizDone.length === 5 && quizDone.every(q => q === true)) {
-nextBtn.style.opacity = '1';
-nextBtn.style.cursor = 'pointer';
-nextBtn.textContent = 'إنهاء الوحدة ✅';
-nextBtn.dataset.target = 'complete';
-} else {
-nextBtn.style.opacity = '0.5';
-nextBtn.style.cursor = 'not-allowed';
-nextBtn.textContent = 'أكمل التحدي أولاً';
-nextBtn.dataset.target = '';
+function getDailyProgress(){
+  const savedDate = localStorage.getItem('daily_progress_date');
+  const today = getTodayKey();
+  if (savedDate !== today) {
+    localStorage.setItem('daily_progress_date', today);
+    localStorage.setItem('daily_progress_count', '0');
+    return 0;
+  }
+  return parseInt(localStorage.getItem('daily_progress_count') || '0', 10);
 }
+function renderDailyProgress(){
+  const count = Math.min(5, getDailyProgress());
+  document.getElementById('daily-progress-text').textContent =
+    currentLang === 'ar' ? count + '/5 تمارين مكتملة اليوم' : count + '/5 exercises completed today';
+  document.getElementById('daily-progress-fill').style.width = (count / 5 * 100) + '%';
 }
-
-// ============================================================
-// 4. CHALLENGE ARENA - CLICK TO ORDER
-// ============================================================
-const orderPools = {
-3: { correct: ["There", "isn't", "a", "garden"], words: ["There", "isn't", "a", "garden"] },
-4: { correct: ["Are", "there", "two", "bedrooms"], words: ["Are", "there", "two", "bedrooms"] }
-};
-
-function shuffleArray(arr) {
-for (let i = arr.length - 1; i > 0; i--) {
-const j = Math.floor(Math.random() * (i + 1));
-[arr[i], arr[j]] = [arr[j], arr[i]];
+function incrementDailyProgress(){
+  const current = getDailyProgress();
+  const next = Math.min(5, current + 1);
+  localStorage.setItem('daily_progress_count', String(next));
+  localStorage.setItem('daily_progress_date', getTodayKey());
+  renderDailyProgress();
 }
-return arr;
+renderDailyProgress();
+
+/* =====================================================================
+   4) القسم 1: The Real Talk — المحادثة + النطق
+   john = John (ذكر، يسار/أزرق) — sarah = Sarah (أنثى، يمين/وردي)
+   ===================================================================== */
+const conversation = [
+  { speaker:'john', en:"How's your new place?", ar:'إزاي بيتك الجديد؟' },
+  { speaker:'sarah', en:"It's nice. There's a big living room 🛋️ and a small kitchen 🍳.", ar:'حلو. فيه غرفة معيشة كبيرة 🛋️ ومطبخ صغير 🍳.' },
+  { speaker:'john', en:'Sounds good. Is there a garden?', ar:'حلو كده. فيه حديقة؟' },
+  { speaker:'sarah', en:"Yes, there's a small garden 🌿. But there isn't a garage.", ar:'أيوة، فيه حديقة صغيرة 🌿. لكن مفيش جراج.' },
+  { speaker:'john', en:'How many bedrooms are there?', ar:'كام غرفة نوم فيه؟' },
+  { speaker:'sarah', en:'There are two bedrooms 🛏️. One for me, and one for guests.', ar:'فيه غرفتين نوم 🛏️. واحدة ليا، وواحدة للضيوف.' },
+  { speaker:'john', en:'Is there a bathroom in your room?', ar:'فيه حمام في غرفتك؟' },
+  { speaker:'sarah', en:"Yes, there's a small bathroom 🚿. It's perfect.", ar:'أيوة، فيه حمام صغير 🚿. هو مثالي.' },
+];
+
+function speakText(text, gender){
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  const voices = window.speechSynthesis.getVoices();
+  // نحاول اختيار صوت أمريكي مناسب للجنس (ذكر لـ John، أنثى لـ Sarah)
+  const usVoices = voices.filter(v => v.lang === 'en-US' || v.lang === 'en_US');
+  let chosen = null;
+  if (gender === 'male') {
+    chosen = usVoices.find(v => /male|david|guy|man/i.test(v.name)) || usVoices[0];
+  } else {
+    chosen = usVoices.find(v => /female|zira|susan|woman|samantha/i.test(v.name)) || usVoices[usVoices.length - 1];
+  }
+  if (chosen) utter.voice = chosen;
+  window.speechSynthesis.speak(utter);
 }
-
-// Fill order pools with shuffled words
-Object.keys(orderPools).forEach(qNum => {
-const pool = document.getElementById('orderPool' + qNum);
-const words = orderPools[qNum].words;
-const shuffled = shuffleArray([...words]);
-pool.innerHTML = '';
-shuffled.forEach(word => {
-const btn = document.createElement('button');
-btn.className = 'order-word';
-btn.dataset.word = word;
-btn.textContent = word;
-pool.appendChild(btn);
-});
-});
-
-const orderConfigs = {
-3: { correct: ["There", "isn't", "a", "garden"], pool: 'orderPool3', result: 'orderResult3', feedback: 'orderFeedback3' },
-4: { correct: ["Are", "there", "two", "bedrooms"], pool: 'orderPool4', result: 'orderResult4', feedback: 'orderFeedback4' }
-};
-
-let quizCorrectCount = 0;
-const totalQuestions = 5;
-let maleVoice = null;
-let femaleVoice = null;
-const encouragingPhrases = ['Great job!', 'Excellent!', 'Well done!', 'Perfect!', 'Awesome!', 'Fantastic!', 'Amazing!', 'Brilliant!'];
-
-function loadVoices() {
-const voices = window.speechSynthesis.getVoices();
-maleVoice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Google US English') || v.name.includes('David'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-femaleVoice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Google UK') || v.name.includes('Victoria'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
+// تحميل الأصوات مسبقاً (بعض المتصفحات تحتاج هذا الحدث)
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
-if (window.speechSynthesis.onvoiceschanged !== undefined) {
-window.speechSynthesis.onvoiceschanged = loadVoices;
-}
-loadVoices();
+function renderChat(){
+  const wrap = document.getElementById('chat-wrap');
+  conversation.forEach((line) => {
+    const row = document.createElement('div');
+    row.className = 'bubble-row ' + line.speaker;
 
-function speakText(text, voice) {
-if (!window.speechSynthesis) return;
-const utterance = new SpeechSynthesisUtterance(text);
-utterance.lang = 'en-US';
-utterance.rate = 0.9;
-if (voice) utterance.voice = voice;
-window.speechSynthesis.speak(utterance);
-}
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = line.speaker === 'john' ? '🧑' : '👩';
 
-function updateQuizProgress() {
-const pct = (quizCorrectCount / totalQuestions) * 100;
-document.getElementById('quizProgressFill').style.width = pct + '%';
-document.getElementById('quizProgressCount').textContent = quizCorrectCount + '/' + totalQuestions;
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble ' + line.speaker;
 
-if (quizCorrectCount === totalQuestions) {
-const streak = document.getElementById('streakNotification');
-streak.classList.add('show');
-launchStars();
-updateProgress();
-}
-}
+    const enDiv = document.createElement('div');
+    enDiv.className = 'bubble-en';
+    enDiv.setAttribute('dir', 'ltr');
+    const enSpan = document.createElement('span');
+    enSpan.textContent = line.en;
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.type = 'button';
+    speakBtn.textContent = '🔊';
+    speakBtn.addEventListener('click', () => speakText(line.en, line.speaker === 'john' ? 'male' : 'female'));
+    enDiv.appendChild(enSpan);
+    enDiv.appendChild(speakBtn);
 
-// Initialize order questions
-Object.keys(orderConfigs).forEach(qNum => {
-const config = orderConfigs[qNum];
-const pool = document.getElementById(config.pool);
-const resultBox = document.getElementById(config.result);
-const feedback = document.getElementById(config.feedback);
-let selectedWords = [];
-const words = Array.from(pool.children);
+    const arDiv = document.createElement('div');
+    arDiv.className = 'bubble-ar';
+    arDiv.setAttribute('dir', 'rtl');
+    arDiv.textContent = line.ar;
 
-function resetOrder() {
-selectedWords = [];
-resultBox.innerHTML = '';
-feedback.innerHTML = '';
-words.forEach(btn => {
-btn.disabled = false;
-btn.classList.remove('used', 'correct-answer', 'wrong-answer');
-});
-}
+    bubble.appendChild(enDiv);
+    bubble.appendChild(arDiv);
 
-words.forEach(btn => {
-btn.addEventListener('click', function() {
-if (this.disabled) return;
-const word = this.dataset.word;
-selectedWords.push(word);
-this.classList.add('used');
-this.disabled = true;
+    row.appendChild(avatar);
+    row.appendChild(bubble);
+    wrap.appendChild(row);
+  });
+}
+renderChat();
 
-const placed = document.createElement('span');
-placed.className = 'placed-word';
-placed.textContent = word;
-placed.addEventListener('click', function() {
-const idx = selectedWords.indexOf(word);
-if (idx > -1) {
-selectedWords.splice(idx, 1);
-this.remove();
-words.forEach(b => {
-if (b.dataset.word === word) {
-b.disabled = false;
-b.classList.remove('used');
-}
-});
-}
-});
-resultBox.appendChild(placed);
+/* =====================================================================
+   5) القسم 2: Discover the Rule — There is / There are
+   ===================================================================== */
+const ruleData = [
+  {
+    tabLabel: 'There is',
+    en: 'There is',
+    ar: 'لما أتكلم عن حاجة واحدة، أقول: There is.',
+    examples: ['🛋️ There is a living room.', '🍳 There is a kitchen.', '🌿 There is a garden.'],
+  },
+  {
+    tabLabel: 'There are',
+    en: 'There are',
+    ar: 'لما أتكلم عن أكتر من حاجة، أقول: There are.',
+    examples: ['🛏️🛏️ There are two bedrooms.', '📚📚 There are many books.'],
+  },
+];
+function renderRuleTabs(){
+  const tabsWrap = document.getElementById('rule-tabs');
+  const panelsWrap = document.getElementById('rule-panels');
+  ruleData.forEach((item, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'rule-tab-btn' + (idx === 0 ? ' active' : '');
+    btn.type = 'button';
+    btn.textContent = item.tabLabel;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.rule-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.rule-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('rule-panel-' + idx).classList.add('active');
+    });
+    tabsWrap.appendChild(btn);
 
-if (selectedWords.length === config.correct.length) {
-const isCorrect = selectedWords.every((w, i) => w === config.correct[i]);
-if (isCorrect) {
-feedback.innerHTML = '<span class="correct-text">✅ صحيح! الترتيب ممتاز!</span>';
-words.forEach(b => { b.disabled = true; });
-resultBox.querySelectorAll('.placed-word').forEach(el => {
-el.style.background = 'var(--green)';
-el.style.color = '#fff';
-});
-const qIndex = parseInt(qNum) - 1;
-if (!window.questionStatus) window.questionStatus = [];
-if (!window.questionStatus[qIndex]) {
-window.questionStatus[qIndex] = true;
-quizCorrectCount++;
-updateQuizProgress();
-speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
+    const panel = document.createElement('div');
+    panel.className = 'rule-panel' + (idx === 0 ? ' active' : '');
+    panel.id = 'rule-panel-' + idx;
+    const examplesHtml = item.examples
+      .map((ex) => '<li class="en-text" dir="ltr">' + ex + '</li>')
+      .join('');
+    panel.innerHTML =
+      '<p class="en-text" dir="ltr" style="font-family:Poppins,sans-serif; font-weight:700; font-size:16px; margin-bottom:8px;">' + item.en + '</p>' +
+      '<p class="ar-text" dir="rtl" style="color:var(--text-muted); margin-bottom:12px;">' + item.ar + '</p>' +
+      '<ul style="display:flex; flex-direction:column; gap:6px;">' + examplesHtml + '</ul>';
+    panelsWrap.appendChild(panel);
+  });
 }
-} else {
-feedback.innerHTML = '<span class="wrong-text">❌ ترتيب غير صحيح. حاول مرة أخرى!</span>';
-const placedWords = resultBox.querySelectorAll('.placed-word');
-placedWords.forEach((el, i) => {
-if (i < config.correct.length && el.textContent !== config.correct[i]) {
-el.style.background = 'var(--red)';
-el.style.color = '#fff';
-} else if (i < config.correct.length) {
-el.style.background = 'var(--green)';
-el.style.color = '#fff';
-}
-});
-setTimeout(() => {
-resetOrder();
-}, 1800);
-}
-}
-});
-});
+renderRuleTabs();
 
-resetOrder();
-});
-
-// Multiple choice questions
-document.querySelectorAll('.quiz-card[data-type="choice"]').forEach(card => {
-const btns = card.querySelectorAll('.quiz-options button');
-const feedback = card.querySelector('.quiz-feedback');
-let answered = false;
-
-btns.forEach(btn => {
-btn.addEventListener('click', function() {
-if (answered || this.disabled) return;
-answered = true;
-const qNum = parseInt(card.dataset.question);
-const correctAnswers = { '1': 'is', '2': 'are', '5': "There aren't any plants" };
-const isCorrect = this.dataset.answer === correctAnswers[qNum];
-
-if (isCorrect) {
-this.classList.add('correct');
-feedback.innerHTML = '<span class="correct-text">✅ صحيح!</span>';
-const qIndex = qNum - 1;
-if (!window.questionStatus) window.questionStatus = [];
-if (!window.questionStatus[qIndex]) {
-window.questionStatus[qIndex] = true;
-quizCorrectCount++;
-updateQuizProgress();
-speakText(encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)], femaleVoice);
+/* =====================================================================
+   6) القسم 4: Word Vault — Flip Cards
+   ===================================================================== */
+const vaultWords = [
+  { en:'Living room', emoji:'🛋️', ar:'غرفة المعيشة', ex:'There is a big living room.' },
+  { en:'Kitchen', emoji:'🍳', ar:'مطبخ', ex:'There is a small kitchen.' },
+  { en:'Bedroom', emoji:'🛏️', ar:'غرفة نوم', ex:'There are two bedrooms.' },
+  { en:'Bathroom', emoji:'🚿', ar:'حمام', ex:'There is a bathroom in my room.' },
+  { en:'Garden', emoji:'🌿', ar:'حديقة', ex:'There is a small garden.' },
+  { en:'Garage', emoji:'🚗', ar:'جراج', ex:"There isn't a garage." },
+  { en:'Window', emoji:'🪟', ar:'نافذة', ex:'There are three windows.' },
+  { en:'Table', emoji:'🪑', ar:'طاولة', ex:'There is a table in the kitchen.' },
+];
+function renderVault(){
+  const grid = document.getElementById('vault-grid');
+  vaultWords.forEach((w) => {
+    const card = document.createElement('div');
+    card.className = 'flip-card';
+    card.innerHTML =
+      '<div class="flip-inner">' +
+        '<div class="flip-front">' +
+          '<div class="flip-word">' + w.en + ' ' + w.emoji + '</div>' +
+          '<button class="speak-btn word-speak-btn" type="button">🔊</button>' +
+        '</div>' +
+        '<div class="flip-back">' +
+          '<div class="flip-meaning">' + w.ar + '</div>' +
+          '<div class="flip-example">' + w.ex + '</div>' +
+        '</div>' +
+      '</div>';
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('word-speak-btn')) return;
+      card.classList.toggle('flipped');
+    });
+    card.querySelector('.word-speak-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      speakText(w.en, 'female');
+    });
+    grid.appendChild(card);
+  });
 }
-} else {
-this.classList.add('wrong');
-const correctAns = correctAnswers[qNum];
-feedback.innerHTML = '<span class="wrong-text">❌ خطأ. الإجابة الصحيحة هي "' + correctAns + '"</span>';
-btns.forEach(b => {
-if (b.dataset.answer === correctAns) {
-b.classList.add('correct');
-}
-});
-}
-btns.forEach(b => b.disabled = true);
-});
-});
-});
+renderVault();
 
-// ============================================================
-// 5. CELEBRATION OVERLAY
-// ============================================================
-function showCelebration() {
-const overlay = document.getElementById('celebrationOverlay');
-overlay.classList.add('show');
-launchCelebrationConfetti();
-unitCompleted = true;
-localStorage.setItem('unit5Completed', 'true');
-if (maxUnlocked < 6) {
-maxUnlocked = 6;
-localStorage.setItem('babbleMaxUnlocked', maxUnlocked);
-renderUnitTabs();
+/* =====================================================================
+   7) القسم 6: Challenge Arena
+   ===================================================================== */
+const challengeQuestions = [
+  { type:'mcq', text:'There ___ a bed in the room.', options:['is','are',"isn't"], correct:'is' },
+  { type:'mcq', text:'There ___ two chairs.', options:['is','are',"isn't"], correct:'are' },
+  { type:'mcq', text:'___ there a garden?', options:['Is','Are','Do'], correct:'Is' },
+  { type:'mcq', text:'There ___ any windows.', options:["isn't","aren't",'is'], correct:"aren't" },
+  { type:'mcq', text:'There ___ a table.', options:['is','are','am'], correct:'is' },
+  { type:'order', words:['There','is','a','big','living','room','.'], correct:['There','is','a','big','living','room','.'] },
+  { type:'listening', audio:'Are there two bedrooms?', translations:['هل توجد غرفتا نوم؟','هل يوجد مطبخ؟','هل توجد حديقة؟'], correct:'هل توجد غرفتا نوم؟' },
+];
+
+function getChallengeAnswers(){
+  const stored = localStorage.getItem('unit5_challenge_answers');
+  if (stored) {
+    try { return JSON.parse(stored); } catch(e) { /* تجاهل الخطأ واستخدم الافتراضي */ }
+  }
+  return new Array(challengeQuestions.length).fill(null);
 }
-updateProgress();
-speakText('Congratulations! You completed Unit 5!', femaleVoice);
+let challengeAnswers = getChallengeAnswers();
+
+function saveChallengeState(){
+  localStorage.setItem('unit5_challenge_answers', JSON.stringify(challengeAnswers));
+  const score = challengeAnswers.filter(a => a === true).length;
+  localStorage.setItem('unit5_challenge_score', String(score));
+  document.getElementById('score-text').textContent = 'النتيجة: ' + score + ' / ' + challengeQuestions.length;
+  if (score === challengeQuestions.length) {
+    unlockNextUnit();
+    showCelebration();
+  }
 }
 
-document.getElementById('closeCelebBtn').addEventListener('click', function() {
-document.getElementById('celebrationOverlay').classList.remove('show');
-});
-
-document.getElementById('celebNextBtn').addEventListener('click', function() {
-window.location.href = 'unit6.html';
-});
-
-document.getElementById('celebHomeBtn').addEventListener('click', function() {
-window.location.href = 'index.html';
-});
-
-document.getElementById('celebRetryBtn').addEventListener('click', function() {
-resetUnit();
-document.getElementById('celebrationOverlay').classList.remove('show');
-});
-
-function launchCelebrationConfetti() {
-const container = document.getElementById('celebConfettiContainer');
-container.innerHTML = '';
-const colors = ['#FFC107', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FF9FF3', '#FECA57', '#FF9F43', '#FF4757', '#2ED573', '#1E90FF'];
-const shapes = ['circle', 'square', 'star'];
-for (let i = 0; i < 120; i++) {
-const el = document.createElement('div');
-el.className = 'celeb-confetti ' + shapes[Math.floor(Math.random() * shapes.length)];
-const size = 6 + Math.random() * 12;
-el.style.width = size + 'px';
-el.style.height = size + 'px';
-el.style.background = colors[Math.floor(Math.random() * colors.length)];
-el.style.left = Math.random() * 100 + '%';
-el.style.animationDuration = (2 + Math.random() * 3) + 's';
-el.style.animationDelay = (Math.random() * 2) + 's';
-container.appendChild(el);
-}
-setTimeout(() => { container.innerHTML = ''; }, 6000);
+function shuffleArray(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-// ============================================================
-// 6. NEXT BUTTON
-// ============================================================
-document.getElementById('nextBtn').addEventListener('click', function() {
-const target = this.dataset.target;
-if (target === 'unit6.html') {
-window.location.href = 'unit6.html';
-} else if (target === 'complete') {
-showCelebration();
-}
-});
+function renderChallenge(){
+  const wrap = document.getElementById('challenge-questions');
+  wrap.innerHTML = '';
 
-// ============================================================
-// 7. PREV BUTTON
-// ============================================================
-document.getElementById('prevBtn').addEventListener('click', function() {
-window.location.href = 'unit4.html';
-});
+  challengeQuestions.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'glass-card q-card reveal';
 
-// ============================================================
-// 8. RESET UNIT
-// ============================================================
-function resetUnit() {
-unitCompleted = false;
-localStorage.removeItem('unit5Completed');
-localStorage.removeItem('unit5QuizStatus');
-window.questionStatus = [];
-quizCorrectCount = 0;
-document.getElementById('celebrationOverlay').classList.remove('show');
+    if (q.type === 'mcq') {
+      card.innerHTML = '<div class="q-title">' + (idx + 1) + '. ' + q.text + '</div><div class="q-options"></div><div class="q-status"></div>';
+      const optsWrap = card.querySelector('.q-options');
+      q.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.className = 'q-opt';
+        btn.type = 'button';
+        btn.textContent = opt;
+        if (challengeAnswers[idx] !== null) {
+          btn.disabled = true;
+          if (opt === q.correct) btn.classList.add('correct');
+        }
+        btn.addEventListener('click', () => {
+          const isCorrect = opt === q.correct;
+          challengeAnswers[idx] = isCorrect;
+          [...optsWrap.children].forEach(b => b.disabled = true);
+          if (isCorrect) { btn.classList.add('correct'); }
+          else { btn.classList.add('wrong'); }
+          const status = card.querySelector('.q-status');
+          status.textContent = isCorrect ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+          status.className = 'q-status ' + (isCorrect ? 'correct-txt' : 'wrong-txt');
+          incrementDailyProgress();
+          saveChallengeState();
+        });
+        optsWrap.appendChild(btn);
+      });
+      if (challengeAnswers[idx] !== null) {
+        const status = card.querySelector('.q-status');
+        status.textContent = challengeAnswers[idx] ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+        status.className = 'q-status ' + (challengeAnswers[idx] ? 'correct-txt' : 'wrong-txt');
+      }
+    }
 
-document.querySelectorAll('.quiz-card').forEach(card => {
-const btns = card.querySelectorAll('.quiz-options button, .order-word');
-btns.forEach(b => {
-b.disabled = false;
-b.classList.remove('correct', 'wrong', 'used', 'correct-answer', 'wrong-answer');
-});
-const feedback = card.querySelector('.quiz-feedback');
-if (feedback) feedback.innerHTML = '';
-const resultBox = card.querySelector('.order-result-box');
-if (resultBox) resultBox.innerHTML = '';
-});
-document.getElementById('quizProgressFill').style.width = '0%';
-document.getElementById('quizProgressCount').textContent = '0/5';
-document.getElementById('streakNotification').classList.remove('show');
-updateProgress();
+    else if (q.type === 'order') {
+      card.innerHTML =
+        '<div class="q-title">' + (idx + 1) + '. Put the words in the correct order:</div>' +
+        '<div class="order-bank"></div>' +
+        '<div class="order-answer"></div>' +
+        '<div style="margin-top:10px;"><button class="btn outline order-check-btn" type="button">تحقق</button></div>' +
+        '<div class="q-status"></div>';
+      const bank = card.querySelector('.order-bank');
+      const answerRow = card.querySelector('.order-answer');
+      const shuffled = shuffleArray(q.words);
+      let answerState = [];
+
+      // نتعامل مع كل كلمة كعنصر له id فريد بدل الاعتماد على القيمة النصية فقط
+      // (لتجنب التعارض لو تكررت نفس الكلمة أكثر من مرة في الجملة)
+      const bankItems = shuffled.map((w, i) => ({ word: w, id: i, used: false }));
+
+      function draw(){
+        bank.innerHTML = '';
+        bankItems.filter(it => !it.used).forEach((it) => {
+          const b = document.createElement('button');
+          b.className = 'order-word';
+          b.type = 'button';
+          b.textContent = it.word;
+          b.addEventListener('click', () => {
+            if (challengeAnswers[idx] !== null) return;
+            it.used = true;
+            answerState.push(it);
+            draw();
+          });
+          bank.appendChild(b);
+        });
+        answerRow.innerHTML = '';
+        answerState.forEach((it) => {
+          const b = document.createElement('button');
+          b.className = 'order-word';
+          b.type = 'button';
+          b.textContent = it.word;
+          b.addEventListener('click', () => {
+            if (challengeAnswers[idx] !== null) return;
+            it.used = false;
+            answerState = answerState.filter(a => a.id !== it.id);
+            draw();
+          });
+          answerRow.appendChild(b);
+        });
+      }
+      draw();
+
+      card.querySelector('.order-check-btn').addEventListener('click', () => {
+        if (challengeAnswers[idx] !== null) return;
+        const userOrder = answerState.map(it => it.word);
+        const isCorrect = JSON.stringify(userOrder) === JSON.stringify(q.correct);
+        challengeAnswers[idx] = isCorrect;
+        const status = card.querySelector('.q-status');
+        status.textContent = isCorrect ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct.join(' '));
+        status.className = 'q-status ' + (isCorrect ? 'correct-txt' : 'wrong-txt');
+        incrementDailyProgress();
+        saveChallengeState();
+      });
+      if (challengeAnswers[idx] !== null) {
+        const status = card.querySelector('.q-status');
+        status.textContent = challengeAnswers[idx] ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct.join(' '));
+        status.className = 'q-status ' + (challengeAnswers[idx] ? 'correct-txt' : 'wrong-txt');
+      }
+    }
+
+    else if (q.type === 'listening') {
+      card.innerHTML =
+        '<div class="q-title">' + (idx + 1) + '. Listen and choose the correct translation:</div>' +
+        '<button class="btn outline listen-play-btn" type="button">🔊 تشغيل</button>' +
+        '<div class="listen-opts"></div>' +
+        '<div class="q-status"></div>';
+      card.querySelector('.listen-play-btn').addEventListener('click', () => speakText(q.audio, 'female'));
+      const optsWrap = card.querySelector('.listen-opts');
+      q.translations.forEach((tr) => {
+        const btn = document.createElement('button');
+        btn.className = 'listen-opt';
+        btn.type = 'button';
+        btn.textContent = tr;
+        if (challengeAnswers[idx] !== null) btn.disabled = true;
+        btn.addEventListener('click', () => {
+          const isCorrect = tr === q.correct;
+          challengeAnswers[idx] = isCorrect;
+          [...optsWrap.children].forEach(b => b.disabled = true);
+          const status = card.querySelector('.q-status');
+          status.textContent = isCorrect ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+          status.className = 'q-status ' + (isCorrect ? 'correct-txt' : 'wrong-txt');
+          incrementDailyProgress();
+          saveChallengeState();
+        });
+        optsWrap.appendChild(btn);
+      });
+      if (challengeAnswers[idx] !== null) {
+        const status = card.querySelector('.q-status');
+        status.textContent = challengeAnswers[idx] ? '✅ إجابة صحيحة' : ('❌ إجابة خاطئة، الصحيح: ' + q.correct);
+        status.className = 'q-status ' + (challengeAnswers[idx] ? 'correct-txt' : 'wrong-txt');
+      }
+    }
+
+    wrap.appendChild(card);
+    // نراقب كل بطاقة يدوياً (حتى لو أُنشئت لاحقاً عند إعادة التحدي)
+    // لضمان ظهورها بالأنيميشن الصحيح بدل أن تبقى مخفية (opacity: 0)
+    revealObserver.observe(card);
+  });
+
+  const score = challengeAnswers.filter(a => a === true).length;
+  document.getElementById('score-text').textContent = 'النتيجة: ' + score + ' / ' + challengeQuestions.length;
+}
+renderChallenge();
+
+/* إعادة تعيين التحدي بالكامل بدون إعادة تحميل الصفحة */
+function resetChallenge(){
+  // 1) إعادة تعيين مصفوفة الإجابات لكل الأسئلة إلى null
+  challengeAnswers = new Array(challengeQuestions.length).fill(null);
+
+  // 2) مسح الإجابات المخزّنة في localStorage
+  localStorage.setItem('unit5_challenge_answers', JSON.stringify(challengeAnswers));
+  localStorage.setItem('unit5_challenge_score', '0');
+
+  // 3) إعادة بناء الأسئلة من الصفر
+  renderChallenge();
+
+  // 4) تحديث عرض النتيجة (renderChallenge يحدّثها، هذا تأكيد إضافي)
+  document.getElementById('score-text').textContent = 'النتيجة: 0 / ' + challengeQuestions.length;
+
+  // 5) إخفاء زر "الوحدة التالية" لو كان ظاهراً
+  document.getElementById('next-unit-wrap').style.display = 'none';
+
+  // 6) بدون أي إعادة تحميل للصفحة (لا يوجد location.reload هنا)
+}
+document.getElementById('reset-challenge-btn').addEventListener('click', resetChallenge);
+
+/* =====================================================================
+   8) القسم 7: Speak Up! — SpeechRecognition
+   ===================================================================== */
+const speakTargetText = 'In my home, there is a living room and there are two bedrooms.';
+function normalizeForCompare(str){
+  return str.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
+}
+function similarityPercent(a, b){
+  const wordsA = normalizeForCompare(a).split(' ').filter(Boolean);
+  const wordsB = normalizeForCompare(b).split(' ').filter(Boolean);
+  if (wordsA.length === 0) return 0;
+  let matches = 0;
+  wordsB.forEach((w) => { if (wordsA.includes(w)) matches++; });
+  return Math.round((matches / wordsA.length) * 100);
 }
 
-document.getElementById('resetUnitBtn').addEventListener('click', function() {
-if (confirm('⚠️ هل أنت متأكد من إعادة دراسة الوحدة؟ سيتم مسح تقدمك الحالي.')) {
-resetUnit();
-}
-});
+document.getElementById('speak-btn').addEventListener('click', () => {
+  const resultEl = document.getElementById('speak-result');
+  const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognitionAPI) {
+    resultEl.textContent = 'المتصفح لا يدعم خاصية التعرف على الصوت.';
+    resultEl.className = 'fail';
+    return;
+  }
+  const recognition = new SpeechRecognitionAPI();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  resultEl.textContent = '🎙️ جارٍ الاستماع...';
+  resultEl.className = '';
 
-// ============================================================
-// 9. STARS ANIMATION
-// ============================================================
-function launchStars() {
-const container = document.getElementById('starsContainer');
-container.innerHTML = '';
-const emojis = ['⭐', '🌟', '✨'];
-for (let i = 0; i < 20; i++) {
-const star = document.createElement('span');
-star.className = 'star';
-star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-star.style.left = Math.random() * 100 + '%';
-star.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
-star.style.animationDelay = (Math.random() * 0.8) + 's';
-container.appendChild(star);
-}
-}
-
-// ============================================================
-// 10. SPEAK UP
-// ============================================================
-document.getElementById('speakBtn').addEventListener('click', function() {
-const result = document.getElementById('speakResult');
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.lang = 'en-US';
-recognition.interimResults = false;
-result.textContent = '🎤 استمع...';
-result.style.color = 'var(--gold)';
-recognition.onresult = function(event) {
-const transcript = event.results[0][0].transcript.toLowerCase();
-const keywords = ['bedroom', 'kitchen', 'bathroom', 'living room', 'garden', 'balcony', 'couch', 'window', 'house', 'home', 'room'];
-const hasKeyword = keywords.some(k => transcript.includes(k));
-if (hasKeyword) {
-result.textContent = '✅ أحسنت! إجابة ممتازة: "' + transcript + '"';
-result.style.color = 'var(--green)';
-speakText('Great job!', femaleVoice);
-} else {
-result.textContent = '❌ حاول مرة أخرى. صف منزلك. مثال: "There is a bedroom and a kitchen."';
-result.style.color = 'var(--red)';
-}
-};
-recognition.onerror = function() {
-result.textContent = '❌ لم نتمكن من السماع. حاول مرة أخرى.';
-result.style.color = 'var(--red)';
-};
-recognition.start();
-} else {
-result.textContent = '⚠️ متصفحك لا يدعم خاصية التعرف على الصوت.';
-result.style.color = 'var(--red)';
-}
-});
-
-// ============================================================
-// 11. HOMEWORK
-// ============================================================
-const homeworkText = document.getElementById('homeworkText');
-const saveStatus = document.getElementById('saveStatus');
-let savedHomework = localStorage.getItem('unit5Homework') || '';
-if (savedHomework) {
-homeworkText.value = savedHomework;
-saveStatus.textContent = '💾 تم حفظ الواجب';
-saveStatus.style.color = 'var(--green)';
-}
-document.getElementById('saveHomework').addEventListener('click', function() {
-const text = homeworkText.value.trim();
-if (text.length === 0) {
-saveStatus.textContent = '⚠️ الرجاء كتابة بعض الجمل';
-saveStatus.style.color = 'var(--red)';
-return;
-}
-const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-if (sentences.length < 3) {
-saveStatus.textContent = '⚠️ اكتب على الأقل 3 جمل كاملة';
-saveStatus.style.color = 'var(--red)';
-return;
-}
-const hasThere = /\b(there is|there are|there isn't|there aren't)\b/i.test(text);
-if (!hasThere) {
-saveStatus.textContent = '⚠️ استخدم There is, There are, There isn\'t, There aren\'t في جملك';
-saveStatus.style.color = 'var(--red)';
-return;
-}
-localStorage.setItem('unit5Homework', text);
-saveStatus.textContent = '💾 تم حفظ الواجب بنجاح! ✅';
-saveStatus.style.color = 'var(--green)';
-speakText('Homework saved successfully!', femaleVoice);
-});
-
-// ============================================================
-// 12. AUDIO BUTTONS
-// ============================================================
-document.querySelectorAll('.audio-btn, .audio-btn-small').forEach(btn => {
-btn.addEventListener('click', function(e) {
-e.stopPropagation();
-const text = this.dataset.text || this.dataset.word || '';
-if (!text) return;
-const voiceType = this.dataset.voice || 'male';
-let voice = voiceType === 'male' ? maleVoice : femaleVoice;
-if (!voice) {
-const voices = window.speechSynthesis.getVoices();
-if (voiceType === 'male') {
-voice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Google US English') || v.name.includes('David'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-} else {
-voice = voices.find(v => v.lang.startsWith('en-US') && (v.name.includes('Samantha') || v.name.includes('Google UK') || v.name.includes('Victoria'))) || voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-}
-}
-speakText(text, voice);
-});
-});
-
-// ============================================================
-// 13. TRANSLATION BUTTONS
-// ============================================================
-document.querySelectorAll('.translation-btn').forEach(btn => {
-btn.addEventListener('click', function() {
-const arDiv = this.parentElement.querySelector('.ar');
-if (arDiv) {
-arDiv.classList.toggle('show');
-this.textContent = arDiv.classList.contains('show') ? '🇪🇬 Hide Translation' : '🇪🇬 Show Translation';
-}
-});
+  recognition.addEventListener('result', (event) => {
+    const spoken = event.results[0][0].transcript;
+    const percent = similarityPercent(speakTargetText, spoken);
+    if (percent >= 60) {
+      resultEl.textContent = '✅ ممتاز! تطابق ' + percent + '%';
+      resultEl.className = 'ok';
+      incrementDailyProgress();
+    } else {
+      resultEl.textContent = '❌ حاول مرة أخرى (تطابق ' + percent + '%)';
+      resultEl.className = 'fail';
+    }
+  });
+  recognition.addEventListener('error', () => {
+    resultEl.textContent = 'حدث خطأ أثناء التسجيل، حاول مرة أخرى.';
+    resultEl.className = 'fail';
+  });
+  recognition.start();
 });
 
-// ============================================================
-// 14. FLIP CARDS
-// ============================================================
-document.querySelectorAll('.flip-card').forEach(card => {
-card.addEventListener('click', function() {
-this.classList.toggle('flipped');
-});
+/* =====================================================================
+   9) القسم 10: Homework
+   ===================================================================== */
+const hwTextarea = document.getElementById('homework-text');
+const savedHomework = localStorage.getItem('unit5_homework');
+if (savedHomework) hwTextarea.value = savedHomework;
+
+document.getElementById('hw-save-btn').addEventListener('click', () => {
+  localStorage.setItem('unit5_homework', hwTextarea.value);
+  const status = document.getElementById('hw-status');
+  status.textContent = '✅ تم حفظ الواجب بنجاح.';
+  incrementDailyProgress();
 });
 
-// ============================================================
-// 15. DISCOVERY TABS
-// ============================================================
-document.querySelectorAll('.discovery-tab').forEach(tab => {
-tab.addEventListener('click', function() {
-document.querySelectorAll('.discovery-tab').forEach(t => t.classList.remove('active'));
-this.classList.add('active');
-document.querySelectorAll('.discovery-content').forEach(c => c.classList.remove('active'));
-document.getElementById(this.dataset.tab).classList.add('active');
-});
+// قواعد تصحيح إملائية ونحوية بسيطة (بدون مكتبات خارجية)
+// ملاحظة: هذه الوحدة تركز على There is / There are، لذلك أضفنا
+// قواعد لتصحيح الخلط الشائع بين is و are مع There، وبين there و their
+const correctionRules = [
+  { pattern: /\bthere is a two\b/gi, replacement: 'there are two', label: 'there is a two → there are two' },
+  { pattern: /\bthere's two\b/gi, replacement: "there're two", label: "there's two → there're two" },
+  { pattern: /\btheir is\b/gi, replacement: 'there is', label: 'their is → there is' },
+  { pattern: /\btheir are\b/gi, replacement: 'there are', label: 'their are → there are' },
+  { pattern: /\bthere isnt\b/gi, replacement: "there isn't", label: "there isnt → there isn't" },
+  { pattern: /\bthere arent\b/gi, replacement: "there aren't", label: "there arent → there aren't" },
+  { pattern: /\bdont\b/gi, replacement: "don't", label: "dont → don't" },
+  { pattern: /\bim\b/gi, replacement: "I'm", label: "im → I'm" },
+  { pattern: /\bi\b/g, replacement: 'I', label: 'i → I (تكبير الحرف)' },
+];
+
+document.getElementById('hw-check-btn').addEventListener('click', () => {
+  let text = hwTextarea.value;
+  const appliedFixes = [];
+  correctionRules.forEach((rule) => {
+    if (rule.pattern.test(text)) {
+      text = text.replace(rule.pattern, rule.replacement);
+      appliedFixes.push(rule.label);
+    }
+    rule.pattern.lastIndex = 0;
+  });
+  hwTextarea.value = text;
+  const box = document.getElementById('hw-corrections');
+  if (appliedFixes.length > 0) {
+    box.style.display = 'block';
+    box.innerHTML = '<strong>تم تصحيح الأخطاء التالية:</strong><ul>' +
+      appliedFixes.map(f => '<li>' + f + '</li>').join('') + '</ul>';
+  } else {
+    box.style.display = 'block';
+    box.innerHTML = '<strong>لم يتم العثور على أخطاء شائعة 👍</strong>';
+  }
 });
 
-// ============================================================
-// 16. POWER RECAP
-// ============================================================
-document.querySelectorAll('.mindmap .branch').forEach(branch => {
-branch.addEventListener('click', function() {
-document.getElementById('branchExample').textContent = '📌 ' + this.dataset.example;
-});
-});
-document.getElementById('mindCenter').addEventListener('click', function() {
-document.getElementById('branchExample').textContent = '👆 اضغط على أي فرع لترى مثالاً';
-});
-
-// ============================================================
-// 17. VIDEO
-// ============================================================
-document.getElementById('videoBtn').addEventListener('click', function() {
-window.open('https://youtube.com/@omar.youssif.english', '_blank');
-});
-
-// ============================================================
-// 18. INIT
-// ============================================================
-const savedQuiz = JSON.parse(localStorage.getItem('unit5QuizStatus') || '[]');
-if (savedQuiz.length > 0) {
-window.questionStatus = savedQuiz;
-quizCorrectCount = savedQuiz.filter(q => q === true).length;
-updateQuizProgress();
+/* =====================================================================
+   10) فتح الوحدة التالية + الاحتفال + الكونفيتي
+   ===================================================================== */
+function unlockNextUnit(){
+  const current = getMaxUnitUnlocked();
+  if (current < CURRENT_UNIT + 1) {
+    localStorage.setItem('maxUnitUnlocked', String(CURRENT_UNIT + 1));
+    renderUnitTabs();
+  }
+  document.getElementById('next-unit-wrap').style.display = 'block';
 }
 
-unitCompleted = localStorage.getItem('unit5Completed') === 'true';
-if (unitCompleted) {
-updateProgress();
+function launchConfetti(){
+  const colors = ['#FFD700', '#ffffff', '#f1c40f', '#fff2a8', '#e0b400'];
+  for (let i = 0; i < 70; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 1.8) + 's';
+    piece.style.opacity = String(0.7 + Math.random() * 0.3);
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 4000);
+  }
 }
-updateProgress();
 
-setInterval(() => {
-if (window.questionStatus) {
-localStorage.setItem('unit5QuizStatus', JSON.stringify(window.questionStatus));
+let celebrationShown = false;
+function showCelebration(){
+  if (celebrationShown) return;
+  celebrationShown = true;
+  document.getElementById('celebration-modal').classList.add('show');
+  launchConfetti();
 }
-}, 1000);
+document.getElementById('modal-close-btn').addEventListener('click', () => {
+  document.getElementById('celebration-modal').classList.remove('show');
+});
 
-console.log('✅ Babble Box Unit 5 loaded successfully!');
-console.log('📊 Quiz status:', window.questionStatus || 'Not started');
-console.log('📈 Unit completed:', unitCompleted);
+/* =====================================================================
+   11) استعادة الحالة الكاملة عند تحميل الصفحة
+   ===================================================================== */
+(function restoreState(){
+  const score = parseInt(localStorage.getItem('unit5_challenge_score') || '0', 10);
+  if (score === challengeQuestions.length) {
+    document.getElementById('next-unit-wrap').style.display = 'block';
+    if (getMaxUnitUnlocked() < CURRENT_UNIT + 1) {
+      localStorage.setItem('maxUnitUnlocked', String(CURRENT_UNIT + 1));
+      renderUnitTabs();
+    }
+  }
+})();
+
+/* =====================================================================
+   12) تفعيل أنيميشن الظهور لكل العناصر الموجودة عند تحميل الصفحة
+   (تعريف revealObserver نفسه موجود في القسم 0.5 أعلى الملف)
+   ===================================================================== */
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
