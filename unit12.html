@@ -1249,9 +1249,7 @@ function renderTest(){
     }
 
     wrap.appendChild(card);
-    // نراقب البطاقة ولكن نضيف in-view فوراً لأن العنصر في DOM ومرئي
     card.classList.add('in-view');
-    // ومع ذلك نراقبه لضمان ظهوره إذا تمت إعادة التحدي
     revealObserver.observe(card);
   });
 
@@ -1280,21 +1278,34 @@ function renderTest(){
 }
 renderTest();
 
-/* إعادة تعيين الاختبار */
+/* =====================================================================
+   9) إعادة تعيين الاختبار (تم إصلاحه)
+   ===================================================================== */
 function resetTest(){
+  // إعادة تعيين الإجابات إلى null
   testAnswers = new Array(testQuestions.length).fill(null);
+  // حفظ في localStorage
   localStorage.setItem('unit12_challenge_answers', JSON.stringify(testAnswers));
   localStorage.setItem('unit12_challenge_score', '0');
+  // إعادة تعيين متغيرات الاحتفال
   celebrationShown = false;
+  celebrationActive = false;
+  // إعادة عرض الأسئلة
   renderTest();
+  // تحديث شريط التقدم
   document.getElementById('score-text').textContent = 'النتيجة: 0 / ' + testQuestions.length;
-  document.getElementById('next-unit-wrap').style.display = 'none';
+  // إخفاء قسم الشهادة
   document.getElementById('cert-section').style.display = 'none';
+  // إخفاء زر الوحدة التالية
+  document.getElementById('next-unit-wrap').style.display = 'none';
+  // إخفاء نافذة الاحتفال إذا كانت مفتوحة
+  document.getElementById('celebration-modal').classList.remove('show');
+  // إزالة أي كونفيتي متبقي
+  document.querySelectorAll('.confetti-piece').forEach(el => el.remove());
 }
-document.getElementById('reset-test-btn').addEventListener('click', resetTest);
 
 /* =====================================================================
-   9) الاحتفال — تظهر فقط بعد إنهاء جميع الأسئلة بدرجة 20/25+
+   10) الاحتفال — تظهر فقط بعد إنهاء جميع الأسئلة بدرجة 20/25+
    ===================================================================== */
 let celebrationShown = false;
 let celebrationActive = false;
@@ -1348,7 +1359,7 @@ document.getElementById('celebration-modal').addEventListener('click', (e) => {
 });
 
 /* =====================================================================
-   10) شهادة الإتمام (Certificate)
+   11) شهادة الإتمام (Certificate)
    ===================================================================== */
 let certStudentName = '';
 
@@ -1363,7 +1374,8 @@ function updateCertNameFromInput(){
   }
 }
 
-document.getElementById('cert-btn').addEventListener('click', () => {
+// دالة عرض الشهادة
+function showCertModal(){
   // تحديث الاسم من حقل الإدخال قبل عرض الشهادة
   updateCertNameFromInput();
 
@@ -1381,7 +1393,7 @@ document.getElementById('cert-btn').addEventListener('click', () => {
   } else {
     document.getElementById('cert-perfect-star').style.display = 'none';
   }
-});
+}
 
 document.getElementById('cert-close-btn').addEventListener('click', () => {
   document.getElementById('cert-modal').classList.remove('show');
@@ -1431,7 +1443,21 @@ document.getElementById('cert-modal').addEventListener('click', (e) => {
 })();
 
 /* =====================================================================
-   11) استعادة الحالة
+   12) تفويض الأحداث (Event Delegation) — حل المشكلتين
+   ===================================================================== */
+document.addEventListener('click', function(event) {
+  // زر إعادة الاختبار
+  if (event.target.id === 'reset-test-btn') {
+    resetTest();
+  }
+  // زر الشهادة
+  if (event.target.id === 'cert-btn') {
+    showCertModal();
+  }
+});
+
+/* =====================================================================
+   13) استعادة الحالة
    ===================================================================== */
 (function restoreState(){
   const score = parseInt(localStorage.getItem('unit12_challenge_score') || '0', 10);
@@ -1452,10 +1478,9 @@ document.getElementById('cert-modal').addEventListener('click', (e) => {
 })();
 
 /* =====================================================================
-   12) إصلاح نهائي: إظهار جميع العناصر التي تحمل class "reveal" فوراً
+   14) إصلاح نهائي: إظهار جميع العناصر التي تحمل class "reveal" فوراً
    ===================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
-  // نضيف class in-view لكل عنصر reveal غير مرئي
   document.querySelectorAll('.reveal:not(.in-view)').forEach(function(el) {
     el.classList.add('in-view');
   });
@@ -1463,19 +1488,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* =====================================================================
-   13) مراقبة العناصر الجديدة التي تضاف ديناميكياً
-   (سيتم إضافتها عبر renderTest في حالة إعادة التحدي)
+   15) مراقبة العناصر الجديدة
    ===================================================================== */
-// نراقب العناصر الجديدة التي تحمل class "reveal" والتي لم ترصد بعد
 const dynamicObserver = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
     mutation.addedNodes.forEach(function(node) {
       if (node.nodeType === 1) {
-        // إذا كان العنصر نفسه يحمل class reveal
         if (node.classList && node.classList.contains('reveal')) {
           node.classList.add('in-view');
         }
-        // أو إذا كان يحتوي على عناصر داخلية تحمل class reveal
         node.querySelectorAll && node.querySelectorAll('.reveal:not(.in-view)').forEach(function(el) {
           el.classList.add('in-view');
         });
