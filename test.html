@@ -2,7 +2,7 @@
 <!--
   =====================================================================
   Babble Box Academy — اختبار تحديد المستوى (Placement Test)
-  مبني على معايير CEFR (A1 إلى C2)
+  مبني على معايير CEFR (A1 إلى C2) — 45 سؤالاً + مهمة كتابة
   ملف واحد كامل (HTML + CSS + JS) بدون أي مكتبات خارجية.
   يدعم العربية والإنجليزية والوضع الداكن والفاتح.
   =====================================================================
@@ -55,6 +55,7 @@
   button{ font-family:inherit; cursor:pointer; }
   ul{ list-style:none; }
 
+  /* ===== قواعد الاتجاه الصارمة ===== */
   .en-text{ direction: ltr; text-align: left; unicode-bidi: isolate; }
   .ar-text{ direction: rtl; text-align: right; unicode-bidi: isolate; }
 
@@ -65,10 +66,11 @@
     border-radius: var(--radius);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    padding: 24px;
+    padding: 20px 22px;
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    margin-bottom: 16px;
   }
-  .glass-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-gold); border-color: var(--gold-soft); }
+  .glass-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-gold); border-color: var(--gold-soft); }
 
   .btn{
     display:inline-flex; align-items:center; gap:8px;
@@ -80,11 +82,15 @@
     font-size:15px;
     border:none;
     transition: all var(--transition);
+    font-family: inherit;
   }
   .btn:hover{ transform: translateY(-3px); box-shadow: var(--shadow-gold); }
   .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
   .btn.outline{ background: transparent; border:1.5px solid var(--glass-border); color: var(--text); }
   .btn.outline:hover{ border-color: var(--gold); color: var(--gold); }
+  .btn.gold{ background: var(--gold); color:#111; }
+  .btn.gold:hover{ background: #ffe44d; }
+  .btn-sm{ padding: 8px 18px; font-size:13px; }
 
   /* ===== الهيدر ===== */
   header{
@@ -100,15 +106,15 @@
     display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; max-width:1200px; margin:0 auto;
   }
   .logo-link img{ height:34px; width:auto; }
-  .header-actions{ display:flex; align-items:center; gap:8px; }
-  .lang-toggle, .theme-toggle{
+  .header-actions{ display:flex; align-items:center; gap:6px; }
+  .lang-toggle, .theme-toggle, .home-btn{
     padding:6px 12px; border-radius:999px; border:1px solid var(--glass-border);
     background: var(--glass-bg); color: var(--text); font-weight:700; font-size:12px;
     transition: all var(--transition);
   }
-  .lang-toggle:hover, .theme-toggle:hover{ border-color: var(--gold); color: var(--gold); }
+  .lang-toggle:hover, .theme-toggle:hover, .home-btn:hover{ border-color: var(--gold); color: var(--gold); }
 
-  /* ===== الصفحة الرئيسية (مرحب) ===== */
+  /* ===== صفحة الترحيب ===== */
   #welcome-screen{
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     min-height: calc(100vh - var(--header-height) - 80px);
@@ -118,60 +124,112 @@
   #welcome-screen h1{ font-size: clamp(30px, 5vw, 48px); font-weight:900; color: var(--gold); margin-bottom:12px; }
   #welcome-screen .desc{ font-size:17px; color: var(--text-muted); max-width:600px; margin:0 auto 30px; line-height:1.8; }
 
-  /* ===== شريط التقدم ===== */
-  #progress-bar-wrap{
-    display:none; align-items:center; gap:14px; padding:14px 18px;
-    border-bottom:1px solid var(--glass-border); background: var(--glass-bg);
+  /* ===== الاختبار ===== */
+  #test-screen{ display:none; padding: 20px 0 60px; }
+  .part-title{
+    font-size:24px; font-weight:800; color: var(--gold); margin:30px 0 16px;
+    padding-bottom:8px; border-bottom:2px solid var(--gold-soft);
   }
-  #progress-bar-wrap .prog-text{ font-weight:700; font-size:14px; color: var(--text-muted); white-space:nowrap; }
-  #progress-bar-wrap .track{ flex:1; height:6px; border-radius:999px; background: rgba(255,255,255,.1); overflow:hidden; }
-  #progress-bar-wrap .track .fill{ height:100%; width:0%; background: var(--gold); transition: width .4s ease; }
-
-  /* ===== واجهة الأسئلة ===== */
-  #question-screen{ display:none; padding: 30px 16px 60px; }
-  .section-label{ font-size:13px; font-weight:700; color: var(--gold); margin-bottom:4px; }
-  .q-text{ font-size:18px; font-weight:700; margin-bottom:16px; line-height:1.6; }
-  .q-options{ display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+  .part-title .sub{ font-size:15px; font-weight:400; color: var(--text-muted); }
+  .q-number{ font-size:14px; font-weight:700; color: var(--gold); margin-bottom:4px; }
+  .q-text{ font-size:17px; font-weight:600; margin-bottom:12px; line-height:1.6; }
+  .q-options{ display:flex; flex-direction:column; gap:8px; }
   .q-opt{
-    padding:14px 18px; border-radius:12px; border:1px solid var(--glass-border);
-    background: var(--glass-bg); color: var(--text); font-size:16px; text-align:right; direction:rtl;
-    transition: all var(--transition); cursor:pointer;
+    padding:12px 16px; border-radius:10px; border:1px solid var(--glass-border);
+    background: var(--glass-bg); color: var(--text); font-size:15px;
+    transition: all var(--transition); cursor:pointer; text-align:right; direction:rtl;
+    font-family: inherit;
   }
-  .q-opt:hover{ border-color: var(--gold); background: var(--gold-soft); }
+  .q-opt:hover:not(.disabled){ border-color: var(--gold); background: var(--gold-soft); }
   .q-opt.selected{ border-color: var(--gold); background: var(--gold-soft); }
   .q-opt.correct{ border-color: var(--green); background: rgba(46,204,113,.2); }
   .q-opt.wrong{ border-color: var(--red); background: rgba(231,76,60,.2); }
-  .q-opt:disabled{ cursor:default; opacity:.7; }
-  .q-nav{ display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; align-items:center; margin-top:10px; }
-  .q-nav .btn{ font-size:14px; padding:10px 22px; }
-  .skip-btn{ background:transparent; border:1px solid var(--glass-border); color:var(--text-muted); padding:8px 18px; border-radius:999px; font-weight:600; transition:all var(--transition); }
-  .skip-btn:hover{ border-color: var(--gold); color: var(--gold); }
+  .q-opt.disabled{ cursor:default; opacity:.7; }
 
   /* ===== الاستماع ===== */
-  .audio-play-btn{ background: var(--gold-soft); border:none; color:var(--gold); font-size:26px; padding:8px 20px; border-radius:999px; transition:all var(--transition); }
+  .audio-play-btn{ background: var(--gold-soft); border:none; color:var(--gold); font-size:22px; padding:6px 16px; border-radius:999px; transition:all var(--transition); }
   .audio-play-btn:hover{ background: var(--gold); color:#111; }
 
   /* ===== الكتابة ===== */
-  #writing-area{ width:100%; min-height:150px; padding:14px; border-radius:12px; border:1px solid var(--glass-border); background: var(--glass-bg); color:var(--text); font-size:16px; resize:vertical; font-family:inherit; }
+  #writing-area{ width:100%; min-height:140px; padding:14px; border-radius:12px; border:1px solid var(--glass-border); background: var(--glass-bg); color:var(--text); font-size:16px; resize:vertical; font-family:inherit; }
   #writing-area:focus{ border-color:var(--gold); outline:none; }
-  .word-count{ font-size:13px; color: var(--text-muted); margin-top:6px; }
+  .word-count{ font-size:13px; color: var(--text-muted); margin-top:4px; }
+
+  /* ===== التصحيح العلمي ===== */
+  .feedback{
+    margin-top:10px; padding:10px 14px; border-radius:10px; font-size:14px;
+    border-right:4px solid var(--gold);
+  }
+  .feedback.correct{ border-color: var(--green); background: rgba(46,204,113,.1); }
+  .feedback.wrong{ border-color: var(--red); background: rgba(231,76,60,.1); }
+  .feedback .fb-label{ font-weight:700; }
+  .feedback .fb-reason{ color: var(--text-muted); margin-top:4px; font-size:13px; }
+
+  /* ===== زر إنهاء الاختبار ===== */
+  #submit-wrap{ text-align:center; margin:30px 0 20px; }
+  #submit-wrap .btn{ font-size:20px; padding:16px 44px; }
 
   /* ===== النتائج ===== */
-  #results-screen{ display:none; padding: 30px 16px 60px; }
-  .result-level{ font-size:40px; font-weight:900; color:var(--gold); text-align:center; margin-bottom:6px; }
-  .result-sub{ font-size:20px; text-align:center; color:var(--text-muted); margin-bottom:20px; }
-  .result-desc{ background:var(--glass-bg); border-radius:var(--radius); padding:20px; margin-bottom:20px; line-height:1.8; }
-  .result-actions{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
-  .result-score{ font-size:18px; font-weight:700; text-align:center; color:var(--gold); margin-bottom:14px; }
+  #results-screen{
+    display:none; padding:30px 0 40px;
+    border-bottom:2px solid var(--gold-soft); margin-bottom:30px;
+  }
+  .result-level{ font-size:40px; font-weight:900; color:var(--gold); text-align:center; margin-bottom:4px; }
+  .result-sub{ font-size:20px; text-align:center; color:var(--text-muted); margin-bottom:16px; }
+  .result-score{ font-size:20px; font-weight:700; text-align:center; color:var(--gold); margin-bottom:12px; }
+  .result-desc{ background:var(--glass-bg); border-radius:var(--radius); padding:18px; margin-bottom:18px; line-height:1.8; }
+  .result-actions{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+
+  /* ===== شهادة ===== */
+  #cert-modal{
+    position:fixed; inset:0; z-index:9999; display:none;
+    align-items:center; justify-content:center;
+    background: rgba(0,0,0,.85); backdrop-filter: blur(8px);
+    padding:20px;
+  }
+  #cert-modal.show{ display:flex; }
+  .cert-box{
+    background: var(--bg-soft); border:3px solid var(--gold);
+    border-radius:24px; padding:32px 28px; max-width:650px; width:100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 60px rgba(255,215,0,.1);
+  }
+  .cert-box .cert-border{ border:2px solid var(--gold); border-radius:16px; padding:28px 24px; }
+  .cert-box .cert-logo{ text-align:center; margin-bottom:14px; }
+  .cert-box .cert-logo img{ height:44px; margin:0 auto; }
+  .cert-box .cert-title{ font-size:24px; font-weight:900; text-align:center; color:var(--gold); }
+  .cert-box .cert-sub{ text-align:center; font-size:13px; color:var(--text-muted); border-bottom:1px solid var(--glass-border); padding-bottom:12px; margin-bottom:12px; }
+  .cert-box .cert-student{ text-align:center; font-size:22px; font-weight:800; color:var(--text); padding:6px 0; margin:6px 0; border-bottom:2px dashed var(--gold-soft); }
+  .cert-box .cert-body{ text-align:center; font-size:15px; color:var(--text-muted); line-height:1.8; padding:10px 0; }
+  .cert-box .cert-body .highlight{ color:var(--gold); font-weight:700; }
+  .cert-box .cert-footer{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:12px; padding-top:12px; border-top:1px solid var(--glass-border); font-size:12px; color:var(--text-muted); flex-wrap:wrap; gap:8px; }
+  .cert-box .cert-footer .sign{ text-align:right; direction:rtl; }
+  .cert-box .cert-footer .sign .name{ color:var(--gold); font-weight:700; font-size:14px; }
+  .cert-box .cert-footer .date{ text-align:left; direction:ltr; }
+  .cert-box .cert-disclaimer{ font-size:10px; color:var(--text-muted); text-align:center; margin-top:10px; padding-top:8px; border-top:1px dashed var(--glass-border); opacity:.6; }
+  .cert-actions{ display:flex; gap:10px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+  .cert-name-input{ width:100%; max-width:320px; padding:10px 16px; border-radius:12px; border:2px solid var(--gold); background:var(--glass-bg); color:var(--text); font-size:16px; text-align:center; font-family:inherit; }
+  .cert-name-input:focus{ outline:none; box-shadow:0 0 30px rgba(255,215,0,.15); }
 
   /* ===== footer ===== */
-  footer{ border-top:1px solid var(--glass-border); padding:24px 0; text-align:center; color:var(--text-muted); font-size:13px; }
+  footer{ border-top:1px solid var(--glass-border); padding:20px 0; text-align:center; color:var(--text-muted); font-size:13px; }
 
   /* ===== استجابة ===== */
   @media (max-width:640px){
-    .q-nav{ flex-direction:column; align-items:stretch; }
-    .q-nav .btn{ justify-content:center; }
-    #welcome-screen h1{ font-size:28px; }
+    .header-inner{ flex-wrap:wrap; gap:6px; }
+    .part-title{ font-size:20px; }
+    .result-level{ font-size:30px; }
+    .btn{ font-size:14px; padding:10px 20px; }
+    .cert-box{ padding:20px 14px; }
+    .cert-box .cert-border{ padding:18px 12px; }
+  }
+  @media print {
+    body * { visibility: hidden; }
+    #cert-modal, #cert-modal * { visibility: visible; }
+    #cert-modal { position: fixed; inset:0; display:flex !important; background: white; padding:20px; }
+    .cert-box { border:3px solid #d4a800 !important; box-shadow:none !important; background:white; }
+    .cert-box .cert-border { border:2px solid #d4a800 !important; }
+    .cert-actions, .cert-name-input, .cert-disclaimer { display: none !important; }
+    .no-print { display: none !important; }
   }
   .hidden{ display:none !important; }
 </style>
@@ -183,52 +241,44 @@
   <div class="header-inner">
     <a href="#" class="logo-link"><img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box Academy" /></a>
     <div class="header-actions">
+      <a href="index.html" class="home-btn">🏠</a>
       <button class="lang-toggle" id="lang-toggle" type="button">AR | EN</button>
       <button class="theme-toggle" id="theme-toggle" type="button">🌓</button>
     </div>
   </div>
 </header>
 
-<!-- ===== شريط التقدم ===== -->
-<div id="progress-bar-wrap">
-  <span class="prog-text" id="prog-text">السؤال 1 من 45</span>
-  <div class="track"><div class="fill" id="prog-fill"></div></div>
-</div>
-
 <!-- ===== صفحة الترحيب ===== -->
 <section id="welcome-screen">
   <div class="logo-big"><img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box" style="width:100%;" /></div>
   <h1>🎯 اختبار تحديد المستوى</h1>
-  <p class="desc">اختبار دقيق مبني على معايير CEFR. سيساعدك على معرفة مستواك الحقيقي في اللغة الإنجليزية.<br />المدة: 20 دقيقة.</p>
+  <p class="desc">اختبار دقيق مبني على معايير CEFR. 45 سؤالاً تغطي جميع المستويات من A1 إلى C2.<br />المدة: 20-25 دقيقة.</p>
   <button class="btn" id="start-test-btn">ابدأ الاختبار</button>
 </section>
 
-<!-- ===== واجهة الأسئلة ===== -->
-<section id="question-screen">
+<!-- ===== الاختبار ===== -->
+<section id="test-screen">
   <div class="container">
-    <div class="section-label" id="section-label">القواعد والمفردات</div>
-    <div class="q-text" id="q-text">Loading...</div>
-    <div class="q-options" id="q-options"></div>
-    <div class="q-nav">
-      <div>
-        <button class="btn outline" id="prev-btn" disabled>السابق</button>
-        <button class="btn" id="next-btn">التالي</button>
-      </div>
-      <button class="skip-btn" id="skip-btn">⏭ تخطي</button>
-    </div>
-  </div>
-</section>
 
-<!-- ===== صفحة النتائج ===== -->
-<section id="results-screen">
-  <div class="container">
-    <div class="result-level" id="result-level">🎉 مستواك هو A1</div>
-    <div class="result-sub" id="result-sub">Beginner</div>
-    <div class="result-score" id="result-score">النتيجة: 0 / 50</div>
-    <div class="result-desc" id="result-desc"></div>
-    <div class="result-actions">
-      <a href="index.html" class="btn outline">🏠 الصفحة الرئيسية</a>
-      <a href="#" class="btn" id="level-link">🚀 الذهاب للمستوى A1</a>
+    <!-- ===== النتائج (تظهر بعد الإنهاء) ===== -->
+    <div id="results-screen">
+      <div class="result-level" id="result-level">🎉 مستواك هو A1</div>
+      <div class="result-sub" id="result-sub">Beginner</div>
+      <div class="result-score" id="result-score">النتيجة: 0 / 50</div>
+      <div class="result-desc" id="result-desc"></div>
+      <div class="result-actions">
+        <a href="index.html" class="btn outline">🏠 العودة للصفحة الرئيسية</a>
+        <a href="index.html#levels" class="btn" id="level-link">🚀 الذهاب للمستوى A1</a>
+        <button class="btn gold" id="cert-btn">📜 شهادة تحديد المستوى</button>
+      </div>
+    </div>
+
+    <!-- ===== الأسئلة ===== -->
+    <div id="questions-container"></div>
+
+    <!-- ===== زر إنهاء الاختبار ===== -->
+    <div id="submit-wrap">
+      <button class="btn gold" id="submit-test-btn">🎯 إنهاء الاختبار وعرض النتيجة</button>
     </div>
   </div>
 </section>
@@ -236,200 +286,254 @@
 <!-- ===== الفوتر ===== -->
 <footer><p>© 2026 Babble Box Academy — اختبار تحديد المستوى CEFR</p></footer>
 
+<!-- ===== شهادة ===== -->
+<div id="cert-modal">
+  <div class="cert-box">
+    <div class="cert-border">
+      <div class="cert-logo"><img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box" /></div>
+      <div class="cert-title">📜 Certificate of Level</div>
+      <div class="cert-sub">Babble Box Academy — CEFR Placement Test</div>
+      <div style="text-align:center; margin:8px 0;">
+        <input class="cert-name-input" id="cert-name-input" placeholder="✍️ أدخل اسمك الكامل" dir="ltr" />
+      </div>
+      <div class="cert-student" id="cert-student-name">___________</div>
+      <div class="cert-body">
+        has been assessed at the <span class="highlight" id="cert-level-display">A1</span> level<br />
+        according to the <span class="highlight">Common European Framework of Reference (CEFR)</span>.
+      </div>
+      <div class="cert-footer">
+        <div class="sign"><div>🥇 Omar Youssif</div><div style="font-size:10px; opacity:.7;">Founder, Babble Box Academy</div></div>
+        <div class="date" id="cert-date">Date: ___________</div>
+      </div>
+      <div class="cert-disclaimer">⚠️ هذه الشهادة صادرة عن منصة Babble Box Academy وهي شهادة تشجيعية غير معتمدة رسمياً.</div>
+      <div class="cert-actions no-print">
+        <button class="btn" id="cert-print-btn">🖨️ طباعة / حفظ PDF</button>
+        <button class="btn outline" id="cert-close-btn">✖️ إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* =====================================================================
-   بيانات الأسئلة — 30 سؤال قواعد ومفردات + 10 قراءة + 5 استماع
+   بيانات الأسئلة — 45 سؤالاً + مهمة كتابة
    ===================================================================== */
-const grammarQuestions = [
+
+// ===== Part 1: Grammar & Vocabulary (30) =====
+const grammarData = [
   // A1 (5)
-  { level:'A1', section:'Grammar & Vocabulary', q:'I ___ a student.', options:['am','is','are'], correct:0 },
-  { level:'A1', section:'Grammar & Vocabulary', q:'This is ___ book. (I)', options:['my','your','his','her'], correct:0 },
-  { level:'A1', section:'Grammar & Vocabulary', q:'___ you like coffee?', options:['Do','Does','Are'], correct:0 },
-  { level:'A1', section:'Grammar & Vocabulary', q:'There ___ a bed in the room.', options:['is','are','am'], correct:0 },
-  { level:'A1', section:'Grammar & Vocabulary', q:'They ___ to school every day.', options:['go','goes','going'], correct:0 },
+  { level:'A1', section:'Grammar & Vocabulary', q:'I ___ a student.', options:['am','is','are'], correct:0, explanation:'نستخدم "am" مع I في زمن المضارع البسيط.' },
+  { level:'A1', section:'Grammar & Vocabulary', q:'This is ___ book. (I)', options:['my','your','his','her'], correct:0, explanation:'"my" تعني "بتاعي" — للمتكلم.' },
+  { level:'A1', section:'Grammar & Vocabulary', q:'___ you like coffee?', options:['Do','Does','Are'], correct:0, explanation:'نستخدم "Do" مع I, You, We, They في السؤال.' },
+  { level:'A1', section:'Grammar & Vocabulary', q:'There ___ a bed in the room.', options:['is','are','am'], correct:0, explanation:'نستخدم "There is" مع المفرد.' },
+  { level:'A1', section:'Grammar & Vocabulary', q:'They ___ to school every day.', options:['go','goes','going'], correct:0, explanation:'نستخدم "go" مع They في المضارع البسيط.' },
   // A2 (5)
-  { level:'A2', section:'Grammar & Vocabulary', q:'I ___ to the cinema yesterday.', options:['go','went','have gone'], correct:1 },
-  { level:'A2', section:'Grammar & Vocabulary', q:'My sister is ___ than me.', options:['tall','taller','tallest'], correct:1 },
-  { level:'A2', section:'Grammar & Vocabulary', q:'I ___ visit my grandmother next week.', options:['am going to','will','go to'], correct:0 },
-  { level:'A2', section:'Grammar & Vocabulary', q:'I always ___ breakfast at 7 AM.', options:['eat','ate','have eaten'], correct:0 },
-  { level:'A2', section:'Grammar & Vocabulary', q:'The meeting is ___ 3 o\'clock.', options:['at','on','in'], correct:0 },
+  { level:'A2', section:'Grammar & Vocabulary', q:'I ___ to the cinema yesterday.', options:['go','went','have gone'], correct:1, explanation:'"yesterday" = الماضي البسيط، "went" هو الماضي من go.' },
+  { level:'A2', section:'Grammar & Vocabulary', q:'My sister is ___ than me.', options:['tall','taller','tallest'], correct:1, explanation:'نستخدم "taller" للمقارنة بين شخصين.' },
+  { level:'A2', section:'Grammar & Vocabulary', q:'I ___ visit my grandmother next week.', options:['am going to','will','go to'], correct:0, explanation:'"am going to" للتعبير عن خطط مستقبلية محددة.' },
+  { level:'A2', section:'Grammar & Vocabulary', q:'I always ___ breakfast at 7 AM.', options:['eat','ate','have eaten'], correct:0, explanation:'"always" = المضارع البسيط، "eat".' },
+  { level:'A2', section:'Grammar & Vocabulary', q:'The meeting is ___ 3 o\'clock.', options:['at','on','in'], correct:0, explanation:'نستخدم "at" مع الساعة المحددة.' },
   // B1 (5)
-  { level:'B1', section:'Grammar & Vocabulary', q:'I ___ English for 5 years.', options:['have studied','studied','study'], correct:0 },
-  { level:'B1', section:'Grammar & Vocabulary', q:'If I ___ you, I would accept the offer.', options:['am','was','were'], correct:2 },
-  { level:'B1', section:'Grammar & Vocabulary', q:'I ___ smoke, but I quit.', options:['used to','would','am used to'], correct:0 },
-  { level:'B1', section:'Grammar & Vocabulary', q:'The man ___ car is parked there is my boss.', options:['who','which','whose'], correct:2 },
-  { level:'B1', section:'Grammar & Vocabulary', q:'There are ___ people in the room.', options:['much','many','a lot'], correct:1 },
+  { level:'B1', section:'Grammar & Vocabulary', q:'I ___ English for 5 years.', options:['have studied','studied','study'], correct:0, explanation:'"for 5 years" = زمن المضارع التام "have studied".' },
+  { level:'B1', section:'Grammar & Vocabulary', q:'If I ___ you, I would accept the offer.', options:['am','was','were'], correct:2, explanation:'في الشرط الثاني نستخدم "were" مع جميع الضمائر.' },
+  { level:'B1', section:'Grammar & Vocabulary', q:'I ___ smoke, but I quit.', options:['used to','would','am used to'], correct:0, explanation:'"used to" تعني عادة في الماضي توقفت.' },
+  { level:'B1', section:'Grammar & Vocabulary', q:'The man ___ car is parked there is my boss.', options:['who','which','whose'], correct:2, explanation:'"whose" للملكية، سيارة الرجل = whose car.' },
+  { level:'B1', section:'Grammar & Vocabulary', q:'There are ___ people in the room.', options:['much','many','a lot'], correct:1, explanation:'"many" مع الأسماء المعدودة (people).' },
   // B2 (5)
-  { level:'B2', section:'Grammar & Vocabulary', q:'The cake ___ by my grandmother.', options:['was made','is made','has made'], correct:0 },
-  { level:'B2', section:'Grammar & Vocabulary', q:'She said she ___ the project.', options:['will finish','would finish','finishes'], correct:1 },
-  { level:'B2', section:'Grammar & Vocabulary', q:'If I had known, I ___ you.', options:['would help','would have helped','help'], correct:1 },
-  { level:'B2', section:'Grammar & Vocabulary', q:'I wish I ___ more time.', options:['have','had','have had'], correct:1 },
-  { level:'B2', section:'Grammar & Vocabulary', q:'You ___ have told me earlier!', options:['could','should','would'], correct:1 },
+  { level:'B2', section:'Grammar & Vocabulary', q:'The cake ___ by my grandmother.', options:['was made','is made','has made'], correct:0, explanation:'الماضي البسيط في المبني للمجهول = was made.' },
+  { level:'B2', section:'Grammar & Vocabulary', q:'She said she ___ the project.', options:['will finish','would finish','finishes'], correct:1, explanation:'في الكلام المنقول، will → would.' },
+  { level:'B2', section:'Grammar & Vocabulary', q:'If I had known, I ___ you.', options:['would help','would have helped','help'], correct:1, explanation:'الشرط الثالث = would have + pp.' },
+  { level:'B2', section:'Grammar & Vocabulary', q:'I wish I ___ more time.', options:['have','had','have had'], correct:1, explanation:'بعد wish نستخدم الماضي البسيط للتعبير عن أمنية غير حقيقية.' },
+  { level:'B2', section:'Grammar & Vocabulary', q:'You ___ have told me earlier!', options:['could','should','would'], correct:1, explanation:'"should have" = كان يجب أن تفعل ولكن لم تفعل.' },
   // C1 (5)
-  { level:'C1', section:'Grammar & Vocabulary', q:'Not only ___ late, but he also forgot the documents.', options:['did he arrive','he arrived','arrived he'], correct:0 },
-  { level:'C1', section:'Grammar & Vocabulary', q:'___ I need is a good night\'s sleep.', options:['All','What','That'], correct:1 },
-  { level:'C1', section:'Grammar & Vocabulary', q:'The government insisted that the policy ___ implemented immediately.', options:['be','is','was'], correct:0 },
-  { level:'C1', section:'Grammar & Vocabulary', q:'The issue is ___ complex.', options:['highly','high','height'], correct:0 },
-  { level:'C1', section:'Grammar & Vocabulary', q:'She was ___ annoyed by the noise.', options:['fairly','rather','pretty'], correct:1 },
+  { level:'C1', section:'Grammar & Vocabulary', q:'Not only ___ late, but he also forgot the documents.', options:['did he arrive','he arrived','arrived he'], correct:0, explanation:'مع "Not only" يحدث انعكاس (did + فاعل + فعل).' },
+  { level:'C1', section:'Grammar & Vocabulary', q:'___ I need is a good night\'s sleep.', options:['All','What','That'], correct:1, explanation:'جملة "cleft" باستخدام "What" لتقديم التركيز.' },
+  { level:'C1', section:'Grammar & Vocabulary', q:'The government insisted that the policy ___ implemented immediately.', options:['be','is','was'], correct:0, explanation:'بعد "insist that" نستخدم صيغة المصدر المجرد (be).' },
+  { level:'C1', section:'Grammar & Vocabulary', q:'The issue is ___ complex.', options:['highly','high','height'], correct:0, explanation:'"highly" ظرف بمعنى "بشكل كبير" مع الصفات.' },
+  { level:'C1', section:'Grammar & Vocabulary', q:'She was ___ annoyed by the noise.', options:['fairly','rather','pretty'], correct:1, explanation:'"rather" تعبر عن درجة أعلى من "fairly".' },
   // C2 (5)
-  { level:'C2', section:'Grammar & Vocabulary', q:'Let\'s ___ the problem from a different angle.', options:['approach','tackle','address'], correct:1 },
-  { level:'C2', section:'Grammar & Vocabulary', q:'The new policy is ___ to fail.', options:['destined','doomed','fated'], correct:1 },
-  { level:'C2', section:'Grammar & Vocabulary', q:'He ___ the risk of losing everything.', options:['ran','took','made'], correct:0 },
-  { level:'C2', section:'Grammar & Vocabulary', q:'The car is in ___ condition.', options:['pristine','immaculate','perfect'], correct:1 },
-  { level:'C2', section:'Grammar & Vocabulary', q:'I haven\'t seen her ___ ages.', options:['since','for','during'], correct:1 },
+  { level:'C2', section:'Grammar & Vocabulary', q:'Let\'s ___ the problem from a different angle.', options:['approach','tackle','address'], correct:1, explanation:'"tackle" هو الأنسب بمعنى "نتعامل مع" مشكلة صعبة.' },
+  { level:'C2', section:'Grammar & Vocabulary', q:'The new policy is ___ to fail.', options:['destined','doomed','fated'], correct:1, explanation:'"doomed" = محكوم عليه بالفشل، أقوى تعبير.' },
+  { level:'C2', section:'Grammar & Vocabulary', q:'He ___ the risk of losing everything.', options:['ran','took','made'], correct:0, explanation:'"run the risk" = يخاطر، تعبير ثابت.' },
+  { level:'C2', section:'Grammar & Vocabulary', q:'The car is in ___ condition.', options:['pristine','immaculate','perfect'], correct:1, explanation:'"immaculate" = نظيف جداً، خالٍ من العيوب.' },
+  { level:'C2', section:'Grammar & Vocabulary', q:'I haven\'t seen her ___ ages.', options:['since','for','during'], correct:1, explanation:'"for" مع مدة زمنية (ages).' },
 ];
 
-// أسئلة القراءة (2 نصوص × 5 أسئلة)
+// ===== Part 2: Reading (2 texts × 5) =====
 const readingPassages = [
   {
     title:'My Last Vacation',
+    level:'A2',
     text:'Last summer, I went to the beach with my family. We stayed in a small hotel near the sea. Every morning, we woke up early and went for a walk along the shore. In the afternoons, we swam in the sea and played volleyball. The weather was perfect — sunny and warm. We had a great time together. I hope we can go again next year.',
     questions:[
-      { q:'Where did they stay?', options:['In a hotel','In a tent','At home'], correct:0 },
-      { q:'What did they do in the mornings?', options:['Swam','Walked','Slept'], correct:1 },
-      { q:'How was the weather?', options:['Rainy','Cloudy','Sunny and warm'], correct:2 },
-      { q:'What did they play?', options:['Football','Tennis','Volleyball'], correct:2 },
-      { q:'When does the author hope to go again?', options:['Next summer','Next year','Next month'], correct:1 },
+      { q:'Where did they stay?', options:['In a hotel','In a tent','At home'], correct:0, explanation:'النص يقول: "stayed in a small hotel".' },
+      { q:'What did they do in the mornings?', options:['Swam','Walked','Slept'], correct:1, explanation:'"went for a walk along the shore" = مشوا.' },
+      { q:'How was the weather?', options:['Rainy','Cloudy','Sunny and warm'], correct:2, explanation:'"perfect — sunny and warm".' },
+      { q:'What did they play?', options:['Football','Tennis','Volleyball'], correct:2, explanation:'"played volleyball".' },
+      { q:'When does the author hope to go again?', options:['Next summer','Next year','Next month'], correct:1, explanation:'"I hope we can go again next year."' },
     ]
   },
   {
     title:'The Future of Work',
+    level:'C1',
     text:'The workplace is changing rapidly. Automation and AI are replacing many routine jobs. However, new jobs are also being created in technology, healthcare, and renewable energy. Soft skills like communication, creativity, and emotional intelligence are becoming more valuable. Lifelong learning is essential for career growth. Companies now look for people who can adapt quickly and learn new skills. The future belongs to those who are flexible and curious.',
     questions:[
-      { q:'What is replacing routine jobs?', options:['Automation and AI','Globalization','Outsourcing'], correct:0 },
-      { q:'Which sectors are creating new jobs?', options:['Technology and healthcare','Manufacturing','Agriculture'], correct:0 },
-      { q:'What soft skills are mentioned?', options:['Communication and creativity','Math and coding','Driving and typing'], correct:0 },
-      { q:'What is essential for career growth?', options:['Lifelong learning','Working overtime','Changing jobs'], correct:0 },
-      { q:'What kind of people will succeed in the future?', options:['Flexible and curious','Hard-working','Lucky'], correct:0 },
+      { q:'What is replacing routine jobs?', options:['Automation and AI','Globalization','Outsourcing'], correct:0, explanation:'النص: "Automation and AI are replacing many routine jobs".' },
+      { q:'Which sectors are creating new jobs?', options:['Technology and healthcare','Manufacturing','Agriculture'], correct:0, explanation:'"technology, healthcare, and renewable energy".' },
+      { q:'What soft skills are mentioned?', options:['Communication and creativity','Math and coding','Driving and typing'], correct:0, explanation:'"communication, creativity, and emotional intelligence".' },
+      { q:'What is essential for career growth?', options:['Lifelong learning','Working overtime','Changing jobs'], correct:0, explanation:'"Lifelong learning is essential for career growth."' },
+      { q:'What kind of people will succeed in the future?', options:['Flexible and curious','Hard-working','Lucky'], correct:0, explanation:'"belongs to those who are flexible and curious".' },
     ]
   }
 ];
 
-// أسئلة الاستماع (5 جمل)
-const listeningQuestions = [
-  { audio:'The sun rises in the east.', translations:['الشمس تشرق من الشرق.','الشمس تغرب في الغرب.','السماء زرقاء.'], correct:0 },
-  { audio:'I have been to London twice.', translations:['ذهبت إلى لندن مرتين.','سأذهب إلى لندن غداً.','أنا أحب لندن.'], correct:0 },
-  { audio:'She is studying for her exam right now.', translations:['هي تدرس لامتحانها الآن.','هي درست لامتحانها أمس.','ستدرس غداً.'], correct:0 },
-  { audio:'The company will launch a new product next month.', translations:['ستطلق الشركة منتجاً جديداً الشهر القادم.','أطلقت الشركة منتجاً جديداً.','الشركة تنتج منتجات.'], correct:0 },
-  { audio:'If I had more time, I would travel the world.', translations:['لو كان لدي وقت أكثر، سأسافر حول العالم.','سأسافر حول العالم.','لو سافرت حول العالم.'], correct:0 },
+// ===== Part 3: Listening (5) =====
+const listeningData = [
+  { level:'A2', audio:'The sun rises in the east.', translations:['الشمس تشرق من الشرق.','الشمس تغرب في الغرب.','السماء زرقاء.'], correct:0, explanation:'الجملة: "The sun rises in the east." = تشرق من الشرق.' },
+  { level:'B1', audio:'I have been to London twice.', translations:['ذهبت إلى لندن مرتين.','سأذهب إلى لندن غداً.','أنا أحب لندن.'], correct:0, explanation:'"have been to" = ذهبت وعدت، مرتين = twice.' },
+  { level:'B1', audio:'She is studying for her exam right now.', translations:['هي تدرس لامتحانها الآن.','هي درست لامتحانها أمس.','ستدرس غداً.'], correct:0, explanation:'"right now" = الآن، مضارع مستمر.' },
+  { level:'B2', audio:'The company will launch a new product next month.', translations:['ستطلق الشركة منتجاً جديداً الشهر القادم.','أطلقت الشركة منتجاً جديداً.','الشركة تنتج منتجات.'], correct:0, explanation:'"will launch next month" = مستقبل.' },
+  { level:'C1', audio:'If I had more time, I would travel the world.', translations:['لو كان لدي وقت أكثر، سأسافر حول العالم.','سأسافر حول العالم.','لو سافرت حول العالم.'], correct:0, explanation:'جملة شرطية من النوع الثاني.' },
 ];
 
-/* =====================================================================
-   بناء قائمة الأسئلة الكاملة (45 سؤال)
-   ===================================================================== */
+// ===== بناء قائمة الأسئلة الكاملة =====
 let allQuestions = [];
 
-// 1) قواعد ومفردات (30)
-grammarQuestions.forEach((q, i) => {
+// 1) Grammar (30)
+grammarData.forEach((q, i) => {
   allQuestions.push({
     id: 'g' + i,
     level: q.level,
     section: 'Grammar & Vocabulary',
     type: 'mcq',
     q: q.q,
-    options: q.options,
+    options: [...q.options],
     correct: q.correct,
-    answered: null, // null, true, false
+    explanation: q.explanation || '',
     selected: null,
+    answered: false,
+    part: 1,
   });
 });
 
-// 2) قراءة (10)
+// 2) Reading (10)
 readingPassages.forEach((passage, pi) => {
-  // نضيف النص كسؤال خاص (نوع reading)
+  // نضيف النص كعنصر منفصل
   allQuestions.push({
     id: 'r' + pi + '_text',
-    level: pi === 0 ? 'A2' : 'B2',
+    level: passage.level,
     section: 'Reading',
     type: 'reading_text',
     passage: passage.text,
     title: passage.title,
-    answered: null,
+    part: 2,
   });
   passage.questions.forEach((q, qi) => {
     allQuestions.push({
       id: 'r' + pi + '_q' + qi,
-      level: pi === 0 ? 'A2' : 'B2',
+      level: passage.level,
       section: 'Reading',
       type: 'mcq',
       q: q.q,
-      options: q.options,
+      options: [...q.options],
       correct: q.correct,
-      answered: null,
+      explanation: q.explanation || '',
       selected: null,
+      answered: false,
+      part: 2,
     });
   });
 });
 
-// 3) استماع (5)
-listeningQuestions.forEach((q, i) => {
+// 3) Listening (5)
+listeningData.forEach((q, i) => {
   allQuestions.push({
     id: 'l' + i,
-    level: i < 2 ? 'A2' : (i < 4 ? 'B1' : 'C1'),
+    level: q.level,
     section: 'Listening',
     type: 'listening',
-    audio: q.audio,
-    options: q.translations,
+    q: q.audio,
+    options: [...q.translations],
     correct: q.correct,
-    answered: null,
+    explanation: q.explanation || '',
+    audio: q.audio,
     selected: null,
+    answered: false,
+    part: 3,
   });
 });
 
-// 4) كتابة (1)
+// 4) Writing (1)
 allQuestions.push({
   id: 'writing',
-  level: 'B1',
   section: 'Writing',
   type: 'writing',
-  answered: null,
+  part: 4,
+  answered: false,
 });
 
-console.log('Total questions:', allQuestions.length); // 45
+console.log('Total questions:', allQuestions.length); // 46 (45 + writing)
 
 /* =====================================================================
    حالة التطبيق
    ===================================================================== */
-let currentIndex = 0;
 let testStarted = false;
-let testCompleted = false;
+let testSubmitted = false;
 let writingText = '';
+let currentLang = 'ar';
 
-// مستمع أحداث
-document.addEventListener('DOMContentLoaded', init);
-
-function init(){
-  applyLanguage('ar');
-  applyTheme(localStorage.getItem('bb-theme') || 'dark');
-
-  document.getElementById('lang-toggle').addEventListener('click', toggleLang);
-  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-  document.getElementById('start-test-btn').addEventListener('click', startTest);
-  document.getElementById('prev-btn').addEventListener('click', prevQuestion);
-  document.getElementById('next-btn').addEventListener('click', nextQuestion);
-  document.getElementById('skip-btn').addEventListener('click', skipQuestion);
+/* =====================================================================
+   دوال خلط الخيارات (Shuffling)
+   ===================================================================== */
+function shuffleArray(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
+
+// نخلط خيارات كل سؤال عند التحميل
+function shuffleAllOptions(){
+  allQuestions.forEach(q => {
+    if (q.type === 'mcq' || q.type === 'listening') {
+      const opts = q.options;
+      const correct = opts[q.correct];
+      // نخلط الخيارات مع تتبع الإجابة الصحيحة
+      const shuffled = shuffleArray(opts.map((o, i) => ({ value: o, origIdx: i })));
+      q.options = shuffled.map(item => item.value);
+      q.correct = shuffled.findIndex(item => item.value === correct);
+    }
+  });
+}
+shuffleAllOptions();
 
 /* =====================================================================
    اللغة والوضع
    ===================================================================== */
-let currentLang = 'ar';
 function applyLanguage(lang){
   currentLang = lang;
   document.documentElement.setAttribute('lang', lang);
-  document.querySelectorAll('[data-lang]').forEach(el => {
-    // نستخدمها لاحقاً
-  });
   document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'AR | EN' : 'EN | AR';
-  // تغيير نصوص ثابتة
-  document.querySelector('#welcome-screen h1').textContent = lang === 'ar' ? '🎯 اختبار تحديد المستوى' : '🎯 Placement Test';
-  document.querySelector('#welcome-screen .desc').textContent = lang === 'ar'
-    ? 'اختبار دقيق مبني على معايير CEFR. سيساعدك على معرفة مستواك الحقيقي في اللغة الإنجليزية. المدة: 20 دقيقة.'
-    : 'A precise CEFR-based test to help you discover your real English level. Duration: 20 minutes.';
-  document.querySelector('#start-test-btn').textContent = lang === 'ar' ? 'ابدأ الاختبار' : 'Start Test';
-  document.querySelector('#prev-btn').textContent = lang === 'ar' ? 'السابق' : 'Previous';
-  document.querySelector('#next-btn').textContent = lang === 'ar' ? 'التالي' : 'Next';
-  document.querySelector('#skip-btn').textContent = lang === 'ar' ? '⏭ تخطي' : '⏭ Skip';
+  // نصوص ثابتة
+  const welcomeTitle = document.querySelector('#welcome-screen h1');
+  const welcomeDesc = document.querySelector('#welcome-screen .desc');
+  const startBtn = document.querySelector('#start-test-btn');
+  const submitBtn = document.querySelector('#submit-test-btn');
+  if (lang === 'ar') {
+    welcomeTitle.textContent = '🎯 اختبار تحديد المستوى';
+    welcomeDesc.textContent = 'اختبار دقيق مبني على معايير CEFR. 45 سؤالاً تغطي جميع المستويات من A1 إلى C2. المدة: 20-25 دقيقة.';
+    startBtn.textContent = 'ابدأ الاختبار';
+    submitBtn.textContent = '🎯 إنهاء الاختبار وعرض النتيجة';
+  } else {
+    welcomeTitle.textContent = '🎯 Placement Test';
+    welcomeDesc.textContent = 'A precise CEFR-based test with 45 questions covering all levels from A1 to C2. Duration: 20-25 minutes.';
+    startBtn.textContent = 'Start Test';
+    submitBtn.textContent = '🎯 Submit & Show Results';
+  }
+  // إعادة عرض الأسئلة باللغة الجديدة
+  if (testStarted) renderQuestions();
 }
 function toggleLang(){
   applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
@@ -445,280 +549,187 @@ function toggleTheme(){
 }
 
 /* =====================================================================
-   بدء الاختبار
+   عرض الأسئلة
    ===================================================================== */
-function startTest(){
-  testStarted = true;
-  document.getElementById('welcome-screen').style.display = 'none';
-  document.getElementById('progress-bar-wrap').style.display = 'flex';
-  document.getElementById('question-screen').style.display = 'block';
-  currentIndex = 0;
-  renderQuestion();
-}
+function renderQuestions(){
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
 
-/* =====================================================================
-   عرض السؤال
-   ===================================================================== */
-function renderQuestion(){
-  const q = allQuestions[currentIndex];
-  const total = allQuestions.length;
-  document.getElementById('prog-text').textContent = `السؤال ${currentIndex+1} من ${total}`;
-  document.getElementById('prog-fill').style.width = ((currentIndex+1)/total*100)+'%';
+  let part = 0;
+  let qIndex = 0;
 
-  const sectionLabel = document.getElementById('section-label');
-  const qText = document.getElementById('q-text');
-  const qOptions = document.getElementById('q-options');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const skipBtn = document.getElementById('skip-btn');
-
-  // تحديث ترجمة الأزرار حسب اللغة
-  prevBtn.textContent = currentLang === 'ar' ? 'السابق' : 'Previous';
-  nextBtn.textContent = currentLang === 'ar' ? 'التالي' : 'Next';
-  skipBtn.textContent = currentLang === 'ar' ? '⏭ تخطي' : '⏭ Skip';
-
-  prevBtn.disabled = currentIndex === 0;
-
-  // تحديد نوع السؤال
-  if (q.type === 'reading_text') {
-    // عرض النص
-    sectionLabel.textContent = '📖 Reading';
-    qText.innerHTML = `<div style="direction:ltr;text-align:left;font-weight:400;font-size:15px;padding:12px;background:var(--glass-bg);border-radius:12px;margin-bottom:12px;">${q.passage}</div><div style="font-size:16px;font-weight:600;">اضغط "التالي" لبدء أسئلة الفهم</div>`;
-    qOptions.innerHTML = '';
-    nextBtn.disabled = false;
-    return;
-  }
-
-  if (q.type === 'writing') {
-    sectionLabel.textContent = '✍️ Writing';
-    qText.textContent = currentLang === 'ar'
-      ? 'اكتب 80-100 كلمة عن "أهم إنجاز في حياتك". استخدم المساحة أدناه:'
-      : 'Write 80-100 words about "The most important achievement in your life". Use the space below:';
-    qOptions.innerHTML = `
-      <textarea id="writing-area" placeholder="${currentLang === 'ar' ? 'اكتب هنا...' : 'Write here...'}"></textarea>
-      <div class="word-count" id="word-count">0 كلمة</div>
-    `;
-    const area = document.getElementById('writing-area');
-    if (area) {
-      area.value = writingText || '';
-      area.addEventListener('input', function(){
-        const words = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
-        document.getElementById('word-count').textContent = words + (currentLang === 'ar' ? ' كلمة' : ' words');
-        writingText = this.value;
-      });
-      // تحديث عداد
-      const words = area.value.trim().split(/\s+/).filter(w => w.length > 0).length;
-      document.getElementById('word-count').textContent = words + (currentLang === 'ar' ? ' كلمة' : ' words');
+  allQuestions.forEach((q, idx) => {
+    // إذا كان السؤال من نوع reading_text، نعرض النص
+    if (q.type === 'reading_text') {
+      const div = document.createElement('div');
+      div.className = 'glass-card';
+      div.style.marginBottom = '8px';
+      div.innerHTML = `
+        <div class="en-text" style="font-size:14px;color:var(--text-muted);font-weight:600;">📖 ${q.title}</div>
+        <div class="en-text" style="padding:12px;background:var(--glass-bg);border-radius:10px;font-size:15px;line-height:1.8;">${q.passage}</div>
+      `;
+      container.appendChild(div);
+      return;
     }
-    nextBtn.disabled = false;
-    return;
-  }
 
-  if (q.type === 'listening') {
-    sectionLabel.textContent = '🎧 Listening';
-    qText.textContent = q.q || 'استمع للجملة واختر الترجمة الصحيحة:';
-    let html = `<div style="margin-bottom:12px;"><button class="audio-play-btn" data-audio="${q.audio}">🔊 تشغيل الصوت</button></div>`;
+    // تخطي الكتابة
+    if (q.type === 'writing') return;
+
+    // بداية جزء جديد
+    const partNames = ['', 'Grammar & Vocabulary', 'Reading', 'Listening'];
+    if (q.part !== part && q.part <= 3) {
+      part = q.part;
+      const title = document.createElement('div');
+      title.className = 'part-title';
+      const sub = q.part === 1 ? ' (30 سؤالاً)' : q.part === 2 ? ' (نصين، 10 أسئلة)' : ' (5 أسئلة)';
+      title.innerHTML = `📌 Part ${q.part}: ${partNames[q.part]} <span class="sub">${sub}</span>`;
+      container.appendChild(title);
+    }
+
+    // البطاقة
+    const card = document.createElement('div');
+    card.className = 'glass-card';
+    card.id = 'q-' + idx;
+    card.style.marginBottom = '16px';
+
+    const isAnswered = q.answered === true;
+    const isCorrect = q.answered === true && q.selected === q.correct;
+    const isWrong = q.answered === true && q.selected !== null && q.selected !== q.correct;
+
+    let html = `<div class="q-number">${currentLang === 'ar' ? 'سؤال' : 'Q'} ${qIndex+1}</div>`;
+
+    // نص السؤال
+    if (q.type === 'listening') {
+      html += `<div class="q-text en-text">🔊 ${q.q}</div>`;
+      html += `<button class="audio-play-btn" data-audio="${q.q}">🔊 ${currentLang === 'ar' ? 'تشغيل الصوت' : 'Play Audio'}</button>`;
+    } else {
+      html += `<div class="q-text en-text">${q.q}</div>`;
+    }
+
+    // الخيارات
     html += `<div class="q-options">`;
     q.options.forEach((opt, i) => {
-      const selected = (q.selected === i);
-      html += `<button class="q-opt ${selected?'selected':''}" data-opt="${i}" ${q.answered!==null?'disabled':''}>${opt}</button>`;
+      const sel = (q.selected === i);
+      let cls = 'q-opt';
+      if (sel) cls += ' selected';
+      if (testSubmitted) {
+        cls += ' disabled';
+        if (i === q.correct) cls += ' correct';
+        if (sel && i !== q.correct) cls += ' wrong';
+      }
+      // اتجاه النص: نصوص إنجليزية تكون LTR، عربية RTL
+      // نكتشف إذا كان النص إنجليزي (يحتوي على أحرف لاتينية)
+      const isEnglish = /[a-zA-Z]/.test(opt);
+      const dirAttr = isEnglish ? 'dir="ltr" style="text-align:left;"' : 'dir="rtl" style="text-align:right;"';
+      html += `<button class="${cls}" data-idx="${idx}" data-opt="${i}" ${testSubmitted ? 'disabled' : ''} ${dirAttr}>${opt}</button>`;
     });
     html += `</div>`;
-    qOptions.innerHTML = html;
 
-    // ربط أزرار الخيارات
-    qOptions.querySelectorAll('.q-opt').forEach(btn => {
-      btn.addEventListener('click', function(){
-        if (q.answered !== null) return;
-        const idx = parseInt(this.dataset.opt);
-        q.selected = idx;
-        q.answered = (idx === q.correct);
-        renderQuestion();
+    // التغذية الراجعة العلمية (بعد التقديم)
+    if (testSubmitted && q.answered) {
+      const fbClass = isCorrect ? 'correct' : 'wrong';
+      const fbLabel = isCorrect ? '✅ صحيح' : '❌ خاطئ';
+      const userAns = q.selected !== null ? q.options[q.selected] : 'لم يجب';
+      const correctAns = q.options[q.correct];
+      const reason = q.explanation || (currentLang === 'ar' ? 'الإجابة الصحيحة هي الخيار المحدد.' : 'The correct answer is the selected option.');
+      html += `<div class="feedback ${fbClass}">
+        <div class="fb-label">${fbLabel}</div>
+        ${!isCorrect ? `<div>${currentLang === 'ar' ? 'إجابتك' : 'Your answer'}: ${userAns}</div>` : ''}
+        <div>${currentLang === 'ar' ? 'الإجابة الصحيحة' : 'Correct answer'}: ${correctAns}</div>
+        <div class="fb-reason">💡 ${reason}</div>
+      </div>`;
+    } else if (testSubmitted && !q.answered) {
+      html += `<div class="feedback wrong">
+        <div class="fb-label">⏭ ${currentLang === 'ar' ? 'تم التخطي' : 'Skipped'}</div>
+        <div>${currentLang === 'ar' ? 'الإجابة الصحيحة' : 'Correct answer'}: ${q.options[q.correct]}</div>
+        <div class="fb-reason">💡 ${q.explanation || (currentLang === 'ar' ? 'تم تخطي هذا السؤال.' : 'This question was skipped.')}</div>
+      </div>`;
+    }
+
+    card.innerHTML = html;
+    container.appendChild(card);
+    qIndex++;
+
+    // ربط أحداث الخيارات (إذا لم يتم التقديم)
+    if (!testSubmitted) {
+      card.querySelectorAll('.q-opt').forEach(btn => {
+        btn.addEventListener('click', function(){
+          const idx = parseInt(this.dataset.idx);
+          const opt = parseInt(this.dataset.opt);
+          const qq = allQuestions[idx];
+          if (qq.answered) return;
+          qq.selected = opt;
+          qq.answered = true;
+          renderQuestions();
+        });
       });
-    });
+    }
 
-    // ربط زر الصوت
-    const audioBtn = qOptions.querySelector('.audio-play-btn');
-    if (audioBtn) {
-      audioBtn.addEventListener('click', function(){
+    // ربط أزرار الصوت
+    card.querySelectorAll('.audio-play-btn').forEach(btn => {
+      btn.addEventListener('click', function(){
         const text = this.dataset.audio;
         speakText(text, 'female');
       });
-    }
-    nextBtn.disabled = (q.answered === null);
-    return;
-  }
-
-  // MCQ عادي
-  sectionLabel.textContent = q.section || 'Grammar & Vocabulary';
-  qText.textContent = q.q;
-  let html = `<div class="q-options">`;
-  q.options.forEach((opt, i) => {
-    const selected = (q.selected === i);
-    let cls = 'q-opt';
-    if (selected) cls += ' selected';
-    if (q.answered !== null) {
-      cls += (i === q.correct) ? ' correct' : (selected ? ' wrong' : '');
-    }
-    html += `<button class="${cls}" data-opt="${i}" ${q.answered!==null?'disabled':''}>${opt}</button>`;
-  });
-  html += `</div>`;
-  qOptions.innerHTML = html;
-
-  qOptions.querySelectorAll('.q-opt').forEach(btn => {
-    btn.addEventListener('click', function(){
-      if (q.answered !== null) return;
-      const idx = parseInt(this.dataset.opt);
-      q.selected = idx;
-      q.answered = (idx === q.correct);
-      renderQuestion();
     });
   });
 
-  // إذا كان السؤال قد تمت الإجابة عليه، نعطي ملاحظة
-  if (q.answered !== null) {
-    // نضيف إشارة صواب/خطأ
-  }
-
-  nextBtn.disabled = (q.answered === null);
+  // إضافة قسم الكتابة
+  addWritingSection(container);
 }
 
-/* =====================================================================
-   التنقل
-   ===================================================================== */
-function nextQuestion(){
-  const q = allQuestions[currentIndex];
-  // إذا كان نوع الكتابة، نحفظ النص
-  if (q.type === 'writing') {
-    const area = document.getElementById('writing-area');
-    if (area) writingText = area.value;
-    q.answered = true; // تم إكمال الكتابة
-  }
-  // إذا كان السؤال لم يُجب ولم يتم تخطيه، لا ننتقل
-  if (q.answered === null && q.type !== 'reading_text' && q.type !== 'writing') {
-    return;
-  }
-  if (currentIndex < allQuestions.length - 1) {
-    currentIndex++;
-    renderQuestion();
-  } else {
-    // نهاية الاختبار
-    finishTest();
-  }
-}
-
-function prevQuestion(){
-  if (currentIndex > 0) {
-    currentIndex--;
-    renderQuestion();
-  }
-}
-
-function skipQuestion(){
-  const q = allQuestions[currentIndex];
-  if (q.type === 'writing') {
-    const area = document.getElementById('writing-area');
-    if (area) writingText = area.value;
-    q.answered = true;
-    // ننتقل
-    if (currentIndex < allQuestions.length - 1) {
-      currentIndex++;
-      renderQuestion();
-    } else {
-      finishTest();
-    }
-    return;
-  }
-  if (q.answered !== null) return; // لا يمكن تخطي سؤال تمت إجابته
-  q.answered = false;
-  q.selected = null;
-  renderQuestion();
-  // الانتقال التلقائي للسؤال التالي بعد تخطي
-  setTimeout(() => {
-    if (currentIndex < allQuestions.length - 1) {
-      currentIndex++;
-      renderQuestion();
-    } else {
-      finishTest();
-    }
-  }, 300);
-}
-
-/* =====================================================================
-   إنهاء الاختبار وحساب النتيجة
-   ===================================================================== */
-function finishTest(){
-  testCompleted = true;
-  document.getElementById('question-screen').style.display = 'none';
-  document.getElementById('progress-bar-wrap').style.display = 'none';
-  document.getElementById('results-screen').style.display = 'block';
-
-  // حساب النقاط
-  let score = 0;
-  // 1) القواعد والمفردات (30)
-  const grammarQuestions = allQuestions.filter(q => q.section === 'Grammar & Vocabulary' && q.type === 'mcq');
-  grammarQuestions.forEach(q => {
-    if (q.answered === true) score++;
-  });
-
-  // 2) القراءة (10)
-  const readingQuestions = allQuestions.filter(q => q.section === 'Reading' && q.type === 'mcq');
-  readingQuestions.forEach(q => {
-    if (q.answered === true) score++;
-  });
-
-  // 3) الاستماع (5)
-  const listeningQuestions = allQuestions.filter(q => q.section === 'Listening' && q.type === 'listening');
-  listeningQuestions.forEach(q => {
-    if (q.answered === true) score++;
-  });
-
-  // 4) الكتابة (0-5 نقاط حسب عدد الكلمات)
+function addWritingSection(container){
   const writingQ = allQuestions.find(q => q.type === 'writing');
-  let writingScore = 0;
-  if (writingQ && writingText) {
+  if (!writingQ) return;
+
+  const title = document.createElement('div');
+  title.className = 'part-title';
+  title.innerHTML = `📌 Part 4: Writing <span class="sub">(مهمة واحدة)</span>`;
+  container.appendChild(title);
+
+  const card = document.createElement('div');
+  card.className = 'glass-card';
+  const isSubmitted = testSubmitted;
+
+  let html = `
+    <div class="q-text ar-text">${currentLang === 'ar' ? '✍️ اكتب 80-100 كلمة عن "أهم إنجاز في حياتك".' : '✍️ Write 80-100 words about "The most important achievement in your life".'}</div>
+    <textarea id="writing-area" ${isSubmitted ? 'disabled' : ''} placeholder="${currentLang === 'ar' ? 'اكتب هنا...' : 'Write here...'}">${writingText}</textarea>
+    <div class="word-count" id="word-count">${writingText.trim().split(/\s+/).filter(w => w.length > 0).length} ${currentLang === 'ar' ? 'كلمة' : 'words'}</div>
+  `;
+
+  if (isSubmitted) {
     const words = writingText.trim().split(/\s+/).filter(w => w.length > 0).length;
-    if (words >= 80) writingScore = 5;
-    else if (words >= 60) writingScore = 4;
-    else if (words >= 40) writingScore = 3;
-    else if (words >= 20) writingScore = 2;
-    else if (words > 0) writingScore = 1;
+    let score = 0;
+    if (words >= 80) score = 5;
+    else if (words >= 60) score = 4;
+    else if (words >= 40) score = 3;
+    else if (words >= 20) score = 2;
+    else if (words > 0) score = 1;
+    html += `<div class="feedback correct" style="margin-top:10px;">
+      <div class="fb-label">📝 ${currentLang === 'ar' ? 'عدد الكلمات' : 'Word count'}: ${words}</div>
+      <div>${currentLang === 'ar' ? 'نقاط الكتابة' : 'Writing score'}: ${score} / 5</div>
+      <div class="fb-reason">${currentLang === 'ar' ? 'مهمة الكتابة تقييمية لتشجيعك على التعبير باللغة الإنجليزية.' : 'The writing task is evaluative to encourage self-expression in English.'}</div>
+    </div>`;
   }
-  const totalScore = score + writingScore;
 
-  // تحديد المستوى
-  let level = '';
-  let levelName = '';
-  let levelDesc = '';
-  let levelLink = 'unit1.html';
+  card.innerHTML = html;
+  container.appendChild(card);
 
-  if (totalScore <= 6) { level = 'A1'; levelName = 'Beginner'; levelDesc = 'مبتدئ — تتعلم الأساسيات. ننصحك بالبدء من المستوى A1.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 13) { level = 'A2'; levelName = 'Elementary'; levelDesc = 'أساسي — تستطيع فهم الجمل البسيطة. ابدأ من A2.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 21) { level = 'B1'; levelName = 'Intermediate'; levelDesc = 'متوسط — تستطيع التواصل في مواقف يومية. المستوى المناسب B1.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 30) { level = 'B2'; levelName = 'Upper-Intermediate'; levelDesc = 'متقدم — تفهم النصوص المعقدة وتستطيع التحدث بطلاقة. ابدأ من B2.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 39) { level = 'C1'; levelName = 'Advanced'; levelDesc = 'متقدم جداً — لديك مهارات عالية. المستوى المناسب C1.'; levelLink = 'unit1.html'; }
-  else { level = 'C2'; levelName = 'Proficiency'; levelDesc = 'خبير — قريب من المتحدث الأصلي. ابدأ من C2.'; levelLink = 'unit1.html'; }
-
-  // تخزين النتيجة
-  localStorage.setItem('placement_test_score', totalScore);
-  localStorage.setItem('placement_test_level', level);
-
-  // عرض النتائج
-  document.getElementById('result-level').textContent = `🎉 مستواك هو ${level}`;
-  document.getElementById('result-sub').textContent = levelName;
-  document.getElementById('result-score').textContent = `النتيجة: ${totalScore} / 50`;
-  const descText = currentLang === 'ar'
-    ? `أنت في المستوى ${level} (${levelName}). ${levelDesc}`
-    : `You are at level ${level} (${levelName}). ${levelDesc}`;
-  document.getElementById('result-desc').textContent = descText;
-
-  const linkBtn = document.getElementById('level-link');
-  linkBtn.textContent = currentLang === 'ar' ? `🚀 الذهاب للمستوى ${level}` : `🚀 Go to Level ${level}`;
-  linkBtn.href = levelLink;
+  // ربط حدث الكتابة
+  if (!testSubmitted) {
+    const area = document.getElementById('writing-area');
+    if (area) {
+      area.addEventListener('input', function(){
+        writingText = this.value;
+        const words = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+        document.getElementById('word-count').textContent = words + (currentLang === 'ar' ? ' كلمة' : ' words');
+      });
+    }
+  }
 }
 
 /* =====================================================================
-   دالة تشغيل الصوت باستخدام SpeechSynthesis
+   تشغيل الصوت
    ===================================================================== */
 function speakText(text, gender){
   if (!('speechSynthesis' in window)) return;
@@ -734,19 +745,156 @@ function speakText(text, gender){
 }
 if ('speechSynthesis' in window) {
   window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+  window.speechSynthesis.getVoices();
 }
 
 /* =====================================================================
-   تسجيل الدخول للصوت عند التحميل
+   بدء الاختبار
    ===================================================================== */
-if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
-
-// دعم زر العودة للصفحة الرئيسية من النتائج
-document.querySelector('#results-screen .btn.outline')?.addEventListener('click', function(e){
-  // سيبقى الرابط يعمل
+document.getElementById('start-test-btn').addEventListener('click', function(){
+  testStarted = true;
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('test-screen').style.display = 'block';
+  renderQuestions();
+  // التمرير إلى الأعلى
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-console.log('✅ اختبار تحديد المستوى جاهز.');
+/* =====================================================================
+   إنهاء الاختبار وعرض النتيجة
+   ===================================================================== */
+document.getElementById('submit-test-btn').addEventListener('click', function(){
+  if (testSubmitted) return;
+  testSubmitted = true;
+
+  // حفظ نص الكتابة
+  const area = document.getElementById('writing-area');
+  if (area) writingText = area.value;
+
+  // حساب النتيجة
+  let score = 0;
+  // 1) القواعد والمفردات (30)
+  const grammarQs = allQuestions.filter(q => q.section === 'Grammar & Vocabulary' && q.type === 'mcq');
+  grammarQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
+
+  // 2) القراءة (10)
+  const readingQs = allQuestions.filter(q => q.section === 'Reading' && q.type === 'mcq');
+  readingQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
+
+  // 3) الاستماع (5)
+  const listeningQs = allQuestions.filter(q => q.section === 'Listening' && q.type === 'listening');
+  listeningQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
+
+  // 4) الكتابة (0-5)
+  const words = writingText.trim().split(/\s+/).filter(w => w.length > 0).length;
+  let writingScore = 0;
+  if (words >= 80) writingScore = 5;
+  else if (words >= 60) writingScore = 4;
+  else if (words >= 40) writingScore = 3;
+  else if (words >= 20) writingScore = 2;
+  else if (words > 0) writingScore = 1;
+  const totalScore = score + writingScore;
+
+  // تحديد المستوى
+  let level, levelName, levelDesc, levelLink;
+  if (totalScore <= 6) { level = 'A1'; levelName = 'Beginner'; levelDesc = 'مبتدئ — تتعلم الأساسيات. ننصحك بالبدء من المستوى A1.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 13) { level = 'A2'; levelName = 'Elementary'; levelDesc = 'أساسي — تستطيع فهم الجمل البسيطة. ابدأ من A2.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 21) { level = 'B1'; levelName = 'Intermediate'; levelDesc = 'متوسط — تستطيع التواصل في مواقف يومية. المستوى المناسب B1.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 30) { level = 'B2'; levelName = 'Upper-Intermediate'; levelDesc = 'متقدم — تفهم النصوص المعقدة وتستطيع التحدث بطلاقة. ابدأ من B2.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 39) { level = 'C1'; levelName = 'Advanced'; levelDesc = 'متقدم جداً — لديك مهارات عالية. المستوى المناسب C1.'; levelLink = 'unit1.html'; }
+  else { level = 'C2'; levelName = 'Proficiency'; levelDesc = 'خبير — قريب من المتحدث الأصلي. ابدأ من C2.'; levelLink = 'unit1.html'; }
+
+  // تخزين النتيجة
+  localStorage.setItem('placement_test_score', totalScore);
+  localStorage.setItem('placement_test_level', level);
+
+  // عرض النتائج
+  const resultsScreen = document.getElementById('results-screen');
+  resultsScreen.style.display = 'block';
+  document.getElementById('result-level').textContent = `🎉 ${currentLang === 'ar' ? 'مستواك هو' : 'Your level is'} ${level}`;
+  document.getElementById('result-sub').textContent = levelName;
+  document.getElementById('result-score').textContent = `${currentLang === 'ar' ? 'النتيجة' : 'Score'}: ${totalScore} / 50`;
+  const desc = currentLang === 'ar'
+    ? `أنت في المستوى ${level} (${levelName}). ${levelDesc}`
+    : `You are at level ${level} (${levelName}). ${levelDesc}`;
+  document.getElementById('result-desc').textContent = desc;
+
+  const linkBtn = document.getElementById('level-link');
+  linkBtn.textContent = currentLang === 'ar' ? `🚀 الذهاب للمستوى ${level}` : `🚀 Go to Level ${level}`;
+  linkBtn.href = levelLink;
+
+  // تحديث الشهادة
+  document.getElementById('cert-level-display').textContent = level;
+
+  // إعادة عرض الأسئلة مع التصحيح
+  renderQuestions();
+
+  // التمرير إلى النتائج
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* =====================================================================
+   شهادة تحديد المستوى
+   ===================================================================== */
+document.getElementById('cert-btn').addEventListener('click', function(){
+  const modal = document.getElementById('cert-modal');
+  modal.classList.add('show');
+  // تحديث التاريخ
+  const now = new Date();
+  document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  // تحديث المستوى
+  const level = localStorage.getItem('placement_test_level') || 'A1';
+  document.getElementById('cert-level-display').textContent = level;
+  // تحديث الاسم المحفوظ
+  const savedName = localStorage.getItem('cert_student_name') || '';
+  if (savedName) {
+    document.getElementById('cert-student-name').textContent = savedName;
+    document.getElementById('cert-name-input').value = savedName;
+  }
+});
+
+document.getElementById('cert-close-btn').addEventListener('click', function(){
+  document.getElementById('cert-modal').classList.remove('show');
+});
+
+document.getElementById('cert-print-btn').addEventListener('click', function(){
+  const nameInput = document.getElementById('cert-name-input');
+  const name = nameInput.value.trim();
+  if (name) {
+    document.getElementById('cert-student-name').textContent = name;
+    localStorage.setItem('cert_student_name', name);
+  } else {
+    alert('✍️ من فضلك أدخل اسمك في الحقل قبل الطباعة.');
+    return;
+  }
+  window.print();
+});
+
+// إغلاق الشهادة بالضغط على الخلفية
+document.getElementById('cert-modal').addEventListener('click', function(e){
+  if (e.target === this) this.classList.remove('show');
+});
+
+/* =====================================================================
+   تحميل اللغة المحفوظة والوضع
+   ===================================================================== */
+const savedLang = localStorage.getItem('bb-lang') || 'ar';
+applyLanguage(savedLang);
+const savedTheme = localStorage.getItem('bb-theme') || 'dark';
+applyTheme(savedTheme);
+
+document.getElementById('lang-toggle').addEventListener('click', toggleLang);
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+/* =====================================================================
+   استعادة الاسم المحفوظ للشهادة
+   ===================================================================== */
+const savedCertName = localStorage.getItem('cert_student_name');
+if (savedCertName) {
+  document.getElementById('cert-student-name').textContent = savedCertName;
+}
+
+console.log('✅ اختبار تحديد المستوى جاهز!');
 </script>
 </body>
   </html>
