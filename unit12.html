@@ -3,8 +3,7 @@
   =====================================================================
   Babble Box Academy — الوحدة 12: Final Review & Test (المراجعة النهائية والاختبار الختامي)
   المستوى A1 — ملف واحد كامل (HTML + CSS + JS) بدون أي مكتبات خارجية.
-  هذه هي الوحدة الأخيرة من المستوى A1. تحتوي على مراجعة شاملة واختبار نهائي
-  من 25 سؤالاً، وشهادة إتمام قابلة للتحميل.
+  تم إصلاح زر إعادة الاختبار وزر إصدار الشهادة باستخدام Event Delegation.
   =====================================================================
 -->
 <html lang="ar" dir="rtl">
@@ -1088,7 +1087,6 @@ function saveTestState(){
     } else {
       certPerfectStar.style.display = 'none';
     }
-    // Show celebration ONLY when ALL 25 questions are answered AND score >= 20
     const allAnswered = testAnswers.every(a => a !== null);
     if (allAnswered && score >= 20 && !celebrationShown) {
       celebrationShown = true;
@@ -1282,6 +1280,7 @@ renderTest();
    9) إعادة تعيين الاختبار (تم إصلاحه)
    ===================================================================== */
 function resetTest(){
+  console.log('🔄 إعادة الاختبار...');
   // إعادة تعيين الإجابات إلى null
   testAnswers = new Array(testQuestions.length).fill(null);
   // حفظ في localStorage
@@ -1302,10 +1301,11 @@ function resetTest(){
   document.getElementById('celebration-modal').classList.remove('show');
   // إزالة أي كونفيتي متبقي
   document.querySelectorAll('.confetti-piece').forEach(el => el.remove());
+  console.log('✅ تم إعادة تعيين الاختبار بنجاح.');
 }
 
 /* =====================================================================
-   10) الاحتفال — تظهر فقط بعد إنهاء جميع الأسئلة بدرجة 20/25+
+   10) الاحتفال
    ===================================================================== */
 let celebrationShown = false;
 let celebrationActive = false;
@@ -1317,13 +1317,11 @@ function showCelebration(){
   const modal = document.getElementById('celebration-modal');
   modal.classList.add('show');
 
-  // تأثير اهتزاز خفيف للشاشة
   document.body.classList.add('shake-celebrate');
   setTimeout(() => {
     document.body.classList.remove('shake-celebrate');
   }, 600);
 
-  // مفرقعات كثيفة (150 قطعة)
   launchConfetti(150);
 }
 
@@ -1350,7 +1348,6 @@ document.getElementById('modal-close-btn').addEventListener('click', () => {
   celebrationActive = false;
 });
 
-// إغلاق الاحتفال بالضغط على الخلفية
 document.getElementById('celebration-modal').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) {
     document.getElementById('celebration-modal').classList.remove('show');
@@ -1359,11 +1356,10 @@ document.getElementById('celebration-modal').addEventListener('click', (e) => {
 });
 
 /* =====================================================================
-   11) شهادة الإتمام (Certificate)
+   11) شهادة الإتمام
    ===================================================================== */
 let certStudentName = '';
 
-// تحديث الاسم من حقل الإدخال عند الطباعة
 function updateCertNameFromInput(){
   const input = document.getElementById('cert-name-input');
   const name = input.value.trim();
@@ -1374,25 +1370,23 @@ function updateCertNameFromInput(){
   }
 }
 
-// دالة عرض الشهادة
 function showCertModal(){
-  // تحديث الاسم من حقل الإدخال قبل عرض الشهادة
+  console.log('🎓 عرض الشهادة...');
   updateCertNameFromInput();
 
   const modal = document.getElementById('cert-modal');
   modal.classList.add('show');
 
-  // Set date
   const now = new Date();
   document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
 
-  // تحديث نجمة perfect
   const score = testAnswers.filter(a => a === true).length;
   if (score === testQuestions.length) {
     document.getElementById('cert-perfect-star').style.display = 'block';
   } else {
     document.getElementById('cert-perfect-star').style.display = 'none';
   }
+  console.log('✅ تم عرض الشهادة.');
 }
 
 document.getElementById('cert-close-btn').addEventListener('click', () => {
@@ -1400,14 +1394,11 @@ document.getElementById('cert-close-btn').addEventListener('click', () => {
 });
 
 document.getElementById('cert-print-btn').addEventListener('click', () => {
-  // تحديث الاسم من حقل الإدخال قبل الطباعة
   updateCertNameFromInput();
 
-  // Update date
   const now = new Date();
   document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
 
-  // تأكد من أن الاسم ليس فارغاً
   const nameEl = document.getElementById('cert-student-name');
   if (nameEl.textContent === '___________' || nameEl.textContent.trim() === '') {
     const input = document.getElementById('cert-name-input');
@@ -1421,18 +1412,15 @@ document.getElementById('cert-print-btn').addEventListener('click', () => {
     }
   }
 
-  // Print
   window.print();
 });
 
-// Close cert modal on outside click
 document.getElementById('cert-modal').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) {
     document.getElementById('cert-modal').classList.remove('show');
   }
 });
 
-// تحميل الاسم المحفوظ
 (function loadCertName(){
   const savedName = localStorage.getItem('cert_student_name');
   if (savedName) {
@@ -1443,16 +1431,20 @@ document.getElementById('cert-modal').addEventListener('click', (e) => {
 })();
 
 /* =====================================================================
-   12) تفويض الأحداث (Event Delegation) — حل المشكلتين
+   12) تفويض الأحداث (Event Delegation) — إصلاح نهائي
    ===================================================================== */
 document.addEventListener('click', function(event) {
   // زر إعادة الاختبار
-  if (event.target.id === 'reset-test-btn') {
+  const resetBtn = event.target.closest('#reset-test-btn');
+  if (resetBtn) {
     resetTest();
+    return;
   }
   // زر الشهادة
-  if (event.target.id === 'cert-btn') {
+  const certBtn = event.target.closest('#cert-btn');
+  if (certBtn) {
     showCertModal();
+    return;
   }
 });
 
@@ -1478,7 +1470,7 @@ document.addEventListener('click', function(event) {
 })();
 
 /* =====================================================================
-   14) إصلاح نهائي: إظهار جميع العناصر التي تحمل class "reveal" فوراً
+   14) إصلاح الظهور
    ===================================================================== */
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.reveal:not(.in-view)').forEach(function(el) {
@@ -1487,9 +1479,6 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('✅ تم إظهار جميع الأقسام بنجاح!');
 });
 
-/* =====================================================================
-   15) مراقبة العناصر الجديدة
-   ===================================================================== */
 const dynamicObserver = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
     mutation.addedNodes.forEach(function(node) {
