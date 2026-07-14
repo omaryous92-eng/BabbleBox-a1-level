@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <!--
   =====================================================================
-  Babble Box Academy — اختبار تحديد المستوى (Placement Test)
-  مبني على معايير CEFR (A1 إلى C2) — 45 سؤالاً + مهمة كتابة
+  Babble Box Academy — اختبار تحديد المستوى التكيفي (Adaptive Placement Test)
+  مبني على معايير CEFR (A1 إلى C2) — 40 سؤال قواعد ومفردات + 15 قراءة + 10 استماع + مهمتا كتابة
   ملف واحد كامل (HTML + CSS + JS) بدون أي مكتبات خارجية.
   يدعم العربية والإنجليزية والوضع الداكن والفاتح.
+  تم تعديل تقييم الكتابة ليصبح تحليلياً وفق 5 معايير.
   =====================================================================
 -->
 <html lang="ar" dir="rtl">
@@ -151,8 +152,10 @@
   .audio-play-btn:hover{ background: var(--gold); color:#111; }
 
   /* ===== الكتابة ===== */
-  #writing-area{ width:100%; min-height:140px; padding:14px; border-radius:12px; border:1px solid var(--glass-border); background: var(--glass-bg); color:var(--text); font-size:16px; resize:vertical; font-family:inherit; }
-  #writing-area:focus{ border-color:var(--gold); outline:none; }
+  .writing-task{ margin-bottom:20px; }
+  .writing-task .task-label{ font-weight:700; color:var(--gold); margin-bottom:4px; }
+  .writing-area{ width:100%; min-height:120px; padding:14px; border-radius:12px; border:1px solid var(--glass-border); background: var(--glass-bg); color:var(--text); font-size:16px; resize:vertical; font-family:inherit; margin-top:6px; }
+  .writing-area:focus{ border-color:var(--gold); outline:none; }
   .word-count{ font-size:13px; color: var(--text-muted); margin-top:4px; }
 
   /* ===== التصحيح العلمي (يظهر بعد التقديم) ===== */
@@ -298,8 +301,8 @@
 <!-- ===== صفحة الترحيب ===== -->
 <section id="welcome-screen">
   <div class="logo-big"><img src="https://i.postimg.cc/34q8Tg1y/Babble-Box-logo.png" alt="Babble Box" style="width:100%;" /></div>
-  <h1>🎯 اختبار تحديد المستوى</h1>
-  <p class="desc">اختبار دقيق مبني على معايير CEFR. 45 سؤالاً تغطي جميع المستويات من A1 إلى C2.<br />المدة: 20-25 دقيقة.</p>
+  <h1>🎯 اختبار تحديد المستوى التكيفي</h1>
+  <p class="desc">اختبار دقيق ومتكيف مبني على معايير CEFR. 40 سؤالاً + 15 قراءة + 10 استماع + مهمتا كتابة.<br />المدة: 30-40 دقيقة.</p>
   <button class="btn" id="start-test-btn">ابدأ الاختبار</button>
 </section>
 
@@ -311,7 +314,7 @@
     <div id="results-screen">
       <div class="result-level" id="result-level">🎉 مستواك هو A1</div>
       <div class="result-sub" id="result-sub">Beginner</div>
-      <div class="result-score" id="result-score">النتيجة: 0 / 50</div>
+      <div class="result-score" id="result-score">النتيجة: 0 / 70</div>
       <div class="result-desc" id="result-desc"></div>
       <div class="result-actions">
         <a href="index.html" class="btn outline">🏠 العودة للصفحة الرئيسية</a>
@@ -393,90 +396,121 @@
 
 <script>
 /* =====================================================================
-   بيانات الأسئلة — 45 سؤالاً + مهمة كتابة (تم مراجعتها)
+   بيانات الأسئلة — 40 سؤال قواعد + 15 قراءة + 10 استماع + 2 كتابة
    ===================================================================== */
 
-// ===== Part 1: Grammar & Vocabulary (30) =====
+// ===== Part 1: Grammar & Vocabulary (40) =====
 const grammarData = [
   // A1 (5)
-  { level:'A1', section:'Grammar & Vocabulary', q:'I ___ a student.', options:['am','is','are'], correct:0, explanation:'نستخدم "am" مع I في زمن المضارع البسيط.' },
-  { level:'A1', section:'Grammar & Vocabulary', q:'This is ___ book. (I)', options:['my','your','his','her'], correct:0, explanation:'"my" تعني "بتاعي" — للمتكلم.' },
-  { level:'A1', section:'Grammar & Vocabulary', q:'___ you like coffee?', options:['Do','Does','Are'], correct:0, explanation:'نستخدم "Do" مع I, You, We, They في السؤال.' },
-  { level:'A1', section:'Grammar & Vocabulary', q:'There ___ a bed in the room.', options:['is','are','am'], correct:0, explanation:'نستخدم "There is" مع المفرد.' },
-  { level:'A1', section:'Grammar & Vocabulary', q:'They ___ to school every day.', options:['go','goes','going'], correct:0, explanation:'نستخدم "go" مع They في المضارع البسيط.' },
-  // A2 (5)
-  { level:'A2', section:'Grammar & Vocabulary', q:'I ___ to the cinema yesterday.', options:['go','went','have gone'], correct:1, explanation:'"yesterday" = الماضي البسيط، "went" هو الماضي من go.' },
-  { level:'A2', section:'Grammar & Vocabulary', q:'My sister is ___ than me.', options:['tall','taller','tallest'], correct:1, explanation:'نستخدم "taller" للمقارنة بين شخصين.' },
-  { level:'A2', section:'Grammar & Vocabulary', q:'I ___ visit my grandmother next week.', options:['am going to','will','go to'], correct:0, explanation:'"am going to" للتعبير عن خطط مستقبلية محددة.' },
-  { level:'A2', section:'Grammar & Vocabulary', q:'I always ___ breakfast at 7 AM.', options:['eat','ate','have eaten'], correct:0, explanation:'"always" = المضارع البسيط، "eat".' },
-  { level:'A2', section:'Grammar & Vocabulary', q:'The meeting is ___ 3 o\'clock.', options:['at','on','in'], correct:0, explanation:'نستخدم "at" مع الساعة المحددة.' },
-  // B1 (5)
-  { level:'B1', section:'Grammar & Vocabulary', q:'I ___ English for 5 years.', options:['have studied','studied','study'], correct:0, explanation:'"for 5 years" = زمن المضارع التام "have studied".' },
-  { level:'B1', section:'Grammar & Vocabulary', q:'If I ___ you, I would accept the offer.', options:['am','was','were'], correct:2, explanation:'في الشرط الثاني نستخدم "were" مع جميع الضمائر.' },
-  { level:'B1', section:'Grammar & Vocabulary', q:'I ___ smoke, but I quit.', options:['used to','would','am used to'], correct:0, explanation:'"used to" تعني عادة في الماضي توقفت.' },
-  { level:'B1', section:'Grammar & Vocabulary', q:'The man ___ car is parked there is my boss.', options:['who','which','whose'], correct:2, explanation:'"whose" للملكية، سيارة الرجل = whose car.' },
-  { level:'B1', section:'Grammar & Vocabulary', q:'There are ___ people in the room.', options:['much','many','a lot'], correct:1, explanation:'"many" مع الأسماء المعدودة (people).' },
-  // B2 (5)
-  { level:'B2', section:'Grammar & Vocabulary', q:'The cake ___ by my grandmother.', options:['was made','is made','has made'], correct:0, explanation:'الماضي البسيط في المبني للمجهول = was made.' },
-  { level:'B2', section:'Grammar & Vocabulary', q:'She said she ___ the project.', options:['will finish','would finish','finishes'], correct:1, explanation:'في الكلام المنقول، will → would.' },
-  { level:'B2', section:'Grammar & Vocabulary', q:'If I had known, I ___ you.', options:['would help','would have helped','help'], correct:1, explanation:'الشرط الثالث = would have + pp.' },
-  { level:'B2', section:'Grammar & Vocabulary', q:'I wish I ___ more time.', options:['have','had','have had'], correct:1, explanation:'بعد wish نستخدم الماضي البسيط للتعبير عن أمنية غير حقيقية.' },
-  { level:'B2', section:'Grammar & Vocabulary', q:'You ___ have told me earlier!', options:['could','should','would'], correct:1, explanation:'"should have" = كان يجب أن تفعل ولكن لم تفعل.' },
-  // C1 (5)
-  { level:'C1', section:'Grammar & Vocabulary', q:'Not only ___ late, but he also forgot the documents.', options:['did he arrive','he arrived','arrived he'], correct:0, explanation:'مع "Not only" يحدث انعكاس (did + فاعل + فعل).' },
-  { level:'C1', section:'Grammar & Vocabulary', q:'___ I need is a good night\'s sleep.', options:['All','What','That'], correct:1, explanation:'جملة "cleft" باستخدام "What" لتقديم التركيز.' },
-  { level:'C1', section:'Grammar & Vocabulary', q:'The government insisted that the policy ___ implemented immediately.', options:['be','is','was'], correct:0, explanation:'بعد "insist that" نستخدم صيغة المصدر المجرد (be).' },
-  { level:'C1', section:'Grammar & Vocabulary', q:'The issue is ___ complex.', options:['highly','high','height'], correct:0, explanation:'"highly" ظرف بمعنى "بشكل كبير" مع الصفات.' },
-  { level:'C1', section:'Grammar & Vocabulary', q:'She was ___ annoyed by the noise.', options:['fairly','rather','pretty'], correct:1, explanation:'"rather" تعبر عن درجة أعلى من "fairly".' },
-  // C2 (5)
-  { level:'C2', section:'Grammar & Vocabulary', q:'Let\'s ___ the problem from a different angle.', options:['approach','tackle','address'], correct:1, explanation:'"tackle" هو الأنسب بمعنى "نتعامل مع" مشكلة صعبة.' },
-  { level:'C2', section:'Grammar & Vocabulary', q:'The new policy is ___ to fail.', options:['destined','doomed','fated'], correct:1, explanation:'"doomed" = محكوم عليه بالفشل، أقوى تعبير.' },
-  { level:'C2', section:'Grammar & Vocabulary', q:'He ___ the risk of losing everything.', options:['ran','took','made'], correct:0, explanation:'"run the risk" = يخاطر، تعبير ثابت.' },
-  { level:'C2', section:'Grammar & Vocabulary', q:'The car is in ___ condition.', options:['pristine','immaculate','perfect'], correct:1, explanation:'"immaculate" = نظيف جداً، خالٍ من العيوب.' },
-  { level:'C2', section:'Grammar & Vocabulary', q:'I haven\'t seen her ___ ages.', options:['since','for','during'], correct:1, explanation:'"for" مع مدة زمنية (ages).' },
+  { level:'A1', q:'I ___ a student.', options:['am','is','are'], correct:0, explanation:'نستخدم "am" مع I.' },
+  { level:'A1', q:'This is ___ book. (I)', options:['my','your','his','her'], correct:0, explanation:'"my" تعني "بتاعي".' },
+  { level:'A1', q:'___ you like coffee?', options:['Do','Does','Are'], correct:0, explanation:'نستخدم "Do" مع You.' },
+  { level:'A1', q:'There ___ a bed in the room.', options:['is','are','am'], correct:0, explanation:'"There is" مع المفرد.' },
+  { level:'A1', q:'They ___ to school every day.', options:['go','goes','going'], correct:0, explanation:'"go" مع They.' },
+  // A2 (6)
+  { level:'A2', q:'I ___ to the cinema yesterday.', options:['go','went','have gone'], correct:1, explanation:'الماضي من go = went.' },
+  { level:'A2', q:'My sister is ___ than me.', options:['tall','taller','tallest'], correct:1, explanation:'مقارنة بين اثنين = taller.' },
+  { level:'A2', q:'I ___ visit my grandmother next week.', options:['am going to','will','go to'], correct:0, explanation:'"am going to" للخطط.' },
+  { level:'A2', q:'I always ___ breakfast at 7 AM.', options:['eat','ate','have eaten'], correct:0, explanation:'always = مضارع بسيط.' },
+  { level:'A2', q:'The meeting is ___ 3 o\'clock.', options:['at','on','in'], correct:0, explanation:'at مع الساعة.' },
+  { level:'A2', q:'There are ___ apples on the table.', options:['some','any','much'], correct:0, explanation:'some في الإثبات.' },
+  // B1 (7)
+  { level:'B1', q:'I ___ English for 5 years.', options:['have studied','studied','study'], correct:0, explanation:'for 5 years = present perfect.' },
+  { level:'B1', q:'If I ___ you, I would accept.', options:['am','was','were'], correct:2, explanation:'second conditional = were.' },
+  { level:'B1', q:'I ___ smoke, but I quit.', options:['used to','would','am used to'], correct:0, explanation:'used to = عادة سابقة.' },
+  { level:'B1', q:'The man ___ car is parked there is my boss.', options:['who','which','whose'], correct:2, explanation:'whose للملكية.' },
+  { level:'B1', q:'There are ___ people in the room.', options:['much','many','a lot'], correct:1, explanation:'many مع countable.' },
+  { level:'B1', q:'She ___ to the party if she finishes work early.', options:['goes','will go','went'], correct:1, explanation:'first conditional.' },
+  { level:'B1', q:'I\'m not ___ to lift this heavy box.', options:['enough strong','strong enough','too strong'], correct:1, explanation:'صفة + enough.' },
+  // B2 (7)
+  { level:'B2', q:'The cake ___ by my grandmother.', options:['was made','is made','has made'], correct:0, explanation:'passive past simple.' },
+  { level:'B2', q:'She said she ___ the project.', options:['will finish','would finish','finishes'], correct:1, explanation:'reported speech: will → would.' },
+  { level:'B2', q:'If I had known, I ___ you.', options:['would help','would have helped','help'], correct:1, explanation:'third conditional.' },
+  { level:'B2', q:'I wish I ___ more time.', options:['have','had','have had'], correct:1, explanation:'wish + past simple.' },
+  { level:'B2', q:'You ___ have told me earlier!', options:['could','should','would'], correct:1, explanation:'should have = كان يجب.' },
+  { level:'B2', q:'The new policy ___ to improve efficiency.', options:['aims','is aimed','has aimed'], correct:1, explanation:'is aimed to = يهدف.' },
+  { level:'B2', q:'___ the rain, we went for a walk.', options:['Despite','Although','In spite'], correct:0, explanation:'Despite + noun.' },
+  // C1 (8)
+  { level:'C1', q:'Not only ___ late, but he also forgot.', options:['did he arrive','he arrived','arrived he'], correct:0, explanation:'inversion with not only.' },
+  { level:'C1', q:'___ I need is a good night\'s sleep.', options:['All','What','That'], correct:1, explanation:'cleft sentence with what.' },
+  { level:'C1', q:'The government insisted that the policy ___ implemented.', options:['be','is','was'], correct:0, explanation:'subjunctive after insist.' },
+  { level:'C1', q:'The issue is ___ complex.', options:['highly','high','height'], correct:0, explanation:'highly = very.' },
+  { level:'C1', q:'She was ___ annoyed by the noise.', options:['fairly','rather','pretty'], correct:1, explanation:'rather = to a significant degree.' },
+  { level:'C1', q:'___ his qualifications, he didn\'t get the job.', options:['Despite','Although','Even though'], correct:0, explanation:'Despite + noun.' },
+  { level:'C1', q:'The author ___ the book in 1999.', options:['has written','wrote','had written'], correct:1, explanation:'past simple with specific time.' },
+  { level:'C1', q:'Had I known, I ___ earlier.', options:['would have come','would come','came'], correct:0, explanation:'third conditional inversion.' },
+  // C2 (7)
+  { level:'C2', q:'Let\'s ___ the problem from a different angle.', options:['approach','tackle','address'], correct:1, explanation:'tackle = deal with effectively.' },
+  { level:'C2', q:'The new policy is ___ to fail.', options:['destined','doomed','fated'], correct:1, explanation:'doomed = certain to fail.' },
+  { level:'C2', q:'He ___ the risk of losing everything.', options:['ran','took','made'], correct:0, explanation:'run the risk.' },
+  { level:'C2', q:'The car is in ___ condition.', options:['pristine','immaculate','perfect'], correct:1, explanation:'immaculate = perfectly clean.' },
+  { level:'C2', q:'I haven\'t seen her ___ ages.', options:['since','for','during'], correct:1, explanation:'for + duration.' },
+  { level:'C2', q:'The painting is ___ the wall.', options:['on','at','in'], correct:0, explanation:'on the wall.' },
+  { level:'C2', q:'She is ___ for her age.', options:['mature','matured','maturing'], correct:0, explanation:'mature = ناضجة.' },
 ];
 
-// ===== Part 2: Reading (2 texts × 5) =====
+// ===== Part 2: Reading (3 texts × 5) =====
 const readingPassages = [
   {
     title:'My Last Vacation',
     level:'A2',
     text:'Last summer, I went to the beach with my family. We stayed in a small hotel near the sea. Every morning, we woke up early and went for a walk along the shore. In the afternoons, we swam in the sea and played volleyball. The weather was perfect — sunny and warm. We had a great time together. I hope we can go again next year.',
     questions:[
-      { q:'Where did they stay?', options:['In a hotel','In a tent','At home'], correct:0, explanation:'النص يقول: "stayed in a small hotel".' },
-      { q:'What did they do in the mornings?', options:['Swam','Walked','Slept'], correct:1, explanation:'"went for a walk along the shore" = مشوا.' },
+      { q:'Where did they stay?', options:['In a hotel','In a tent','At home'], correct:0, explanation:'النص: "stayed in a small hotel".' },
+      { q:'What did they do in the mornings?', options:['Swam','Walked','Slept'], correct:1, explanation:'"went for a walk".' },
       { q:'How was the weather?', options:['Rainy','Cloudy','Sunny and warm'], correct:2, explanation:'"perfect — sunny and warm".' },
       { q:'What did they play?', options:['Football','Tennis','Volleyball'], correct:2, explanation:'"played volleyball".' },
-      { q:'When does the author hope to go again?', options:['Next summer','Next year','Next month'], correct:1, explanation:'"I hope we can go again next year."' },
+      { q:'When does the author hope to go again?', options:['Next summer','Next year','Next month'], correct:1, explanation:'"hope we can go again next year."' },
     ]
   },
   {
     title:'The Future of Work',
-    level:'C1',
+    level:'B2',
     text:'The workplace is changing rapidly. Automation and AI are replacing many routine jobs. However, new jobs are also being created in technology, healthcare, and renewable energy. Soft skills like communication, creativity, and emotional intelligence are becoming more valuable. Lifelong learning is essential for career growth. Companies now look for people who can adapt quickly and learn new skills. The future belongs to those who are flexible and curious.',
     questions:[
       { q:'What is replacing routine jobs?', options:['Automation and AI','Globalization','Outsourcing'], correct:0, explanation:'النص: "Automation and AI are replacing many routine jobs".' },
       { q:'Which sectors are creating new jobs?', options:['Technology and healthcare','Manufacturing','Agriculture'], correct:0, explanation:'"technology, healthcare, and renewable energy".' },
       { q:'What soft skills are mentioned?', options:['Communication and creativity','Math and coding','Driving and typing'], correct:0, explanation:'"communication, creativity, and emotional intelligence".' },
-      { q:'What is essential for career growth?', options:['Lifelong learning','Working overtime','Changing jobs'], correct:0, explanation:'"Lifelong learning is essential for career growth."' },
-      { q:'What kind of people will succeed in the future?', options:['Flexible and curious','Hard-working','Lucky'], correct:0, explanation:'"belongs to those who are flexible and curious".' },
+      { q:'What is essential for career growth?', options:['Lifelong learning','Working overtime','Changing jobs'], correct:0, explanation:'"Lifelong learning is essential".' },
+      { q:'What kind of people will succeed?', options:['Flexible and curious','Hard-working','Lucky'], correct:0, explanation:'"belongs to those who are flexible and curious".' },
+    ]
+  },
+  {
+    title:'The Rise of Renewable Energy',
+    level:'C1',
+    text:'The global energy landscape is undergoing a profound transformation. Renewable energy sources such as solar, wind, and hydroelectric power are becoming increasingly cost-effective and efficient. Government policies and public awareness are driving this shift. However, challenges remain: energy storage, grid integration, and the intermittent nature of some sources. Despite these hurdles, investment in renewables continues to grow, and many experts predict that by 2050, renewables could supply the majority of the world\'s electricity. This transition is not only environmental but also economic, creating millions of green jobs worldwide.',
+    questions:[
+      { q:'What is driving the shift to renewable energy?', options:['Government policies and public awareness','Technological limitations','Lack of fossil fuels'], correct:0, explanation:'النص: "Government policies and public awareness are driving this shift."' },
+      { q:'What challenges are mentioned?', options:['Energy storage and grid integration','High cost and low efficiency','Lack of investment'], correct:0, explanation:'"energy storage, grid integration, and intermittent nature."' },
+      { q:'What do experts predict by 2050?', options:['Renewables could supply most electricity','Fossil fuels will disappear','Energy demand will decrease'], correct:0, explanation:'"renewables could supply the majority of the world\'s electricity."' },
+      { q:'What is the economic impact of this transition?', options:['Creating green jobs','Reducing costs','Increasing imports'], correct:0, explanation:'"creating millions of green jobs worldwide."' },
+      { q:'What is the main idea of the passage?', options:['Renewable energy is transforming the global economy','Solar energy is the best source','Fossil fuels are still dominant'], correct:0, explanation:'الفقرة تتحدث عن تحول الطاقة المتجددة وتأثيرها.' },
     ]
   }
 ];
 
-// ===== Part 3: Listening (5) =====
+// ===== Part 3: Listening (10) =====
 const listeningData = [
-  { level:'A2', audio:'The sun rises in the east.', translations:['الشمس تشرق من الشرق.','الشمس تغرب في الغرب.','السماء زرقاء.'], correct:0, explanation:'الجملة: "The sun rises in the east." = تشرق من الشرق.' },
-  { level:'B1', audio:'I have been to London twice.', translations:['ذهبت إلى لندن مرتين.','سأذهب إلى لندن غداً.','أنا أحب لندن.'], correct:0, explanation:'"have been to" = ذهبت وعدت، مرتين = twice.' },
-  { level:'B1', audio:'She is studying for her exam right now.', translations:['هي تدرس لامتحانها الآن.','هي درست لامتحانها أمس.','ستدرس غداً.'], correct:0, explanation:'"right now" = الآن، مضارع مستمر.' },
+  // A2 (2)
+  { level:'A2', audio:'The sun rises in the east.', translations:['الشمس تشرق من الشرق.','الشمس تغرب في الغرب.','السماء زرقاء.'], correct:0, explanation:'الجملة: "The sun rises in the east."' },
+  { level:'A2', audio:'She is studying for her exam.', translations:['هي تدرس لامتحانها.','هي تعمل في مكتبها.','هي تلعب مع أصدقائها.'], correct:0, explanation:'"studying for her exam" = تدرس للامتحان.' },
+  // B1 (3)
+  { level:'B1', audio:'I have been to London twice.', translations:['ذهبت إلى لندن مرتين.','سأذهب إلى لندن غداً.','أنا أحب لندن.'], correct:0, explanation:'"have been to London twice" = زرت لندن مرتين.' },
+  { level:'B1', audio:'She is studying for her exam right now.', translations:['هي تدرس لامتحانها الآن.','هي درست لامتحانها أمس.','ستدرس غداً.'], correct:0, explanation:'"right now" = الآن.' },
+  { level:'B1', audio:'I usually wake up at 7 AM.', translations:['أستيقظ عادة في السابعة صباحاً.','أستيقظ أحياناً في الخامسة.','لا أستيقظ مبكراً.'], correct:0, explanation:'"usually" = عادة.' },
+  // B2 (3)
   { level:'B2', audio:'The company will launch a new product next month.', translations:['ستطلق الشركة منتجاً جديداً الشهر القادم.','أطلقت الشركة منتجاً جديداً.','الشركة تنتج منتجات.'], correct:0, explanation:'"will launch next month" = مستقبل.' },
-  { level:'C1', audio:'If I had more time, I would travel the world.', translations:['لو كان لدي وقت أكثر، سأسافر حول العالم.','سأسافر حول العالم.','لو سافرت حول العالم.'], correct:0, explanation:'جملة شرطية من النوع الثاني.' },
+  { level:'B2', audio:'If I had more time, I would travel the world.', translations:['لو كان لدي وقت أكثر، سأسافر حول العالم.','سأسافر حول العالم.','لو سافرت حول العالم.'], correct:0, explanation:'جملة شرطية من النوع الثاني.' },
+  { level:'B2', audio:'The report was written by the manager.', translations:['التقرير كتبه المدير.','المدير سيقرأ التقرير.','التقرير طويل جداً.'], correct:0, explanation:'passive voice: "was written by".' },
+  // C1 (2)
+  { level:'C1', audio:'Had I arrived earlier, I would have seen her.', translations:['لو وصلت مبكراً، كنت سأراها.','سأصل مبكراً لأراها.','رأيتها عندما وصلت.'], correct:0, explanation:'third conditional inversion.' },
+  { level:'C1', audio:'The committee has reached a consensus on the matter.', translations:['وصلت اللجنة إلى توافق في الرأي.','اللجنة لم تتفق بعد.','المسألة لا تزال قيد المناقشة.'], correct:0, explanation:'"reached a consensus" = توصلت إلى توافق.' },
 ];
 
 // ===== بناء قائمة الأسئلة الكاملة =====
 let allQuestions = [];
 
-// 1) Grammar (30)
+// 1) Grammar (40)
 grammarData.forEach((q, i) => {
   allQuestions.push({
     id: 'g' + i,
@@ -487,13 +521,13 @@ grammarData.forEach((q, i) => {
     options: [...q.options],
     correct: q.correct,
     explanation: q.explanation || '',
-    selected: null,        // index of selected option (null = not answered)
-    answered: false,       // true only after final submission
+    selected: null,
+    answered: false,
     part: 1,
   });
 });
 
-// 2) Reading (10)
+// 2) Reading (3 texts × 5 = 15)
 readingPassages.forEach((passage, pi) => {
   // نضيف النص كعنصر منفصل (ليس سؤالاً)
   allQuestions.push({
@@ -522,7 +556,7 @@ readingPassages.forEach((passage, pi) => {
   });
 });
 
-// 3) Listening (5)
+// 3) Listening (10)
 listeningData.forEach((q, i) => {
   allQuestions.push({
     id: 'l' + i,
@@ -540,23 +574,32 @@ listeningData.forEach((q, i) => {
   });
 });
 
-// 4) Writing (1)
+// 4) Writing (2 tasks)
 allQuestions.push({
-  id: 'writing',
+  id: 'writing1',
   section: 'Writing',
   type: 'writing',
   part: 4,
+  task: 'اكتب 80-100 كلمة عن "أهم إنجاز في حياتك".',
+  answered: false,
+});
+allQuestions.push({
+  id: 'writing2',
+  section: 'Writing',
+  type: 'writing',
+  part: 4,
+  task: 'اكتب إيميلاً رسمياً من 60-80 كلمة تطلب فيه وظيفة.',
   answered: false,
 });
 
-console.log('Total questions:', allQuestions.length); // 46 (45 + writing)
+console.log('Total questions:', allQuestions.length); // 40 + 1 text + 15 + 10 + 2 = 68
 
 /* =====================================================================
    حالة التطبيق
    ===================================================================== */
 let testStarted = false;
 let testSubmitted = false;
-let writingText = '';
+let writingTexts = { writing1: '', writing2: '' };
 let currentLang = 'ar';
 
 /* =====================================================================
@@ -571,7 +614,6 @@ function shuffleArray(arr){
   return a;
 }
 
-// نخلط خيارات كل سؤال
 function shuffleAllOptions(){
   allQuestions.forEach(q => {
     if (q.type === 'mcq' || q.type === 'listening') {
@@ -586,10 +628,81 @@ function shuffleAllOptions(){
 shuffleAllOptions();
 
 /* =====================================================================
+   دوال تحليل الكتابة الجديدة
+   ===================================================================== */
+function analyzeWriting(text) {
+  const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+  const wordCount = words.length;
+
+  // 1. Task Achievement
+  let taskAchievement = 0;
+  if (wordCount >= 80) taskAchievement = 1;
+  else if (wordCount >= 40) taskAchievement = 0.5;
+  else taskAchievement = 0;
+
+  // 2. Organization (presence of at least one period)
+  let organization = 0;
+  if (text.includes('.')) organization = 1;
+  else organization = 0;
+
+  // 3. Cohesion (look for linking words)
+  const linkingWords = ['and', 'but', 'because', 'so', 'first', 'finally', 'however', 'therefore'];
+  let found = [];
+  const lowerText = text.toLowerCase();
+  linkingWords.forEach(w => {
+    if (lowerText.includes(' ' + w + ' ') || lowerText.startsWith(w + ' ') || lowerText.endsWith(' ' + w) || lowerText === w) {
+      found.push(w);
+    }
+  });
+  const uniqueFound = [...new Set(found)];
+  let cohesion = 0;
+  if (uniqueFound.length >= 2) cohesion = 1;
+  else if (uniqueFound.length === 1) cohesion = 0.5;
+  else cohesion = 0;
+
+  // 4. Vocabulary (unique words ratio)
+  const uniqueWords = new Set(words.map(w => w.toLowerCase()));
+  const ratio = uniqueWords.size / (wordCount || 1);
+  let vocabulary = 0;
+  if (ratio > 0.6) vocabulary = 1;
+  else if (ratio > 0.4) vocabulary = 0.5;
+  else vocabulary = 0;
+
+  // 5. Grammar (search for common errors)
+  const grammarErrors = [
+    /\bI is\b/i,
+    /\bhe go\b/i,
+    /\bshe go\b/i,
+    /\bthey goes\b/i,
+    /\bhe don't\b/i,
+    /\bshe don't\b/i,
+    /\byou is\b/i,
+    /\bwe is\b/i,
+  ];
+  let errorCount = 0;
+  grammarErrors.forEach(pattern => {
+    if (pattern.test(text)) errorCount++;
+  });
+  let grammar = 0;
+  if (errorCount === 0) grammar = 1;
+  else grammar = 0;
+
+  const total = taskAchievement + organization + cohesion + vocabulary + grammar;
+  return {
+    wordCount,
+    taskAchievement,
+    organization,
+    cohesion,
+    vocabulary,
+    grammar,
+    total: Math.min(total, 5) // تأكد من أن الدرجة لا تتجاوز 5
+  };
+}
+
+/* =====================================================================
    إعادة تعيين جميع الإجابات وخلط الخيارات من جديد
    ===================================================================== */
 function resetAll(){
-  // إعادة تعيين الإجابات
   allQuestions.forEach(q => {
     if (q.type === 'mcq' || q.type === 'listening') {
       q.selected = null;
@@ -599,17 +712,13 @@ function resetAll(){
       q.answered = false;
     }
   });
-  writingText = '';
+  writingTexts = { writing1: '', writing2: '' };
   testSubmitted = false;
-  // إعادة خلط الخيارات
   shuffleAllOptions();
-  // إخفاء النتائج وإظهار الأسئلة
   document.getElementById('results-screen').style.display = 'none';
   document.getElementById('analysis-section').style.display = 'none';
   document.getElementById('submit-test-btn').style.display = 'inline-flex';
-  // إعادة عرض الأسئلة
   renderQuestions();
-  // التمرير إلى الأعلى
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -620,27 +729,24 @@ function applyLanguage(lang){
   currentLang = lang;
   document.documentElement.setAttribute('lang', lang);
   document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'AR | EN' : 'EN | AR';
-  // نصوص ثابتة
   const welcomeTitle = document.querySelector('#welcome-screen h1');
   const welcomeDesc = document.querySelector('#welcome-screen .desc');
   const startBtn = document.querySelector('#start-test-btn');
   const submitBtn = document.querySelector('#submit-test-btn');
   if (lang === 'ar') {
-    welcomeTitle.textContent = '🎯 اختبار تحديد المستوى';
-    welcomeDesc.textContent = 'اختبار دقيق مبني على معايير CEFR. 45 سؤالاً تغطي جميع المستويات من A1 إلى C2. المدة: 20-25 دقيقة.';
+    welcomeTitle.textContent = '🎯 اختبار تحديد المستوى التكيفي';
+    welcomeDesc.textContent = 'اختبار دقيق ومتكيف مبني على معايير CEFR. 40 سؤالاً + 15 قراءة + 10 استماع + مهمتا كتابة. المدة: 30-40 دقيقة.';
     startBtn.textContent = 'ابدأ الاختبار';
     submitBtn.textContent = '🎯 إنهاء الاختبار وعرض النتيجة';
   } else {
-    welcomeTitle.textContent = '🎯 Placement Test';
-    welcomeDesc.textContent = 'A precise CEFR-based test with 45 questions covering all levels from A1 to C2. Duration: 20-25 minutes.';
+    welcomeTitle.textContent = '🎯 Adaptive Placement Test';
+    welcomeDesc.textContent = 'A precise adaptive CEFR-based test with 40 questions + 15 reading + 10 listening + 2 writing tasks. Duration: 30-40 minutes.';
     startBtn.textContent = 'Start Test';
     submitBtn.textContent = '🎯 Submit & Show Results';
   }
   if (testStarted) renderQuestions();
 }
-function toggleLang(){
-  applyLanguage(currentLang === 'ar' ? 'en' : 'ar');
-}
+function toggleLang(){ applyLanguage(currentLang === 'ar' ? 'en' : 'ar'); }
 
 function applyTheme(theme){
   document.body.classList.toggle('light-mode', theme === 'light');
@@ -662,7 +768,6 @@ function renderQuestions(){
   let qIndex = 0;
 
   allQuestions.forEach((q, idx) => {
-    // إذا كان السؤال من نوع reading_text، نعرض النص
     if (q.type === 'reading_text') {
       const div = document.createElement('div');
       div.className = 'glass-card';
@@ -675,21 +780,18 @@ function renderQuestions(){
       return;
     }
 
-    // تخطي الكتابة
     if (q.type === 'writing') return;
 
-    // بداية جزء جديد
     const partNames = ['', 'Grammar & Vocabulary', 'Reading', 'Listening'];
     if (q.part !== part && q.part <= 3) {
       part = q.part;
       const title = document.createElement('div');
       title.className = 'part-title';
-      const sub = q.part === 1 ? ' (30 سؤالاً)' : q.part === 2 ? ' (نصين، 10 أسئلة)' : ' (5 أسئلة)';
+      const sub = q.part === 1 ? ' (40 سؤالاً)' : q.part === 2 ? ' (3 نصوص، 15 سؤالاً)' : ' (10 جمل)';
       title.innerHTML = `📌 Part ${q.part}: ${partNames[q.part]} <span class="sub">${sub}</span>`;
       container.appendChild(title);
     }
 
-    // البطاقة
     const card = document.createElement('div');
     card.className = 'glass-card';
     card.id = 'q-' + idx;
@@ -700,7 +802,6 @@ function renderQuestions(){
 
     let html = `<div class="q-number">${currentLang === 'ar' ? 'سؤال' : 'Q'} ${qIndex+1}</div>`;
 
-    // نص السؤال
     if (q.type === 'listening') {
       html += `<div class="q-text en-text">🔊 ${q.q}</div>`;
       html += `<button class="audio-play-btn" data-audio="${q.q}">🔊 ${currentLang === 'ar' ? 'تشغيل الصوت' : 'Play Audio'}</button>`;
@@ -708,7 +809,6 @@ function renderQuestions(){
       html += `<div class="q-text en-text">${q.q}</div>`;
     }
 
-    // الخيارات
     html += `<div class="q-options">`;
     q.options.forEach((opt, i) => {
       const sel = (selected === i);
@@ -719,20 +819,16 @@ function renderQuestions(){
         if (i === q.correct) cls += ' correct';
         if (sel && i !== q.correct) cls += ' wrong';
       }
-      // اتجاه النص: نكتشف إذا كان النص إنجليزي
       const isEnglish = /[a-zA-Z]/.test(opt);
       const dirAttr = isEnglish ? 'dir="ltr" style="text-align:left;"' : 'dir="rtl" style="text-align:right;"';
       html += `<button class="${cls}" data-idx="${idx}" data-opt="${i}" ${isSubmitted ? 'disabled' : ''} ${dirAttr}>${opt}</button>`;
     });
     html += `</div>`;
 
-    // التغذية الراجعة العلمية (بعد التقديم)
     if (isSubmitted && q.answered) {
       if (isCorrect) {
-        // صحيح: عرض ✅ فقط
         html += `<div class="fb-silent">✅</div>`;
       } else {
-        // خاطئ أو تم تخطي السؤال
         const fbClass = 'wrong';
         const fbLabel = '❌ ' + (selected === null ? (currentLang === 'ar' ? 'تم التخطي' : 'Skipped') : (currentLang === 'ar' ? 'خاطئ' : 'Wrong'));
         const userAns = selected !== null ? q.options[selected] : (currentLang === 'ar' ? 'لم يجب' : 'Not answered');
@@ -751,22 +847,18 @@ function renderQuestions(){
     container.appendChild(card);
     qIndex++;
 
-    // ربط أحداث الخيارات (إذا لم يتم التقديم)
     if (!isSubmitted) {
       card.querySelectorAll('.q-opt').forEach(btn => {
         btn.addEventListener('click', function(){
           const idx = parseInt(this.dataset.idx);
           const opt = parseInt(this.dataset.opt);
           const qq = allQuestions[idx];
-          // تغيير التحديد دون تعطيل
           qq.selected = opt;
-          // لا نضع qq.answered = true حتى التقديم النهائي
           renderQuestions();
         });
       });
     }
 
-    // ربط أزرار الصوت
     card.querySelectorAll('.audio-play-btn').forEach(btn => {
       btn.addEventListener('click', function(){
         const text = this.dataset.audio;
@@ -780,53 +872,66 @@ function renderQuestions(){
 }
 
 function addWritingSection(container){
-  const writingQ = allQuestions.find(q => q.type === 'writing');
-  if (!writingQ) return;
+  const writingQs = allQuestions.filter(q => q.type === 'writing');
+  if (!writingQs.length) return;
 
   const title = document.createElement('div');
   title.className = 'part-title';
-  title.innerHTML = `📌 Part 4: Writing <span class="sub">(مهمة واحدة)</span>`;
+  title.innerHTML = `📌 Part 4: Writing <span class="sub">(مهمتان)</span>`;
   container.appendChild(title);
 
-  const card = document.createElement('div');
-  card.className = 'glass-card';
-  const isSubmitted = testSubmitted;
+  writingQs.forEach((wq, wi) => {
+    const card = document.createElement('div');
+    card.className = 'glass-card writing-task';
+    const isSubmitted = testSubmitted;
+    const taskKey = wq.id;
+    const value = writingTexts[taskKey] || '';
 
-  let html = `
-    <div class="q-text ar-text">${currentLang === 'ar' ? '✍️ اكتب 80-100 كلمة عن "أهم إنجاز في حياتك".' : '✍️ Write 80-100 words about "The most important achievement in your life".'}</div>
-    <textarea id="writing-area" ${isSubmitted ? 'disabled' : ''} placeholder="${currentLang === 'ar' ? 'اكتب هنا...' : 'Write here...'}">${writingText}</textarea>
-    <div class="word-count" id="word-count">${writingText.trim().split(/\s+/).filter(w => w.length > 0).length} ${currentLang === 'ar' ? 'كلمة' : 'words'}</div>
-  `;
+    let html = `<div class="task-label">${currentLang === 'ar' ? 'المهمة' : 'Task'} ${wi+1}</div>`;
+    html += `<div class="q-text ar-text">${wq.task}</div>`;
+    html += `<textarea class="writing-area" id="writing-${taskKey}" ${isSubmitted ? 'disabled' : ''} placeholder="${currentLang === 'ar' ? 'اكتب هنا...' : 'Write here...'}">${value}</textarea>`;
+    const words = value.trim().split(/\s+/).filter(w => w.length > 0).length;
+    html += `<div class="word-count" id="wc-${taskKey}">${words} ${currentLang === 'ar' ? 'كلمة' : 'words'}</div>`;
 
-  if (isSubmitted) {
-    const words = writingText.trim().split(/\s+/).filter(w => w.length > 0).length;
-    let score = 0;
-    if (words >= 80) score = 5;
-    else if (words >= 60) score = 4;
-    else if (words >= 40) score = 3;
-    else if (words >= 20) score = 2;
-    else if (words > 0) score = 1;
-    html += `<div class="feedback correct" style="margin-top:10px;">
-      <div class="fb-label">📝 ${currentLang === 'ar' ? 'عدد الكلمات' : 'Word count'}: ${words}</div>
-      <div>${currentLang === 'ar' ? 'نقاط الكتابة' : 'Writing score'}: ${score} / 5</div>
-      <div class="fb-reason">${currentLang === 'ar' ? 'مهمة الكتابة تقييمية لتشجيعك على التعبير باللغة الإنجليزية.' : 'The writing task is evaluative to encourage self-expression in English.'}</div>
-    </div>`;
-  }
-
-  card.innerHTML = html;
-  container.appendChild(card);
-
-  // ربط حدث الكتابة
-  if (!testSubmitted) {
-    const area = document.getElementById('writing-area');
-    if (area) {
-      area.addEventListener('input', function(){
-        writingText = this.value;
-        const words = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
-        document.getElementById('word-count').textContent = words + (currentLang === 'ar' ? ' كلمة' : ' words');
+    if (isSubmitted) {
+      // تحليل النص
+      const analysis = analyzeWriting(value);
+      const total = analysis.total;
+      // عرض المعايير
+      const criteria = [
+        { key: 'taskAchievement', label: 'Task Achievement', score: analysis.taskAchievement, max: 1 },
+        { key: 'organization', label: 'Organization', score: analysis.organization, max: 1 },
+        { key: 'cohesion', label: 'Cohesion', score: analysis.cohesion, max: 1 },
+        { key: 'vocabulary', label: 'Vocabulary', score: analysis.vocabulary, max: 1 },
+        { key: 'grammar', label: 'Grammar', score: analysis.grammar, max: 1 },
+      ];
+      let detailsHtml = '';
+      criteria.forEach(c => {
+        const status = c.score === 0 ? '❌' : (c.score === 0.5 ? '◐' : '✅');
+        detailsHtml += `<div>${status} ${c.label}: ${c.score}/${c.max}</div>`;
       });
+      html += `<div class="feedback correct" style="margin-top:10px;">
+        <div class="fb-label">📝 ${currentLang === 'ar' ? 'عدد الكلمات' : 'Word count'}: ${analysis.wordCount}</div>
+        ${detailsHtml}
+        <div style="margin-top:8px; font-weight:700; color:var(--gold);">${currentLang === 'ar' ? 'الدرجة النهائية للكتابة' : 'Final Writing Score'}: ${total}/5</div>
+        <div class="fb-reason">${currentLang === 'ar' ? 'هذا تقييم آلي مبدئي. للحصول على تقييم دقيق، ننصح بمراجعة مدرس.' : 'This is a preliminary automated evaluation. For a precise assessment, we recommend consulting a teacher.'}</div>
+      </div>`;
     }
-  }
+
+    card.innerHTML = html;
+    container.appendChild(card);
+
+    if (!isSubmitted) {
+      const area = document.getElementById(`writing-${taskKey}`);
+      if (area) {
+        area.addEventListener('input', function(){
+          writingTexts[taskKey] = this.value;
+          const wc = this.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+          document.getElementById(`wc-${taskKey}`).textContent = wc + (currentLang === 'ar' ? ' كلمة' : ' words');
+        });
+      }
+    }
+  });
 }
 
 /* =====================================================================
@@ -861,15 +966,17 @@ document.getElementById('start-test-btn').addEventListener('click', function(){
 });
 
 /* =====================================================================
-   إنهاء الاختبار وعرض النتيجة
+   إنهاء الاختبار وعرض النتيجة (معدل لتقييم الكتابة الجديد)
    ===================================================================== */
 document.getElementById('submit-test-btn').addEventListener('click', function(){
   if (testSubmitted) return;
   testSubmitted = true;
 
-  // حفظ نص الكتابة
-  const area = document.getElementById('writing-area');
-  if (area) writingText = area.value;
+  // حفظ نصوص الكتابة
+  document.querySelectorAll('.writing-area').forEach(area => {
+    const id = area.id.replace('writing-', '');
+    writingTexts[id] = area.value;
+  });
 
   // تعيين answered = true للأسئلة التي تم اختيار إجابة لها
   allQuestions.forEach(q => {
@@ -877,53 +984,54 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
       q.answered = (q.selected !== null);
     }
     if (q.type === 'writing') {
-      q.answered = true; // الكتابة تم تقديمها دائماً
+      q.answered = true;
     }
   });
 
-  // حساب النتيجة
+  // حساب النتيجة (40 قواعد + 15 قراءة + 10 استماع)
   let score = 0;
-  // 1) القواعد والمفردات (30)
   const grammarQs = allQuestions.filter(q => q.section === 'Grammar & Vocabulary' && q.type === 'mcq');
-  grammarQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
-
-  // 2) القراءة (10)
   const readingQs = allQuestions.filter(q => q.section === 'Reading' && q.type === 'mcq');
-  readingQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
-
-  // 3) الاستماع (5)
   const listeningQs = allQuestions.filter(q => q.section === 'Listening' && q.type === 'listening');
+  grammarQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
+  readingQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
   listeningQs.forEach(q => { if (q.answered && q.selected === q.correct) score++; });
 
-  // 4) الكتابة (0-5)
-  const words = writingText.trim().split(/\s+/).filter(w => w.length > 0).length;
-  let writingScore = 0;
-  if (words >= 80) writingScore = 5;
-  else if (words >= 60) writingScore = 4;
-  else if (words >= 40) writingScore = 3;
-  else if (words >= 20) writingScore = 2;
-  else if (words > 0) writingScore = 1;
-  const totalScore = score + writingScore;
+  // الكتابة: تقييم تحليلي لكل مهمة ثم حساب المتوسط (0-5)
+  const writingQs = allQuestions.filter(q => q.type === 'writing');
+  let totalWritingScore = 0;
+  let writingAnalysisResults = [];
+  writingQs.forEach(wq => {
+    const text = writingTexts[wq.id] || '';
+    const analysis = analyzeWriting(text);
+    writingAnalysisResults.push(analysis);
+    totalWritingScore += analysis.total;
+  });
+  // المتوسط (إذا كان هناك مهمتان)
+  const writingScore = writingQs.length > 0 ? totalWritingScore / writingQs.length : 0;
+  // نأخذ المتوسط كنقاط الكتابة النهائية (0-5)
+  const finalWritingScore = Math.min(writingScore, 5);
 
-  // تحديد المستوى
+  // المجموع الكلي (الحد الأقصى 70)
+  const totalScore = score + finalWritingScore;
+
+  // تحديد المستوى (على 70)
   let level, levelName, levelDesc, levelLink;
-  if (totalScore <= 6) { level = 'A1'; levelName = 'Beginner'; levelDesc = 'مبتدئ — تتعلم الأساسيات. ننصحك بالبدء من المستوى A1.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 13) { level = 'A2'; levelName = 'Elementary'; levelDesc = 'أساسي — تستطيع فهم الجمل البسيطة. ابدأ من A2.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 21) { level = 'B1'; levelName = 'Intermediate'; levelDesc = 'متوسط — تستطيع التواصل في مواقف يومية. المستوى المناسب B1.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 30) { level = 'B2'; levelName = 'Upper-Intermediate'; levelDesc = 'متقدم — تفهم النصوص المعقدة وتستطيع التحدث بطلاقة. ابدأ من B2.'; levelLink = 'unit1.html'; }
-  else if (totalScore <= 39) { level = 'C1'; levelName = 'Advanced'; levelDesc = 'متقدم جداً — لديك مهارات عالية. المستوى المناسب C1.'; levelLink = 'unit1.html'; }
+  if (totalScore <= 9) { level = 'A1'; levelName = 'Beginner'; levelDesc = 'مبتدئ — تتعلم الأساسيات. ننصحك بالبدء من المستوى A1.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 19) { level = 'A2'; levelName = 'Elementary'; levelDesc = 'أساسي — تستطيع فهم الجمل البسيطة. ابدأ من A2.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 30) { level = 'B1'; levelName = 'Intermediate'; levelDesc = 'متوسط — تستطيع التواصل في مواقف يومية. المستوى المناسب B1.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 43) { level = 'B2'; levelName = 'Upper-Intermediate'; levelDesc = 'متقدم — تفهم النصوص المعقدة وتستطيع التحدث بطلاقة. ابدأ من B2.'; levelLink = 'unit1.html'; }
+  else if (totalScore <= 56) { level = 'C1'; levelName = 'Advanced'; levelDesc = 'متقدم جداً — لديك مهارات عالية. المستوى المناسب C1.'; levelLink = 'unit1.html'; }
   else { level = 'C2'; levelName = 'Proficiency'; levelDesc = 'خبير — قريب من المتحدث الأصلي. ابدأ من C2.'; levelLink = 'unit1.html'; }
 
-  // تخزين النتيجة
   localStorage.setItem('placement_test_score', totalScore);
   localStorage.setItem('placement_test_level', level);
 
-  // عرض النتائج
   const resultsScreen = document.getElementById('results-screen');
   resultsScreen.style.display = 'block';
   document.getElementById('result-level').textContent = `🎉 ${currentLang === 'ar' ? 'مستواك هو' : 'Your level is'} ${level}`;
   document.getElementById('result-sub').textContent = levelName;
-  document.getElementById('result-score').textContent = `${currentLang === 'ar' ? 'النتيجة' : 'Score'}: ${totalScore} / 50`;
+  document.getElementById('result-score').textContent = `${currentLang === 'ar' ? 'النتيجة' : 'Score'}: ${totalScore} / 70`;
   const desc = currentLang === 'ar'
     ? `أنت في المستوى ${level} (${levelName}). ${levelDesc}`
     : `You are at level ${level} (${levelName}). ${levelDesc}`;
@@ -933,16 +1041,13 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
   linkBtn.textContent = currentLang === 'ar' ? `🚀 الذهاب للمستوى ${level}` : `🚀 Go to Level ${level}`;
   linkBtn.href = levelLink;
 
-  // تحديث الشهادة
   document.getElementById('cert-level-display').textContent = level;
 
-  // === الاحتفالات ===
-  if (totalScore > 35) {
-    // احتفال كبير
+  // الاحتفال
+  if (totalScore > 55) {
     document.getElementById('celebration-modal').classList.add('show');
     launchConfetti(150);
   } else {
-    // رسالة تشجيعية بسيطة
     const msg = currentLang === 'ar'
       ? '💪 لا بأس! كلما تدربت أكثر، كلما تحسنت. استمر في التعلم!'
       : '💪 No problem! The more you practice, the better you get. Keep learning!';
@@ -956,23 +1061,21 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
     }
   }
 
-  // === تحليل الأداء ===
+  // تحليل الأداء (تعديل المجاميع)
   const analysisDiv = document.getElementById('analysis-section');
   analysisDiv.style.display = 'block';
 
-  // حساب الدرجات لكل جزء
   const partScores = {
-    1: { name: 'Grammar & Vocabulary', total: 30, score: 0 },
-    2: { name: 'Reading', total: 10, score: 0 },
-    3: { name: 'Listening', total: 5, score: 0 },
+    1: { name: 'Grammar & Vocabulary', total: 40, score: 0 },
+    2: { name: 'Reading', total: 15, score: 0 },
+    3: { name: 'Listening', total: 10, score: 0 },
     4: { name: 'Writing', total: 5, score: 0 }
   };
   grammarQs.forEach(q => { if (q.answered && q.selected === q.correct) partScores[1].score++; });
   readingQs.forEach(q => { if (q.answered && q.selected === q.correct) partScores[2].score++; });
   listeningQs.forEach(q => { if (q.answered && q.selected === q.correct) partScores[3].score++; });
-  partScores[4].score = writingScore;
+  partScores[4].score = finalWritingScore;
 
-  // تحديد نقاط القوة والضعف
   const parts = Object.values(partScores);
   const maxScore = Math.max(...parts.map(p => p.score));
   const minScore = Math.min(...parts.map(p => p.score));
@@ -984,7 +1087,6 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
   strengthsList.innerHTML = strengths.length ? strengths.map(p => `<li>${p.name}: ${p.score}/${p.total} (${Math.round(p.score/p.total*100)}%)</li>`).join('') : '<li>جميع الأقسام متقاربة</li>';
   weaknessesList.innerHTML = weaknesses.length ? weaknesses.map(p => `<li>${p.name}: ${p.score}/${p.total} (${Math.round(p.score/p.total*100)}%)</li>`).join('') : '<li>لا توجد نقاط ضعف واضحة</li>';
 
-  // نصائح مخصصة
   const tips = [];
   if (level === 'A1' || level === 'A2') {
     tips.push('📚 ابدأ بوحدات Babble Box للمستوى ' + level + ' لبناء الأساس.');
@@ -1004,10 +1106,7 @@ document.getElementById('submit-test-btn').addEventListener('click', function(){
   const tipsList = document.getElementById('tips-list');
   tipsList.innerHTML = tips.map(t => `<li class="tip">${t}</li>`).join('');
 
-  // إعادة عرض الأسئلة مع التصحيح
   renderQuestions();
-
-  // التمرير إلى النتائج
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
@@ -1110,7 +1209,7 @@ if (savedCertName) {
   document.getElementById('cert-name-input').value = savedCertName;
 }
 
-console.log('✅ اختبار تحديد المستوى جاهز!');
+console.log('✅ اختبار تحديد المستوى التكيفي جاهز (تقييم الكتابة التحليلي).');
 </script>
 </body>
   </html>
