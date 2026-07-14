@@ -317,15 +317,7 @@
   .q-status.wrong-txt{ color: var(--red); }
 
   /* =====================================================================
-     10) Speak Up
-     ===================================================================== */
-  #speak-target{ font-family:'Poppins', sans-serif; direction:ltr; text-align:left; font-size:18px; font-weight:700; margin-bottom:16px; }
-  #speak-result{ margin-top:14px; font-weight:700; }
-  #speak-result.ok{ color: var(--green); }
-  #speak-result.fail{ color: var(--red); }
-
-  /* =====================================================================
-     11) Power Recap
+     10) Power Recap
      ===================================================================== */
   .mindmap{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
   .mind-node{
@@ -336,28 +328,13 @@
   .mind-node .ex{ font-family:'Poppins',sans-serif; direction:ltr; font-size:13px; color: var(--text-muted); }
 
   /* =====================================================================
-     12) Video Zone
+     11) Video Zone
      ===================================================================== */
   .video-box{ text-align:center; }
   .video-box .icon{ font-size:48px; margin-bottom:12px; }
 
   /* =====================================================================
-     13) Homework
-     ===================================================================== */
-  #homework-text{
-    width:100%; min-height:150px; padding:14px; border-radius:12px;
-    border:1px solid var(--glass-border); background: rgba(255,255,255,.04);
-    color: var(--text); font-family:'Poppins', sans-serif; direction:ltr; text-align:left;
-    resize:vertical; font-size:14.5px;
-  }
-  .hw-actions{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
-  #hw-status{ margin-top:10px; font-size:13.5px; font-weight:700; color: var(--green); }
-  #hw-corrections{ margin-top:14px; padding:14px; border-radius:12px; background: var(--glass-bg); direction:rtl; text-align:right; font-size:13.5px; display:none; }
-  #hw-corrections ul{ margin-top:8px; display:flex; flex-direction:column; gap:6px; }
-  #hw-corrections li{ direction:ltr; text-align:left; }
-
-  /* =====================================================================
-     14) أزرار التنقل
+     12) أزرار التنقل
      ===================================================================== */
   #unit-nav{
     display:flex; align-items:center; justify-content:space-between;
@@ -367,36 +344,92 @@
   #next-unit-wrap{ display:none; }
 
   /* =====================================================================
-     15) نافذة الاحتفال
+     13) الاحتفال — تصميم ضخم (90vw x 90vh)
      ===================================================================== */
   #celebration-modal{
     position:fixed; inset:0; z-index:9999; display:none;
     align-items:center; justify-content:center;
-    background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+    background: rgba(0,0,0,.85);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   }
   #celebration-modal.show{ display:flex; }
-  .modal-box{
-    background: var(--bg-soft); border:1px solid var(--gold-soft);
-    border-radius: 22px; padding:40px 30px; text-align:center; max-width:400px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.5), var(--shadow-gold);
-    position:relative; overflow:hidden;
+  #celebration-modal .modal-box{
+    background: var(--bg-soft);
+    border:3px solid var(--gold);
+    border-radius: 30px;
+    padding: 50px 40px;
+    text-align:center;
+    width:90vw;
+    max-width:780px;
+    height:auto;
+    min-height:50vh;
+    max-height:90vh;
+    overflow-y:auto;
+    box-shadow: 0 0 80px rgba(255,215,0,.25), var(--shadow-gold);
+    position:relative;
   }
-  .modal-stars{ font-size:40px; margin-bottom:10px; animation: pop 1s ease infinite alternate; }
-  @keyframes pop{ from{ transform:scale(1);} to{ transform:scale(1.15);} }
-  .modal-title{ font-size:24px; font-weight:800; color: var(--gold); margin-bottom:8px; }
-  .modal-sub{ color: var(--text-muted); margin-bottom:20px; font-size:15px; }
+  #celebration-modal .modal-stars{
+    font-size:56px;
+    margin-bottom:10px;
+    animation: spin 3s linear infinite;
+  }
+  @keyframes spin{
+    0%{ transform: rotate(0deg) scale(1); }
+    50%{ transform: rotate(180deg) scale(1.2); }
+    100%{ transform: rotate(360deg) scale(1); }
+  }
+  #celebration-modal .modal-title{
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight:900;
+    color: var(--gold);
+    margin-bottom:6px;
+    text-shadow: 0 0 40px rgba(255,215,0,.3);
+  }
+  #celebration-modal .modal-sub{
+    color: var(--text-muted);
+    margin-bottom:24px;
+    font-size: clamp(18px, 2.5vw, 26px);
+  }
+  #celebration-modal .modal-btn{
+    padding: 14px 44px;
+    font-size:20px;
+    font-weight:800;
+    border-radius:60px;
+    background: var(--gold);
+    color:#111;
+    border:none;
+    cursor:pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+  }
+  #celebration-modal .modal-btn:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 40px rgba(255,215,0,.5);
+  }
+  .shake-celebrate{
+    animation: shakeScreen 0.5s ease;
+  }
+  @keyframes shakeScreen{
+    0%, 100%{ transform: translateX(0); }
+    10%{ transform: translateX(-4px) rotate(-0.5deg); }
+    30%{ transform: translateX(4px) rotate(0.5deg); }
+    50%{ transform: translateX(-3px); }
+    70%{ transform: translateX(3px); }
+    90%{ transform: translateX(-1px); }
+  }
 
+  /* كونفيتي كثيف */
   .confetti-piece{
     position: fixed; top:-10px; width:9px; height:14px; z-index:10000;
     pointer-events:none; border-radius:2px; animation: confettiFall linear forwards;
   }
   @keyframes confettiFall{
-    0%{ transform: translateY(0) rotate(0deg); opacity:1; }
-    100%{ transform: translateY(100vh) rotate(720deg); opacity:0; }
+    0%{ transform: translateY(0) rotate(0deg) scale(1); opacity:1; }
+    100%{ transform: translateY(100vh) rotate(720deg) scale(0.5); opacity:0; }
   }
 
   /* =====================================================================
-     16) شهادة الإتمام (Certificate)
+     14) شهادة الإتمام (Certificate)
      ===================================================================== */
   #cert-modal{
     position:fixed; inset:0; z-index:9998; display:none;
@@ -439,9 +472,7 @@
     margin-top:16px; padding-top:14px; border-top:1px solid var(--glass-border);
     font-size:13px; color: var(--text-muted); flex-wrap:wrap; gap:10px;
   }
-  .cert-box .cert-footer .sign{
-    text-align:right; direction:rtl;
-  }
+  .cert-box .cert-footer .sign{ text-align:right; direction:rtl; }
   .cert-box .cert-footer .sign .name{ color: var(--gold); font-weight:700; font-size:15px; }
   .cert-box .cert-footer .date{ text-align:left; direction:ltr; }
   .cert-box .cert-disclaimer{
@@ -453,16 +484,46 @@
     text-align:center; font-size:32px; margin-bottom:4px;
   }
   .cert-actions{ display:flex; gap:12px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
-  .cert-name-input{ display:flex; gap:10px; justify-content:center; margin-bottom:14px; flex-wrap:wrap; }
-  .cert-name-input input{
-    padding:10px 18px; border-radius:12px; border:1px solid var(--glass-border);
-    background: var(--glass-bg); color: var(--text); font-size:16px;
-    width:240px; font-family:inherit; direction:ltr; text-align:left;
-  }
-  .cert-name-input input:focus{ border-color: var(--gold); outline:none; }
 
   /* =====================================================================
-     17) الفوتر
+     15) حقل إدخال الاسم للشهادة
+     ===================================================================== */
+  .cert-name-section{
+    margin-top:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    width:100%;
+  }
+  .cert-name-section .cert-name-input{
+    width:100%;
+    max-width:400px;
+    padding:12px 18px;
+    border-radius:14px;
+    border:2px solid var(--gold);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    color: var(--text);
+    font-size:16px;
+    font-family:'Cairo','Poppins',sans-serif;
+    direction:ltr;
+    text-align:left;
+    outline:none;
+    transition: all var(--transition);
+  }
+  .cert-name-section .cert-name-input:focus{
+    border-color: var(--gold);
+    box-shadow: 0 0 30px rgba(255,215,0,.15);
+  }
+  .cert-name-section .cert-name-input::placeholder{
+    color: var(--text-muted);
+    opacity:.6;
+    direction:rtl;
+  }
+
+  /* =====================================================================
+     16) الفوتر
      ===================================================================== */
   footer{ border-top:1px solid var(--glass-border); padding:30px 0; text-align:center; }
   footer .social-icons{ justify-content:center; margin-bottom:12px; display:flex; }
@@ -477,7 +538,7 @@
   @media (max-width:600px){ .cert-box{ padding:20px 16px; } .cert-box .cert-border{ padding:20px 14px; } }
 
   /* =====================================================================
-     18) طباعة الشهادة
+     17) طباعة الشهادة
      ===================================================================== */
   @media print {
     body * { visibility: hidden; }
@@ -485,7 +546,7 @@
     #cert-modal { position: fixed; inset:0; display:flex !important; background: white; padding:20px; }
     .cert-box { border:3px solid #d4a800 !important; box-shadow:none !important; }
     .cert-box .cert-border { border:2px solid #d4a800 !important; }
-    .cert-actions, .cert-name-input, .cert-disclaimer { display: none !important; }
+    .cert-actions, .cert-name-section, .cert-disclaimer { display: none !important; }
     .no-print { display: none !important; }
   }
 </style>
@@ -602,27 +663,23 @@
       <span class="score-text" id="score-text">النتيجة: 0 / 25</span>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <button class="btn outline" id="reset-test-btn" type="button">🔄 إعادة الاختبار بالكامل</button>
-        <button class="btn gold" id="cert-btn" type="button" style="display:none;">🎓 احصل على شهادتك</button>
       </div>
     </div>
     <div id="test-questions"></div>
-  </div>
-</section>
 
-<!-- ===================== القسم 7: Speak Up! ===================== -->
-<section id="speak-up">
-  <div class="container">
-    <h2 class="section-title">🎤 <span class="em">Speak Up!</span></h2>
-    <p class="section-sub ar-text">اقرأ الجملة بصوت عالٍ واضغط على الميكروفون:</p>
-    <div class="glass-card reveal" style="text-align:center;">
-      <div id="speak-target">I am a student. I can speak English. I was happy yesterday.</div>
-      <button class="btn" id="speak-btn" type="button">🎙️ ابدأ التسجيل</button>
-      <div id="speak-result"></div>
+    <!-- قسم الشهادة — يظهر عند تحقيق 20/25 -->
+    <div id="cert-section" style="display:none; margin-top:24px; padding:20px; background:var(--glass-bg); border-radius:var(--radius); border:1px solid var(--glass-border);">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <button class="btn gold" id="cert-btn" type="button">🎓 احصل على شهادتك</button>
+        <div class="cert-name-section">
+          <input type="text" class="cert-name-input" id="cert-name-input" placeholder="✍️ أدخل اسمك الكامل (سيظهر على الشهادة)" dir="ltr" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== القسم 8: Power Recap ===================== -->
+<!-- ===================== القسم 7: Power Recap ===================== -->
 <section id="power-recap">
   <div class="container">
     <h2 class="section-title">⚡ <span class="em">Power Recap</span></h2>
@@ -634,30 +691,13 @@
   </div>
 </section>
 
-<!-- ===================== القسم 9: Video Zone ===================== -->
+<!-- ===================== القسم 8: Video Zone ===================== -->
 <section id="video-zone">
   <div class="container">
     <h2 class="section-title">🎥 <span class="em">Video Zone</span></h2>
     <div class="glass-card reveal video-box">
       <div class="icon">🎬</div>
       <a class="btn" href="https://youtube.com/@omar.youssif.english" target="_blank" rel="noopener" data-lang-ar="شاهد شرح الوحدة على يوتيوب" data-lang-en="Watch the unit explanation on YouTube">شاهد شرح الوحدة على يوتيوب</a>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== القسم 10: Homework ===================== -->
-<section id="homework">
-  <div class="container">
-    <h2 class="section-title">✍️ <span class="em">Homework</span></h2>
-    <p class="section-sub ar-text">اكتب 5 جمل عن نفسك باستخدام كل ما تعلمته في المستوى A1.</p>
-    <div class="glass-card reveal">
-      <textarea id="homework-text" dir="ltr" spellcheck="true" placeholder="Write here..."></textarea>
-      <div class="hw-actions">
-        <button class="btn" id="hw-save-btn" type="button">💾 حفظ</button>
-        <button class="btn outline" id="hw-check-btn" type="button">✅ تدقيق</button>
-      </div>
-      <div id="hw-status"></div>
-      <div id="hw-corrections"></div>
     </div>
   </div>
 </section>
@@ -686,13 +726,13 @@
   </div>
 </footer>
 
-<!-- ===================== نافذة الاحتفال ===================== -->
+<!-- ===================== نافذة الاحتفال الضخمة ===================== -->
 <div id="celebration-modal">
   <div class="modal-box">
     <div class="modal-stars">✨🌟✨</div>
     <div class="modal-title">🎉 مبروك! لقد أكملت المستوى A1!</div>
-    <div class="modal-sub">+100 XP! أنت جاهز للمستوى A2 🚀</div>
-    <button class="btn" id="modal-close-btn">رائع!</button>
+    <div class="modal-sub">🏆 +100 XP! أنت جاهز للمستوى A2 🚀</div>
+    <button class="modal-btn" id="modal-close-btn">رائع!</button>
   </div>
 </div>
 
@@ -1037,25 +1077,26 @@ function saveTestState(){
   const score = testAnswers.filter(a => a === true).length;
   localStorage.setItem('unit12_challenge_score', String(score));
   document.getElementById('score-text').textContent = 'النتيجة: ' + score + ' / ' + testQuestions.length;
-  // Show certificate button at 20/25 (80%)
-  const certBtn = document.getElementById('cert-btn');
+
+  const certSection = document.getElementById('cert-section');
+  const certPerfectStar = document.getElementById('cert-perfect-star');
+
   if (score >= 20) {
-    certBtn.style.display = 'inline-flex';
+    certSection.style.display = 'block';
     if (score === testQuestions.length) {
-      document.getElementById('cert-perfect-star').style.display = 'block';
+      certPerfectStar.style.display = 'block';
     } else {
-      document.getElementById('cert-perfect-star').style.display = 'none';
+      certPerfectStar.style.display = 'none';
     }
-    // Show celebration if not shown yet
-    if (score >= 20 && !celebrationShown) {
+    // Show celebration ONLY when ALL 25 questions are answered AND score >= 20
+    const allAnswered = testAnswers.every(a => a !== null);
+    if (allAnswered && score >= 20 && !celebrationShown) {
       celebrationShown = true;
-      document.getElementById('celebration-modal').classList.add('show');
-      launchConfetti();
+      showCelebration();
     }
-    // Show next unit button
     document.getElementById('next-unit-wrap').style.display = 'block';
   } else {
-    certBtn.style.display = 'none';
+    certSection.style.display = 'none';
     document.getElementById('next-unit-wrap').style.display = 'none';
   }
 }
@@ -1213,23 +1254,24 @@ function renderTest(){
 
   const score = testAnswers.filter(a => a === true).length;
   document.getElementById('score-text').textContent = 'النتيجة: ' + score + ' / ' + testQuestions.length;
-  // Update certificate button visibility
-  const certBtn = document.getElementById('cert-btn');
+  // Update certificate section visibility
+  const certSection = document.getElementById('cert-section');
+  const certPerfectStar = document.getElementById('cert-perfect-star');
   if (score >= 20) {
-    certBtn.style.display = 'inline-flex';
+    certSection.style.display = 'block';
     if (score === testQuestions.length) {
-      document.getElementById('cert-perfect-star').style.display = 'block';
+      certPerfectStar.style.display = 'block';
     } else {
-      document.getElementById('cert-perfect-star').style.display = 'none';
+      certPerfectStar.style.display = 'none';
     }
-    if (score >= 20 && !celebrationShown) {
+    const allAnswered = testAnswers.every(a => a !== null);
+    if (allAnswered && score >= 20 && !celebrationShown) {
       celebrationShown = true;
-      document.getElementById('celebration-modal').classList.add('show');
-      launchConfetti();
+      showCelebration();
     }
     document.getElementById('next-unit-wrap').style.display = 'block';
   } else {
-    certBtn.style.display = 'none';
+    certSection.style.display = 'none';
     document.getElementById('next-unit-wrap').style.display = 'none';
   }
 }
@@ -1240,137 +1282,105 @@ function resetTest(){
   testAnswers = new Array(testQuestions.length).fill(null);
   localStorage.setItem('unit12_challenge_answers', JSON.stringify(testAnswers));
   localStorage.setItem('unit12_challenge_score', '0');
+  celebrationShown = false;
   renderTest();
   document.getElementById('score-text').textContent = 'النتيجة: 0 / ' + testQuestions.length;
   document.getElementById('next-unit-wrap').style.display = 'none';
-  document.getElementById('cert-btn').style.display = 'none';
-  celebrationShown = false;
+  document.getElementById('cert-section').style.display = 'none';
 }
 document.getElementById('reset-test-btn').addEventListener('click', resetTest);
 
 /* =====================================================================
-   9) Speak Up
+   9) الاحتفال — تظهر فقط بعد إنهاء جميع الأسئلة بدرجة 20/25+
    ===================================================================== */
-const speakTargetText = 'I am a student. I can speak English. I was happy yesterday.';
-function normalizeForCompare(str){
-  return str.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
-}
-function similarityPercent(a, b){
-  const wordsA = normalizeForCompare(a).split(' ').filter(Boolean);
-  const wordsB = normalizeForCompare(b).split(' ').filter(Boolean);
-  if (wordsA.length === 0) return 0;
-  let matches = 0;
-  wordsB.forEach((w) => { if (wordsA.includes(w)) matches++; });
-  return Math.round((matches / wordsA.length) * 100);
+let celebrationShown = false;
+let celebrationActive = false;
+
+function showCelebration(){
+  if (celebrationActive) return;
+  celebrationActive = true;
+
+  const modal = document.getElementById('celebration-modal');
+  modal.classList.add('show');
+
+  // تأثير اهتزاز خفيف للشاشة
+  document.body.classList.add('shake-celebrate');
+  setTimeout(() => {
+    document.body.classList.remove('shake-celebrate');
+  }, 600);
+
+  // مفرقعات كثيفة (150 قطعة)
+  launchConfetti(150);
+
+  // إغلاق تلقائي بعد 10 ثوانٍ (اختياري)
+  // لكننا نترك المستخدم يغلق يدوياً
 }
 
-document.getElementById('speak-btn').addEventListener('click', () => {
-  const resultEl = document.getElementById('speak-result');
-  const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognitionAPI) {
-    resultEl.textContent = 'المتصفح لا يدعم خاصية التعرف على الصوت.';
-    resultEl.className = 'fail';
-    return;
+function launchConfetti(count){
+  count = count || 150;
+  const colors = ['#FFD700', '#ffffff', '#f1c40f', '#fff2a8', '#e0b400', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 2.5) + 's';
+    piece.style.opacity = String(0.7 + Math.random() * 0.3);
+    piece.style.width = (5 + Math.random() * 10) + 'px';
+    piece.style.height = (8 + Math.random() * 14) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 5000);
   }
-  const recognition = new SpeechRecognitionAPI();
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  resultEl.textContent = '🎙️ جارٍ الاستماع...';
-  resultEl.className = '';
+}
 
-  recognition.addEventListener('result', (event) => {
-    const spoken = event.results[0][0].transcript;
-    const percent = similarityPercent(speakTargetText, spoken);
-    if (percent >= 60) {
-      resultEl.textContent = '✅ ممتاز! تطابق ' + percent + '%';
-      resultEl.className = 'ok';
-      incrementDailyProgress();
-    } else {
-      resultEl.textContent = '❌ حاول مرة أخرى (تطابق ' + percent + '%)';
-      resultEl.className = 'fail';
-    }
-  });
-  recognition.addEventListener('error', () => {
-    resultEl.textContent = 'حدث خطأ أثناء التسجيل، حاول مرة أخرى.';
-    resultEl.className = 'fail';
-  });
-  recognition.start();
+document.getElementById('modal-close-btn').addEventListener('click', () => {
+  document.getElementById('celebration-modal').classList.remove('show');
+  celebrationActive = false;
 });
 
-/* =====================================================================
-   10) Homework
-   ===================================================================== */
-const hwTextarea = document.getElementById('homework-text');
-const savedHomework = localStorage.getItem('unit12_homework');
-if (savedHomework) hwTextarea.value = savedHomework;
-
-document.getElementById('hw-save-btn').addEventListener('click', () => {
-  localStorage.setItem('unit12_homework', hwTextarea.value);
-  const status = document.getElementById('hw-status');
-  status.textContent = '✅ تم حفظ الواجب بنجاح.';
-  incrementDailyProgress();
-});
-
-const correctionRules = [
-  { pattern: /\bim\b/gi, replacement: "I'm", label: 'im → I\'m' },
-  { pattern: /\bhes\b/gi, replacement: "he's", label: 'hes → he\'s' },
-  { pattern: /\byoure\b/gi, replacement: "you're", label: 'youre → you\'re' },
-  { pattern: /\bisnt\b/gi, replacement: "isn't", label: 'isnt → isn\'t' },
-  { pattern: /\barent\b/gi, replacement: "aren't", label: 'arent → aren\'t' },
-  { pattern: /\bwasnt\b/gi, replacement: "wasn't", label: 'wasnt → wasn\'t' },
-  { pattern: /\bwerent\b/gi, replacement: "weren't", label: 'werent → weren\'t' },
-  { pattern: /\bI is\b/gi, replacement: "I am", label: 'I is → I am' },
-  { pattern: /\bhe are\b/gi, replacement: "he is", label: 'he are → he is' },
-  { pattern: /\bshe are\b/gi, replacement: "she is", label: 'she are → she is' },
-  { pattern: /\bthey is\b/gi, replacement: "they are", label: 'they is → they are' },
-  { pattern: /\bwe is\b/gi, replacement: "we are", label: 'we is → we are' },
-  { pattern: /\byou is\b/gi, replacement: "you are", label: 'you is → you are' },
-  { pattern: /\bI are\b/gi, replacement: "I am", label: 'I are → I am' },
-  { pattern: /\bcan to\b/gi, replacement: 'can', label: 'can to → can' },
-  { pattern: /\bcant\b/gi, replacement: "can't", label: 'cant → can\'t' },
-];
-
-document.getElementById('hw-check-btn').addEventListener('click', () => {
-  let text = hwTextarea.value;
-  const appliedFixes = [];
-  correctionRules.forEach((rule) => {
-    if (rule.pattern.test(text)) {
-      text = text.replace(rule.pattern, rule.replacement);
-      appliedFixes.push(rule.label);
-    }
-    rule.pattern.lastIndex = 0;
-  });
-  hwTextarea.value = text;
-  const box = document.getElementById('hw-corrections');
-  if (appliedFixes.length > 0) {
-    box.style.display = 'block';
-    box.innerHTML = '<strong>تم تصحيح الأخطاء التالية:</strong><ul>' +
-      appliedFixes.map(f => '<li>' + f + '</li>').join('') + '</ul>';
-  } else {
-    box.style.display = 'block';
-    box.innerHTML = '<strong>لم يتم العثور على أخطاء شائعة 👍</strong>';
+// إغلاق الاحتفال بالضغط على الخلفية
+document.getElementById('celebration-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    document.getElementById('celebration-modal').classList.remove('show');
+    celebrationActive = false;
   }
 });
 
 /* =====================================================================
-   11) شهادة الإتمام (Certificate)
+   10) شهادة الإتمام (Certificate)
    ===================================================================== */
 let certStudentName = '';
 
+// تحديث الاسم من حقل الإدخال عند الطباعة
+function updateCertNameFromInput(){
+  const input = document.getElementById('cert-name-input');
+  const name = input.value.trim();
+  if (name !== '') {
+    document.getElementById('cert-student-name').textContent = name;
+    certStudentName = name;
+    localStorage.setItem('cert_student_name', certStudentName);
+  }
+}
+
 document.getElementById('cert-btn').addEventListener('click', () => {
+  // تحديث الاسم من حقل الإدخال قبل عرض الشهادة
+  updateCertNameFromInput();
+
   const modal = document.getElementById('cert-modal');
   modal.classList.add('show');
-  // Check if we already have a name
-  const savedName = localStorage.getItem('cert_student_name');
-  if (savedName) {
-    document.getElementById('cert-student-name').textContent = savedName;
-    certStudentName = savedName;
-  } else {
-    document.getElementById('cert-student-name').textContent = '___________';
-  }
+
   // Set date
   const now = new Date();
   document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+  // تحديث نجمة perfect
+  const score = testAnswers.filter(a => a === true).length;
+  if (score === testQuestions.length) {
+    document.getElementById('cert-perfect-star').style.display = 'block';
+  } else {
+    document.getElementById('cert-perfect-star').style.display = 'none';
+  }
 });
 
 document.getElementById('cert-close-btn').addEventListener('click', () => {
@@ -1378,17 +1388,27 @@ document.getElementById('cert-close-btn').addEventListener('click', () => {
 });
 
 document.getElementById('cert-print-btn').addEventListener('click', () => {
-  // Get student name
-  const nameEl = document.getElementById('cert-student-name');
-  const name = prompt('📝 أدخل اسمك الكامل (سيظهر على الشهادة):', certStudentName || '');
-  if (name && name.trim() !== '') {
-    nameEl.textContent = name.trim();
-    certStudentName = name.trim();
-    localStorage.setItem('cert_student_name', certStudentName);
-  }
+  // تحديث الاسم من حقل الإدخال قبل الطباعة
+  updateCertNameFromInput();
+
   // Update date
   const now = new Date();
   document.getElementById('cert-date').textContent = 'Date: ' + now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+  // تأكد من أن الاسم ليس فارغاً
+  const nameEl = document.getElementById('cert-student-name');
+  if (nameEl.textContent === '___________' || nameEl.textContent.trim() === '') {
+    const input = document.getElementById('cert-name-input');
+    if (input.value.trim() !== '') {
+      nameEl.textContent = input.value.trim();
+      certStudentName = input.value.trim();
+      localStorage.setItem('cert_student_name', certStudentName);
+    } else {
+      alert('✍️ من فضلك أدخل اسمك في الحقل قبل الطباعة.');
+      return;
+    }
+  }
+
   // Print
   window.print();
 });
@@ -1400,55 +1420,34 @@ document.getElementById('cert-modal').addEventListener('click', (e) => {
   }
 });
 
-/* =====================================================================
-   12) الاحتفال + الكونفيتي
-   ===================================================================== */
-let celebrationShown = false;
-
-function launchConfetti(){
-  const colors = ['#FFD700', '#ffffff', '#f1c40f', '#fff2a8', '#e0b400', '#FF6B6B', '#4ECDC4'];
-  for (let i = 0; i < 100; i++) {
-    const piece = document.createElement('div');
-    piece.className = 'confetti-piece';
-    piece.style.left = Math.random() * 100 + 'vw';
-    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
-    piece.style.opacity = String(0.7 + Math.random() * 0.3);
-    piece.style.width = (6 + Math.random() * 8) + 'px';
-    piece.style.height = (8 + Math.random() * 12) + 'px';
-    document.body.appendChild(piece);
-    setTimeout(() => piece.remove(), 4500);
-  }
-}
-
-document.getElementById('modal-close-btn').addEventListener('click', () => {
-  document.getElementById('celebration-modal').classList.remove('show');
-});
-
-/* =====================================================================
-   13) استعادة الحالة
-   ===================================================================== */
-(function restoreState(){
-  const score = parseInt(localStorage.getItem('unit12_challenge_score') || '0', 10);
-  if (score >= 20) {
-    document.getElementById('next-unit-wrap').style.display = 'block';
-    document.getElementById('cert-btn').style.display = 'inline-flex';
-    if (score === testQuestions.length) {
-      document.getElementById('cert-perfect-star').style.display = 'block';
-    }
-    if (score >= 20 && !celebrationShown) {
-      celebrationShown = true;
-      setTimeout(() => {
-        document.getElementById('celebration-modal').classList.add('show');
-        launchConfetti();
-      }, 500);
-    }
-  }
-  // Restore certificate name
+// تحميل الاسم المحفوظ
+(function loadCertName(){
   const savedName = localStorage.getItem('cert_student_name');
   if (savedName) {
     certStudentName = savedName;
     document.getElementById('cert-student-name').textContent = savedName;
+    document.getElementById('cert-name-input').value = savedName;
+  }
+})();
+
+/* =====================================================================
+   11) استعادة الحالة
+   ===================================================================== */
+(function restoreState(){
+  const score = parseInt(localStorage.getItem('unit12_challenge_score') || '0', 10);
+  const allAnswered = testAnswers.every(a => a !== null);
+  if (score >= 20) {
+    document.getElementById('next-unit-wrap').style.display = 'block';
+    document.getElementById('cert-section').style.display = 'block';
+    if (score === testQuestions.length) {
+      document.getElementById('cert-perfect-star').style.display = 'block';
+    }
+    if (allAnswered && score >= 20 && !celebrationShown) {
+      celebrationShown = true;
+      setTimeout(() => {
+        showCelebration();
+      }, 600);
+    }
   }
 })();
 
