@@ -1,0 +1,332 @@
+/* =====================================================================
+   BABBLE BOX ACADEMY — SHARED DESIGN SYSTEM (style.css)
+   ملف تصميم واحد لكل صفحات الموقع (الرئيسية + كل الوحدات + الاختبار)
+   استورده في كل صفحة بسطر واحد:
+   <link rel="stylesheet" href="style.css">
+   =====================================================================
+   لماذا ملف واحد؟
+   - قبل كده كل صفحة (unit1, unit2...) كانت بتكرر نفس الـ 700 سطر CSS.
+   - دلوقتي أي تعديل تصميم (لون، خط، مسافة) بتعمله هنا مرة واحدة
+     وبيتطبق تلقائياً على كل صفحات الموقع.
+   ===================================================================== */
+
+/* =====================================================================
+   0) TOKENS — نظام الألوان والمقاسات الموحّد
+   ===================================================================== */
+:root{
+  /* ---- الألوان الأساسية (Brand) ---- */
+  --bg: #050505;
+  --bg-soft: #0d0d0f;
+  --bg-elevated: #131316;
+  --gold: #FFD700;
+  --gold-dim: #E6C200;
+  --gold-soft: rgba(255, 215, 0, .18);
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,.68);
+  --text-faint: rgba(255,255,255,.42);
+
+  /* ---- الزجاج (Glassmorphism) ---- */
+  --glass-bg: rgba(255,255,255,.055);
+  --glass-border: rgba(255,255,255,.12);
+  --glass-blur: 14px;
+
+  /* ---- ألوان الحالة (Status) ---- */
+  --green: #2ecc71;
+  --yellow: #f1c40f;
+  --red: #e74c3c;
+  --blue: #3498db;
+
+  /* ---- الهندسة (Geometry) ---- */
+  --radius-sm: 10px;
+  --radius: 18px;
+  --radius-lg: 26px;
+  --shadow-gold: 0 10px 40px rgba(255,215,0,.16);
+  --shadow-elevated: 0 20px 60px rgba(0,0,0,.45);
+  --transition: .35s cubic-bezier(.2,.8,.2,1);
+  --transition-fast: .18s ease;
+
+  /* ---- المسافات (Spacing scale — 4px base) ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  /* ---- الطباعة (Type scale) ---- */
+  --fs-caption: 12.5px;
+  --fs-body: 15px;
+  --fs-body-lg: 17px;
+  --fs-h3: 20px;
+  --fs-h2: clamp(26px, 3.6vw, 36px);
+  --fs-h1: clamp(32px, 6.4vw, 64px);
+}
+
+/* الوضع الفاتح (Light Mode) — اختياري، يُفعّل بإضافة class="light-mode" على body */
+body.light-mode{
+  --bg: #f6f5f2;
+  --bg-soft: #ffffff;
+  --bg-elevated: #ffffff;
+  --text: #101010;
+  --text-muted: rgba(0,0,0,.62);
+  --text-faint: rgba(0,0,0,.38);
+  --glass-bg: rgba(255,255,255,.65);
+  --glass-border: rgba(0,0,0,.08);
+  --shadow-gold: 0 10px 34px rgba(200,160,0,.18);
+  --shadow-elevated: 0 20px 50px rgba(0,0,0,.12);
+}
+
+/* =====================================================================
+   1) RESET & BASE
+   ===================================================================== */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+html[lang="ar"] body{ font-family:'Cairo', sans-serif; }
+html[lang="en"] body{ font-family:'Poppins', sans-serif; }
+
+body{
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+}
+
+img, svg{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+button{ font-family:inherit; cursor:pointer; }
+:focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.ltr-force{ direction:ltr; unicode-bidi:isolate; display:inline-block; }
+
+.container{ width:100%; max-width:1200px; margin:0 auto; padding:0 20px; }
+section{ position:relative; padding: var(--sp-8) 0; }
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+/* =====================================================================
+   2) TYPOGRAPHY HELPERS
+   ===================================================================== */
+.section-title{
+  font-size: var(--fs-h1);
+  font-weight: 800;
+  text-align:center;
+  margin-bottom: var(--sp-3);
+  background: linear-gradient(90deg, #fff, var(--gold) 60%, #fff);
+  background-size: 220% auto;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  animation: shine 6s linear infinite;
+}
+@keyframes shine{ to{ background-position:-220% center; } }
+
+.section-sub{
+  text-align:center; color:var(--text-muted);
+  max-width:640px; margin:0 auto var(--sp-7);
+  font-size: var(--fs-body-lg); line-height:1.9;
+}
+
+/* =====================================================================
+   3) HEADER (مشترك بين كل الصفحات)
+   ===================================================================== */
+header{
+  position: sticky; top:0; z-index:500;
+  background: rgba(5,5,5,.65);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background var(--transition);
+}
+body.light-mode header{ background: rgba(246,245,242,.75); }
+
+.nav-wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  gap: var(--sp-4); padding: var(--sp-3) 20px; max-width:1280px; margin:0 auto;
+}
+.logo{
+  font-family:'Poppins', sans-serif; font-weight:800; font-size:22px;
+  color:var(--text); display:flex; align-items:center; gap:8px;
+}
+.logo .dot{ color:var(--gold); }
+
+nav.main-nav{ display:flex; align-items:center; gap:4px; }
+nav.main-nav a{
+  padding: 9px 16px; font-size:14.5px; font-weight:600; border-radius:999px;
+  color:var(--text-muted); transition: all var(--transition); white-space:nowrap;
+}
+nav.main-nav a:hover, nav.main-nav a.active{
+  color: var(--bg); background: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-gold);
+}
+
+.header-actions{ display:flex; align-items:center; gap:10px; }
+.icon-btn{
+  width:38px; height:38px; display:flex; align-items:center; justify-content:center;
+  border-radius:50%; border:1px solid var(--glass-border); background:var(--glass-bg);
+  color:var(--text); transition: all var(--transition);
+}
+.icon-btn:hover{ transform:translateY(-3px); border-color:var(--gold); box-shadow:var(--shadow-gold); }
+
+.lang-toggle, .theme-toggle{
+  padding: 8px 14px; border-radius:999px; border:1px solid var(--glass-border);
+  background: var(--glass-bg); color:var(--text); font-weight:700; font-size:13px;
+  display:flex; align-items:center; gap:6px; transition: all var(--transition);
+}
+.lang-toggle:hover, .theme-toggle:hover{ border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+
+.social-icons{ display:flex; gap:8px; }
+.social-icons a svg{ width:18px; height:18px; fill:var(--text); transition: fill var(--transition); }
+.social-icons a:hover svg{ fill:var(--gold); }
+
+.burger{
+  display:none; width:38px; height:38px; border-radius:10px;
+  border:1px solid var(--glass-border); background:var(--glass-bg); color:var(--text);
+  align-items:center; justify-content:center; font-size:20px;
+}
+.mobile-nav{ display:none; flex-direction:column; gap:4px; padding:10px 20px 18px; border-top:1px solid var(--glass-border); }
+.mobile-nav.open{ display:flex; }
+.mobile-nav a{ padding:12px 14px; border-radius:12px; background:var(--glass-bg); font-weight:600; color:var(--text); }
+
+/* زر العودة للصفحة الرئيسية (مستخدم في صفحات الوحدات) */
+.back-btn{
+  background: var(--gold); border:none; padding:8px 16px; border-radius:999px;
+  font-size:13px; font-weight:800; color:#111; cursor:pointer; transition: all var(--transition);
+  text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+}
+.back-btn:hover{ transform:translateY(-2px); box-shadow: var(--shadow-gold); }
+
+@media (max-width:880px){ nav.main-nav{ display:none; } .burger{ display:flex; } }
+
+/* =====================================================================
+   4) BUTTONS
+   ===================================================================== */
+.cta-btn{
+  position:relative; display:inline-flex; align-items:center; gap:10px;
+  padding: 16px 38px; background: linear-gradient(120deg, var(--gold), #fff2a8);
+  color:#111; font-weight:800; font-size:16px; border:none; border-radius:999px;
+  box-shadow: var(--shadow-gold); transition: transform var(--transition), box-shadow var(--transition);
+}
+.cta-btn:hover{ transform: translateY(-4px); box-shadow: 0 16px 46px rgba(255,215,0,.35); }
+.cta-btn:disabled, .disabled-btn{
+  background: transparent; border:1px solid var(--glass-border); color:var(--text-muted);
+  cursor:not-allowed; box-shadow:none; padding:15px 36px; border-radius:999px; font-weight:700; display:inline-block;
+}
+.cta-btn-ghost{
+  padding: 13px 30px; border-radius:999px; border:1px solid var(--glass-border);
+  background: var(--glass-bg); color:var(--text); font-weight:700; transition: all var(--transition);
+}
+.cta-btn-ghost:hover{ border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+
+/* =====================================================================
+   5) GLASS CARDS (مشترك للصفحة الرئيسية والدروس)
+   ===================================================================== */
+.glass-card{
+  background: var(--glass-bg); border:1px solid var(--glass-border); border-radius: var(--radius);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+  padding: var(--sp-6) var(--sp-5);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.glass-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-gold); border-color: var(--gold-soft); }
+
+.grid-3{ display:grid; grid-template-columns: repeat(3,1fr); gap: var(--sp-5); }
+@media (max-width:980px){ .grid-3{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width:620px){ .grid-3{ grid-template-columns: 1fr; } }
+
+/* =====================================================================
+   6) FORMS (نموذج التواصل / الشكاوى — أمان مدمج)
+   ===================================================================== */
+.form-field{ margin-bottom: var(--sp-4); }
+.form-field label{ display:block; font-size:13.5px; font-weight:700; margin-bottom:7px; color:var(--text-muted); }
+.form-field input, .form-field textarea, .form-field select{
+  width:100%; padding:13px 16px; border-radius:12px; border:1px solid var(--glass-border);
+  background: rgba(255,255,255,.04); color:var(--text); font-family:inherit; font-size:14.5px;
+  transition: border-color var(--transition);
+}
+body.light-mode .form-field input, body.light-mode .form-field textarea, body.light-mode .form-field select{ background: rgba(0,0,0,.03); }
+.form-field input:focus, .form-field textarea:focus, .form-field select:focus{ outline:none; border-color:var(--gold); }
+.form-field textarea{ resize:vertical; min-height:120px; }
+
+/* حقل الحماية من السبام (Honeypot) — مخفي عن البشر، مرئي للبوتات فقط */
+.hp-field{ position:absolute !important; left:-9999px !important; width:1px; height:1px; overflow:hidden; }
+
+.submit-btn{
+  width:100%; padding:15px; border:none; border-radius:12px; background: var(--gold);
+  color:#111; font-weight:800; font-size:15px; transition: transform var(--transition), box-shadow var(--transition);
+}
+.submit-btn:hover{ transform:translateY(-3px); box-shadow: var(--shadow-gold); }
+.submit-btn:disabled{ opacity:.6; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.form-status{ margin-top:12px; font-size:13.5px; font-weight:700; min-height:18px; }
+.form-status.ok{ color:var(--green); }
+.form-status.err{ color:var(--red); }
+
+/* =====================================================================
+   7) FOOTER
+   ===================================================================== */
+footer{ border-top:1px solid var(--glass-border); padding: var(--sp-6) 0; text-align:center; }
+footer .social-icons{ justify-content:center; margin-bottom: var(--sp-3); }
+footer .social-icons a{
+  width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background: var(--glass-bg); border:1px solid var(--glass-border);
+}
+footer .footer-links{ display:flex; justify-content:center; gap: var(--sp-4); flex-wrap:wrap; margin-bottom: var(--sp-3); font-size:13px; }
+footer .footer-links a{ color: var(--text-muted); transition: color var(--transition); }
+footer .footer-links a:hover{ color: var(--gold); }
+footer p{ color:var(--text-muted); font-size:13.5px; }
+
+/* =====================================================================
+   8) MISC — reveal animation, toast, confetti, loading bar
+   ===================================================================== */
+.reveal{ opacity:0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in-view{ opacity:1; transform: translateY(0); }
+
+#loading-bar{ position:fixed; top:0; right:0; left:0; height:3px; background:transparent; z-index:9999; }
+#loading-bar span{
+  display:block; height:100%; width:0%;
+  background: linear-gradient(90deg, var(--gold), #fff8c9, var(--gold));
+  box-shadow: 0 0 12px var(--gold);
+  animation: loadFill 1.2s ease forwards, hideBar .4s ease 1.2s forwards;
+}
+@keyframes loadFill{ from{ width:0%; } to{ width:100%; } }
+@keyframes hideBar{ to{ opacity:0; visibility:hidden; } }
+
+#toast{
+  position:fixed; bottom:26px; left:50%; transform: translate(-50%, 140%);
+  background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+  border:1px solid var(--gold-soft); color:var(--text); padding:14px 26px; border-radius:999px;
+  font-size:14px; font-weight:600; box-shadow: 0 12px 30px rgba(0,0,0,.35), var(--shadow-gold);
+  z-index:9997; max-width:92vw; text-align:center; transition: transform .5s cubic-bezier(.2,.9,.25,1.2);
+}
+#toast.show{ transform: translate(-50%, 0); }
+
+.confetti-piece{
+  position:fixed; top:-10px; width:9px; height:14px; z-index:9996; pointer-events:none;
+  border-radius:2px; animation: confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  0%{ transform: translateY(0) rotate(0deg); opacity:1; }
+  100%{ transform: translateY(100vh) rotate(720deg); opacity:0; }
+}
+
+/* =====================================================================
+   9) SECURITY-RELATED UI (شارات الثقة، تحذيرات)
+   ===================================================================== */
+.trust-badge{
+  display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:700;
+  padding:5px 12px; border-radius:999px; background: rgba(46,204,113,.14); color: var(--green);
+}
+.security-note{
+  font-size:12.5px; color: var(--text-faint); text-align:center; margin-top: var(--sp-2);
+}
+
+/* =====================================================================
+   10) RESPONSIVE catch-alls
+   ===================================================================== */
+@media (max-width:560px){
+  .header-actions .social-icons{ display:none; }
+  section{ padding: var(--sp-7) 0; }
+}
