@@ -86,15 +86,28 @@ html{ scroll-behavior:smooth; }
 html[lang="ar"] body{ font-family:'Cairo', sans-serif; }
 html[lang="en"] body{ font-family:'Poppins', sans-serif; }
 
+html, body{
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body{
   background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
   transition: background var(--transition), color var(--transition);
   -webkit-font-smoothing: antialiased;
   font-size: var(--fs-body);
   line-height: 1.6;
 }
+
+/* شبكة الأمان ضد أي عنصر بيكسر عرض الشاشة على الموبايل/التاب
+   (سبب شائع جداً لمشكلة "التصغير/الزوم أوت" اللي بتحصل لما عنصر
+   واحد بس بيبقى أعرض من الشاشة فيضطر المتصفح يعمل scroll أفقي) */
+.nav-wrap, .header-actions, .hero-inner, .counters, .contact-grid,
+.grid-3, .mobile-nav, .footer-links{ min-width: 0; }
+
+h1, h2, h3, p{ overflow-wrap: break-word; word-break: break-word; }
 
 img, svg{ display:block; max-width:100%; }
 a{ color:inherit; text-decoration:none; }
@@ -146,6 +159,7 @@ body.light-mode header{ background: rgba(246,245,242,.75); }
 
 .nav-wrap{
   display:flex; align-items:center; justify-content:space-between;
+  flex-wrap: wrap;
   gap: var(--sp-4); padding: var(--sp-3) 20px; max-width:1280px; margin:0 auto;
 }
 .logo{
@@ -279,8 +293,33 @@ footer .footer-links a:hover{ color: var(--gold); }
 footer p{ color:var(--text-muted); font-size:13.5px; }
 
 /* =====================================================================
-   8) MISC — reveal animation, toast, confetti, loading bar
+   8) MISC — reveal animation, toast, confetti, loading bar, splash
    ===================================================================== */
+
+/* شاشة البداية (Splash) — كانت من غير أي تنسيق قبل كده، وده كان
+   سبب مشكلة "الزوم أوت": نص كبير بيتحط في مكانه الطبيعي في الصفحة
+   (مش كطبقة عائمة فوق كل حاجة) فيوسّع عرض الصفحة كلها. */
+#splash{
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 40%, #111 0%, #000 75%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap: 18px;
+  z-index: 9998;
+  text-align:center;
+  padding: 0 20px;
+  transition: opacity .7s ease, visibility .7s ease;
+}
+#splash.fade-out{ opacity:0; visibility:hidden; pointer-events:none; }
+#splash .splash-tag{ direction:ltr; }
+
+@keyframes pulse{
+  0%, 100%{ transform: scale(1); opacity: 1; }
+  50%{ transform: scale(1.08); opacity:.8; }
+}
+#splash .splash-logo{ animation: pulse 1.1s ease-in-out infinite; }
 .reveal{ opacity:0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in-view{ opacity:1; transform: translateY(0); }
 
@@ -329,4 +368,3 @@ footer p{ color:var(--text-muted); font-size:13.5px; }
 @media (max-width:560px){
   .header-actions .social-icons{ display:none; }
   section{ padding: var(--sp-7) 0; }
-}
